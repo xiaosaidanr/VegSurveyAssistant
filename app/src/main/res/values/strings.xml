@@ -1,6 +1,18 @@
 <resources>
     <string name="app_name">VegSurveyAssistant</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="nearby">附近</string>
+    <string name="yangfang">样方</string>
+    <string name="yangdian">样点</string>
+    <string name="my">我</string>
+    <string name="caodi">草地</string>
+    <string name="guancong">灌丛</string>
+    <string name="senlin">森林</string>
+    <string-array name="powei_array">
+        <item>上坡位</item>
+        <item>中坡位</item>
+        <item>下坡位</item>
+    </string-array>
+    <string name="caoben">草本</string>
+    <string name="guanmu">灌木</string>
+    <string name="qiaomu">乔木</string>
 </resources>

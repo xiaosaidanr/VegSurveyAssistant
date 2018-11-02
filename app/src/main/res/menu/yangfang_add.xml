@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <item
+        android:id="@+id/caodiyangfang_add"
+        android:title="@string/caodi"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/guancongyangfang_add"
+        android:title="@string/guancong"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/senlinyangfang_add"
+        android:title="@string/senlin"
+        app:showAsAction="never"
+        />
+</menu>

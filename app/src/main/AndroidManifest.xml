@@ -18,6 +18,46 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".CaodiyangdiActivity"
+            android:label="@string/caodi"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".CaobenyangfangActivity"
+            android:label="@string/caoben"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".CaobenwuzhongActivity"
+            android:label="@string/caoben"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".GuancongyangdiActivity"
+            android:label="@string/guancong"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".GuanmuyangfangActivity"
+            android:label="@string/guanmu"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".GuanmuwuzhongActivity"
+            android:label="@string/guanmu"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".SenlinyangdiActivity"
+            android:label="@string/senlin"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".QiaomuyangfangActivity"
+            android:label="@string/qiaomu"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".QiaomuwuzhongActivity"
+            android:label="@string/qiaomu"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".YangdianActivity"
+            android:label="@string/yangdian"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
