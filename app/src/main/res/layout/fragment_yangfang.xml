@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".fragment.YangfangFragment">
 
     <android.support.v7.widget.Toolbar
@@ -15,5 +17,17 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:title="@string/yangfang">
     </android.support.v7.widget.Toolbar>
+    <android.support.design.widget.TabLayout
+        android:id="@+id/yangfang_tab_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/yangfang_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:tabMode="fixed"
+        />
 
-</FrameLayout>
+
+
+</LinearLayout>

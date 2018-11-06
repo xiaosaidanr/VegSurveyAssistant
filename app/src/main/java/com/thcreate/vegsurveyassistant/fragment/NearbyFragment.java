@@ -17,7 +17,10 @@ import com.thcreate.vegsurveyassistant.R;
  * Use the {@link NearbyFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NearbyFragment extends Fragment {
+public class NearbyFragment extends BaseFragment {
+
+    private static final String TAG = "NearbyFragment";
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -52,13 +55,11 @@ public class NearbyFragment extends Fragment {
 
     @Override
     public void onAttach(Context context) {
-        Log.d("11111111111111111", "onAttach NearbyFragment"+this.toString());
         super.onAttach(context);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d("11111111111111111", "onCreate NearbyFragment"+this.toString());
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -69,56 +70,8 @@ public class NearbyFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d("11111111111111111", "onCreateView NearbyFragment"+this.toString());
         // Inflate the layout for this fragment
+        Log.d(this.getClass().getSimpleName(), "onCreateView" + " " + this.toString());
         return inflater.inflate(R.layout.fragment_nearby, container, false);
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        Log.d("11111111111111111", "onActivityCreated NearbyFragment"+this.toString());
-        super.onActivityCreated(savedInstanceState);
-    }
-
-    @Override
-    public void onStart() {
-        Log.d("11111111111111111", "onStart NearbyFragment"+this.toString());
-        super.onStart();
-    }
-
-    @Override
-    public void onResume() {
-        Log.d("11111111111111111", "onResume NearbyFragment"+this.toString());
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        Log.d("11111111111111111", "onPause NearbyFragment"+this.toString());
-        super.onPause();
-    }
-
-    @Override
-    public void onStop() {
-        Log.d("11111111111111111", "onStop NearbyFragment"+this.toString());
-        super.onStop();
-    }
-
-    @Override
-    public void onDestroyView() {
-        Log.d("11111111111111111", "onDestroyView NearbyFragment"+this.toString());
-        super.onDestroyView();
-    }
-
-    @Override
-    public void onDestroy() {
-        Log.d("11111111111111111", "onDestroy NearbyFragment"+this.toString());
-        super.onDestroy();
-    }
-
-    @Override
-    public void onDetach() {
-        Log.d("11111111111111111", "onDetach NearbyFragment"+this.toString());
-        super.onDetach();
     }
 }

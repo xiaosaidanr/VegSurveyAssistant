@@ -57,7 +57,7 @@
         <activity
             android:name=".YangdianActivity"
             android:label="@string/yangdian"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>

@@ -3,7 +3,6 @@ package com.thcreate.vegsurveyassistant.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +11,12 @@ import com.thcreate.vegsurveyassistant.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link MyFragment#newInstance} factory method to
+ * Use the {@link SenlinListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MyFragment extends BaseFragment {
+public class SenlinListFragment extends Fragment {
 
-    private static final String TAG = "MyFragment";
+    private static final String TAG = "SenlinListFragment";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,7 +28,7 @@ public class MyFragment extends BaseFragment {
     private String mParam2;
 
 
-    public MyFragment() {
+    public SenlinListFragment() {
         // Required empty public constructor
     }
 
@@ -39,11 +38,11 @@ public class MyFragment extends BaseFragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment MyFragment.
+     * @return A new instance of fragment SenlinListFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MyFragment newInstance(String param1, String param2) {
-        MyFragment fragment = new MyFragment();
+    public static SenlinListFragment newInstance(String param1, String param2) {
+        SenlinListFragment fragment = new SenlinListFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -63,9 +62,8 @@ public class MyFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d(this.getClass().getSimpleName(), "onCreateView" + " " + this.toString());
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my, container, false);
+        return inflater.inflate(R.layout.fragment_senlin_list, container, false);
     }
 
 }
