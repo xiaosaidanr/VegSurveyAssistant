@@ -1,5 +1,7 @@
 package com.thcreate.vegsurveyassistant;
 
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -16,6 +18,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
+import com.thcreate.vegsurveyassistant.ViewModel.MainActivityViewModel;
 import com.thcreate.vegsurveyassistant.fragment.BaseFragment;
 import com.thcreate.vegsurveyassistant.fragment.MyFragment;
 import com.thcreate.vegsurveyassistant.fragment.NearbyFragment;
@@ -36,9 +39,14 @@ public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView navigation;
 
+    private MainActivityViewModel mViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
+
         setContentView(R.layout.activity_main);
 
 
@@ -48,36 +56,24 @@ public class MainActivity extends AppCompatActivity {
                 if (!nearbyFragment.isHidden()){
                     currentFragment = nearbyFragment;
                 }
-//                else {
-//                    getSupportFragmentManager().beginTransaction().remove(nearbyFragment).commit();
-//                }
             }
             if (getSupportFragmentManager().findFragmentByTag(YangfangFragment.class.getName())!=null){
                 yangfangFragment = (YangfangFragment) getSupportFragmentManager().findFragmentByTag(YangfangFragment.class.getName());
                 if (!yangfangFragment.isHidden()){
                     currentFragment = yangfangFragment;
                 }
-//                else {
-//                    getSupportFragmentManager().beginTransaction().remove(yangfangFragment).commit();
-//                }
             }
             if (getSupportFragmentManager().findFragmentByTag(YangdianFragment.class.getName())!=null){
                 yangdianFragment = (YangdianFragment) getSupportFragmentManager().findFragmentByTag(YangdianFragment.class.getName());
                 if (!yangdianFragment.isHidden()){
                     currentFragment = yangdianFragment;
                 }
-//                else {
-//                    getSupportFragmentManager().beginTransaction().remove(yangdianFragment).commit();
-//                }
             }
             if (getSupportFragmentManager().findFragmentByTag(MyFragment.class.getName())!=null){
                 myFragment = (MyFragment) getSupportFragmentManager().findFragmentByTag(MyFragment.class.getName());
                 if (!myFragment.isHidden()){
                     currentFragment = myFragment;
                 }
-//                else {
-//                    getSupportFragmentManager().beginTransaction().remove(myFragment).commit();
-//                }
             }
             Log.e("Fragment", currentFragment.getClass().getName());
         }
