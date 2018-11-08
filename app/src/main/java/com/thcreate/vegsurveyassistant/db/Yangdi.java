@@ -11,7 +11,7 @@ import java.util.Date;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "yangdian",
+@Entity(tableName = "yangdi",
         foreignKeys = @ForeignKey(
                 entity = User.class,
                 parentColumns = "id",
@@ -20,10 +20,10 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
         ),
         indices = {
                 @Index("user_id"),
-                @Index("yangdian_code")
+                @Index(value = "yangdi_code", unique = true)
         }
 )
-public class Yangdian {
+public class Yangdi {
 
     @PrimaryKey(autoGenerate = true)
     public int id;
@@ -31,42 +31,31 @@ public class Yangdian {
     @ColumnInfo(name = "user_id")
     public int userId;
 
-    @ColumnInfo(name = "yangdian_code")
-    public String yangdianCode;//样点编码
+    @ColumnInfo(name = "yangdi_code")
+    public String yangdiCode;//样地编码
 
-    @ColumnInfo(name = "qunluo_type")
-    public String qunluoType;//群落类型
-
-    @ColumnInfo(name = "dominant_species")
-    public String dominantSpecies;//优势种
-
-    @ColumnInfo(name = "qunluo_coverage")
-    public String qunluoCoverage;//群落盖度
-
-    @ColumnInfo(name = "qunluo_height")
-    public String qunluoHeight;//群落高度
-
-    @ColumnInfo(name = "dixing_zhibei_status")
-    public String dixingZhibeiStatus;//地形和植被概况
+    public String type;//样地类型
 
     @ColumnInfo(name = "region_name")
-    public String regionName;//行政地名
+    public String regionName;//行政区域
+
+    public String poxiang;//坡向
+
+    public String podu;//坡度
+
+    public String powei;//坡位
+
+    public String dimao;//地貌
+
+    @ColumnInfo(name = "soil_feature")
+    public String soilFeature;//土壤特征
 
     @ColumnInfo(name = "human_activity")
     public String humanActivity;//人类活动
 
-    public String altitude;//海拔
-
     public String longitude;//经度
 
     public String latitude;//纬度
-
-    public String investigator;//调查人
-
-    @ColumnInfo(name = "investigate_date")
-    public String investigateDate;//调查时间
-
-    public String note;//备注
 
     @ColumnInfo(name = "create_at")
     public Date createAt;//创建时间
@@ -80,8 +69,10 @@ public class Yangdian {
     @ColumnInfo(name = "upload_at")
     public Date uploadAt;//上传时间
 
-    public Yangdian(@NonNull int userId, @NonNull String yangdianCode){
+    public Yangdi(@NonNull int userId, @NonNull String yangdiCode, @NonNull String type){
         this.userId = userId;
-        this.yangdianCode = yangdianCode;
+        this.yangdiCode = yangdiCode;
+        this.type = type;
     }
+
 }

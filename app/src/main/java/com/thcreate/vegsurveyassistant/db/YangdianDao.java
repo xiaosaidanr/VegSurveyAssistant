@@ -24,7 +24,10 @@ public interface YangdianDao {
     @Query("DELETE FROM yangdian")
     void deleteAll();
 
+    @Query("SELECT * FROM yangdian WHERE yangdian_code = :yangdianCode")
+    LiveData<Yangdian> getYangdianByYangdianCode(String yangdianCode);
+
     @Query("SELECT * FROM yangdian WHERE user_id = :userId ORDER BY id ASC")
-    LiveData<List<Yangdian>> getAllYangdiansByUserId(int userId);
+    LiveData<List<Yangdian>> getAllYangdianByUserId(int userId);
 
 }

@@ -17,6 +17,9 @@ public interface UserDao {
     void deleteAll();
 
     @Query("SELECT * FROM user ORDER BY id ASC")
-    LiveData<List<User>> getAllUsers();
+    LiveData<List<User>> getAllUser();
+
+    @Query("SELECT * FROM user LIMIT 1")
+    LiveData<User> getOneUser();
 
 }

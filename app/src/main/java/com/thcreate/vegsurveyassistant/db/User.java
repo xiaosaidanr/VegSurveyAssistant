@@ -12,7 +12,9 @@ public class User {
     public int id;
 
     @ColumnInfo(name = "name")
-    public String name;
+    public String name;//用户名
+
+    public String phone;//手机号码
 
     public User(String name){
         this.name = name;
