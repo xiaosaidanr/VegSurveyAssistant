@@ -1,4 +1,4 @@
-package com.thcreate.vegsurveyassistant.db;
+package com.thcreate.vegsurveyassistant.db.dao;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
@@ -7,19 +7,12 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
+import com.thcreate.vegsurveyassistant.db.entity.Yangdian;
+
 import java.util.List;
 
 @Dao
-public interface YangdianDao {
-
-    @Insert
-    void insert(Yangdian yangdian);
-
-    @Update
-    void update(Yangdian yangdian);
-
-    @Delete
-    void delete(Yangdian yangdian);
+public interface YangdianDao extends BaseDao<Yangdian> {
 
     @Query("DELETE FROM yangdian")
     void deleteAll();

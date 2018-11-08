@@ -1,4 +1,4 @@
-package com.thcreate.vegsurveyassistant.db;
+package com.thcreate.vegsurveyassistant.db.dao;
 
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;

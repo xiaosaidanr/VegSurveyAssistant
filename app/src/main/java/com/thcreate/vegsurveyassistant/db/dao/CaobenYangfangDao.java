@@ -1,4 +1,4 @@
-package com.thcreate.vegsurveyassistant.db;
+package com.thcreate.vegsurveyassistant.db.dao;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
@@ -7,19 +7,12 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
+import com.thcreate.vegsurveyassistant.db.entity.CaobenYangfang;
+
 import java.util.List;
 
 @Dao
 public interface CaobenYangfangDao extends BaseDao<CaobenYangfang> {
-
-//    @Insert
-//    void insert(CaobenYangfang caobenYangfang);
-//
-//    @Update
-//    void update(CaobenYangfang caobenYangfang);
-//
-//    @Delete
-//    void delete(CaobenYangfang caobenYangfang);
 
     @Query("DELETE FROM caoben_yangfang")
     void deleteAll();

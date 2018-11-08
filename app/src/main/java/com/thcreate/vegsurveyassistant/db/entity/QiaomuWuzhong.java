@@ -1,4 +1,4 @@
-package com.thcreate.vegsurveyassistant.db;
+package com.thcreate.vegsurveyassistant.db.entity;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
@@ -11,7 +11,7 @@ import java.util.Date;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "guanmu_wuzhong",
+@Entity(tableName = "qiaomu_wuzhong",
         foreignKeys = {
                 @ForeignKey(
                         entity = User.class,
@@ -31,7 +31,7 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
                 @Index("wuzhong_code")
         }
 )
-public class GuanmuWuzhong {
+public class QiaomuWuzhong {
 
     @PrimaryKey(autoGenerate = true)
     public int id;
@@ -54,7 +54,7 @@ public class GuanmuWuzhong {
     @ColumnInfo(name = "tree_number")
     public String treeNumber;//树号
 
-    public String jijing;//基径
+    public String xiongjing;//胸径
 
     public String height;//高度
 
@@ -78,7 +78,7 @@ public class GuanmuWuzhong {
     @ColumnInfo(name = "upload_at")
     public Date uploadAt;//上传时间
 
-    public GuanmuWuzhong(@NonNull int userId, @NonNull String yangfangCode, @NonNull String wuzhongCode){
+    public QiaomuWuzhong(@NonNull int userId, @NonNull String yangfangCode, @NonNull String wuzhongCode){
         this.userId = userId;
         this.yangfangCode = yangfangCode;
         this.wuzhongCode = wuzhongCode;

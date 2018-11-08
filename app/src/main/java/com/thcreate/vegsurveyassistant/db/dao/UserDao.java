@@ -1,17 +1,16 @@
-package com.thcreate.vegsurveyassistant.db;
+package com.thcreate.vegsurveyassistant.db.dao;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
+import com.thcreate.vegsurveyassistant.db.entity.User;
+
 import java.util.List;
 
 @Dao
-public interface UserDao {
-
-    @Insert
-    void insert(User user);
+public interface UserDao extends BaseDao<User>{
 
     @Query("DELETE FROM user")
     void deleteAll();

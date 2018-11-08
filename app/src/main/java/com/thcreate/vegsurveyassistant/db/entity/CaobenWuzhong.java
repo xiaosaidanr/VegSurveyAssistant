@@ -1,4 +1,4 @@
-package com.thcreate.vegsurveyassistant.db;
+package com.thcreate.vegsurveyassistant.db.entity;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
@@ -11,7 +11,7 @@ import java.util.Date;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "qiaomu_wuzhong",
+@Entity(tableName = "caoben_wuzhong",
         foreignKeys = {
                 @ForeignKey(
                         entity = User.class,
@@ -19,7 +19,7 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
                         childColumns = "user_id"
                 ),
                 @ForeignKey(
-                        entity = GuanmuYangfang.class,
+                        entity = CaobenYangfang.class,
                         parentColumns = "yangfang_code",
                         childColumns = "yangfang_code",
                         onDelete = CASCADE
@@ -31,7 +31,7 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
                 @Index("wuzhong_code")
         }
 )
-public class QiaomuWuzhong {
+public class CaobenWuzhong {
 
     @PrimaryKey(autoGenerate = true)
     public int id;
@@ -51,18 +51,18 @@ public class QiaomuWuzhong {
     @ColumnInfo(name = "latin_name")
     public String latinName;//拉丁名
 
-    @ColumnInfo(name = "tree_number")
-    public String treeNumber;//树号
+    @ColumnInfo(name = "zhucong_count")
+    public String zhucongCount;//株丛数
 
-    public String xiongjing;//胸径
+    @ColumnInfo(name = "yingyangzhi_height")
+    public String yingyangzhiHeight;//营养枝高度
 
-    public String height;//高度
+    @ColumnInfo(name = "shengzhizhi_height")
+    public String shengzhizhiHeight;//生殖枝高度
 
-    @ColumnInfo(name = "guanfu_x")
-    public String guanfuX;//冠幅X
+    public String coverage;//盖度
 
-    @ColumnInfo(name = "guanfu_y")
-    public String guanfuY;//冠幅Y
+    public String biomass;//生物量
 
     public String note;//备注
 
@@ -78,7 +78,7 @@ public class QiaomuWuzhong {
     @ColumnInfo(name = "upload_at")
     public Date uploadAt;//上传时间
 
-    public QiaomuWuzhong(@NonNull int userId, @NonNull String yangfangCode, @NonNull String wuzhongCode){
+    public CaobenWuzhong(@NonNull int userId, @NonNull String yangfangCode, @NonNull String wuzhongCode){
         this.userId = userId;
         this.yangfangCode = yangfangCode;
         this.wuzhongCode = wuzhongCode;

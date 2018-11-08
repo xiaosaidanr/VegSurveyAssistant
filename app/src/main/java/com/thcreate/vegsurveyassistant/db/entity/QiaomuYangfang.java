@@ -1,4 +1,4 @@
-package com.thcreate.vegsurveyassistant.db;
+package com.thcreate.vegsurveyassistant.db.entity;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
@@ -11,7 +11,7 @@ import java.util.Date;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "guanmu_yangfang",
+@Entity(tableName = "qiaomu_yangfang",
         foreignKeys = {
                 @ForeignKey(
                         entity = User.class,
@@ -23,22 +23,15 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
                         parentColumns = "yangdi_code",
                         childColumns = "yangdi_code",
                         onDelete = CASCADE
-                ),
-                @ForeignKey(
-                        entity = QiaomuYangfang.class,
-                        parentColumns = "yangfang_code",
-                        childColumns = "qiaomuyangfang_code",
-                        onDelete = CASCADE
                 )
         },
         indices = {
                 @Index("user_id"),
                 @Index("yangdi_code"),
-                @Index("qiaomuyangfang_code"),
                 @Index(value = "yangfang_code", unique = true)
         }
 )
-public class GuanmuYangfang {
+public class QiaomuYangfang {
 
     @PrimaryKey(autoGenerate = true)
     public int id;
@@ -48,9 +41,6 @@ public class GuanmuYangfang {
 
     @ColumnInfo(name = "yangdi_code")
     public String yangdiCode;//所属样地编码
-
-    @ColumnInfo(name = "qiaomuyangfang_code")
-    public String qiaomuyangfangCode;//所属乔木样方编码
 
     @ColumnInfo(name = "yangfang_code")
     public String yangfangCode;//样方编码
@@ -68,8 +58,8 @@ public class GuanmuYangfang {
     @ColumnInfo(name = "qunluo_height")
     public String qunluoHeight;//群落高度
 
-    @ColumnInfo(name = "jijing_average")
-    public String jijingAverage;//平均基径
+    @ColumnInfo(name = "xiongjing_average")
+    public String xiongjingAverage;//平均胸径
 
     public String longitude;//经度
 
@@ -92,10 +82,9 @@ public class GuanmuYangfang {
     @ColumnInfo(name = "upload_at")
     public Date uploadAt;//上传时间
 
-    public GuanmuYangfang(@NonNull int userId, @NonNull String yangdiCode, @NonNull String yangfangCode){
+    public QiaomuYangfang(@NonNull int userId, @NonNull String yangdiCode, @NonNull String yangfangCode){
         this.userId = userId;
         this.yangdiCode = yangdiCode;
         this.yangfangCode = yangfangCode;
     }
-
 }

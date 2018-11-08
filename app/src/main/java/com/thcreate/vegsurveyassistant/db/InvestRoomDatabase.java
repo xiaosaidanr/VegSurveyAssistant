@@ -9,6 +9,26 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
+import com.thcreate.vegsurveyassistant.db.converter.DateConverter;
+import com.thcreate.vegsurveyassistant.db.dao.CaobenWuzhongDao;
+import com.thcreate.vegsurveyassistant.db.dao.CaobenYangfangDao;
+import com.thcreate.vegsurveyassistant.db.dao.GuanmuWuzhongDao;
+import com.thcreate.vegsurveyassistant.db.dao.GuanmuYangfangDao;
+import com.thcreate.vegsurveyassistant.db.dao.QiaomuWuzhongDao;
+import com.thcreate.vegsurveyassistant.db.dao.QiaomuYangfangDao;
+import com.thcreate.vegsurveyassistant.db.dao.UserDao;
+import com.thcreate.vegsurveyassistant.db.dao.YangdiDao;
+import com.thcreate.vegsurveyassistant.db.dao.YangdianDao;
+import com.thcreate.vegsurveyassistant.db.entity.CaobenWuzhong;
+import com.thcreate.vegsurveyassistant.db.entity.CaobenYangfang;
+import com.thcreate.vegsurveyassistant.db.entity.GuanmuWuzhong;
+import com.thcreate.vegsurveyassistant.db.entity.GuanmuYangfang;
+import com.thcreate.vegsurveyassistant.db.entity.QiaomuWuzhong;
+import com.thcreate.vegsurveyassistant.db.entity.QiaomuYangfang;
+import com.thcreate.vegsurveyassistant.db.entity.User;
+import com.thcreate.vegsurveyassistant.db.entity.Yangdi;
+import com.thcreate.vegsurveyassistant.db.entity.Yangdian;
+
 @Database(
         entities = {
                 User.class,
@@ -24,7 +44,7 @@ import android.support.annotation.NonNull;
         version = 1,
         exportSchema = false
 )
-@TypeConverters({Converters.DateConverter.class})
+@TypeConverters({DateConverter.class})
 public abstract class InvestRoomDatabase extends RoomDatabase {
 
     public abstract UserDao userDao();
