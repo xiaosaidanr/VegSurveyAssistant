@@ -3,7 +3,6 @@ package com.thcreate.vegsurveyassistant.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -19,10 +18,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v7.widget.Toolbar;
 
-import com.thcreate.vegsurveyassistant.CaodiyangdiActivity;
-import com.thcreate.vegsurveyassistant.GuancongyangdiActivity;
+import com.thcreate.vegsurveyassistant.activity.CaodiyangdiActivity;
+import com.thcreate.vegsurveyassistant.activity.GuancongyangdiActivity;
 import com.thcreate.vegsurveyassistant.R;
-import com.thcreate.vegsurveyassistant.SenlinyangdiActivity;
+import com.thcreate.vegsurveyassistant.activity.SenlinyangdiActivity;
 
 /**
  * A simple {@link Fragment} subclass.

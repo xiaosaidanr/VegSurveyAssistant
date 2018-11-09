@@ -3,6 +3,7 @@
     package="com.thcreate.vegsurveyassistant">
 
     <application
+        android:name=".BasicApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -10,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,43 +20,43 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CaodiyangdiActivity"
+            android:name=".activity.CaodiyangdiActivity"
             android:label="@string/caodi"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".CaobenyangfangActivity"
+            android:name=".activity.CaobenyangfangActivity"
             android:label="@string/caoben"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".CaobenwuzhongActivity"
+            android:name=".activity.CaobenwuzhongActivity"
             android:label="@string/caoben"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".GuancongyangdiActivity"
+            android:name=".activity.GuancongyangdiActivity"
             android:label="@string/guancong"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".GuanmuyangfangActivity"
+            android:name=".activity.GuanmuyangfangActivity"
             android:label="@string/guanmu"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".GuanmuwuzhongActivity"
+            android:name=".activity.GuanmuwuzhongActivity"
             android:label="@string/guanmu"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".SenlinyangdiActivity"
+            android:name=".activity.SenlinyangdiActivity"
             android:label="@string/senlin"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".QiaomuyangfangActivity"
+            android:name=".activity.QiaomuyangfangActivity"
             android:label="@string/qiaomu"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".QiaomuwuzhongActivity"
+            android:name=".activity.QiaomuwuzhongActivity"
             android:label="@string/qiaomu"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".YangdianActivity"
+            android:name=".activity.YangdianActivity"
             android:label="@string/yangdian"
             android:theme="@style/AppTheme"/>
     </application>

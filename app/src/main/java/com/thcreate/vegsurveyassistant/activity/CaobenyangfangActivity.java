@@ -1,4 +1,4 @@
-package com.thcreate.vegsurveyassistant;
+package com.thcreate.vegsurveyassistant.activity;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
+
+import com.thcreate.vegsurveyassistant.R;
 
 import java.util.Calendar;
 

@@ -12,13 +12,16 @@ import java.util.List;
 @Dao
 public interface UserDao extends BaseDao<User>{
 
+    String IS_NOT_CURRENT_USER = "0";
+    String IS_CURRENT_USER = "1";
+
     @Query("DELETE FROM user")
     void deleteAll();
 
     @Query("SELECT * FROM user ORDER BY id ASC")
     LiveData<List<User>> getAllUser();
 
-    @Query("SELECT * FROM user LIMIT 1")
-    LiveData<User> getOneUser();
+    @Query("SELECT * FROM user WHERE is_current_user = " + IS_CURRENT_USER)
+    LiveData<User> getCurrentUser();
 
 }

@@ -1,32 +1,22 @@
-package com.thcreate.vegsurveyassistant;
+package com.thcreate.vegsurveyassistant.activity;
 
-import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.TextView;
 
-import com.thcreate.vegsurveyassistant.ViewModel.MainActivityViewModel;
+import com.thcreate.vegsurveyassistant.R;
+import com.thcreate.vegsurveyassistant.viewmodel.MainActivityViewModel;
 import com.thcreate.vegsurveyassistant.fragment.BaseFragment;
 import com.thcreate.vegsurveyassistant.fragment.MyFragment;
 import com.thcreate.vegsurveyassistant.fragment.NearbyFragment;
 import com.thcreate.vegsurveyassistant.fragment.YangdianFragment;
 import com.thcreate.vegsurveyassistant.fragment.YangfangFragment;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.thcreate.vegsurveyassistant;
+package com.thcreate.vegsurveyassistant.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -7,12 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-public class QiaomuwuzhongActivity extends AppCompatActivity {
+import com.thcreate.vegsurveyassistant.R;
+
+public class CaobenwuzhongActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_qiaomuwuzhong);
+        setContentView(R.layout.activity_caobenwuzhong);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

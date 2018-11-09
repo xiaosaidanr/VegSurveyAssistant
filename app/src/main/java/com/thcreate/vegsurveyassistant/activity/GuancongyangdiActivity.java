@@ -1,4 +1,4 @@
-package com.thcreate.vegsurveyassistant;
+package com.thcreate.vegsurveyassistant.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,14 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-public class CaodiyangdiActivity extends AppCompatActivity {
+import com.thcreate.vegsurveyassistant.R;
 
-
+public class GuancongyangdiActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_caodiyangdi);
+        setContentView(R.layout.activity_guancongyangdi);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -29,8 +29,13 @@ public class CaodiyangdiActivity extends AppCompatActivity {
         });
     }
 
-    public void onAddYangfang(View v){
-        Intent intent = new Intent(CaodiyangdiActivity.this, CaobenyangfangActivity.class);
+    public void onAddGuanmuyangfang(View v){
+        Intent intent = new Intent(GuancongyangdiActivity.this, GuanmuyangfangActivity.class);
+        startActivity(intent);
+    }
+
+    public void onAddCaobenyangfang(View v){
+        Intent intent = new Intent(GuancongyangdiActivity.this, CaobenyangfangActivity.class);
         startActivity(intent);
     }
 }

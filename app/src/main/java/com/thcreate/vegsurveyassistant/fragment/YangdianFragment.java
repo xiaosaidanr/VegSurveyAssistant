@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.thcreate.vegsurveyassistant.R;
-import com.thcreate.vegsurveyassistant.YangdianActivity;
+import com.thcreate.vegsurveyassistant.activity.YangdianActivity;
 
 /**
  * A simple {@link Fragment} subclass.
