@@ -36,8 +36,8 @@ public class Yangdi {
 
     public String type;//样地类型
 
-    @ColumnInfo(name = "region_name")
-    public String regionName;//行政区域
+    @ColumnInfo(name = "xingzheng_region")
+    public String xingzhengRegion;//行政区域
 
     public String poxiang;//坡向
 

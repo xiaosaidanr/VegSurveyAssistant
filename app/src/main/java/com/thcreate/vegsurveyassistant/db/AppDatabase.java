@@ -11,6 +11,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
+import android.util.Log;
 
 import com.thcreate.vegsurveyassistant.AppExecutors;
 import com.thcreate.vegsurveyassistant.db.converter.DateConverter;
@@ -36,14 +37,14 @@ import com.thcreate.vegsurveyassistant.db.entity.Yangdian;
 @Database(
         entities = {
                 User.class,
-                CaobenYangfang.class,
-                CaobenWuzhong.class,
-                GuanmuYangfang.class,
-                GuanmuWuzhong.class,
-                QiaomuYangfang.class,
-                QiaomuWuzhong.class,
-                Yangdi.class,
-                Yangdian.class
+//                CaobenYangfang.class,
+//                CaobenWuzhong.class,
+//                GuanmuYangfang.class,
+//                GuanmuWuzhong.class,
+//                QiaomuYangfang.class,
+//                QiaomuWuzhong.class,
+//                Yangdi.class,
+//                Yangdian.class
         },
         version = 1,
         exportSchema = false
@@ -60,21 +61,21 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract UserDao userDao();
 
-    public abstract YangdiDao yangdiDao();
-
-    public abstract CaobenYangfangDao caobenYangfangDao();
-
-    public abstract CaobenWuzhongDao caobenWuzhongDao();
-
-    public abstract GuanmuYangfangDao guanmuYangfangDao();
-
-    public abstract GuanmuWuzhongDao guanmuWuzhongDao();
-
-    public abstract QiaomuYangfangDao qiaomuYangfangDao();
-
-    public abstract QiaomuWuzhongDao qiaomuWuzhongDao();
-
-    public abstract YangdianDao yangdianDao();
+//    public abstract YangdiDao yangdiDao();
+//
+//    public abstract CaobenYangfangDao caobenYangfangDao();
+//
+//    public abstract CaobenWuzhongDao caobenWuzhongDao();
+//
+//    public abstract GuanmuYangfangDao guanmuYangfangDao();
+//
+//    public abstract GuanmuWuzhongDao guanmuWuzhongDao();
+//
+//    public abstract QiaomuYangfangDao qiaomuYangfangDao();
+//
+//    public abstract QiaomuWuzhongDao qiaomuWuzhongDao();
+//
+//    public abstract YangdianDao yangdianDao();
 
     public static AppDatabase getInstance(final Context context, final AppExecutors executors){
         if (sINSTANCE == null){
@@ -90,26 +91,35 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase buildDatabase(final Context appContext,
                                              final AppExecutors executors){
-        return Room.databaseBuilder(appContext, AppDatabase.class, DATABASE_NAME)
-                .addCallback(new Callback() {
-                    @Override
-                    public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                        super.onCreate(db);
-                        executors.diskIO().execute(new Runnable() {
-                            @Override
-                            public void run() {
-                                AppDatabase database = AppDatabase.getInstance(appContext, executors);
-                                // Generate the data for pre-population
-                                database.userDao().deleteAll();
-                                User user = new User("13521936487", 1);
-                                database.userDao().insert(user);
-                                // notify that the database was created and it's ready to be used
-                                database.setDatabaseCreated();
-                            }
-                        });
-                    }
-                })
-                .build();
+        AppDatabase database = Room.databaseBuilder(appContext, AppDatabase.class, DATABASE_NAME).build();
+//        executors.diskIO().execute(()->{
+//                            AppDatabase database = AppDatabase.getInstance(appContext, executors);
+//                            // Generate the data for pre-population
+//                            database.userDao().deleteAll();
+//                            User user = new User("13521936487", 1);
+//                            database.userDao().insert(user);
+//                            // notify that the database was created and it's ready to be used
+//                            database.setDatabaseCreated();
+//                        });
+//        return Room.databaseBuilder(appContext, AppDatabase.class, DATABASE_NAME)
+//                .addCallback(new Callback() {
+//                    @Override
+//                    public void onCreate(@NonNull SupportSQLiteDatabase db) {
+//                        Log.d("testtesttest", "here");
+//                        super.onCreate(db);
+//                        executors.diskIO().execute(()->{
+//                            AppDatabase database = AppDatabase.getInstance(appContext, executors);
+//                            // Generate the data for pre-population
+//                            database.userDao().deleteAll();
+//                            User user = new User("13521936487", 1);
+//                            database.userDao().insert(user);
+//                            // notify that the database was created and it's ready to be used
+//                            database.setDatabaseCreated();
+//                        });
+//                    }
+//                })
+//                .build();
+        return database;
     }
 
     /**
@@ -137,21 +147,21 @@ public abstract class AppDatabase extends RoomDatabase {
 //        }
 //    };
 //
-//    private static class PopluateDbAsync extends AsyncTask<Void, Void, Void>{
-//
-//        private final UserDao mDao;
-//
-//        PopluateDbAsync(AppDatabase db){
-//            mDao = db.userDao();
-//        }
-//
-//        @Override
-//        protected Void doInBackground(final Void... params){
-//            mDao.deleteAll();
-//            User user = new User("Yuan Jiace");
-//            mDao.insert(user);
-//            return null;
-//        }
-//    }
+    public class PopluateDbAsync extends AsyncTask<Void, Void, Void>{
+
+        private final UserDao mDao;
+
+        PopluateDbAsync(AppDatabase db){
+            mDao = db.userDao();
+        }
+
+        @Override
+        protected Void doInBackground(final Void... params){
+            mDao.deleteAll();
+            User user = new User("Yuan Jiace", 1);
+            mDao.insert(user);
+            return null;
+        }
+    }
 
 }

@@ -12,7 +12,18 @@ import com.thcreate.vegsurveyassistant.db.entity.QiaomuYangfang;
 import java.util.List;
 
 @Dao
-public interface QiaomuYangfangDao extends BaseDao<QiaomuYangfang> {
+//public interface QiaomuYangfangDao extends BaseDao<QiaomuYangfang> {
+public interface QiaomuYangfangDao {
+
+
+    @Insert
+    void insert(QiaomuYangfang obj);
+
+    @Update
+    void update(QiaomuYangfang obj);
+
+    @Delete
+    void delete(QiaomuYangfang obj);
 
     @Query("DELETE FROM qiaomu_yangfang")
     void deleteAll();

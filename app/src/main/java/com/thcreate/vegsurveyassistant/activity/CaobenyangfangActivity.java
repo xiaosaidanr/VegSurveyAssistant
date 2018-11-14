@@ -57,7 +57,7 @@ public class CaobenyangfangActivity extends AppCompatActivity {
             // Do something with the date chosen by the user
             TextView textView = getActivity().findViewById(R.id.date_selected);
             if (textView != null){
-                textView.setText(String.valueOf(String.valueOf(year)+"-"+String.valueOf(month)+"-"+String.valueOf(day)));
+                textView.setText(String.valueOf(String.valueOf(year)+"-"+String.valueOf(month+1)+"-"+String.valueOf(day)));
             }
         }
     }

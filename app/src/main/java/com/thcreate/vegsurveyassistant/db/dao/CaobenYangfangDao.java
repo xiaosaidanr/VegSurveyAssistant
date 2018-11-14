@@ -12,7 +12,18 @@ import com.thcreate.vegsurveyassistant.db.entity.CaobenYangfang;
 import java.util.List;
 
 @Dao
-public interface CaobenYangfangDao extends BaseDao<CaobenYangfang> {
+public interface CaobenYangfangDao {
+
+//public interface CaobenYangfangDao extends BaseDao<CaobenYangfang> {
+
+    @Insert
+    void insert(CaobenYangfang obj);
+
+    @Update
+    void update(CaobenYangfang obj);
+
+    @Delete
+    void delete(CaobenYangfang obj);
 
     @Query("DELETE FROM caoben_yangfang")
     void deleteAll();

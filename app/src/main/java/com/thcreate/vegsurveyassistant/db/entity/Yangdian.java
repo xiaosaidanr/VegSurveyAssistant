@@ -34,8 +34,8 @@ public class Yangdian {
     @ColumnInfo(name = "yangdian_code")
     public String yangdianCode;//样点编码
 
-    @ColumnInfo(name = "qunluo_type")
-    public String qunluoType;//群落类型
+    @ColumnInfo(name = "qunxi_type")
+    public String qunxiType;//群系类型
 
     @ColumnInfo(name = "dominant_species")
     public String dominantSpecies;//优势种

@@ -12,7 +12,18 @@ import com.thcreate.vegsurveyassistant.db.entity.Yangdi;
 import java.util.List;
 
 @Dao
-public interface YangdiDao extends BaseDao<Yangdi> {
+//public interface YangdiDao extends BaseDao<Yangdi> {
+public interface YangdiDao {
+
+
+    @Insert
+    void insert(Yangdi obj);
+
+    @Update
+    void update(Yangdi obj);
+
+    @Delete
+    void delete(Yangdi obj);
 
     @Query("DELETE FROM yangdi")
     void deleteAll();

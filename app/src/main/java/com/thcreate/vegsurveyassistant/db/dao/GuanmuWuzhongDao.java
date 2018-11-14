@@ -12,7 +12,18 @@ import com.thcreate.vegsurveyassistant.db.entity.GuanmuWuzhong;
 import java.util.List;
 
 @Dao
-public interface GuanmuWuzhongDao extends BaseDao<GuanmuWuzhong> {
+public interface GuanmuWuzhongDao {
+
+//public interface GuanmuWuzhongDao extends BaseDao<GuanmuWuzhong> {
+
+    @Insert
+    void insert(GuanmuWuzhong obj);
+
+    @Update
+    void update(GuanmuWuzhong obj);
+
+    @Delete
+    void delete(GuanmuWuzhong obj);
 
     @Query("DELETE FROM guanmu_wuzhong")
     void deleteAll();

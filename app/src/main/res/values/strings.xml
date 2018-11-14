@@ -1,4 +1,5 @@
 <resources>
+    <!-- 主页 -->
     <string name="app_name">VegSurveyAssistant</string>
     <string name="nearby">附近</string>
     <string name="yangfang">样方</string>
@@ -7,12 +8,43 @@
     <string name="caodi">草地</string>
     <string name="guancong">灌丛</string>
     <string name="senlin">森林</string>
+    <string name="caoben">草本</string>
+    <string name="guanmu">灌木</string>
+    <string name="qiaomu">乔木</string>
+
+    <!-- 通用 -->
+    <string name="hint_text">待填</string>
+    <string name="human_activity">人类活动</string>
+    <string name="auto_position">自动定位</string>
+    <string name="longitude">经度</string>
+    <string name="latitude">纬度</string>
+    <string name="investigator">调查人</string>
+    <string name="investigate_date">调查时间</string>
+    <string name="note">备注</string>
+
+    <!-- 样点相关 -->
+    <string name="yangdian_info">样点信息</string>
+    <string name="yangdian_code">样点编码</string>
+    <string name="qunxi_type">群系类型</string>
+    <string name="dominant_species">优势种</string>
+    <string name="qunluo_coverage">群落盖度(%)</string>
+    <string name="qunluo_height">群落高度(m)</string>
+    <string name="dixing_zhibei_status">地形和植被概况</string>
+    <string name="region_name">行政地名</string>
+    <string name="altitude">海拔(m)</string>
+
+    <!-- 样地相关 -->
     <string-array name="powei_array">
         <item>上坡位</item>
         <item>中坡位</item>
         <item>下坡位</item>
     </string-array>
-    <string name="caoben">草本</string>
-    <string name="guanmu">灌木</string>
-    <string name="qiaomu">乔木</string>
+    <string name="yangdi_info">样地信息</string>
+    <string name="yangdi_code">样地编码</string>
+    <string name="xingzheng_region">行政区域</string>
+    <string name="poxiang">坡向</string>
+    <string name="podu">坡度</string>
+    <string name="dimao">地貌</string>
+    <string name="soil_feature">土壤特征</string>
+    <string name="powei">坡位</string>
 </resources>

@@ -12,7 +12,18 @@ import com.thcreate.vegsurveyassistant.db.entity.QiaomuWuzhong;
 import java.util.List;
 
 @Dao
-public interface QiaomuWuzhongDao extends BaseDao<QiaomuWuzhong> {
+//public interface QiaomuWuzhongDao extends BaseDao<QiaomuWuzhong> {
+public interface QiaomuWuzhongDao {
+
+
+    @Insert
+    void insert(QiaomuWuzhong obj);
+
+    @Update
+    void update(QiaomuWuzhong obj);
+
+    @Delete
+    void delete(QiaomuWuzhong obj);
 
     @Query("DELETE FROM qiaomu_wuzhong")
     void deleteAll();
