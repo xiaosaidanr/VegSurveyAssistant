@@ -21,17 +21,8 @@
     <string name="investigator">调查人</string>
     <string name="investigate_date">调查时间</string>
     <string name="note">备注</string>
-
-    <!-- 样点相关 -->
-    <string name="yangdian_info">样点信息</string>
-    <string name="yangdian_code">样点编码</string>
-    <string name="qunxi_type">群系类型</string>
-    <string name="dominant_species">优势种</string>
-    <string name="qunluo_coverage">群落盖度(%)</string>
-    <string name="qunluo_height">群落高度(m)</string>
-    <string name="dixing_zhibei_status">地形和植被概况</string>
-    <string name="region_name">行政地名</string>
-    <string name="altitude">海拔(m)</string>
+    <string name="qunluo_coverage_percent">群落盖度(%)</string>
+    <string name="qunluo_height_m">群落高度(m)</string>
 
     <!-- 样地相关 -->
     <string-array name="powei_array">
@@ -47,4 +38,44 @@
     <string name="dimao">地貌</string>
     <string name="soil_feature">土壤特征</string>
     <string name="powei">坡位</string>
+
+    <!-- 样方相关 -->
+    <string name="yangfang_info">样方信息</string>
+    <string name="yangfang_code">样方编码</string>
+    <string name="belong_qiaomuyangfang_code">所在乔木样方编码</string>
+    <string name="belong_guanmuyangfang_code">所在灌木样方编码</string>
+    <string name="qunluo_name">群落名称</string>
+    <string name="yangfang_length_m">样方长(m)</string>
+    <string name="yangfang_width_m">样方宽(m)</string>
+    <string name="photo_list">照片列表</string>
+    <string name="photo_number">照片数量</string>
+    <string name="photo_add">拍照添加</string>
+    <string name="wuzhong_list">物种列表</string>
+    <string name="wuzhong_number">物种数量</string>
+    <string name="wuzhong_add">物种添加</string>
+
+    <!-- 物种相关 -->
+    <string name="wuzhong_info">物种信息</string>
+    <string name="wuzhong_name">物种名</string>
+    <string name="biaoben_code">标本编码</string>
+    <string name="zhucong_count">株丛数</string>
+    <string name="yingyangzhi_height_cm">营养枝高度(cm)</string>
+    <string name="shengzhizhi_height_cm">生殖枝高度(cm)</string>
+    <string name="coverage_percent">盖度(%)</string>
+    <string name="biomass_g">生物量(g)</string>
+    <string name="tree_number">树号</string>
+    <string name="jijing_cm">基径(cm)</string>
+    <string name="height_cm">高度(cm)</string>
+    <string name="guanfu_x_cm">冠幅X(cm)</string>
+    <string name="guanfu_y_cm">冠幅Y(cm)</string>
+
+    <!-- 样点相关 -->
+    <string name="yangdian_info">样点信息</string>
+    <string name="yangdian_code">样点编码</string>
+    <string name="qunxi_type">群系类型</string>
+    <string name="dominant_species">优势种</string>
+    <string name="dixing_zhibei_status">地形和植被概况</string>
+    <string name="region_name">行政地名</string>
+    <string name="altitude_m">海拔(m)</string>
+
 </resources>

@@ -24,18 +24,18 @@ public class CaodiyangdiActivityViewModel extends AndroidViewModel {
         yangdi = new MutableLiveData<>();
         yangdi.setValue(new Yangdi(0, "testtesttest", "grass"){
         });
-        yangdi.getValue().powei = "下坡位";
+//        yangdi.getValue().powei = "下坡位";
     }
 
     public void OnSave(View v){
-        yangdi.getValue().powei = "上坡位";
+//        yangdi.getValue().powei = "上坡位";
 //        yangdi.notify();
-//        if (yangdi.getValue().powei == null){
-//            Log.e("testtesttest", "null");
-//        }
-//        else {
-//            Log.e("testtesttest", yangdi.getValue().powei + String.valueOf(yangdi.getValue().powei.isEmpty()));
-//        }
+        if (yangdi.getValue().powei == null){
+            Log.e("testtesttest", "null");
+        }
+        else {
+            Log.e("testtesttest", yangdi.getValue().powei + String.valueOf(yangdi.getValue().powei.isEmpty()));
+        }
     }
 
 

@@ -1,181 +1,208 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activity.GuanmuwuzhongActivity"
-    tools:showIn="@layout/activity_guanmuwuzhong">
+<layout xmlns:bind="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.thcreate.vegsurveyassistant.viewmodel.GuanmuwuzhongActivityViewModel"/>
+    </data>
+
+    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".activity.GuanmuwuzhongActivity"
+        tools:showIn="@layout/activity_guanmuwuzhong">
 
-        <TextView
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/rect"
-            android:text="物种信息"
-            android:textAppearance="@android:style/TextAppearance.Medium"/>
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/rect_nobackground_lrborder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="物种名"
-            android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-        <EditText
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/rect_nobackground_lrbborder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="待填"
-            android:textAppearance="@style/TextAppearance.AppCompat.Menu"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/rect"
+                android:text="@string/wuzhong_info"
+                android:textAppearance="@android:style/TextAppearance.Medium"/>
 
-        <TextView
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/rect_nobackground_lrborder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="树号"
-            android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-        <EditText
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/rect_nobackground_lrbborder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="待填"
-            android:textAppearance="@style/TextAppearance.AppCompat.Menu"/>
+            <TextView
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/wuzhong_name"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:inputType="text"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.wuzhong.wuzhongName}"/>
 
-        <TextView
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/rect_nobackground_lrborder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="标本编号"
-            android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-        <EditText
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/rect_nobackground_lrbborder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="待填"
-            android:textAppearance="@style/TextAppearance.AppCompat.Menu"/>
+            <TextView
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tree_number"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:inputType="text"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.wuzhong.treeNumber}"/>
 
-        <TextView
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/rect_nobackground_lrborder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="基径(cm)"
-            android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-        <EditText
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/rect_nobackground_lrbborder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="待填"
-            android:textAppearance="@style/TextAppearance.AppCompat.Menu"/>
+            <TextView
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/biaoben_code"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:enabled="false"
+                android:inputType="text"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.wuzhong.wuzhongCode}"/>
 
-        <TextView
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/rect_nobackground_lrborder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="高度(cm)"
-            android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-        <EditText
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/rect_nobackground_lrbborder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="待填"
-            android:textAppearance="@style/TextAppearance.AppCompat.Menu"/>
+            <TextView
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/jijing_cm"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:inputType="numberDecimal"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.wuzhong.jijing}"/>
 
-        <TextView
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/rect_nobackground_lrborder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="冠幅X(cm)"
-            android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-        <EditText
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/rect_nobackground_lrbborder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="待填"
-            android:textAppearance="@style/TextAppearance.AppCompat.Menu"/>
+            <TextView
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/height_cm"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:inputType="numberDecimal"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.wuzhong.height}"/>
 
-        <TextView
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/rect_nobackground_lrborder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="冠幅Y(cm)"
-            android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-        <EditText
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/rect_nobackground_lrbborder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="待填"
-            android:textAppearance="@style/TextAppearance.AppCompat.Menu"/>
+            <TextView
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/guanfu_x_cm"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:inputType="numberDecimal"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.wuzhong.guanfuX}"/>
 
-        <TextView
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/rect_nobackground_lrborder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="备注"
-            android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-        <EditText
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/rect_nobackground_lrbborder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="待填"
-            android:textAppearance="@style/TextAppearance.AppCompat.Menu"/>
+            <TextView
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/guanfu_y_cm"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:inputType="numberDecimal"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.wuzhong.guanfuY}"/>
 
-    </LinearLayout>
+            <TextView
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/note"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:inputType="text"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.wuzhong.note}"/>
 
-</android.support.v4.widget.NestedScrollView>
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</layout>

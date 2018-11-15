@@ -102,7 +102,7 @@
                 android:background="@drawable/rect_nobackground_lrborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/qunluo_coverage"
+                android:text="@string/qunluo_coverage_percent"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
             <EditText
                 android:inputType="numberDecimal"
@@ -123,7 +123,7 @@
                 android:background="@drawable/rect_nobackground_lrborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/qunluo_height"
+                android:text="@string/qunluo_height_m"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
             <EditText
                 android:inputType="numberDecimal"
@@ -207,7 +207,7 @@
                 android:background="@drawable/rect_nobackground_lrborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/altitude"
+                android:text="@string/altitude_m"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
             <EditText
                 android:inputType="number"
