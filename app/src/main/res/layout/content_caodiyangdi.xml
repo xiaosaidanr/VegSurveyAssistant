@@ -147,17 +147,19 @@
                 android:background="@drawable/rect_nobackground_lrborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="地貌"
+                android:text="@string/dimao"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
             <EditText
+                android:inputType="text"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="待填"
-                android:textAppearance="@style/TextAppearance.AppCompat.Menu"/>
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.yangdi.dimao}"/>
 
             <TextView
                 android:layout_marginStart="10dp"
@@ -166,17 +168,19 @@
                 android:background="@drawable/rect_nobackground_lrborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="土壤特征"
+                android:text="@string/soil_feature"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
             <EditText
+                android:inputType="text"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="待填"
-                android:textAppearance="@style/TextAppearance.AppCompat.Menu"/>
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.yangdi.soilFeature}"/>
 
             <TextView
                 android:layout_marginStart="10dp"
@@ -185,17 +189,19 @@
                 android:background="@drawable/rect_nobackground_lrborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="人类活动"
+                android:text="@string/human_activity"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
             <EditText
+                android:inputType="text"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="待填"
-                android:textAppearance="@style/TextAppearance.AppCompat.Menu"/>
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.yangdi.humanActivity}"/>
 
             <TextView
                 android:layout_marginStart="10dp"
@@ -204,17 +210,19 @@
                 android:background="@drawable/rect_nobackground_lrborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="经度"
+                android:text="@string/longitude"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
             <EditText
+                android:inputType="numberDecimal"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="待填"
-                android:textAppearance="@style/TextAppearance.AppCompat.Menu"/>
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.yangdi.longitude}"/>
 
             <TextView
                 android:layout_marginStart="10dp"
@@ -223,17 +231,19 @@
                 android:background="@drawable/rect_nobackground_lrborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="纬度"
+                android:text="@string/latitude"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
             <EditText
+                android:inputType="numberDecimal"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="待填"
-                android:textAppearance="@style/TextAppearance.AppCompat.Menu"/>
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.yangdi.latitude}"/>
 
             <TextView
                 android:paddingTop="10dp"
@@ -243,10 +253,51 @@
                 android:background="@drawable/rect_nobackground_lrbborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="自动定位"
+                android:text="@string/auto_position"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
                 android:drawableStart="@drawable/ic_place_black_24dp"
                 android:gravity="center_vertical"/>
+
+            <com.thcreate.vegsurveyassistant.customUi.ExpandableLinearLayoutWithHeader
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rect_nobackground_lrbborder"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/yangfang_number"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+                    <TextView
+                        android:text="0"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Menu"/>
+                </LinearLayout>
+                <TextView
+                    android:paddingTop="10dp"
+                    android:background="@drawable/rect_nobackground_lrbborder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/yangfang_add"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                    android:drawableStart="@android:drawable/ic_input_add"
+                    android:gravity="center_vertical"
+                    android:onClick="onAddYangfang"/>
+
+            </com.thcreate.vegsurveyassistant.customUi.ExpandableLinearLayoutWithHeader>
 
             <TextView
                 android:layout_width="match_parent"
@@ -255,7 +306,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/rect"
-                android:text="样方列表"
+                android:text="@string/yangfang_list"
                 android:textAppearance="@android:style/TextAppearance.Medium"/>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -269,7 +320,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="样方数量"
+                    android:text="@string/yangfang_number"
                     android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
                 <TextView
                     android:text="0"
@@ -288,7 +339,7 @@
                 android:background="@drawable/rect_nobackground_lrbborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="添加样方"
+                android:text="@string/yangfang_add"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
                 android:drawableStart="@android:drawable/ic_input_add"
                 android:gravity="center_vertical"

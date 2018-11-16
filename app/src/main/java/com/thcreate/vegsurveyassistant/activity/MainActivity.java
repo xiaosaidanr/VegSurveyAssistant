@@ -1,6 +1,7 @@
 package com.thcreate.vegsurveyassistant.activity;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.thcreate.vegsurveyassistant.R;
+import com.thcreate.vegsurveyassistant.databinding.ActivityMainBinding;
 import com.thcreate.vegsurveyassistant.viewmodel.MainActivityViewModel;
 import com.thcreate.vegsurveyassistant.fragment.BaseFragment;
 import com.thcreate.vegsurveyassistant.fragment.MyFragment;
@@ -30,15 +32,18 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView navigation;
 
     private MainActivityViewModel mViewModel;
+    private ActivityMainBinding mBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        mBinding.setViewmodel(mViewModel);
+        mBinding.setLifecycleOwner(this);
 
-        setContentView(R.layout.activity_main);
-
+//        setContentView(R.layout.activity_main);
 
         if (savedInstanceState != null){
             if (getSupportFragmentManager().findFragmentByTag(NearbyFragment.class.getName())!=null){

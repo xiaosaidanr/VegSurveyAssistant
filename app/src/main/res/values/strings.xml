@@ -38,6 +38,7 @@
     <string name="dimao">地貌</string>
     <string name="soil_feature">土壤特征</string>
     <string name="powei">坡位</string>
+    <string name="yangfang_list">样方列表</string>
     <string name="guanmuyangfang_list">灌木样方列表</string>
     <string name="caobenyangfang_list">草本样方列表</string>
     <string name="qiaomuyangfang_list">乔木样方列表</string>
