@@ -38,6 +38,11 @@
     <string name="dimao">地貌</string>
     <string name="soil_feature">土壤特征</string>
     <string name="powei">坡位</string>
+    <string name="guanmuyangfang_list">灌木样方列表</string>
+    <string name="caobenyangfang_list">草本样方列表</string>
+    <string name="qiaomuyangfang_list">乔木样方列表</string>
+    <string name="yangfang_number">样方数量</string>
+    <string name="yangfang_add">添加样方</string>
 
     <!-- 样方相关 -->
     <string name="yangfang_info">样方信息</string>
@@ -53,6 +58,8 @@
     <string name="wuzhong_list">物种列表</string>
     <string name="wuzhong_number">物种数量</string>
     <string name="wuzhong_add">物种添加</string>
+    <string name="jijing_average_cm">平均基径(cm)</string>
+    <string name="xiongjing_average_cm">平均胸径(cm)</string>
 
     <!-- 物种相关 -->
     <string name="wuzhong_info">物种信息</string>
@@ -65,6 +72,7 @@
     <string name="biomass_g">生物量(g)</string>
     <string name="tree_number">树号</string>
     <string name="jijing_cm">基径(cm)</string>
+    <string name="xiongjing_cm">胸径(cm)</string>
     <string name="height_cm">高度(cm)</string>
     <string name="guanfu_x_cm">冠幅X(cm)</string>
     <string name="guanfu_y_cm">冠幅Y(cm)</string>
