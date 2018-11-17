@@ -19,22 +19,22 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            >
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
                 android:background="@drawable/rect"
                 android:text="@string/yangdi_info"
                 android:textAppearance="@android:style/TextAppearance.Medium"/>
 
             <TextView
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="0dp"
-                android:layout_marginEnd="10dp"
                 android:background="@drawable/rect_nobackground_lrborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -43,9 +43,7 @@
             <EditText
                 android:enabled="false"
                 android:inputType="text"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="0dp"
-                android:layout_marginEnd="10dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -54,9 +52,7 @@
                 android:text="@={viewmodel.yangdi.yangdiCode}"/>
 
             <TextView
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="0dp"
-                android:layout_marginEnd="10dp"
                 android:background="@drawable/rect_nobackground_lrborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -64,9 +60,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
             <EditText
                 android:inputType="text"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="0dp"
-                android:layout_marginEnd="10dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -75,9 +69,7 @@
                 android:text="@={viewmodel.yangdi.xingzhengRegion}"/>
 
             <TextView
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="0dp"
-                android:layout_marginEnd="10dp"
                 android:background="@drawable/rect_nobackground_lrborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -85,9 +77,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
             <EditText
                 android:inputType="text"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="0dp"
-                android:layout_marginEnd="10dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -96,9 +86,7 @@
                 android:text="@={viewmodel.yangdi.poxiang}"/>
 
             <TextView
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="0dp"
-                android:layout_marginEnd="10dp"
                 android:background="@drawable/rect_nobackground_lrborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -106,9 +94,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
             <EditText
                 android:inputType="number"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="0dp"
-                android:layout_marginEnd="10dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -119,9 +105,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="0dp"
-                android:layout_marginEnd="10dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
                 android:orientation="horizontal">
                 <TextView
@@ -140,9 +124,7 @@
             </RelativeLayout>
 
             <TextView
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="0dp"
-                android:layout_marginEnd="10dp"
                 android:background="@drawable/rect_nobackground_lrborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -150,9 +132,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
             <EditText
                 android:inputType="text"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="0dp"
-                android:layout_marginEnd="10dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -161,9 +141,7 @@
                 android:text="@={viewmodel.yangdi.dimao}"/>
 
             <TextView
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="0dp"
-                android:layout_marginEnd="10dp"
                 android:background="@drawable/rect_nobackground_lrborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -171,9 +149,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
             <EditText
                 android:inputType="text"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="0dp"
-                android:layout_marginEnd="10dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -182,9 +158,7 @@
                 android:text="@={viewmodel.yangdi.soilFeature}"/>
 
             <TextView
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="0dp"
-                android:layout_marginEnd="10dp"
                 android:background="@drawable/rect_nobackground_lrborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -192,9 +166,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
             <EditText
                 android:inputType="text"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="0dp"
-                android:layout_marginEnd="10dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -203,9 +175,7 @@
                 android:text="@={viewmodel.yangdi.humanActivity}"/>
 
             <TextView
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="0dp"
-                android:layout_marginEnd="10dp"
                 android:background="@drawable/rect_nobackground_lrborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -213,9 +183,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
             <EditText
                 android:inputType="numberDecimal"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="0dp"
-                android:layout_marginEnd="10dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -224,9 +192,7 @@
                 android:text="@={viewmodel.yangdi.longitude}"/>
 
             <TextView
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="0dp"
-                android:layout_marginEnd="10dp"
                 android:background="@drawable/rect_nobackground_lrborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -234,9 +200,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
             <EditText
                 android:inputType="numberDecimal"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="0dp"
-                android:layout_marginEnd="10dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -246,9 +210,7 @@
 
             <TextView
                 android:paddingTop="10dp"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="0dp"
-                android:layout_marginEnd="10dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -257,97 +219,107 @@
                 android:drawableStart="@drawable/ic_place_black_24dp"
                 android:gravity="center_vertical"/>
 
-            <TextView
+            <com.thcreate.vegsurveyassistant.customUi.ExpandableLinearLayoutWithHeader
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/rect"
-                android:text="@string/guanmuyangfang_list"
-                android:textAppearance="@android:style/TextAppearance.Medium"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/rect_nobackground_lrbborder"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_marginTop="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/yangfang_number"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-                <TextView
-                    android:text="0"
-                    android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                app:header_title="@string/guanmuyangfang_list"
+                >
+
+                <!--<TextView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginStart="10dp"-->
+                    <!--android:layout_marginTop="10dp"-->
+                    <!--android:layout_marginEnd="10dp"-->
+                    <!--android:background="@drawable/rect"-->
+                    <!--android:text="@string/guanmuyangfang_list"-->
+                    <!--android:textAppearance="@android:style/TextAppearance.Medium"/>-->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Menu"/>
-            </LinearLayout>
-            <TextView
-                android:paddingTop="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/rect_nobackground_lrbborder"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/yangfang_add"
-                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:drawableStart="@android:drawable/ic_input_add"
-                android:gravity="center_vertical"
-                android:onClick="onAddGuanmuyangfang"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/rect"
-                android:text="@string/caobenyangfang_list"
-                android:textAppearance="@android:style/TextAppearance.Medium"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/rect_nobackground_lrbborder"
-                android:orientation="horizontal">
+                    android:layout_marginTop="0dp"
+                    android:background="@drawable/rect_nobackground_lrbborder"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/yangfang_number"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+                    <TextView
+                        android:text="0"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Menu"/>
+                </LinearLayout>
                 <TextView
-                    android:layout_marginTop="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/yangfang_number"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-                <TextView
-                    android:text="0"
-                    android:layout_marginTop="10dp"
+                    android:paddingTop="10dp"
+                    android:layout_marginTop="0dp"
+                    android:background="@drawable/rect_nobackground_lrbborder"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Menu"/>
-            </LinearLayout>
+                    android:text="@string/yangfang_add"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                    android:drawableStart="@android:drawable/ic_input_add"
+                    android:gravity="center_vertical"
+                    android:onClick="onAddGuanmuyangfang"/>
 
-            <TextView
-                android:paddingTop="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/rect_nobackground_lrbborder"
+            </com.thcreate.vegsurveyassistant.customUi.ExpandableLinearLayoutWithHeader>
+
+            <com.thcreate.vegsurveyassistant.customUi.ExpandableLinearLayoutWithHeader
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/yangfang_add"
-                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:drawableStart="@android:drawable/ic_input_add"
-                android:gravity="center_vertical"
-                android:onClick="onAddCaobenyangfang"/>
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                app:header_title="@string/caobenyangfang_list"
+                >
+
+                <!--<TextView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginStart="10dp"-->
+                    <!--android:layout_marginTop="10dp"-->
+                    <!--android:layout_marginEnd="10dp"-->
+                    <!--android:background="@drawable/rect"-->
+                    <!--android:text="@string/caobenyangfang_list"-->
+                    <!--android:textAppearance="@android:style/TextAppearance.Medium"/>-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:background="@drawable/rect_nobackground_lrbborder"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/yangfang_number"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+                    <TextView
+                        android:text="0"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Menu"/>
+                </LinearLayout>
+                <TextView
+                    android:paddingTop="10dp"
+                    android:layout_marginTop="0dp"
+                    android:background="@drawable/rect_nobackground_lrbborder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/yangfang_add"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                    android:drawableStart="@android:drawable/ic_input_add"
+                    android:gravity="center_vertical"
+                    android:onClick="onAddCaobenyangfang"/>
+
+            </com.thcreate.vegsurveyassistant.customUi.ExpandableLinearLayoutWithHeader>
 
         </LinearLayout>
 

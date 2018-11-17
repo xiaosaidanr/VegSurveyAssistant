@@ -1,6 +1,7 @@
 package com.thcreate.vegsurveyassistant.customUi;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -14,8 +15,6 @@ import com.thcreate.vegsurveyassistant.R;
 
 public class ExpandableLinearLayoutWithHeader extends LinearLayout {
 
-    private TextView header;
-
     public ExpandableLinearLayoutWithHeader(Context context) {
         super(context);
         LayoutInflater.from(context).inflate(R.layout.expandable_linearlayout_with_hearder, this);
@@ -24,36 +23,80 @@ public class ExpandableLinearLayoutWithHeader extends LinearLayout {
     public ExpandableLinearLayoutWithHeader(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.expandable_linearlayout_with_hearder, this);
-        init();
+        initParam(context, attrs);
+        initState();
     }
 
     public ExpandableLinearLayoutWithHeader(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         LayoutInflater.from(context).inflate(R.layout.expandable_linearlayout_with_hearder, this);
-        init();
+        initParam(context, attrs);
+        initState();
     }
 
     public ExpandableLinearLayoutWithHeader(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         LayoutInflater.from(context).inflate(R.layout.expandable_linearlayout_with_hearder, this);
-        init();
+        initParam(context, attrs);
+        initState();
     }
 
-    private boolean mIsFold = true;
+    private String headerTitle;
 
-    private void init(){
-        header = findViewById(R.id.expandable_linearlayout_header);
-        Drawable rightArrow = getResources().getDrawable(R.drawable.ic_chevron_right_black_24dp);
-        rightArrow.setBounds(0, 0, rightArrow.getIntrinsicWidth(), rightArrow.getIntrinsicHeight());
-        if (mIsFold){
-            header.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, rightArrow, null);
+    private TextView header;
+
+    private boolean mIsFold;
+
+    private Drawable rightArrow;
+
+    private Drawable downArrow;
+
+    private void initParam(Context context, AttributeSet attrs){
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ExpandableLinearLayoutWithHeader);
+        if (typedArray != null){
+            headerTitle = typedArray.getString(R.styleable.ExpandableLinearLayoutWithHeader_header_title);
         }
+
+    }
+
+    private void initState(){
+        header = findViewById(R.id.expandable_linearlayout_header);
+        header.setText(headerTitle);
+        mIsFold = true;
+        rightArrow = getResources().getDrawable(R.drawable.ic_keyboard_arrow_right_black_24dp);
+        rightArrow.setBounds(0, 0, rightArrow.getIntrinsicWidth(), rightArrow.getIntrinsicHeight());
+        downArrow = getResources().getDrawable(R.drawable.ic_keyboard_arrow_down_black_24dp);
+        downArrow.setBounds(0, 0, downArrow.getIntrinsicWidth(), downArrow.getIntrinsicHeight());
+        header.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, rightArrow, null);
         header.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Log.e("testtesttest", "header clicked");
+                if (mIsFold){
+                    header.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, downArrow, null);
+                    setChildrenVisibility(VISIBLE);
+                }
+                else {
+                    header.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, rightArrow, null);
+                    setChildrenVisibility(GONE);
+                }
+                mIsFold = !mIsFold;
+//                Log.e("testtesttest", "header clicked");
             }
         });
+    }
+
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        setChildrenVisibility(GONE);
+    }
+
+    private void setChildrenVisibility(int visibility){
+        int childrenCount = getChildCount();
+        for (int i=1; i<childrenCount; i++){
+            View view = getChildAt(i);
+            view.setVisibility(visibility);
+        }
     }
 
 }
