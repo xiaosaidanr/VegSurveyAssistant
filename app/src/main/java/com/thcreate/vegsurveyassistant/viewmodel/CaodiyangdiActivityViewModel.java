@@ -9,13 +9,18 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 
+import com.thcreate.vegsurveyassistant.db.entity.CaobenYangfang;
 import com.thcreate.vegsurveyassistant.db.entity.Yangdi;
+
+import java.util.List;
 
 public class CaodiyangdiActivityViewModel extends AndroidViewModel {
 
     private String mCaodiyangdiCode;
 
     public MutableLiveData<Yangdi> yangdi;
+
+    public MutableLiveData<List<CaobenYangfang>> caobenyangfangList;
 
     public CaodiyangdiActivityViewModel(@NonNull Application application, String caodiyangdiCode) {
         super(application);
@@ -24,6 +29,9 @@ public class CaodiyangdiActivityViewModel extends AndroidViewModel {
         yangdi = new MutableLiveData<>();
         yangdi.setValue(new Yangdi(0, "testtesttest", "grass"){
         });
+
+
+
 //        yangdi.getValue().powei = "下坡位";
     }
 

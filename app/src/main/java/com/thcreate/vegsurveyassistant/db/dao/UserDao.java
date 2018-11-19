@@ -16,7 +16,7 @@ import java.util.List;
 //public interface UserDao extends BaseDao<User>{
 public interface UserDao {
 
-//        String IS_NOT_CURRENT_USER = "0";
+//    String IS_NOT_CURRENT_USER = "0";
 //    String IS_CURRENT_USER = "1";
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -34,8 +34,10 @@ public interface UserDao {
     @Query("SELECT * FROM user ORDER BY id ASC")
     LiveData<List<User>> getAllUser();
 
-//    @Query("SELECT * FROM user WHERE is_current_user = " + IS_CURRENT_USER)
     @Query("SELECT * FROM user WHERE is_current_user = 1")
-    LiveData<User> getCurrentUser();
+    LiveData<User> getCurrentUserAsync();
+
+    @Query("SELECT * FROM user WHERE is_current_user = 1")
+    User getCurrentUserSync();
 
 }

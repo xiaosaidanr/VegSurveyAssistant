@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.thcreate.vegsurveyassistant.BasicApp;
+import com.thcreate.vegsurveyassistant.db.entity.User;
 import com.thcreate.vegsurveyassistant.db.entity.Yangdian;
 import com.thcreate.vegsurveyassistant.repository.YangdianDataRepository;
 
@@ -21,17 +22,21 @@ public class YangdianActivityViewModel extends AndroidViewModel {
 
     private String mYangdianCode;
 
+    public LiveData<User> user;
+
     public MutableLiveData<Yangdian> yangdian;
 
     private YangdianDataRepository repository;
 
     public YangdianActivityViewModel(@NonNull Application application, final String yangdianCode) {
         super(application);
-        repository = YangdianDataRepository.getInstance(((BasicApp)application).getDatabase());
         mYangdianCode = yangdianCode;
 
         this.yangdian = new MutableLiveData<>();
-        this.yangdian.setValue(new Yangdian(1, "test"));
+        this.yangdian.setValue(new Yangdian(1, mYangdianCode));
+
+        repository = ((BasicApp)application).getYangdianDataRepository();
+        user = repository.getCurrentUser();
     }
 
 

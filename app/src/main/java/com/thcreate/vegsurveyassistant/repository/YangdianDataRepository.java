@@ -6,10 +6,12 @@ import android.arch.lifecycle.MediatorLiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.Transformations;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.thcreate.vegsurveyassistant.AppExecutors;
 import com.thcreate.vegsurveyassistant.db.AppDatabase;
 import com.thcreate.vegsurveyassistant.db.dao.UserDao;
 import com.thcreate.vegsurveyassistant.db.entity.User;
@@ -23,58 +25,42 @@ public class YangdianDataRepository {
 
     private final AppDatabase mDatabase;
 
-//    private LiveData<User> mCurrentUser;
+    private final Context mApplicationContext;
 
-//    public LiveData<Integer> mCurrentUserId;
+    private final AppExecutors mAppExecutors;
 
-    public MediatorLiveData<Integer> mCurrentUserId;
+    private LiveData<User> mCurrentUser;
 
-//    public class PopluateDbAsync extends AsyncTask<Void, Void, Void> {
-//
-//        private final UserDao mDao;
-//
-//        PopluateDbAsync(AppDatabase db){
-//            mDao = db.userDao();
-//        }
-//
-//        @Override
-//        protected Void doInBackground(final Void... params){
-//            mDao.deleteAll();
-//            User user = new User("Yuan Jiace", 1);
-//            mDao.insert(user);
-//            User userNew = mDatabase.userDao().getCurrentUser();
-//            Log.d("testtesttest", String.valueOf(userNew.id));
-//            return null;
-//        }
-//    }
+    private MediatorLiveData<Integer> mCurrentUserId;
 
-    private YangdianDataRepository(final AppDatabase database){
+    private YangdianDataRepository(final Context context, final AppDatabase database, final AppExecutors appExecutors){
+        mApplicationContext = context;
         mDatabase = database;
-//        PopluateDbAsync task = new PopluateDbAsync(database);
-//        task.execute();
-        database.userDao().getAllUser();
-        mCurrentUserId = new MediatorLiveData<>();
-//        mCurrentUser = database.userDao().getCurrentUser();
-//        mCurrentUserId = Transformations.map(mCurrentUser, new Function<User, Integer>() {
-//            @Override
-//            public Integer apply(User input) {
-//                return input.id;
-//            }
-//        });
+        mAppExecutors = appExecutors;
 
-        mCurrentUserId.addSource(mDatabase.userDao().getCurrentUser(),
-                userEntity -> {
-                    if (mDatabase.getDatabaseCreated().getValue() != null) {
-                        mCurrentUserId.postValue(userEntity.id);
-                    }
-                });
+        appExecutors.diskIO().execute(()->{
+            User user = mDatabase.userDao().getCurrentUserSync();
+            if (user == null){
+                User newUser = new User("13521936487", 1);
+                mDatabase.userDao().insert(newUser);
+            }
+        });
+
+        mCurrentUser = mDatabase.userDao().getCurrentUserAsync();
+        mCurrentUserId = new MediatorLiveData<>();
+        mCurrentUserId.addSource(mCurrentUser,
+            userEntity -> {
+                if (mDatabase.getDatabaseCreated().getValue() != null) {
+                    mCurrentUserId.postValue(userEntity.id);
+                }
+            });
     }
 
-    public static YangdianDataRepository getInstance(final AppDatabase database) {
+    public static YangdianDataRepository getInstance(final Context context, final AppDatabase database, final AppExecutors appExecutors) {
         if (sINSTANCE == null) {
             synchronized (YangdianDataRepository.class) {
                 if (sINSTANCE == null) {
-                    sINSTANCE = new YangdianDataRepository(database);
+                    sINSTANCE = new YangdianDataRepository(context, database, appExecutors);
                 }
             }
         }
@@ -82,6 +68,9 @@ public class YangdianDataRepository {
     }
 
 
+    public LiveData<User> getCurrentUser(){
+        return mCurrentUser;
+    }
 
 //    public LiveData<List<Yangdian>> loadAllYangdian() {
 //        return mDatabase.yangdianDao().getAllYangdianByUserId(mCurrentUserId.getValue());

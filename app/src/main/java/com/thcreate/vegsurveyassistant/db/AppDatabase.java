@@ -44,7 +44,7 @@ import com.thcreate.vegsurveyassistant.db.entity.Yangdian;
 //                QiaomuYangfang.class,
 //                QiaomuWuzhong.class,
 //                Yangdi.class,
-//                Yangdian.class
+                Yangdian.class
         },
         version = 1,
         exportSchema = false
@@ -75,7 +75,7 @@ public abstract class AppDatabase extends RoomDatabase {
 //
 //    public abstract QiaomuWuzhongDao qiaomuWuzhongDao();
 //
-//    public abstract YangdianDao yangdianDao();
+    public abstract YangdianDao yangdianDao();
 
     public static AppDatabase getInstance(final Context context, final AppExecutors executors){
         if (sINSTANCE == null){
@@ -146,22 +146,22 @@ public abstract class AppDatabase extends RoomDatabase {
 //            new PopluateDbAsync(sINSTANCE).execute();
 //        }
 //    };
+
+//    public class PopluateDbAsync extends AsyncTask<Void, Void, Void>{
 //
-    public class PopluateDbAsync extends AsyncTask<Void, Void, Void>{
-
-        private final UserDao mDao;
-
-        PopluateDbAsync(AppDatabase db){
-            mDao = db.userDao();
-        }
-
-        @Override
-        protected Void doInBackground(final Void... params){
-            mDao.deleteAll();
-            User user = new User("Yuan Jiace", 1);
-            mDao.insert(user);
-            return null;
-        }
-    }
+//        private final UserDao mDao;
+//
+//        PopluateDbAsync(AppDatabase db){
+//            mDao = db.userDao();
+//        }
+//
+//        @Override
+//        protected Void doInBackground(final Void... params){
+//            mDao.deleteAll();
+//            User user = new User("Yuan Jiace", 1);
+//            mDao.insert(user);
+//            return null;
+//        }
+//    }
 
 }

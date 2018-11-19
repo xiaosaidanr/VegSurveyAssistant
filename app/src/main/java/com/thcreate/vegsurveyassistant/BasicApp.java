@@ -3,6 +3,7 @@ package com.thcreate.vegsurveyassistant;
 import android.app.Application;
 
 import com.thcreate.vegsurveyassistant.db.AppDatabase;
+import com.thcreate.vegsurveyassistant.repository.YangdianDataRepository;
 
 public class BasicApp extends Application {
 
@@ -18,5 +19,9 @@ public class BasicApp extends Application {
     public AppDatabase getDatabase(){
         return AppDatabase.getInstance(this, mAppExecutors);
     }
+
+    public YangdianDataRepository getYangdianDataRepository(){
+        return YangdianDataRepository.getInstance(this, getDatabase(), mAppExecutors);
+    };
 
 }

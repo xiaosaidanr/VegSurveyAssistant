@@ -92,6 +92,7 @@ public class YangdianFragment extends BaseFragment {
         switch (item.getItemId()){
             case R.id.yangdian_add:
                 intent = new Intent(getActivity(), YangdianActivity.class);
+                intent.putExtra("action", "add");
                 startActivity(intent);
                 return true;
         }
