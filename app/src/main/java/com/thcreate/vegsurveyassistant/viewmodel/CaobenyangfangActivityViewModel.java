@@ -10,27 +10,26 @@ import android.util.Log;
 import android.view.View;
 
 import com.thcreate.vegsurveyassistant.db.entity.CaobenYangfang;
+import com.thcreate.vegsurveyassistant.util.Macro;
 
 public class CaobenyangfangActivityViewModel extends AndroidViewModel {
 
+    private final int mAction;
+    private final String mYangdiCode;
     private final String mYangfangCode;
 
     public MutableLiveData<CaobenYangfang> yangfang;
 
-    public Boolean hasBelongQiaomuyangfang;
-
-    public Boolean hasBelongGuanmuyangfang;
-
-    public CaobenyangfangActivityViewModel(@NonNull Application application, String yangfangCode) {
+    public CaobenyangfangActivityViewModel(@NonNull Application application, int action, String yangdiCode, String yangfangCode) {
         super(application);
+        mAction = action;
+        mYangdiCode = yangdiCode;
         mYangfangCode = yangfangCode;
 
-        yangfang = new MutableLiveData<>();
-        yangfang.setValue(new CaobenYangfang(1, "testtesttest", "testtesttest"));
-
-        hasBelongQiaomuyangfang = false;
-
-        hasBelongGuanmuyangfang = false;
+        if (action == Macro.ACTION_ADD){
+            yangfang = new MutableLiveData<>();
+            yangfang.setValue(new CaobenYangfang(1, mYangdiCode, mYangfangCode));
+        }
     }
 
     public void OnSave(View v){
@@ -47,15 +46,19 @@ public class CaobenyangfangActivityViewModel extends AndroidViewModel {
     public static class Factory extends ViewModelProvider.NewInstanceFactory{
         @NonNull
         private final Application mApplication;
+        private final int mAction;
+        private final String mYangdiCode;
         private final String mYangfangCode;
-        public Factory(@NonNull Application application, String yangfangCode) {
+        public Factory(@NonNull Application application, int action, String yangdiCode, String yangfangCode) {
             mApplication = application;
+            mAction = action;
+            mYangdiCode = yangdiCode;
             mYangfangCode = yangfangCode;
         }
         @Override
         public <T extends ViewModel> T create(Class<T> modelClass) {
             //noinspection unchecked
-            return (T) new CaobenyangfangActivityViewModel(mApplication, mYangfangCode);
+            return (T) new CaobenyangfangActivityViewModel(mApplication, mAction, mYangdiCode, mYangfangCode);
         }
     }
 }

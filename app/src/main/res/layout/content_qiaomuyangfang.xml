@@ -2,7 +2,6 @@
 <layout xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.view.View"/>
         <variable
             name="viewmodel"
             type="com.thcreate.vegsurveyassistant.viewmodel.QiaomuyangfangActivityViewModel"/>
@@ -161,6 +160,7 @@
                 android:text="@string/longitude"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
             <EditText
+                android:id="@+id/longitude_edit_text"
                 android:inputType="numberDecimal"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
@@ -178,6 +178,7 @@
                 android:text="@string/latitude"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
             <EditText
+                android:id="@+id/latitude_edit_text"
                 android:inputType="numberDecimal"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
@@ -196,7 +197,8 @@
                 android:text="@string/auto_position"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
                 android:drawableStart="@drawable/ic_place_black_24dp"
-                android:gravity="center_vertical"/>
+                android:gravity="center_vertical"
+                android:onClick="onAutoPosition"/>
 
             <TextView
                 android:layout_marginTop="0dp"

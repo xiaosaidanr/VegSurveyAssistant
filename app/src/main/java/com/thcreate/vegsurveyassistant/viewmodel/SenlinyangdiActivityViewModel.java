@@ -10,18 +10,23 @@ import android.util.Log;
 import android.view.View;
 
 import com.thcreate.vegsurveyassistant.db.entity.Yangdi;
+import com.thcreate.vegsurveyassistant.util.Macro;
 
 public class SenlinyangdiActivityViewModel extends AndroidViewModel {
 
+    private int mAction;
     private String mSenlinyangdiCode;
 
     public MutableLiveData<Yangdi> yangdi;
 
-    public SenlinyangdiActivityViewModel(@NonNull Application application, String senlinyangdiCode) {
+    public SenlinyangdiActivityViewModel(@NonNull Application application, int action, String senlinyangdiCode) {
         super(application);
+        mAction = action;
         mSenlinyangdiCode = senlinyangdiCode;
-        yangdi = new MutableLiveData<>();
-        yangdi.setValue(new Yangdi(0, "testtesttest", "bush"));
+        if (mAction == Macro.ACTION_ADD){
+            yangdi = new MutableLiveData<>();
+            yangdi.setValue(new Yangdi(1, mSenlinyangdiCode, "tree"));
+        }
     }
 
     public void OnSave(View v){
@@ -38,15 +43,17 @@ public class SenlinyangdiActivityViewModel extends AndroidViewModel {
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
         @NonNull
         private final Application mApplication;
+        private final int mAction;
         private final String mSenlinyangdiCode;
-        public Factory(@NonNull Application application, String senlinyangdiCode) {
+        public Factory(@NonNull Application application, int action, String senlinyangdiCode) {
             mApplication = application;
+            mAction = action;
             mSenlinyangdiCode = senlinyangdiCode;
         }
         @Override
         public <T extends ViewModel> T create(Class<T> modelClass) {
             //noinspection unchecked
-            return (T) new SenlinyangdiActivityViewModel(mApplication, mSenlinyangdiCode);
+            return (T) new SenlinyangdiActivityViewModel(mApplication, mAction, mSenlinyangdiCode);
         }
     }
 

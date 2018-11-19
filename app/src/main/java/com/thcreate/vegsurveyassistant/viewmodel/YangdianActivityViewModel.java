@@ -15,12 +15,14 @@ import com.thcreate.vegsurveyassistant.BasicApp;
 import com.thcreate.vegsurveyassistant.db.entity.User;
 import com.thcreate.vegsurveyassistant.db.entity.Yangdian;
 import com.thcreate.vegsurveyassistant.repository.YangdianDataRepository;
+import com.thcreate.vegsurveyassistant.util.Macro;
 
 import java.util.List;
 
 public class YangdianActivityViewModel extends AndroidViewModel {
 
     private String mYangdianCode;
+    private int mAction;
 
     public LiveData<User> user;
 
@@ -28,17 +30,19 @@ public class YangdianActivityViewModel extends AndroidViewModel {
 
     private YangdianDataRepository repository;
 
-    public YangdianActivityViewModel(@NonNull Application application, final String yangdianCode) {
+    public YangdianActivityViewModel(@NonNull Application application, final int action, final String yangdianCode) {
         super(application);
+        mAction = action;
         mYangdianCode = yangdianCode;
 
-        this.yangdian = new MutableLiveData<>();
-        this.yangdian.setValue(new Yangdian(1, mYangdianCode));
+        if (mAction == Macro.ACTION_ADD){
+            this.yangdian = new MutableLiveData<>();
+            this.yangdian.setValue(new Yangdian(1, mYangdianCode));
+        }
 
         repository = ((BasicApp)application).getYangdianDataRepository();
         user = repository.getCurrentUser();
     }
-
 
     public void OnSave(View v){
         Log.d("testtesttest", yangdian.getValue().yangdianCode);
@@ -52,21 +56,20 @@ public class YangdianActivityViewModel extends AndroidViewModel {
 
 
 
-
-
-
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
         @NonNull
         private final Application mApplication;
+        private final int mAction;
         private final String mYangdianCode;
-        public Factory(@NonNull Application application, String yangdianCode) {
+        public Factory(@NonNull Application application, int action, String yangdianCode) {
             mApplication = application;
+            mAction = action;
             mYangdianCode = yangdianCode;
         }
         @Override
         public <T extends ViewModel> T create(Class<T> modelClass) {
             //noinspection unchecked
-            return (T) new YangdianActivityViewModel(mApplication, mYangdianCode);
+            return (T) new YangdianActivityViewModel(mApplication, mAction, mYangdianCode);
         }
     }
 }

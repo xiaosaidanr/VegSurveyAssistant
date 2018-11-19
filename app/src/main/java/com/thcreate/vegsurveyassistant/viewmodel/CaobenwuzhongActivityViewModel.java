@@ -10,22 +10,25 @@ import android.util.Log;
 import android.view.View;
 
 import com.thcreate.vegsurveyassistant.db.entity.CaobenWuzhong;
+import com.thcreate.vegsurveyassistant.util.Macro;
 
 public class CaobenwuzhongActivityViewModel extends AndroidViewModel {
 
     private final String mYangfangCode;
-
+    private final int mAction;
     private final String mWuzhongCode;
 
     public MutableLiveData<CaobenWuzhong> wuzhong;
 
-    public CaobenwuzhongActivityViewModel(@NonNull Application application, String yangfangCode, String wuzhongCode) {
+    public CaobenwuzhongActivityViewModel(@NonNull Application application, int action, String yangfangCode, String wuzhongCode) {
         super(application);
         mYangfangCode = yangfangCode;
+        mAction = action;
         mWuzhongCode = wuzhongCode;
-
-        wuzhong = new MutableLiveData<>();
-        wuzhong.setValue(new CaobenWuzhong(1, "testtesttest", "testtesttest"));
+        if (action == Macro.ACTION_ADD){
+            wuzhong = new MutableLiveData<>();
+            wuzhong.setValue(new CaobenWuzhong(1, mYangfangCode, mWuzhongCode));
+        }
     }
 
     public void OnSave(View v){
@@ -41,16 +44,18 @@ public class CaobenwuzhongActivityViewModel extends AndroidViewModel {
         @NonNull
         private final Application mApplication;
         private final String mYangfangCode;
+        private final int mAction;
         private final String mWuzhongCode;
-        public Factory(@NonNull Application application, String yangfangCode, String wuzhongCode) {
+        public Factory(@NonNull Application application, int action, String yangfangCode, String wuzhongCode) {
             mApplication = application;
             mYangfangCode = yangfangCode;
+            mAction = action;
             mWuzhongCode = wuzhongCode;
         }
         @Override
         public <T extends ViewModel> T create(Class<T> modelClass) {
             //noinspection unchecked
-            return (T) new CaobenwuzhongActivityViewModel(mApplication, mYangfangCode, mWuzhongCode);
+            return (T) new CaobenwuzhongActivityViewModel(mApplication, mAction, mYangfangCode, mWuzhongCode);
         }
     }
 }

@@ -10,21 +10,25 @@ import android.util.Log;
 import android.view.View;
 
 import com.thcreate.vegsurveyassistant.db.entity.GuanmuWuzhong;
+import com.thcreate.vegsurveyassistant.util.Macro;
 
 public class GuanmuwuzhongActivityViewModel extends AndroidViewModel {
 
     private final String mYangfangCode;
-
+    private final int mAction;
     private final String mWuzhongCode;
 
     public MutableLiveData<GuanmuWuzhong> wuzhong;
 
-    public GuanmuwuzhongActivityViewModel(@NonNull Application application, String yangfangCode, String wuzhongCode) {
+    public GuanmuwuzhongActivityViewModel(@NonNull Application application, int action, String yangfangCode, String wuzhongCode) {
         super(application);
         mYangfangCode = yangfangCode;
+        mAction = action;
         mWuzhongCode = wuzhongCode;
-        wuzhong = new MutableLiveData<>();
-        wuzhong.setValue(new GuanmuWuzhong(1, "testtesttest", "testtesttest"));
+        if (mAction == Macro.ACTION_ADD){
+            wuzhong = new MutableLiveData<>();
+            wuzhong.setValue(new GuanmuWuzhong(1, mYangfangCode, mWuzhongCode));
+        }
     }
 
     public void OnSave(View v){
@@ -40,16 +44,18 @@ public class GuanmuwuzhongActivityViewModel extends AndroidViewModel {
         @NonNull
         private final Application mApplication;
         private final String mYangfangCode;
+        private final int mAction;
         private final String mWuzhongCode;
-        public Factory(@NonNull Application application, String yangfangCode, String wuzhongCode) {
+        public Factory(@NonNull Application application, int action, String yangfangCode, String wuzhongCode) {
             mApplication = application;
             mYangfangCode = yangfangCode;
+            mAction = action;
             mWuzhongCode = wuzhongCode;
         }
         @Override
         public <T extends ViewModel> T create(Class<T> modelClass) {
             //noinspection unchecked
-            return (T) new GuanmuwuzhongActivityViewModel(mApplication, mYangfangCode, mWuzhongCode);
+            return (T) new GuanmuwuzhongActivityViewModel(mApplication, mAction, mYangfangCode, mWuzhongCode);
         }
     }
 }

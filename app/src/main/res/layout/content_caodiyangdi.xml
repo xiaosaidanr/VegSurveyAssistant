@@ -183,6 +183,7 @@
                 android:text="@string/longitude"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
             <EditText
+                android:id="@+id/longitude_edit_text"
                 android:inputType="numberDecimal"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
@@ -200,6 +201,7 @@
                 android:text="@string/latitude"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
             <EditText
+                android:id="@+id/latitude_edit_text"
                 android:inputType="numberDecimal"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
@@ -218,7 +220,8 @@
                 android:text="@string/auto_position"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
                 android:drawableStart="@drawable/ic_place_black_24dp"
-                android:gravity="center_vertical"/>
+                android:gravity="center_vertical"
+                android:onClick="onAutoPosition"/>
 
             <com.thcreate.vegsurveyassistant.customUi.ExpandableLinearLayoutWithHeader
                 android:layout_width="match_parent"

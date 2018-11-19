@@ -31,4 +31,24 @@ public class BindingUtils {
         return (String) pAppCompatSpinner.getSelectedItem();
     }
 
+    //    @InverseMethod("stringToDate")
+//    public static String dateToString(EditText view, Date oldValue,
+//                                      Date value) {
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
+//        return formatter.format(value);
+//    }
+//
+//    public static Date stringToDate(EditText view, String oldValue,
+//                                    String value) {
+//        // Converts String to long.
+//        try {
+//            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
+//            return formatter.parse(value);
+//        }
+//        catch (Exception e){
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
+
 }

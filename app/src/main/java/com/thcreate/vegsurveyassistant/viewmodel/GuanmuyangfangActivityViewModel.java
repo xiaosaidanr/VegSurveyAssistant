@@ -10,23 +10,25 @@ import android.util.Log;
 import android.view.View;
 
 import com.thcreate.vegsurveyassistant.db.entity.GuanmuYangfang;
+import com.thcreate.vegsurveyassistant.util.Macro;
 
 public class GuanmuyangfangActivityViewModel extends AndroidViewModel {
 
+    private final String mYangdiCode;
+    private final int mAction;
     private final String mYangfangCode;
 
     public MutableLiveData<GuanmuYangfang> yangfang;
 
-    public Boolean hasBelongQiaomuyangfang;
-
-    public GuanmuyangfangActivityViewModel(@NonNull Application application, String yangfangCode) {
+    public GuanmuyangfangActivityViewModel(@NonNull Application application, int action, String yangdiCode, String yangfangCode) {
         super(application);
+        mYangdiCode = yangdiCode;
+        mAction = action;
         mYangfangCode = yangfangCode;
-
-        yangfang = new MutableLiveData<>();
-        yangfang.setValue(new GuanmuYangfang(1, "testtesttest", "testtesttest"));
-
-        hasBelongQiaomuyangfang = false;
+        if (action == Macro.ACTION_ADD){
+            yangfang = new MutableLiveData<>();
+            yangfang.setValue(new GuanmuYangfang(1, mYangdiCode, mYangfangCode));
+        }
     }
 
     public void OnSave(View v){
@@ -41,15 +43,19 @@ public class GuanmuyangfangActivityViewModel extends AndroidViewModel {
     public static class Factory extends ViewModelProvider.NewInstanceFactory{
         @NonNull
         private final Application mApplication;
+        private final String mYangdiCode;
+        private final int mAction;
         private final String mYangfangCode;
-        public Factory(@NonNull Application application, String yangfangCode) {
+        public Factory(@NonNull Application application, int action, String yangdiCode, String yangfangCode) {
             mApplication = application;
+            mYangdiCode = yangdiCode;
+            mAction = action;
             mYangfangCode = yangfangCode;
         }
         @Override
         public <T extends ViewModel> T create(Class<T> modelClass) {
             //noinspection unchecked
-            return (T) new GuanmuyangfangActivityViewModel(mApplication, mYangfangCode);
+            return (T) new GuanmuyangfangActivityViewModel(mApplication, mAction, mYangdiCode, mYangfangCode);
         }
     }
 }

@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 
 import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.activity.YangdianActivity;
+import com.thcreate.vegsurveyassistant.util.Macro;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -92,7 +93,7 @@ public class YangdianFragment extends BaseFragment {
         switch (item.getItemId()){
             case R.id.yangdian_add:
                 intent = new Intent(getActivity(), YangdianActivity.class);
-                intent.putExtra("action", "add");
+                intent.putExtra(Macro.ACTION, Macro.ACTION_ADD);
                 startActivity(intent);
                 return true;
         }

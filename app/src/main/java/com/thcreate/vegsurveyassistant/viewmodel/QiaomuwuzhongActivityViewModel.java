@@ -11,21 +11,25 @@ import android.view.View;
 
 import com.thcreate.vegsurveyassistant.db.entity.GuanmuWuzhong;
 import com.thcreate.vegsurveyassistant.db.entity.QiaomuWuzhong;
+import com.thcreate.vegsurveyassistant.util.Macro;
 
 public class QiaomuwuzhongActivityViewModel extends AndroidViewModel {
 
     private final String mYangfangCode;
-
+    private final int mAction;
     private final String mWuzhongCode;
 
     public MutableLiveData<QiaomuWuzhong> wuzhong;
 
-    public QiaomuwuzhongActivityViewModel(@NonNull Application application, String yangfangCode, String wuzhongCode) {
+    public QiaomuwuzhongActivityViewModel(@NonNull Application application, int action, String yangfangCode, String wuzhongCode) {
         super(application);
         mYangfangCode = yangfangCode;
+        mAction = action;
         mWuzhongCode = wuzhongCode;
-        wuzhong = new MutableLiveData<>();
-        wuzhong.setValue(new QiaomuWuzhong(1, "testtesttest", "testtesttest"));
+        if (mAction == Macro.ACTION_ADD){
+            wuzhong = new MutableLiveData<>();
+            wuzhong.setValue(new QiaomuWuzhong(1, mYangfangCode, mWuzhongCode));
+        }
     }
 
     public void OnSave(View v){
@@ -41,16 +45,18 @@ public class QiaomuwuzhongActivityViewModel extends AndroidViewModel {
         @NonNull
         private final Application mApplication;
         private final String mYangfangCode;
+        private final int mAction;
         private final String mWuzhongCode;
-        public Factory(@NonNull Application application, String yangfangCode, String wuzhongCode) {
+        public Factory(@NonNull Application application, int action, String yangfangCode, String wuzhongCode) {
             mApplication = application;
             mYangfangCode = yangfangCode;
+            mAction = action;
             mWuzhongCode = wuzhongCode;
         }
         @Override
         public <T extends ViewModel> T create(Class<T> modelClass) {
             //noinspection unchecked
-            return (T) new QiaomuwuzhongActivityViewModel(mApplication, mYangfangCode, mWuzhongCode);
+            return (T) new QiaomuwuzhongActivityViewModel(mApplication, mAction, mYangfangCode, mWuzhongCode);
         }
     }
 }

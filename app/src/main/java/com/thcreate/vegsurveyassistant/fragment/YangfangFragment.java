@@ -22,6 +22,10 @@ import com.thcreate.vegsurveyassistant.activity.CaodiyangdiActivity;
 import com.thcreate.vegsurveyassistant.activity.GuancongyangdiActivity;
 import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.activity.SenlinyangdiActivity;
+import com.thcreate.vegsurveyassistant.util.Macro;
+
+import java.lang.reflect.Type;
+import java.util.Observer;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -104,22 +108,29 @@ public class YangfangFragment extends BaseFragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent = null;
+        Class type = null;
         switch (item.getItemId()){
             case R.id.caodiyangfang_add:
-                intent = new Intent(getActivity(), CaodiyangdiActivity.class);
-                startActivity(intent);
-                return true;
+                type = CaodiyangdiActivity.class;
+                break;
             case R.id.guancongyangfang_add:
-                intent = new Intent(getActivity(), GuancongyangdiActivity.class);
-                startActivity(intent);
-                return true;
+                type = GuancongyangdiActivity.class;
+                break;
             case R.id.senlinyangfang_add:
-                intent = new Intent(getActivity(), SenlinyangdiActivity.class);
-                startActivity(intent);
-                return true;
+                type = SenlinyangdiActivity.class;
+                break;
+            default:
+                break;
         }
-        return false;
+        if (type != null){
+            Intent intent = new Intent(getActivity(), type);
+            intent.putExtra(Macro.ACTION, Macro.ACTION_ADD);
+            startActivity(intent);
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
 //    @Override

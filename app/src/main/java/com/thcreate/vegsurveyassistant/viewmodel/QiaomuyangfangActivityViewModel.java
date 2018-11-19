@@ -11,19 +11,25 @@ import android.view.View;
 
 import com.thcreate.vegsurveyassistant.db.entity.GuanmuYangfang;
 import com.thcreate.vegsurveyassistant.db.entity.QiaomuYangfang;
+import com.thcreate.vegsurveyassistant.util.Macro;
 
 public class QiaomuyangfangActivityViewModel extends AndroidViewModel {
 
+    private final String mYangdiCode;
+    private final int mAction;
     private final String mYangfangCode;
 
     public MutableLiveData<QiaomuYangfang> yangfang;
 
-    public QiaomuyangfangActivityViewModel(@NonNull Application application, String yangfangCode) {
+    public QiaomuyangfangActivityViewModel(@NonNull Application application, int action, String yangdiCode, String yangfangCode) {
         super(application);
+        mYangdiCode = yangdiCode;
+        mAction = action;
         mYangfangCode = yangfangCode;
-
-        yangfang = new MutableLiveData<>();
-        yangfang.setValue(new QiaomuYangfang(1, "testtesttest", "testtesttest"));
+        if (mAction == Macro.ACTION_ADD){
+            yangfang = new MutableLiveData<>();
+            yangfang.setValue(new QiaomuYangfang(1, mYangdiCode, mYangfangCode));
+        }
     }
 
     public void OnSave(View v){
@@ -38,15 +44,19 @@ public class QiaomuyangfangActivityViewModel extends AndroidViewModel {
     public static class Factory extends ViewModelProvider.NewInstanceFactory{
         @NonNull
         private final Application mApplication;
+        private final String mYangdiCode;
+        private final int mAction;
         private final String mYangfangCode;
-        public Factory(@NonNull Application application, String yangfangCode) {
+        public Factory(@NonNull Application application, int action, String yangdiCode, String yangfangCode) {
             mApplication = application;
+            mYangdiCode = yangdiCode;
+            mAction = action;
             mYangfangCode = yangfangCode;
         }
         @Override
         public <T extends ViewModel> T create(Class<T> modelClass) {
             //noinspection unchecked
-            return (T) new QiaomuyangfangActivityViewModel(mApplication, mYangfangCode);
+            return (T) new QiaomuyangfangActivityViewModel(mApplication, mAction, mYangdiCode, mYangfangCode);
         }
     }
 }

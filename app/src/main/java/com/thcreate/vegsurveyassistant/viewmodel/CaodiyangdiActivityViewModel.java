@@ -11,33 +11,33 @@ import android.view.View;
 
 import com.thcreate.vegsurveyassistant.db.entity.CaobenYangfang;
 import com.thcreate.vegsurveyassistant.db.entity.Yangdi;
+import com.thcreate.vegsurveyassistant.util.Macro;
 
 import java.util.List;
 
 public class CaodiyangdiActivityViewModel extends AndroidViewModel {
 
+    private int mAction;
     private String mCaodiyangdiCode;
 
     public MutableLiveData<Yangdi> yangdi;
 
     public MutableLiveData<List<CaobenYangfang>> caobenyangfangList;
 
-    public CaodiyangdiActivityViewModel(@NonNull Application application, String caodiyangdiCode) {
+    public CaodiyangdiActivityViewModel(@NonNull Application application, int action, String caodiyangdiCode) {
         super(application);
+        mAction = action;
         mCaodiyangdiCode = caodiyangdiCode;
 
-        yangdi = new MutableLiveData<>();
-        yangdi.setValue(new Yangdi(0, "testtesttest", "grass"){
-        });
+        if (action == Macro.ACTION_ADD){
+            yangdi = new MutableLiveData<>();
+            yangdi.setValue(new Yangdi(1, mCaodiyangdiCode, "grass"){
+            });
+        }
 
-
-
-//        yangdi.getValue().powei = "下坡位";
     }
 
     public void OnSave(View v){
-//        yangdi.getValue().powei = "上坡位";
-//        yangdi.notify();
         if (yangdi.getValue().powei == null){
             Log.e("testtesttest", "null");
         }
@@ -48,20 +48,20 @@ public class CaodiyangdiActivityViewModel extends AndroidViewModel {
 
 
 
-
-
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
         @NonNull
         private final Application mApplication;
+        private final int mAction;
         private final String mCaodiyangdiCode;
-        public Factory(@NonNull Application application, String caodiyangdiCode) {
+        public Factory(@NonNull Application application, int action, String caodiyangdiCode) {
             mApplication = application;
+            mAction = action;
             mCaodiyangdiCode = caodiyangdiCode;
         }
         @Override
         public <T extends ViewModel> T create(Class<T> modelClass) {
             //noinspection unchecked
-            return (T) new CaodiyangdiActivityViewModel(mApplication, mCaodiyangdiCode);
+            return (T) new CaodiyangdiActivityViewModel(mApplication, mAction, mCaodiyangdiCode);
         }
     }
 }
