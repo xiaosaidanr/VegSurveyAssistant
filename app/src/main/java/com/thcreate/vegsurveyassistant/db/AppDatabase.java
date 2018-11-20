@@ -37,13 +37,13 @@ import com.thcreate.vegsurveyassistant.db.entity.Yangdian;
 @Database(
         entities = {
                 User.class,
-//                CaobenYangfang.class,
-//                CaobenWuzhong.class,
-//                GuanmuYangfang.class,
-//                GuanmuWuzhong.class,
-//                QiaomuYangfang.class,
-//                QiaomuWuzhong.class,
-//                Yangdi.class,
+                CaobenYangfang.class,
+                CaobenWuzhong.class,
+                GuanmuYangfang.class,
+                GuanmuWuzhong.class,
+                QiaomuYangfang.class,
+                QiaomuWuzhong.class,
+                Yangdi.class,
                 Yangdian.class
         },
         version = 1,
@@ -61,20 +61,20 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract UserDao userDao();
 
-//    public abstract YangdiDao yangdiDao();
-//
-//    public abstract CaobenYangfangDao caobenYangfangDao();
-//
-//    public abstract CaobenWuzhongDao caobenWuzhongDao();
-//
-//    public abstract GuanmuYangfangDao guanmuYangfangDao();
-//
-//    public abstract GuanmuWuzhongDao guanmuWuzhongDao();
-//
-//    public abstract QiaomuYangfangDao qiaomuYangfangDao();
-//
-//    public abstract QiaomuWuzhongDao qiaomuWuzhongDao();
-//
+    public abstract YangdiDao yangdiDao();
+
+    public abstract CaobenYangfangDao caobenYangfangDao();
+
+    public abstract CaobenWuzhongDao caobenWuzhongDao();
+
+    public abstract GuanmuYangfangDao guanmuYangfangDao();
+
+    public abstract GuanmuWuzhongDao guanmuWuzhongDao();
+
+    public abstract QiaomuYangfangDao qiaomuYangfangDao();
+
+    public abstract QiaomuWuzhongDao qiaomuWuzhongDao();
+
     public abstract YangdianDao yangdianDao();
 
     public static AppDatabase getInstance(final Context context, final AppExecutors executors){

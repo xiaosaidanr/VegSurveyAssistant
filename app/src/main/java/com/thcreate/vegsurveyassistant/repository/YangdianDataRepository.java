@@ -24,14 +24,10 @@ public class YangdianDataRepository {
     private static YangdianDataRepository sINSTANCE;
 
     private final AppDatabase mDatabase;
-
     private final Context mApplicationContext;
-
     private final AppExecutors mAppExecutors;
 
     private LiveData<User> mCurrentUser;
-
-    private MediatorLiveData<Integer> mCurrentUserId;
 
     private YangdianDataRepository(final Context context, final AppDatabase database, final AppExecutors appExecutors){
         mApplicationContext = context;
@@ -47,13 +43,6 @@ public class YangdianDataRepository {
         });
 
         mCurrentUser = mDatabase.userDao().getCurrentUserAsync();
-        mCurrentUserId = new MediatorLiveData<>();
-        mCurrentUserId.addSource(mCurrentUser,
-            userEntity -> {
-                if (mDatabase.getDatabaseCreated().getValue() != null) {
-                    mCurrentUserId.postValue(userEntity.id);
-                }
-            });
     }
 
     public static YangdianDataRepository getInstance(final Context context, final AppDatabase database, final AppExecutors appExecutors) {
@@ -67,25 +56,32 @@ public class YangdianDataRepository {
         return sINSTANCE;
     }
 
-
     public LiveData<User> getCurrentUser(){
         return mCurrentUser;
     }
 
 //    public LiveData<List<Yangdian>> loadAllYangdian() {
-//        return mDatabase.yangdianDao().getAllYangdianByUserId(mCurrentUserId.getValue());
+//        return mDatabase.yangdianDao().getAllYangdianByUserId();
 //    }
-//
-//    public LiveData<Yangdian> getYangdianByYangdianCode(String yangdianCode){
-//        return mDatabase.yangdianDao().getYangdianByYangdianCode(yangdianCode);
-//    }
-//
-//    public void insertYangdian(Yangdian data){
-//
-//    }
-//
-//    public void updateYangdian(Yangdian data){
-//
-//    }
+
+    public LiveData<Yangdian> getYangdianByYangdianCode(String yangdianCode){
+        return mDatabase.yangdianDao().getYangdianByYangdianCode(yangdianCode);
+    }
+
+    public void insertYangdian(Yangdian data){
+        mAppExecutors.diskIO().execute(()->{
+            User currentUser = mDatabase.userDao().getCurrentUserSync();
+            if (currentUser != null){
+                data.userId = currentUser.id;
+                mDatabase.yangdianDao().insert(data);
+            }
+        });
+    }
+
+    public void updateYangdian(Yangdian data){
+        mAppExecutors.diskIO().execute(()->{
+            mDatabase.yangdianDao().update(data);
+        });
+    }
 
 }

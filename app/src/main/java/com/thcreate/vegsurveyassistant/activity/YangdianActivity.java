@@ -60,6 +60,9 @@ public class YangdianActivity extends AppCompatActivity implements DatePickerDia
         dateText = findViewById(R.id.date_selected);
         longitutdeEditText = findViewById(R.id.longitude_edit_text);
         latitudeEditText = findViewById(R.id.latitude_edit_text);
+        findViewById(R.id.fab).setOnClickListener((v)->{
+            save();
+        });
     }
 
 
@@ -77,8 +80,16 @@ public class YangdianActivity extends AppCompatActivity implements DatePickerDia
     }
 
 
+
     public void onAutoPosition(View v){
         longitutdeEditText.setText("testtesttest");
         latitudeEditText.setText("testtesttest");
+    }
+
+
+
+    public void save(){
+        mViewModel.Save();
+        finish();
     }
 }

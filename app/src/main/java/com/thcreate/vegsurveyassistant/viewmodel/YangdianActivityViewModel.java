@@ -17,6 +17,7 @@ import com.thcreate.vegsurveyassistant.db.entity.Yangdian;
 import com.thcreate.vegsurveyassistant.repository.YangdianDataRepository;
 import com.thcreate.vegsurveyassistant.util.Macro;
 
+import java.util.Date;
 import java.util.List;
 
 public class YangdianActivityViewModel extends AndroidViewModel {
@@ -26,7 +27,7 @@ public class YangdianActivityViewModel extends AndroidViewModel {
 
     public LiveData<User> user;
 
-    public MutableLiveData<Yangdian> yangdian;
+    public LiveData<Yangdian> yangdian;
 
     private YangdianDataRepository repository;
 
@@ -35,22 +36,42 @@ public class YangdianActivityViewModel extends AndroidViewModel {
         mAction = action;
         mYangdianCode = yangdianCode;
 
-        if (mAction == Macro.ACTION_ADD){
-            this.yangdian = new MutableLiveData<>();
-            this.yangdian.setValue(new Yangdian(1, mYangdianCode));
-        }
-
         repository = ((BasicApp)application).getYangdianDataRepository();
         user = repository.getCurrentUser();
+
+//        mAction = Macro.ACTION_EDIT;
+
+        initYangdian();
+
     }
 
-    public void OnSave(View v){
-        Log.d("testtesttest", yangdian.getValue().yangdianCode);
-        if (yangdian.getValue().investigateDate == null){
-            Log.d("testtesttest", "null");
+    private void initYangdian(){
+        switch (mAction){
+            case Macro.ACTION_ADD:
+                MutableLiveData<Yangdian> newData = new MutableLiveData<>();
+                newData.setValue(new Yangdian(0, mYangdianCode));
+                yangdian = newData;
+                break;
+            case Macro.ACTION_EDIT:
+                yangdian = repository.getYangdianByYangdianCode(mYangdianCode);
+                break;
+            default:
+                break;
         }
-        else {
-            Log.d("testtesttest", yangdian.getValue().investigateDate + String.valueOf(yangdian.getValue().investigateDate.isEmpty()));
+    }
+
+    public void Save(){
+        Yangdian yangdianRaw = yangdian.getValue();
+        if (yangdianRaw != null){
+            Date dateNow = new Date();
+            yangdianRaw.modifyAt = dateNow;
+            if (mAction == Macro.ACTION_ADD){
+                yangdianRaw.createAt = dateNow;
+                repository.insertYangdian(yangdianRaw);
+            }
+            if (mAction == Macro.ACTION_EDIT){
+                repository.updateYangdian(yangdianRaw);
+            }
         }
     }
 

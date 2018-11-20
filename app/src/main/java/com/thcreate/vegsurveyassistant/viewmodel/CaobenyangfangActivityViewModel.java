@@ -2,6 +2,7 @@ package com.thcreate.vegsurveyassistant.viewmodel;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
@@ -9,8 +10,12 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 
+import com.thcreate.vegsurveyassistant.BasicApp;
 import com.thcreate.vegsurveyassistant.db.entity.CaobenYangfang;
+import com.thcreate.vegsurveyassistant.repository.YangfangDataRepository;
 import com.thcreate.vegsurveyassistant.util.Macro;
+
+import java.util.Date;
 
 public class CaobenyangfangActivityViewModel extends AndroidViewModel {
 
@@ -18,7 +23,9 @@ public class CaobenyangfangActivityViewModel extends AndroidViewModel {
     private final String mYangdiCode;
     private final String mYangfangCode;
 
-    public MutableLiveData<CaobenYangfang> yangfang;
+    public LiveData<CaobenYangfang> yangfang;
+
+    private YangfangDataRepository repository;
 
     public CaobenyangfangActivityViewModel(@NonNull Application application, int action, String yangdiCode, String yangfangCode) {
         super(application);
@@ -26,18 +33,39 @@ public class CaobenyangfangActivityViewModel extends AndroidViewModel {
         mYangdiCode = yangdiCode;
         mYangfangCode = yangfangCode;
 
-        if (action == Macro.ACTION_ADD){
-            yangfang = new MutableLiveData<>();
-            yangfang.setValue(new CaobenYangfang(1, mYangdiCode, mYangfangCode));
+        repository = ((BasicApp)application).getYangfangDataRepository();
+
+        initYangfang();
+    }
+    private void initYangfang(){
+        switch (mAction){
+            case Macro.ACTION_ADD:
+                MutableLiveData<CaobenYangfang> newData = new MutableLiveData<>();
+                newData.setValue(new CaobenYangfang(0, mYangdiCode, mYangfangCode));
+                yangfang = newData;
+                break;
+            case Macro.ACTION_EDIT:
+                yangfang = repository.getCaobenYangfangByYangfangCode(mYangfangCode);
+                break;
+            default:
+                break;
         }
     }
 
-    public void OnSave(View v){
-        if (yangfang.getValue().yangfangCode == null){
-            Log.e("testtesttest", "null");
-        }
-        else {
-            Log.e("testtesttest", yangfang.getValue().yangfangCode + String.valueOf(yangfang.getValue().yangfangCode.isEmpty()));
+
+
+    public void save(){
+        CaobenYangfang yangfangRaw = yangfang.getValue();
+        if (yangfangRaw != null){
+            Date dateNow = new Date();
+            yangfangRaw.modifyAt = dateNow;
+            if (mAction == Macro.ACTION_ADD){
+                yangfangRaw.createAt = dateNow;
+                repository.insertCaobenyf(yangfangRaw);
+            }
+            if (mAction == Macro.ACTION_EDIT){
+                repository.updateCaobenyf(yangfangRaw);
+            }
         }
     }
 

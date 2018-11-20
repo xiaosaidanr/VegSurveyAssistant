@@ -32,12 +32,12 @@
                 android:background="@drawable/rect"
                 android:text="@string/yangdian_info"
                 android:textAppearance="@android:style/TextAppearance.Medium"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rect"
-                android:text="@{viewmodel.user.phone}"
-                android:textAppearance="@android:style/TextAppearance.Medium"/>
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@drawable/rect"-->
+                <!--android:text="@{viewmodel.user.phone}"-->
+                <!--android:textAppearance="@android:style/TextAppearance.Medium"/>-->
 
             <TextView
                 android:layout_marginTop="0dp"

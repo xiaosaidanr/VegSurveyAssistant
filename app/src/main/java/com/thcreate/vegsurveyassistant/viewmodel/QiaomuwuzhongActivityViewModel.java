@@ -2,16 +2,18 @@ package com.thcreate.vegsurveyassistant.viewmodel;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
-import android.util.Log;
-import android.view.View;
 
-import com.thcreate.vegsurveyassistant.db.entity.GuanmuWuzhong;
+import com.thcreate.vegsurveyassistant.BasicApp;
 import com.thcreate.vegsurveyassistant.db.entity.QiaomuWuzhong;
+import com.thcreate.vegsurveyassistant.repository.WuzhongDataRepository;
 import com.thcreate.vegsurveyassistant.util.Macro;
+
+import java.util.Date;
 
 public class QiaomuwuzhongActivityViewModel extends AndroidViewModel {
 
@@ -19,27 +21,51 @@ public class QiaomuwuzhongActivityViewModel extends AndroidViewModel {
     private final int mAction;
     private final String mWuzhongCode;
 
-    public MutableLiveData<QiaomuWuzhong> wuzhong;
+    public LiveData<QiaomuWuzhong> wuzhong;
+
+    private WuzhongDataRepository repository;
 
     public QiaomuwuzhongActivityViewModel(@NonNull Application application, int action, String yangfangCode, String wuzhongCode) {
         super(application);
         mYangfangCode = yangfangCode;
         mAction = action;
         mWuzhongCode = wuzhongCode;
-        if (mAction == Macro.ACTION_ADD){
-            wuzhong = new MutableLiveData<>();
-            wuzhong.setValue(new QiaomuWuzhong(1, mYangfangCode, mWuzhongCode));
+
+        repository = ((BasicApp)application).getWuzhongDataRepository();
+
+        initWuzhong();
+    }
+    private void initWuzhong(){
+        switch (mAction){
+            case Macro.ACTION_ADD:
+                MutableLiveData<QiaomuWuzhong> newData = new MutableLiveData<>();
+                newData.setValue(new QiaomuWuzhong(0, mYangfangCode, mWuzhongCode));
+                wuzhong = newData;
+                break;
+            case Macro.ACTION_EDIT:
+                wuzhong = repository.getQiaomuWuzhongByWuzhongCode(mWuzhongCode);
+                break;
+            default:
+                break;
         }
     }
 
-    public void OnSave(View v){
-        if (wuzhong.getValue().wuzhongCode == null){
-            Log.e("testtesttest", "null");
-        }
-        else {
-            Log.e("testtesttest", wuzhong.getValue().wuzhongCode + String.valueOf(wuzhong.getValue().wuzhongCode.isEmpty()));
+    public void save(){
+        QiaomuWuzhong wuzhongRaw = wuzhong.getValue();
+        if (wuzhongRaw != null){
+            Date dateNow = new Date();
+            wuzhongRaw.modifyAt = dateNow;
+            if (mAction == Macro.ACTION_ADD){
+                wuzhongRaw.createAt = dateNow;
+                repository.insertQiaomuwz(wuzhongRaw);
+            }
+            if (mAction == Macro.ACTION_EDIT){
+                repository.updateQiaomuwz(wuzhongRaw);
+            }
         }
     }
+
+
 
     public static class Factory extends ViewModelProvider.NewInstanceFactory{
         @NonNull

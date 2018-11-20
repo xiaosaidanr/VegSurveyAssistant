@@ -58,6 +58,9 @@ public class SenlinyangdiActivity extends AppCompatActivity {
         setSupportActionBar(findViewById(R.id.toolbar));
         longitutdeEditText = findViewById(R.id.longitude_edit_text);
         latitudeEditText = findViewById(R.id.latitude_edit_text);
+        findViewById(R.id.fab).setOnClickListener((v)->{
+            save();
+        });
     }
 
 
@@ -89,5 +92,12 @@ public class SenlinyangdiActivity extends AppCompatActivity {
     public void onAutoPosition(View v){
         longitutdeEditText.setText("testtesttest");
         latitudeEditText.setText("testtesttest");
+    }
+
+
+
+    private void save(){
+        mViewModel.save();
+        finish();
     }
 }

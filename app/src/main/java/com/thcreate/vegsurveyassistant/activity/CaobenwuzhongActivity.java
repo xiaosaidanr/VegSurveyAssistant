@@ -57,5 +57,15 @@ public class CaobenwuzhongActivity extends AppCompatActivity {
     }
     private void initLayout(){
         setSupportActionBar(findViewById(R.id.toolbar));
+        findViewById(R.id.fab).setOnClickListener((v)->{
+            save();
+        });
+    }
+
+
+
+    private void save(){
+        mViewModel.Save();
+        finish();
     }
 }
