@@ -45,7 +45,14 @@ public class YangdianDataRepository {
         });
 
         mCurrentUser = mDatabase.userDao().getCurrentUserAsync();
-        mCurrentUserId = Transformations.map(mCurrentUser, user->user.id);
+        mCurrentUserId = Transformations.map(mCurrentUser, user->{
+            if (user != null){
+                return user.id;
+            }
+            else {
+                return null;
+            }
+        });
     }
     public static YangdianDataRepository getInstance(final Context context, final AppDatabase database, final AppExecutors appExecutors) {
         if (sINSTANCE == null) {
@@ -64,7 +71,14 @@ public class YangdianDataRepository {
 //        return mCurrentUser;
 //    }
     public LiveData<List<Yangdian>> loadAllYangdian() {
-        return Transformations.switchMap(mCurrentUserId, id -> mDatabase.yangdianDao().getAllYangdianByUserId(id) );
+        return Transformations.switchMap(mCurrentUserId, id -> {
+            if (id != null){
+                return mDatabase.yangdianDao().getAllYangdianByUserId(id);
+            }
+            else{
+                return null;
+            }
+        });
     }
     public LiveData<Yangdian> getYangdianByYangdianCode(String yangdianCode){
         return mDatabase.yangdianDao().getYangdianByYangdianCode(yangdianCode);

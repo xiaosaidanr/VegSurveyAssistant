@@ -29,7 +29,14 @@ public class YangdiDataRepository {
         mAppExecutors = appExecutors;
 
         mCurrentUser = mDatabase.userDao().getCurrentUserAsync();
-        mCurrentUserId = Transformations.map(mCurrentUser, user->user.id);
+        mCurrentUserId = Transformations.map(mCurrentUser, user->{
+            if (user != null){
+                return user.id;
+            }
+            else {
+                return null;
+            }
+        });
     }
     public static YangdiDataRepository getInstance(final Context context, final AppDatabase database, final AppExecutors appExecutors) {
         if (sINSTANCE == null) {
@@ -50,7 +57,14 @@ public class YangdiDataRepository {
      * @return List<Yangdi> wrap by LiveData
      */
     public LiveData<List<Yangdi>> loadAllYangdiByType(String type) {
-        return Transformations.switchMap(mCurrentUserId, id -> mDatabase.yangdiDao().getAllYangdiByUserIdAndType(id, type) );
+        return Transformations.switchMap(mCurrentUserId, id -> {
+            if (id != null){
+                return mDatabase.yangdiDao().getAllYangdiByUserIdAndType(id, type);
+            }
+            else{
+                return null;
+            }
+        });
     }
     public LiveData<Yangdi> getYangdiByYangdiCode(String yangdiCode){
         return mDatabase.yangdiDao().getYangdiByYangdiCode(yangdiCode);
