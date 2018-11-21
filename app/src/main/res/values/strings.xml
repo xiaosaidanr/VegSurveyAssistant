@@ -11,6 +11,7 @@
     <string name="caoben">草本</string>
     <string name="guanmu">灌木</string>
     <string name="qiaomu">乔木</string>
+    <string name="loading_hint">加载中...</string>
 
     <!-- 通用 -->
     <string name="hint_text">待填</string>

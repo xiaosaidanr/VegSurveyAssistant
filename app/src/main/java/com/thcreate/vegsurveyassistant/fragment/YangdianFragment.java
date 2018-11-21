@@ -1,8 +1,13 @@
 package com.thcreate.vegsurveyassistant.fragment;
 
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -16,7 +21,13 @@ import android.view.ViewGroup;
 
 import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.activity.YangdianActivity;
+import com.thcreate.vegsurveyassistant.adapter.YangdianAdapter;
+import com.thcreate.vegsurveyassistant.databinding.FragmentYangdianBinding;
+import com.thcreate.vegsurveyassistant.db.entity.Yangdian;
 import com.thcreate.vegsurveyassistant.util.Macro;
+import com.thcreate.vegsurveyassistant.viewmodel.YangdianListViewModel;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +39,10 @@ public class YangdianFragment extends BaseFragment {
     private static final String TAG = "YangdianFragment";
 
     private Toolbar mToolbar;
+
+    private FragmentYangdianBinding mBinding;
+
+    private YangdianAdapter mYangdianAdapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -74,11 +89,58 @@ public class YangdianFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         Log.d(this.getClass().getSimpleName(), "onCreateView" + " " + this.toString());
-        View view = inflater.inflate(R.layout.fragment_yangdian, container, false);
-        mToolbar = view.findViewById(R.id.yangdian_toolbar);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_yangdian, container, false);
+        mToolbar = mBinding.yangdianToolbar;
+
+        mYangdianAdapter = new YangdianAdapter();
+
+        mBinding.yangdianList.setAdapter(mYangdianAdapter);
+
         ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
-        return view;
+        return mBinding.getRoot();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        final YangdianListViewModel viewModel = ViewModelProviders.of(this).get(YangdianListViewModel.class);
+
+        subscribeUi(viewModel.getYangdianList());
+    }
+
+//    private void subscribeUi(LiveData<List<Yangdian>> liveData) {
+//        // Update the list when the data changes
+//        liveData.observe(this, new Observer<List<Yangdian>>() {
+//            @Override
+//            public void onChanged(@Nullable List<Yangdian> yangdianList) {
+//                if (yangdianList != null) {
+//                    mBinding.setIsLoading(false);
+//                    mYangdianAdapter.setYangdianList(yangdianList);
+//                } else {
+//                    mBinding.setIsLoading(true);
+//                }
+//                // espresso does not know how to wait for data binding's loop so we execute changes
+//                // sync.
+//                mBinding.executePendingBindings();
+//            }
+//        });
+//    }
+
+    private void subscribeUi(LiveData<List<Yangdian>> liveData) {
+        // Update the list when the data changes
+        liveData.observe(this, (yangdianList)->{
+            if (yangdianList != null) {
+                mBinding.setIsLoading(false);
+                mYangdianAdapter.setYangdianList(yangdianList);
+            } else {
+                mBinding.setIsLoading(true);
+            }
+            // espresso does not know how to wait for data binding's loop so we execute changes
+            // sync.
+            mBinding.executePendingBindings();
+        });
     }
 
     @Override

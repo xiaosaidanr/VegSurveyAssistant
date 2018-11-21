@@ -18,18 +18,18 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
                         parentColumns = "id",
                         childColumns = "user_id"
                 ),
-                @ForeignKey(
-                        entity = Yangdi.class,
-                        parentColumns = "yangdi_code",
-                        childColumns = "yangdi_code",
-                        onDelete = CASCADE
-                ),
-                @ForeignKey(
-                        entity = QiaomuYangfang.class,
-                        parentColumns = "yangfang_code",
-                        childColumns = "qiaomuyangfang_code",
-                        onDelete = CASCADE
-                )
+//                @ForeignKey(
+//                        entity = Yangdi.class,
+//                        parentColumns = "yangdi_code",
+//                        childColumns = "yangdi_code",
+//                        onDelete = CASCADE
+//                ),
+//                @ForeignKey(
+//                        entity = QiaomuYangfang.class,
+//                        parentColumns = "yangfang_code",
+//                        childColumns = "qiaomuyangfang_code",
+//                        onDelete = CASCADE
+//                )
         },
         indices = {
                 @Index("user_id"),

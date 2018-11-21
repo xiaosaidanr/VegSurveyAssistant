@@ -25,7 +25,7 @@ public class YangdianActivityViewModel extends AndroidViewModel {
     private String mYangdianCode;
     private int mAction;
 
-    public LiveData<User> user;
+//    public LiveData<User> user;
 
     public LiveData<Yangdian> yangdian;
 
@@ -37,7 +37,7 @@ public class YangdianActivityViewModel extends AndroidViewModel {
         mYangdianCode = yangdianCode;
 
         repository = ((BasicApp)application).getYangdianDataRepository();
-        user = repository.getCurrentUser();
+//        user = repository.getCurrentUser();
 
 //        mAction = Macro.ACTION_EDIT;
 

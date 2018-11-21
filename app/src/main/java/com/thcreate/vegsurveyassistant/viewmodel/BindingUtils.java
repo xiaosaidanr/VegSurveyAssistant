@@ -31,6 +31,11 @@ public class BindingUtils {
         return (String) pAppCompatSpinner.getSelectedItem();
     }
 
+//    @BindingAdapter("visibleGone")
+//    public static void showHide(View view, boolean show) {
+//        view.setVisibility(show ? View.VISIBLE : View.GONE);
+//    }
+
     //    @InverseMethod("stringToDate")
 //    public static String dateToString(EditText view, Date oldValue,
 //                                      Date value) {

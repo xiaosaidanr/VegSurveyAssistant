@@ -29,6 +29,8 @@ public class YangdianDataRepository {
 
     private LiveData<User> mCurrentUser;
 
+    private LiveData<Integer> mCurrentUserId;
+
     private YangdianDataRepository(final Context context, final AppDatabase database, final AppExecutors appExecutors){
         mApplicationContext = context;
         mDatabase = database;
@@ -43,8 +45,8 @@ public class YangdianDataRepository {
         });
 
         mCurrentUser = mDatabase.userDao().getCurrentUserAsync();
+        mCurrentUserId = Transformations.map(mCurrentUser, user->user.id);
     }
-
     public static YangdianDataRepository getInstance(final Context context, final AppDatabase database, final AppExecutors appExecutors) {
         if (sINSTANCE == null) {
             synchronized (YangdianDataRepository.class) {
@@ -56,18 +58,17 @@ public class YangdianDataRepository {
         return sINSTANCE;
     }
 
-    public LiveData<User> getCurrentUser(){
-        return mCurrentUser;
-    }
 
-//    public LiveData<List<Yangdian>> loadAllYangdian() {
-//        return mDatabase.yangdianDao().getAllYangdianByUserId();
+
+//    public LiveData<User> getCurrentUser(){
+//        return mCurrentUser;
 //    }
-
+    public LiveData<List<Yangdian>> loadAllYangdian() {
+        return Transformations.switchMap(mCurrentUserId, id -> mDatabase.yangdianDao().getAllYangdianByUserId(id) );
+    }
     public LiveData<Yangdian> getYangdianByYangdianCode(String yangdianCode){
         return mDatabase.yangdianDao().getYangdianByYangdianCode(yangdianCode);
     }
-
     public void insertYangdian(Yangdian data){
         mAppExecutors.diskIO().execute(()->{
             User currentUser = mDatabase.userDao().getCurrentUserSync();
@@ -77,7 +78,6 @@ public class YangdianDataRepository {
             }
         });
     }
-
     public void updateYangdian(Yangdian data){
         mAppExecutors.diskIO().execute(()->{
             mDatabase.yangdianDao().update(data);
