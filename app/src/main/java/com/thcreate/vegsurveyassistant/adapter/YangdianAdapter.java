@@ -2,13 +2,14 @@ package com.thcreate.vegsurveyassistant.adapter;
 
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.thcreate.vegsurveyassistant.R;
-import com.thcreate.vegsurveyassistant.databinding.YangdianItemBinding;
+import com.thcreate.vegsurveyassistant.databinding.ItemYangdianBinding;
 import com.thcreate.vegsurveyassistant.db.entity.Yangdian;
 
 import java.util.List;
@@ -18,7 +19,11 @@ public class YangdianAdapter extends RecyclerView.Adapter<YangdianAdapter.Yangdi
 
     List<Yangdian> mYangdianList;
 
-    public YangdianAdapter() {
+    @Nullable
+    private final ItemClickCallback<Yangdian> mYangdianClickCallback;
+
+    public YangdianAdapter(ItemClickCallback<Yangdian> callback) {
+        mYangdianClickCallback = callback;
         setHasStableIds(true);
     }
 
@@ -62,9 +67,10 @@ public class YangdianAdapter extends RecyclerView.Adapter<YangdianAdapter.Yangdi
     @NonNull
     @Override
     public YangdianViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        YangdianItemBinding binding = DataBindingUtil
-                .inflate(LayoutInflater.from(viewGroup.getContext()), R.layout.yangdian_item,
+        ItemYangdianBinding binding = DataBindingUtil
+                .inflate(LayoutInflater.from(viewGroup.getContext()), R.layout.item_yangdian,
                         viewGroup, false);
+        binding.setClickCallback(mYangdianClickCallback);
         return new YangdianViewHolder(binding);
     }
 
@@ -86,9 +92,9 @@ public class YangdianAdapter extends RecyclerView.Adapter<YangdianAdapter.Yangdi
 
     static class YangdianViewHolder extends RecyclerView.ViewHolder {
 
-        final YangdianItemBinding binding;
+        final ItemYangdianBinding binding;
 
-        public YangdianViewHolder(YangdianItemBinding binding) {
+        public YangdianViewHolder(ItemYangdianBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

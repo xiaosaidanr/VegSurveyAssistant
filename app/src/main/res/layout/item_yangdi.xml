@@ -7,8 +7,11 @@
     <data>
 
         <variable
-            name="yangdian"
-            type="com.thcreate.vegsurveyassistant.db.entity.Yangdian"/>
+            name="yangdi"
+            type="com.thcreate.vegsurveyassistant.db.entity.Yangdi"/>
+        <variable
+            name="clickCallback"
+            type="com.thcreate.vegsurveyassistant.adapter.ItemClickCallback"/>
 
     </data>
 
@@ -18,6 +21,7 @@
         android:layout_marginStart="@dimen/item_horizontal_margin"
         android:layout_marginEnd="@dimen/item_horizontal_margin"
         app:cardUseCompatPadding="true"
+        android:onClick="@{() -> clickCallback.onClick(yangdi)}"
         >
 
         <RelativeLayout
@@ -27,10 +31,10 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/yangdian_code"
+                android:id="@+id/yangdi_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{yangdian.yangdianCode}"
+                android:text="@{yangdi.yangdiCode}"
                 />
 
         </RelativeLayout>
@@ -38,4 +42,3 @@
     </android.support.v7.widget.CardView>
 
 </layout>
-

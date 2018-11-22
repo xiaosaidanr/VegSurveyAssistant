@@ -14,6 +14,7 @@ import com.thcreate.vegsurveyassistant.BasicApp;
 import com.thcreate.vegsurveyassistant.db.entity.CaobenYangfang;
 import com.thcreate.vegsurveyassistant.db.entity.Yangdi;
 import com.thcreate.vegsurveyassistant.repository.YangdiDataRepository;
+import com.thcreate.vegsurveyassistant.repository.YangfangDataRepository;
 import com.thcreate.vegsurveyassistant.util.Macro;
 
 import java.util.Date;
@@ -26,14 +27,18 @@ public class CaodiyangdiActivityViewModel extends AndroidViewModel {
 
     public LiveData<Yangdi> yangdi;
 
-    private YangdiDataRepository repository;
+    private YangdiDataRepository yangdiRepository;
+
+    private YangfangDataRepository  yangfangRepository;
 
     public CaodiyangdiActivityViewModel(@NonNull Application application, int action, String caodiyangdiCode) {
         super(application);
         mAction = action;
         mCaodiyangdiCode = caodiyangdiCode;
 
-        repository = ((BasicApp)application).getYangdiDataRepository();
+        yangdiRepository = ((BasicApp)application).getYangdiDataRepository();
+
+        yangfangRepository = ((BasicApp)application).getYangfangDataRepository();
 
         initYangdi();
 
@@ -46,11 +51,17 @@ public class CaodiyangdiActivityViewModel extends AndroidViewModel {
                 yangdi = newData;
                 break;
             case Macro.ACTION_EDIT:
-                yangdi = repository.getYangdiByYangdiCode(mCaodiyangdiCode);
+                yangdi = yangdiRepository.getYangdiByYangdiCode(mCaodiyangdiCode);
                 break;
             default:
                 break;
         }
+    }
+
+
+
+    public LiveData<List<CaobenYangfang>> getCaobenyangfangList(){
+        return yangfangRepository.getAllCaobenYangfangByYangdiCode(mCaodiyangdiCode);
     }
 
 
@@ -62,10 +73,10 @@ public class CaodiyangdiActivityViewModel extends AndroidViewModel {
             yangdiRaw.modifyAt = dateNow;
             if (mAction == Macro.ACTION_ADD){
                 yangdiRaw.createAt = dateNow;
-                repository.insertYangdi(yangdiRaw);
+                yangdiRepository.insertYangdi(yangdiRaw);
             }
             if (mAction == Macro.ACTION_EDIT){
-                repository.updateYangdi(yangdiRaw);
+                yangdiRepository.updateYangdi(yangdiRaw);
             }
         }
     }

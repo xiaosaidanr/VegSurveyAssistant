@@ -2,13 +2,14 @@ package com.thcreate.vegsurveyassistant.adapter;
 
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.thcreate.vegsurveyassistant.R;
-import com.thcreate.vegsurveyassistant.databinding.YangdiItemBinding;
+import com.thcreate.vegsurveyassistant.databinding.ItemYangdiBinding;
 import com.thcreate.vegsurveyassistant.db.entity.Yangdi;
 
 import java.util.List;
@@ -17,7 +18,11 @@ public class YangdiAdapter extends RecyclerView.Adapter<YangdiAdapter.YangdiView
 
     List<Yangdi> mYangdiList;
 
-    public YangdiAdapter() {
+    @Nullable
+    private final ItemClickCallback<Yangdi> mYangdiClickCallback;
+
+    public YangdiAdapter(ItemClickCallback<Yangdi> callback) {
+        mYangdiClickCallback = callback;
         setHasStableIds(true);
     }
 
@@ -61,9 +66,10 @@ public class YangdiAdapter extends RecyclerView.Adapter<YangdiAdapter.YangdiView
     @NonNull
     @Override
     public YangdiViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        YangdiItemBinding binding = DataBindingUtil
-                .inflate(LayoutInflater.from(viewGroup.getContext()), R.layout.yangdi_item,
+        ItemYangdiBinding binding = DataBindingUtil
+                .inflate(LayoutInflater.from(viewGroup.getContext()), R.layout.item_yangdi,
                         viewGroup, false);
+        binding.setClickCallback(mYangdiClickCallback);
         return new YangdiViewHolder(binding);
     }
 
@@ -85,9 +91,9 @@ public class YangdiAdapter extends RecyclerView.Adapter<YangdiAdapter.YangdiView
 
     static class YangdiViewHolder extends RecyclerView.ViewHolder {
 
-        final YangdiItemBinding binding;
+        final ItemYangdiBinding binding;
 
-        public YangdiViewHolder(YangdiItemBinding binding) {
+        public YangdiViewHolder(ItemYangdiBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

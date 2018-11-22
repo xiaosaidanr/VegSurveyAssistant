@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+
+        <variable
+            name="wuzhong"
+            type="com.thcreate.vegsurveyassistant.db.entity.CaobenWuzhong"/>
+        <variable
+            name="clickCallback"
+            type="com.thcreate.vegsurveyassistant.adapter.ItemClickCallback"/>
+
+    </data>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@{wuzhong.wuzhongCode}"
+        android:onClick="@{() -> clickCallback.onClick(wuzhong)}"
+        />
+
+</layout>

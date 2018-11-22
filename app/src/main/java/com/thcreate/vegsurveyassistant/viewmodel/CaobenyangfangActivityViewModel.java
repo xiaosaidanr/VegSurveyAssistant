@@ -11,11 +11,14 @@ import android.util.Log;
 import android.view.View;
 
 import com.thcreate.vegsurveyassistant.BasicApp;
+import com.thcreate.vegsurveyassistant.db.entity.CaobenWuzhong;
 import com.thcreate.vegsurveyassistant.db.entity.CaobenYangfang;
+import com.thcreate.vegsurveyassistant.repository.WuzhongDataRepository;
 import com.thcreate.vegsurveyassistant.repository.YangfangDataRepository;
 import com.thcreate.vegsurveyassistant.util.Macro;
 
 import java.util.Date;
+import java.util.List;
 
 public class CaobenyangfangActivityViewModel extends AndroidViewModel {
 
@@ -25,7 +28,9 @@ public class CaobenyangfangActivityViewModel extends AndroidViewModel {
 
     public LiveData<CaobenYangfang> yangfang;
 
-    private YangfangDataRepository repository;
+    private YangfangDataRepository mYangfangRepository;
+
+    private WuzhongDataRepository mWuzhongRepository;
 
     public CaobenyangfangActivityViewModel(@NonNull Application application, int action, String yangdiCode, String yangfangCode) {
         super(application);
@@ -33,7 +38,8 @@ public class CaobenyangfangActivityViewModel extends AndroidViewModel {
         mYangdiCode = yangdiCode;
         mYangfangCode = yangfangCode;
 
-        repository = ((BasicApp)application).getYangfangDataRepository();
+        mYangfangRepository = ((BasicApp)application).getYangfangDataRepository();
+        mWuzhongRepository = ((BasicApp)application).getWuzhongDataRepository();
 
         initYangfang();
     }
@@ -45,11 +51,16 @@ public class CaobenyangfangActivityViewModel extends AndroidViewModel {
                 yangfang = newData;
                 break;
             case Macro.ACTION_EDIT:
-                yangfang = repository.getCaobenYangfangByYangfangCode(mYangfangCode);
+                yangfang = mYangfangRepository.getCaobenYangfangByYangfangCode(mYangfangCode);
                 break;
             default:
                 break;
         }
+    }
+
+
+    public LiveData<List<CaobenWuzhong>> getCaobenwuzhongList(){
+        return mWuzhongRepository.getAllCaobenWuzhongByYangfangCode(mYangfangCode);
     }
 
 
@@ -61,10 +72,10 @@ public class CaobenyangfangActivityViewModel extends AndroidViewModel {
             yangfangRaw.modifyAt = dateNow;
             if (mAction == Macro.ACTION_ADD){
                 yangfangRaw.createAt = dateNow;
-                repository.insertCaobenyf(yangfangRaw);
+                mYangfangRepository.insertCaobenyf(yangfangRaw);
             }
             if (mAction == Macro.ACTION_EDIT){
-                repository.updateCaobenyf(yangfangRaw);
+                mYangfangRepository.updateCaobenyf(yangfangRaw);
             }
         }
     }

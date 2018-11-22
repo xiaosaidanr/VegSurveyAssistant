@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 
 import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.activity.YangdianActivity;
+import com.thcreate.vegsurveyassistant.adapter.ItemClickCallback;
 import com.thcreate.vegsurveyassistant.adapter.YangdianAdapter;
 import com.thcreate.vegsurveyassistant.databinding.FragmentYangdianBinding;
 import com.thcreate.vegsurveyassistant.db.entity.Yangdian;
@@ -94,7 +95,7 @@ public class YangdianFragment extends BaseFragment {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_yangdian, container, false);
         mToolbar = mBinding.yangdianToolbar;
 
-        mYangdianAdapter = new YangdianAdapter();
+        mYangdianAdapter = new YangdianAdapter(mYangdianItemClickCallback);
 
         mBinding.yangdianList.setAdapter(mYangdianAdapter);
 
@@ -142,6 +143,16 @@ public class YangdianFragment extends BaseFragment {
             mBinding.executePendingBindings();
         });
     }
+
+    private final ItemClickCallback<Yangdian> mYangdianItemClickCallback = new ItemClickCallback<Yangdian>() {
+        @Override
+        public void onClick(Yangdian item) {
+            Intent intent = new Intent(getActivity(), YangdianActivity.class);
+            intent.putExtra(Macro.ACTION, Macro.ACTION_EDIT);
+            intent.putExtra(Macro.YANGDIAN_CODE, item.yangdianCode);
+            startActivity(intent);
+        }
+    };
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

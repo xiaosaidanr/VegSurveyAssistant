@@ -352,6 +352,12 @@
                     android:drawableStart="@android:drawable/ic_input_add"
                     android:gravity="center_vertical"
                     android:onClick="onAddWuzhong"/>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/wuzhong_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                    />
 
             </com.thcreate.vegsurveyassistant.customUi.ExpandableLinearLayoutWithHeader>
 

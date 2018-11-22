@@ -1,23 +1,29 @@
 package com.thcreate.vegsurveyassistant.activity;
 
 import android.app.DatePickerDialog;
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.thcreate.vegsurveyassistant.R;
+import com.thcreate.vegsurveyassistant.adapter.CaobenwuzhongAdapter;
+import com.thcreate.vegsurveyassistant.adapter.ItemClickCallback;
 import com.thcreate.vegsurveyassistant.databinding.ActivityCaobenyangfangBinding;
+import com.thcreate.vegsurveyassistant.db.entity.CaobenWuzhong;
 import com.thcreate.vegsurveyassistant.util.IdGenerator;
 import com.thcreate.vegsurveyassistant.util.Macro;
 import com.thcreate.vegsurveyassistant.viewmodel.CaobenyangfangActivityViewModel;
 
 import java.util.Calendar;
+import java.util.List;
 
 public class CaobenyangfangActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
@@ -32,6 +38,8 @@ public class CaobenyangfangActivity extends AppCompatActivity implements DatePic
     private boolean mHasBelongGuanmuyangfang = false;
     private EditText longitutdeEditText;
     private EditText latitudeEditText;
+
+    private CaobenwuzhongAdapter mCaobenwuzhongAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +98,34 @@ public class CaobenyangfangActivity extends AppCompatActivity implements DatePic
         findViewById(R.id.fab).setOnClickListener((v)->{
             save();
         });
+
+        mCaobenwuzhongAdapter = new CaobenwuzhongAdapter(mWuzhongItemClickCallback);
+        ((RecyclerView)findViewById(R.id.wuzhong_list)).setAdapter(mCaobenwuzhongAdapter);
+        subscribeUi(mViewModel.getCaobenwuzhongList());
     }
+
+    private void subscribeUi(LiveData<List<CaobenWuzhong>> liveData) {
+        // Update the list when the data changes
+        liveData.observe(this, (caobenwuzhongList)->{
+            if (caobenwuzhongList != null) {
+//                mViewModel.
+                mCaobenwuzhongAdapter.setCaobenwuzhongList(caobenwuzhongList);
+            } else {
+//                mBinding.setIsLoading(true);
+            }
+            // espresso does not know how to wait for data binding's loop so we execute changes
+            // sync.
+            mBinding.executePendingBindings();
+        });
+    }
+
+    private final ItemClickCallback<CaobenWuzhong> mWuzhongItemClickCallback = (wuzhong) -> {
+        Intent intent = new Intent(CaobenyangfangActivity.this, CaobenwuzhongActivity.class);
+        intent.putExtra(Macro.ACTION, Macro.ACTION_EDIT);
+        intent.putExtra(Macro.CAOBENYANGFANG_CODE, wuzhong.yangfangCode);
+        intent.putExtra(Macro.CAOBENWUZHONG_CODE, wuzhong.wuzhongCode);
+        startActivity(intent);
+    };
 
 
 

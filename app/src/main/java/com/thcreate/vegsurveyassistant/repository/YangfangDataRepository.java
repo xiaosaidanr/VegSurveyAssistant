@@ -10,6 +10,8 @@ import com.thcreate.vegsurveyassistant.db.entity.GuanmuYangfang;
 import com.thcreate.vegsurveyassistant.db.entity.QiaomuYangfang;
 import com.thcreate.vegsurveyassistant.db.entity.User;
 
+import java.util.List;
+
 public class YangfangDataRepository {
 
     private static YangfangDataRepository sINSTANCE;
@@ -40,6 +42,9 @@ public class YangfangDataRepository {
     public LiveData<QiaomuYangfang> getQiaomuYangfangByYangfangCode(String yangfangCode){
         return mDatabase.qiaomuYangfangDao().getQiaomuYangfangByYangfangCode(yangfangCode);
     }
+    public LiveData<List<QiaomuYangfang>> getAllQiaomuYangfangByYangdiCode(String yangdiCode){
+        return mDatabase.qiaomuYangfangDao().getAllQiaomuYangfangByYangdiCode(yangdiCode);
+    }
     public void insertQiaomuyf(QiaomuYangfang data){
         mAppExecutors.diskIO().execute(()->{
             User currentUser = mDatabase.userDao().getCurrentUserSync();
@@ -54,8 +59,12 @@ public class YangfangDataRepository {
             mDatabase.qiaomuYangfangDao().update(data);
         });
     }
+
     public LiveData<GuanmuYangfang> getGuanmuYangfangByYangfangCode(String yangfangCode){
         return mDatabase.guanmuYangfangDao().getGuanmuYangfangByYangfangCode(yangfangCode);
+    }
+    public LiveData<List<GuanmuYangfang>> getAllGuanmuYangfangByYangdiCode(String yangdiCode){
+        return mDatabase.guanmuYangfangDao().getAllGuanmuYangfangByYangdiCode(yangdiCode);
     }
     public void insertGuanmuyf(GuanmuYangfang data){
         mAppExecutors.diskIO().execute(()->{
@@ -71,8 +80,12 @@ public class YangfangDataRepository {
             mDatabase.guanmuYangfangDao().update(data);
         });
     }
+
     public LiveData<CaobenYangfang> getCaobenYangfangByYangfangCode(String yangfangCode){
         return mDatabase.caobenYangfangDao().getCaobenYangfangByYangfangCode(yangfangCode);
+    }
+    public LiveData<List<CaobenYangfang>> getAllCaobenYangfangByYangdiCode(String yangdiCode){
+        return mDatabase.caobenYangfangDao().getAllCaobenYangfangByYangdiCode(yangdiCode);
     }
     public void insertCaobenyf(CaobenYangfang data){
         mAppExecutors.diskIO().execute(()->{

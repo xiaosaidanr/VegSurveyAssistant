@@ -3,6 +3,7 @@ package com.thcreate.vegsurveyassistant.fragment;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,9 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.thcreate.vegsurveyassistant.R;
+import com.thcreate.vegsurveyassistant.activity.CaodiyangdiActivity;
+import com.thcreate.vegsurveyassistant.adapter.ItemClickCallback;
 import com.thcreate.vegsurveyassistant.adapter.YangdiAdapter;
 import com.thcreate.vegsurveyassistant.databinding.FragmentCaodiListBinding;
 import com.thcreate.vegsurveyassistant.db.entity.Yangdi;
+import com.thcreate.vegsurveyassistant.util.Macro;
 import com.thcreate.vegsurveyassistant.viewmodel.CaodiyangdiListViewModel;
 
 import java.util.List;
@@ -77,7 +81,7 @@ public class CaodiListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_caodi_list, container, false);
-        mYangdiAdapter = new YangdiAdapter();
+        mYangdiAdapter = new YangdiAdapter(mYangdiItemClickCallback);
         mBinding.yangdiList.setAdapter(mYangdiAdapter);
         return mBinding.getRoot();
     }
@@ -89,6 +93,13 @@ public class CaodiListFragment extends Fragment {
 
         subscribeUi(viewModel.getYangdiList());
     }
+
+    private final ItemClickCallback<Yangdi> mYangdiItemClickCallback = (yangdi) -> {
+        Intent intent = new Intent(getActivity(), CaodiyangdiActivity.class);
+        intent.putExtra(Macro.ACTION, Macro.ACTION_EDIT);
+        intent.putExtra(Macro.YANGDI_CODE, yangdi.yangdiCode);
+        startActivity(intent);
+    };
 
     private void subscribeUi(LiveData<List<Yangdi>> liveData) {
         // Update the list when the data changes

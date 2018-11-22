@@ -10,6 +10,8 @@ import com.thcreate.vegsurveyassistant.db.entity.GuanmuWuzhong;
 import com.thcreate.vegsurveyassistant.db.entity.QiaomuWuzhong;
 import com.thcreate.vegsurveyassistant.db.entity.User;
 
+import java.util.List;
+
 public class WuzhongDataRepository {
 
     private static WuzhongDataRepository sINSTANCE;
@@ -39,6 +41,9 @@ public class WuzhongDataRepository {
     public LiveData<QiaomuWuzhong> getQiaomuWuzhongByWuzhongCode(String wuzhongCode){
         return mDatabase.qiaomuWuzhongDao().getQiaomuWuzhongByWuzhongCode(wuzhongCode);
     }
+    public LiveData<List<QiaomuWuzhong>> getAllQiaomuWuzhongByYangfangCode(String yangfangCode){
+        return mDatabase.qiaomuWuzhongDao().getAllQiaomuWuzhongByYangfangCode(yangfangCode);
+    }
     public void insertQiaomuwz(QiaomuWuzhong data){
         mAppExecutors.diskIO().execute(()->{
             User currentUser = mDatabase.userDao().getCurrentUserSync();
@@ -59,6 +64,9 @@ public class WuzhongDataRepository {
     public LiveData<GuanmuWuzhong> getGuanmuWuzhongByWuzhongCode(String wuzhongCode){
         return mDatabase.guanmuWuzhongDao().getGuanmuWuzhongByWuzhongCode(wuzhongCode);
     }
+    public LiveData<List<GuanmuWuzhong>> getAllGuanmuWuzhongByYangfangCode(String yangfangCode){
+        return mDatabase.guanmuWuzhongDao().getAllGuanmuWuzhongByYangfangCode(yangfangCode);
+    }
     public void insertGuanmuwz(GuanmuWuzhong data){
         mAppExecutors.diskIO().execute(()->{
             User currentUser = mDatabase.userDao().getCurrentUserSync();
@@ -78,6 +86,9 @@ public class WuzhongDataRepository {
 
     public LiveData<CaobenWuzhong> getCaobenWuzhongByWuzhongCode(String wuzhongCode){
         return mDatabase.caobenWuzhongDao().getCaobenWuzhongByWuzhongCode(wuzhongCode);
+    }
+    public LiveData<List<CaobenWuzhong>> getAllCaobenWuzhongByYangfangCode(String yangfangCode){
+        return mDatabase.caobenWuzhongDao().getAllCaobenWuzhongByYangfangCode(yangfangCode);
     }
     public void insertCaobenwz(CaobenWuzhong data){
         mAppExecutors.diskIO().execute(()->{
