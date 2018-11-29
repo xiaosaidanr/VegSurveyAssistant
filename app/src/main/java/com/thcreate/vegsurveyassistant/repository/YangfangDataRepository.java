@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.thcreate.vegsurveyassistant.AppExecutors;
 import com.thcreate.vegsurveyassistant.db.AppDatabase;
+import com.thcreate.vegsurveyassistant.db.entity.BaseYangfang;
 import com.thcreate.vegsurveyassistant.db.entity.CaobenYangfang;
 import com.thcreate.vegsurveyassistant.db.entity.GuanmuYangfang;
 import com.thcreate.vegsurveyassistant.db.entity.QiaomuYangfang;
@@ -100,5 +101,31 @@ public class YangfangDataRepository {
         mAppExecutors.diskIO().execute(()->{
             mDatabase.caobenYangfangDao().update(data);
         });
+    }
+
+
+
+    public <T extends BaseYangfang> void insertYangfang(T data){
+        if (data instanceof CaobenYangfang){
+            insertCaobenyf((CaobenYangfang) data);
+        }
+        if (data instanceof GuanmuYangfang){
+            insertGuanmuyf((GuanmuYangfang) data);
+        }
+        if (data instanceof QiaomuYangfang){
+            insertQiaomuyf((QiaomuYangfang) data);
+        }
+    }
+
+    public <T extends BaseYangfang> void updateYangfang(T data){
+        if (data instanceof CaobenYangfang){
+            updateCaobenyf((CaobenYangfang) data);
+        }
+        if (data instanceof GuanmuYangfang){
+            updateGuanmuyf((GuanmuYangfang) data);
+        }
+        if (data instanceof QiaomuYangfang){
+            updateQiaomuyf((QiaomuYangfang) data);
+        }
     }
 }

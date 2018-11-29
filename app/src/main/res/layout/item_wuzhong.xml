@@ -8,7 +8,7 @@
 
         <variable
             name="wuzhong"
-            type="com.thcreate.vegsurveyassistant.db.entity.CaobenWuzhong"/>
+            type="com.thcreate.vegsurveyassistant.db.entity.BaseWuzhong"/>
         <variable
             name="clickCallback"
             type="com.thcreate.vegsurveyassistant.adapter.ItemClickCallback"/>

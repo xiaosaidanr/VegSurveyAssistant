@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.thcreate.vegsurveyassistant.AppExecutors;
 import com.thcreate.vegsurveyassistant.db.AppDatabase;
+import com.thcreate.vegsurveyassistant.db.entity.BaseWuzhong;
 import com.thcreate.vegsurveyassistant.db.entity.CaobenWuzhong;
 import com.thcreate.vegsurveyassistant.db.entity.GuanmuWuzhong;
 import com.thcreate.vegsurveyassistant.db.entity.QiaomuWuzhong;
@@ -103,5 +104,30 @@ public class WuzhongDataRepository {
         mAppExecutors.diskIO().execute(()->{
             mDatabase.caobenWuzhongDao().update(data);
         });
+    }
+
+
+    public <T extends BaseWuzhong> void insertWuzhong(T data){
+        if (data instanceof CaobenWuzhong){
+            insertCaobenwz((CaobenWuzhong) data);
+        }
+        if (data instanceof GuanmuWuzhong){
+            insertGuanmuwz((GuanmuWuzhong) data);
+        }
+        if (data instanceof QiaomuWuzhong){
+            insertQiaomuwz((QiaomuWuzhong) data);
+        }
+    }
+
+    public <T extends BaseWuzhong> void updateWuzhong(T data){
+        if (data instanceof CaobenWuzhong){
+            updateCaobenwz((CaobenWuzhong) data);
+        }
+        if (data instanceof GuanmuWuzhong){
+            updateGuanmuwz((GuanmuWuzhong) data);
+        }
+        if (data instanceof QiaomuWuzhong){
+            updateQiaomuwz((QiaomuWuzhong) data);
+        }
     }
 }

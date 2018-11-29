@@ -9,24 +9,24 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.thcreate.vegsurveyassistant.R;
-import com.thcreate.vegsurveyassistant.databinding.ItemCaobenyangfangBinding;
-import com.thcreate.vegsurveyassistant.db.entity.CaobenYangfang;
+import com.thcreate.vegsurveyassistant.databinding.ItemYangfangBinding;
+import com.thcreate.vegsurveyassistant.db.entity.BaseYangfang;
 
 import java.util.List;
 
-public class CaobenyangfangAdapter extends RecyclerView.Adapter<CaobenyangfangAdapter.CaobenyangfangViewHolder> {
+public class YangfangAdapter<T extends BaseYangfang> extends RecyclerView.Adapter<YangfangAdapter.YangfangViewHolder> {
 
-    List<CaobenYangfang> mYangfangList;
+    List<T> mYangfangList;
 
     @Nullable
-    private final ItemClickCallback<CaobenYangfang> mYangfangClickCallback;
+    private final ItemClickCallback<T> mYangfangClickCallback;
 
-    public CaobenyangfangAdapter(ItemClickCallback<CaobenYangfang> callback) {
+    public YangfangAdapter(ItemClickCallback<T> callback) {
         mYangfangClickCallback = callback;
         setHasStableIds(true);
     }
 
-    public void setCaobenyangfangList(final List<CaobenYangfang> yangfangList) {
+    public void setYangfangList(final List<T> yangfangList) {
         if (mYangfangList == null) {
             mYangfangList = yangfangList;
             notifyItemRangeInserted(0, yangfangList.size());
@@ -50,12 +50,12 @@ public class CaobenyangfangAdapter extends RecyclerView.Adapter<CaobenyangfangAd
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                    CaobenYangfang newCaobenYangfang = yangfangList.get(newItemPosition);
-                    CaobenYangfang oldCaobenYangfang = mYangfangList.get(oldItemPosition);
-                    return newCaobenYangfang.id == oldCaobenYangfang.id
+                    T newYangfang = yangfangList.get(newItemPosition);
+                    T oldYangfang = mYangfangList.get(oldItemPosition);
+                    return newYangfang.id == oldYangfang.id
 //                            && Objects.equals(newYangdian.getDescription(), oldYangdian.getDescription())
 //                            && Objects.equals(newProduct.getName(), oldProduct.getName())
-                            && newCaobenYangfang.yangfangCode.equals(oldCaobenYangfang.yangfangCode);
+                            && newYangfang.yangfangCode.equals(oldYangfang.yangfangCode);
                 }
             });
             mYangfangList = yangfangList;
@@ -65,16 +65,16 @@ public class CaobenyangfangAdapter extends RecyclerView.Adapter<CaobenyangfangAd
 
     @NonNull
     @Override
-    public CaobenyangfangViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        ItemCaobenyangfangBinding binding = DataBindingUtil
-                .inflate(LayoutInflater.from(viewGroup.getContext()), R.layout.item_caobenyangfang,
+    public YangfangViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        ItemYangfangBinding binding = DataBindingUtil
+                .inflate(LayoutInflater.from(viewGroup.getContext()), R.layout.item_yangfang,
                         viewGroup, false);
         binding.setClickCallback(mYangfangClickCallback);
-        return new CaobenyangfangViewHolder(binding);
+        return new YangfangViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CaobenyangfangViewHolder yangdiViewHolder, int i) {
+    public void onBindViewHolder(@NonNull YangfangViewHolder yangdiViewHolder, int i) {
         yangdiViewHolder.binding.setYangfang(mYangfangList.get(i));
         yangdiViewHolder.binding.executePendingBindings();
     }
@@ -90,11 +90,11 @@ public class CaobenyangfangAdapter extends RecyclerView.Adapter<CaobenyangfangAd
     }
 
 
-    static class CaobenyangfangViewHolder extends RecyclerView.ViewHolder {
+    static class YangfangViewHolder extends RecyclerView.ViewHolder {
 
-        final ItemCaobenyangfangBinding binding;
+        final ItemYangfangBinding binding;
 
-        public CaobenyangfangViewHolder(ItemCaobenyangfangBinding binding) {
+        public YangfangViewHolder(ItemYangfangBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

@@ -20,7 +20,7 @@ import com.thcreate.vegsurveyassistant.fragment.NearbyFragment;
 import com.thcreate.vegsurveyassistant.fragment.YangdianFragment;
 import com.thcreate.vegsurveyassistant.fragment.YangfangFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private NearbyFragment nearbyFragment;
     private YangfangFragment yangfangFragment;

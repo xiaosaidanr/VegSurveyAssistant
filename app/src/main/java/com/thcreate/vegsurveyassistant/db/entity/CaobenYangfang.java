@@ -5,6 +5,8 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import java.util.Date;
@@ -45,16 +47,7 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
                 @Index(value = "yangfang_code", unique = true)
         }
 )
-public class CaobenYangfang {
-
-    @PrimaryKey(autoGenerate = true)
-    public int id;
-
-    @ColumnInfo(name = "user_id")
-    public int userId;
-
-    @ColumnInfo(name = "yangdi_code")
-    public String yangdiCode;//所属样地编码
+public class CaobenYangfang extends BaseYangfang implements Parcelable {
 
     @ColumnInfo(name = "qiaomuyangfang_code")
     public String qiaomuyangfangCode;//所属乔木样方编码
@@ -62,47 +55,149 @@ public class CaobenYangfang {
     @ColumnInfo(name = "guanmuyangfang_code")
     public String guanmuyangfangCode;//所属灌木样方编码
 
-    @ColumnInfo(name = "yangfang_code")
-    public String yangfangCode;//样方编码
-
-    @ColumnInfo(name = "qunluo_name")
-    public String qunluoName;//群落名称
-
-    public String length;//样方长
-
-    public String width;//样方宽
-
-    @ColumnInfo(name = "qunluo_coverage")
-    public String qunluoCoverage;//群落盖度
-
-    @ColumnInfo(name = "qunluo_height")
-    public String qunluoHeight;//群落高度
-
-    public String longitude;//经度
-
-    public String latitude;//纬度
-
-    public String investigator;//调查人
-
-    @ColumnInfo(name = "investigate_date")
-    public String investigateDate;//调查时间
-
-    @ColumnInfo(name = "create_at")
-    public Date createAt;//创建时间
-
-    @ColumnInfo(name = "delete_at")
-    public Date deleteAt;//删除时间
-
-    @ColumnInfo(name = "modify_at")
-    public Date modifyAt;//修改时间
-
-    @ColumnInfo(name = "upload_at")
-    public Date uploadAt;//上传时间
-
-    public CaobenYangfang(@NonNull int userId, @NonNull String yangdiCode, @NonNull String yangfangCode){
-        this.userId = userId;
-        this.yangdiCode = yangdiCode;
-        this.yangfangCode = yangfangCode;
+    public CaobenYangfang() {
     }
 
+    public CaobenYangfang(@NonNull int userId, @NonNull String yangdiCode, @NonNull String yangfangCode){
+        super(userId, yangdiCode, yangfangCode);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(id);
+        dest.writeValue(userId);
+        dest.writeValue(yangdiCode);
+        dest.writeValue(qiaomuyangfangCode);
+        dest.writeValue(guanmuyangfangCode);
+        dest.writeValue(yangfangCode);
+        dest.writeValue(qunluoName);
+        dest.writeValue(length);
+        dest.writeValue(width);
+        dest.writeValue(qunluoCoverage);
+        dest.writeValue(qunluoHeight);
+        dest.writeValue(longitude);
+        dest.writeValue(latitude);
+        dest.writeValue(investigator);
+        dest.writeValue(investigateDate);
+        if (createAt == null){
+            dest.writeValue(null);
+        }
+        else {
+            dest.writeValue(createAt.getTime());
+        }
+        if (deleteAt == null){
+            dest.writeValue(null);
+        }
+        else {
+            dest.writeValue(deleteAt.getTime());
+        }
+        if (modifyAt == null){
+            dest.writeValue(null);
+        }
+        else {
+            dest.writeValue(modifyAt.getTime());
+        }
+        if (uploadAt == null){
+            dest.writeValue(null);
+        }
+        else {
+            dest.writeValue(uploadAt.getTime());
+        }
+    }
+
+    public static final Parcelable.Creator<CaobenYangfang> CREATOR = new Creator<CaobenYangfang>() {
+        @Override
+        public CaobenYangfang createFromParcel(Parcel source) {
+            return new CaobenYangfang(source);
+        }
+
+        @Override
+        public CaobenYangfang[] newArray(int size) {
+            return new CaobenYangfang[0];
+        }
+    };
+
+    public CaobenYangfang(Parcel source){
+        Object tmpId = source.readValue(getClass().getClassLoader());
+        if (tmpId != null){
+            id = (int)tmpId;
+        }
+        Object tmpUserId = source.readValue(getClass().getClassLoader());
+        if (tmpUserId != null){
+            userId = (int)tmpUserId;
+        }
+        Object tmpYangdiCode = source.readValue(getClass().getClassLoader());
+        if (tmpYangdiCode != null){
+            yangdiCode = (String)tmpYangdiCode;
+        }
+        Object tmpQiaomuyangfangCode = source.readValue(getClass().getClassLoader());
+        if (tmpQiaomuyangfangCode != null){
+            qiaomuyangfangCode = (String)tmpQiaomuyangfangCode;
+        }
+        Object tmpGuanmuyangfangCode = source.readValue(getClass().getClassLoader());
+        if (tmpGuanmuyangfangCode != null){
+            guanmuyangfangCode = (String)tmpGuanmuyangfangCode;
+        }
+        Object tmpYangfangCode = source.readValue(getClass().getClassLoader());
+        if (tmpYangfangCode != null){
+            yangfangCode = (String)tmpYangfangCode;
+        }
+        Object tmpQunluoName = source.readValue(getClass().getClassLoader());
+        if (tmpQunluoName != null){
+            qunluoName = (String)tmpQunluoName;
+        }
+        Object tmpLength = source.readValue(getClass().getClassLoader());
+        if (tmpLength != null){
+            length = (String)tmpLength;
+        }
+        Object tmpWidth = source.readValue(getClass().getClassLoader());
+        if (tmpWidth != null){
+            width = (String)tmpWidth;
+        }
+        Object tmpQunluoCoverage = source.readValue(getClass().getClassLoader());
+        if (tmpQunluoCoverage != null){
+            qunluoCoverage = (String)tmpQunluoCoverage;
+        }
+        Object tmpQunluoHeight = source.readValue(getClass().getClassLoader());
+        if (tmpQunluoHeight != null){
+            qunluoHeight = (String)tmpQunluoHeight;
+        }
+        Object tmpLongitude = source.readValue(getClass().getClassLoader());
+        if (tmpLongitude != null){
+            longitude = (String)tmpLongitude;
+        }
+        Object tmpLatitude = source.readValue(getClass().getClassLoader());
+        if (tmpLatitude != null){
+            latitude = (String)tmpLatitude;
+        }
+        Object tmpInvestigator = source.readValue(getClass().getClassLoader());
+        if (tmpInvestigator != null){
+            investigator = (String)tmpInvestigator;
+        }
+        Object tmpInvestigateDate = source.readValue(getClass().getClassLoader());
+        if (tmpInvestigateDate != null){
+            investigateDate = (String)tmpInvestigateDate;
+        }
+        Object tmpCreateAt = source.readValue(getClass().getClassLoader());
+        if (tmpCreateAt != null){
+            createAt = new Date((Long)tmpCreateAt);
+        }
+        Object tmpDeleteAt = source.readValue(getClass().getClassLoader());
+        if (tmpDeleteAt != null){
+            deleteAt = new Date((Long)tmpDeleteAt);
+        }
+        Object tmpModifyAt = source.readValue(getClass().getClassLoader());
+        if (tmpModifyAt != null){
+            modifyAt = new Date((Long)tmpModifyAt);
+        }
+        Object tmpUploadAt = source.readValue(getClass().getClassLoader());
+        if (tmpUploadAt != null){
+            uploadAt = new Date((Long)tmpUploadAt);
+        }
+    }
 }

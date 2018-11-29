@@ -16,15 +16,18 @@ public class Macro {
     public static final String ACTION = "actionKey";
     public static final int ACTION_ADD = 0;
     public static final int ACTION_EDIT = 1;
+    public static final int ACTION_ADD_RESTORE = 2;
+    public static final int ACTION_EDIT_RESTORE = 3;
 
     public static final String YANGDIAN_CODE = "yangdianCode";
     public static final String YANGDI_CODE = "yangdiCode";
-    public static final String CAOBENYANGFANG_CODE = "caobenyangfangCode";
-    public static final String GUANMUYANGFANG_CODE = "guanmuyangfangCode";
-    public static final String QIAOMUYANGFANG_CODE = "qiaomuyangfangCode";
-    public static final String CAOBENWUZHONG_CODE = "caobenwuzhongCode";
-    public static final String GUANMUWUZHONG_CODE = "guanmuwuzhongCode";
-    public static final String QIAOMUWUZHONG_CODE = "qiaomuwuzhongCode";
+    public static final String YANGFANG_CODE = "yangfangCode";
+//    public static final String GUANMUYANGFANG_CODE = "guanmuyangfangCode";
+//    public static final String QIAOMUYANGFANG_CODE = "qiaomuyangfangCode";
+    public static final String WUZHONG_CODE = "wuzhongCode";
+//    public static final String CAOBENWUZHONG_CODE = "caobenwuzhongCode";
+//    public static final String GUANMUWUZHONG_CODE = "guanmuwuzhongCode";
+//    public static final String QIAOMUWUZHONG_CODE = "qiaomuwuzhongCode";
 
     public static final String YANGDI_TYPE = "yangdiType";
     public static final int GRASS = 0;

@@ -6,7 +6,6 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.DatePicker;
@@ -14,68 +13,42 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.thcreate.vegsurveyassistant.R;
-import com.thcreate.vegsurveyassistant.adapter.CaobenwuzhongAdapter;
+import com.thcreate.vegsurveyassistant.adapter.WuzhongAdapter;
 import com.thcreate.vegsurveyassistant.adapter.ItemClickCallback;
 import com.thcreate.vegsurveyassistant.databinding.ActivityCaobenyangfangBinding;
 import com.thcreate.vegsurveyassistant.db.entity.CaobenWuzhong;
-import com.thcreate.vegsurveyassistant.util.IdGenerator;
+import com.thcreate.vegsurveyassistant.db.entity.CaobenYangfang;
 import com.thcreate.vegsurveyassistant.util.Macro;
 import com.thcreate.vegsurveyassistant.viewmodel.CaobenyangfangActivityViewModel;
 
 import java.util.Calendar;
 import java.util.List;
 
-public class CaobenyangfangActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class CaobenyangfangActivity extends BaseYangfangActivity<CaobenYangfang> implements DatePickerDialog.OnDateSetListener {
 
     private CaobenyangfangActivityViewModel mViewModel;
     private ActivityCaobenyangfangBinding mBinding;
 
-    private int mAction;
-    private String mYangdiCode;
-    private String mYangfangCode;
-
-    private boolean mHasBelongQiaomuyangfang = false;
-    private boolean mHasBelongGuanmuyangfang = false;
     private EditText longitutdeEditText;
     private EditText latitudeEditText;
+    private TextView wuzhongCountTextView;
 
-    private CaobenwuzhongAdapter mCaobenwuzhongAdapter;
+    private WuzhongAdapter mWuzhongAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initParam();
-        initBinding();
+        initBinding(savedInstanceState);
         initLayout();
     }
-    private void initParam(){
-        Intent intent = getIntent();
-
-        mYangdiCode = intent.getStringExtra(Macro.YANGDI_CODE);
-
-        int type = intent.getIntExtra(Macro.YANGDI_TYPE, Macro.TREE);
-        if (type == Macro.TREE){
-            mHasBelongQiaomuyangfang = true;
-            mHasBelongGuanmuyangfang = true;
+    private void initBinding(Bundle savedInstanceState){
+        mViewModel = ViewModelProviders.of(this).get(CaobenyangfangActivityViewModel.class);
+        if (savedInstanceState == null){
+            mViewModel.initYangfang(mYangdiCode, mAction, mYangfangCode, null);
         }
-        else if (type == Macro.BUSH){
-            mHasBelongGuanmuyangfang = true;
+        else {
+            mViewModel.initYangfang(mYangdiCode, mAction, mYangfangCode, savedInstanceState.getParcelable(YANGFANG_DATA));
         }
-
-        mAction = intent.getIntExtra(Macro.ACTION, Macro.ACTION_ADD);
-        if (mAction == Macro.ACTION_ADD){
-            mYangfangCode = IdGenerator.getId(1, Macro.CAOBEN_YANGFANG);
-        }
-        if (mAction == Macro.ACTION_EDIT){
-            mYangfangCode = intent.getStringExtra(Macro.CAOBENYANGFANG_CODE);
-        }
-    }
-    private void initBinding(){
-        CaobenyangfangActivityViewModel.Factory factory = new CaobenyangfangActivityViewModel.Factory(
-                getApplication(), mAction, mYangdiCode, mYangfangCode
-        );
-        mViewModel = ViewModelProviders.of(this, factory)
-                .get(CaobenyangfangActivityViewModel.class);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_caobenyangfang);
         mBinding.setViewmodel(mViewModel);
         mBinding.setLifecycleOwner(this);
@@ -83,51 +56,54 @@ public class CaobenyangfangActivity extends AppCompatActivity implements DatePic
     private void initLayout(){
         setSupportActionBar(findViewById(R.id.toolbar));
 
-        if(!mHasBelongQiaomuyangfang){
+        if (mType == Macro.GRASS){
             findViewById(R.id.belong_qiaomuyangfang_code_textview).setVisibility(View.GONE);
             findViewById(R.id.belong_qiaomuyangfang_code_edittext).setVisibility(View.GONE);
-        }
-        if (!mHasBelongGuanmuyangfang){
             findViewById(R.id.belong_guanmuyangfang_code_textview).setVisibility(View.GONE);
             findViewById(R.id.belong_guanmuyangfang_code_edittext).setVisibility(View.GONE);
+        }
+        else if (mType == Macro.BUSH){
+            findViewById(R.id.belong_qiaomuyangfang_code_textview).setVisibility(View.GONE);
+            findViewById(R.id.belong_qiaomuyangfang_code_edittext).setVisibility(View.GONE);
         }
 
         longitutdeEditText = findViewById(R.id.longitude_edit_text);
         latitudeEditText = findViewById(R.id.latitude_edit_text);
+        wuzhongCountTextView = findViewById(R.id.wuzhong_count_text_view);
 
         findViewById(R.id.fab).setOnClickListener((v)->{
             save();
+            finish();
         });
 
-        mCaobenwuzhongAdapter = new CaobenwuzhongAdapter(mWuzhongItemClickCallback);
-        ((RecyclerView)findViewById(R.id.wuzhong_list)).setAdapter(mCaobenwuzhongAdapter);
+        mWuzhongAdapter = new WuzhongAdapter<CaobenWuzhong>(mWuzhongItemClickCallback);
+        ((RecyclerView)findViewById(R.id.wuzhong_list)).setAdapter(mWuzhongAdapter);
         subscribeUi(mViewModel.getCaobenwuzhongList());
     }
-
     private void subscribeUi(LiveData<List<CaobenWuzhong>> liveData) {
-        // Update the list when the data changes
-        liveData.observe(this, (caobenwuzhongList)->{
-            if (caobenwuzhongList != null) {
-//                mViewModel.
-                mCaobenwuzhongAdapter.setCaobenwuzhongList(caobenwuzhongList);
+        liveData.observe(this, (wuzhongList)->{
+            if (wuzhongList != null) {
+                mWuzhongAdapter.setWuzhongList(wuzhongList);
+                wuzhongCountTextView.setText(String.valueOf(wuzhongList.size()));
             } else {
-//                mBinding.setIsLoading(true);
+                wuzhongCountTextView.setText("0");
             }
-            // espresso does not know how to wait for data binding's loop so we execute changes
-            // sync.
             mBinding.executePendingBindings();
         });
     }
-
     private final ItemClickCallback<CaobenWuzhong> mWuzhongItemClickCallback = (wuzhong) -> {
         Intent intent = new Intent(CaobenyangfangActivity.this, CaobenwuzhongActivity.class);
         intent.putExtra(Macro.ACTION, Macro.ACTION_EDIT);
-        intent.putExtra(Macro.CAOBENYANGFANG_CODE, wuzhong.yangfangCode);
-        intent.putExtra(Macro.CAOBENWUZHONG_CODE, wuzhong.wuzhongCode);
+        intent.putExtra(Macro.YANGFANG_CODE, wuzhong.yangfangCode);
+        intent.putExtra(Macro.WUZHONG_CODE, wuzhong.wuzhongCode);
         startActivity(intent);
     };
 
-
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(YANGFANG_DATA, mViewModel.yangfang.getValue());
+    }
 
     public void showDatePickerDialog(View v) {
         Calendar calendar=Calendar.getInstance();
@@ -138,17 +114,15 @@ public class CaobenyangfangActivity extends AppCompatActivity implements DatePic
         dialog.show();
     }
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        TextView textView = findViewById(R.id.date_selected);
+        TextView textView = findViewById(R.id.date_text_view);
         if (textView != null){
             textView.setText(String.valueOf(String.valueOf(year)+"-"+String.valueOf(month+1)+"-"+String.valueOf(day)));
         }
     }
 
-
-
     public void onAddWuzhong(View v){
         Intent intent = new Intent(CaobenyangfangActivity.this, CaobenwuzhongActivity.class);
-        intent.putExtra(Macro.CAOBENYANGFANG_CODE, mYangfangCode);
+        intent.putExtra(Macro.YANGFANG_CODE, mYangfangCode);
         intent.putExtra(Macro.ACTION, Macro.ACTION_ADD);
         startActivity(intent);
     }
@@ -158,8 +132,7 @@ public class CaobenyangfangActivity extends AppCompatActivity implements DatePic
         latitudeEditText.setText("testtesttest");
     }
 
-    private void save(){
-        mViewModel.save();
-        finish();
+    private boolean save(){
+        return mViewModel.save();
     }
 }

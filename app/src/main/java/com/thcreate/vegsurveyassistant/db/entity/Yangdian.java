@@ -5,8 +5,11 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
@@ -23,7 +26,8 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
                 @Index("yangdian_code")
         }
 )
-public class Yangdian {
+public class Yangdian extends BaseEntity implements Parcelable {
+//public class Yangdian extends BaseEntity implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     public int id;
@@ -68,20 +72,154 @@ public class Yangdian {
 
     public String note;//备注
 
-    @ColumnInfo(name = "create_at")
-    public Date createAt;//创建时间
-
-    @ColumnInfo(name = "delete_at")
-    public Date deleteAt;//删除时间
-
-    @ColumnInfo(name = "modify_at")
-    public Date modifyAt;//修改时间
-
-    @ColumnInfo(name = "upload_at")
-    public Date uploadAt;//上传时间
-
     public Yangdian(@NonNull int userId, @NonNull String yangdianCode){
         this.userId = userId;
         this.yangdianCode = yangdianCode;
+    }
+
+
+
+    @Override
+    public int describeContents(){
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags){
+        dest.writeValue(id);
+        dest.writeValue(userId);
+        dest.writeValue(yangdianCode);
+        dest.writeValue(qunxiType);
+        dest.writeValue(dominantSpecies);
+        dest.writeValue(qunluoCoverage);
+        dest.writeValue(qunluoHeight);
+        dest.writeValue(dixingZhibeiStatus);
+        dest.writeValue(regionName);
+        dest.writeValue(humanActivity);
+        dest.writeValue(altitude);
+        dest.writeValue(longitude);
+        dest.writeValue(latitude);
+        dest.writeValue(investigator);
+        dest.writeValue(investigateDate);
+        dest.writeValue(note);
+        if (createAt == null){
+            dest.writeValue(null);
+        }
+        else {
+            dest.writeValue(createAt.getTime());
+        }
+        if (deleteAt == null){
+            dest.writeValue(null);
+        }
+        else {
+            dest.writeValue(deleteAt.getTime());
+        }
+        if (modifyAt == null){
+            dest.writeValue(null);
+        }
+        else {
+            dest.writeValue(modifyAt.getTime());
+        }
+        if (uploadAt == null){
+            dest.writeValue(null);
+        }
+        else {
+            dest.writeValue(uploadAt.getTime());
+        }
+    }
+
+    public static final Parcelable.Creator<Yangdian> CREATOR = new Creator<Yangdian>() {
+        @Override
+        public Yangdian createFromParcel(Parcel source) {
+            return new Yangdian(source);
+        }
+
+        @Override
+        public Yangdian[] newArray(int size) {
+            return new Yangdian[0];
+        }
+    };
+
+    public Yangdian(Parcel source){
+        Object tmpId = source.readValue(getClass().getClassLoader());
+        if (tmpId != null){
+            id = (int)tmpId;
+        }
+        Object tmpUserId = source.readValue(getClass().getClassLoader());
+        if (tmpUserId != null){
+            userId = (int)tmpUserId;
+        }
+        Object tmpYangdianCode = source.readValue(getClass().getClassLoader());
+        if (tmpYangdianCode != null){
+            yangdianCode = (String)tmpYangdianCode;
+        }
+        Object tmpQunxiType = source.readValue(getClass().getClassLoader());
+        if (tmpQunxiType != null){
+            qunxiType = (String)tmpQunxiType;
+        }
+        Object tmpDominantSpecies = source.readValue(getClass().getClassLoader());
+        if (tmpDominantSpecies != null){
+            dominantSpecies = (String)tmpDominantSpecies;
+        }
+        Object tmpQunluoCoverage = source.readValue(getClass().getClassLoader());
+        if (tmpQunluoCoverage != null){
+            qunluoCoverage = (String)tmpQunluoCoverage;
+        }
+        Object tmpQunluoHeight = source.readValue(getClass().getClassLoader());
+        if (tmpQunluoHeight != null){
+            qunluoHeight = (String)tmpQunluoHeight;
+        }
+        Object tmpDixingZhibeiStatus = source.readValue(getClass().getClassLoader());
+        if (tmpDixingZhibeiStatus != null){
+            dixingZhibeiStatus = (String)tmpDixingZhibeiStatus;
+        }
+        Object tmpRegionName = source.readValue(getClass().getClassLoader());
+        if (tmpRegionName != null){
+            regionName = (String)tmpRegionName;
+        }
+        Object tmpHumanActivity = source.readValue(getClass().getClassLoader());
+        if (tmpHumanActivity != null){
+            humanActivity = (String)tmpHumanActivity;
+        }
+        Object tmpAltitude = source.readValue(getClass().getClassLoader());
+        if (tmpAltitude != null){
+            altitude = (String)tmpAltitude;
+        }
+        Object tmpLongitude = source.readValue(getClass().getClassLoader());
+        if (tmpLongitude != null){
+            longitude = (String)tmpLongitude;
+        }
+        Object tmpLatitude = source.readValue(getClass().getClassLoader());
+        if (tmpLatitude != null){
+            latitude = (String)tmpLatitude;
+        }
+        Object tmpInvestigator = source.readValue(getClass().getClassLoader());
+        if (tmpInvestigator != null){
+            investigator = (String)tmpInvestigator;
+        }
+        Object tmpInvestigateDate = source.readValue(getClass().getClassLoader());
+        if (tmpInvestigateDate != null){
+            investigateDate = (String)tmpInvestigateDate;
+        }
+        Object tmpNote = source.readValue(getClass().getClassLoader());
+        if (tmpNote != null){
+            note = (String)tmpNote;
+        }
+        Object tmpCreateAt = source.readValue(getClass().getClassLoader());
+        if (tmpCreateAt != null){
+            createAt = new Date((Long)tmpCreateAt);
+        }
+        Object tmpDeleteAt = source.readValue(getClass().getClassLoader());
+        if (tmpDeleteAt != null){
+            deleteAt = new Date((Long)tmpDeleteAt);
+        }
+        Object tmpModifyAt = source.readValue(getClass().getClassLoader());
+        if (tmpModifyAt != null){
+            modifyAt = new Date((Long)tmpModifyAt);
+        }
+        Object tmpUploadAt = source.readValue(getClass().getClassLoader());
+        if (tmpUploadAt != null){
+            uploadAt = new Date((Long)tmpUploadAt);
+        }
     }
 }

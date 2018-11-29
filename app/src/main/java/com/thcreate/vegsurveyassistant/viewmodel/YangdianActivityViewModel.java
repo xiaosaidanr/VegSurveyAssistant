@@ -31,66 +31,87 @@ public class YangdianActivityViewModel extends AndroidViewModel {
 
     private YangdianDataRepository repository;
 
-    public YangdianActivityViewModel(@NonNull Application application, final int action, final String yangdianCode) {
+//    public YangdianActivityViewModel(@NonNull Application application, final int action, final String yangdianCode) {
+    public YangdianActivityViewModel(@NonNull Application application) {
+
         super(application);
-        mAction = action;
-        mYangdianCode = yangdianCode;
+//        mAction = action;
+//        mYangdianCode = yangdianCode;
 
         repository = ((BasicApp)application).getYangdianDataRepository();
 //        user = repository.getCurrentUser();
 
 //        mAction = Macro.ACTION_EDIT;
 
-        initYangdian();
+//        initYangdian();
 
     }
 
-    private void initYangdian(){
+    public void initYangdian(int action, String yangdianCode, Yangdian restoredData){
+        mAction = action;
+        mYangdianCode = yangdianCode;
+
         switch (mAction){
             case Macro.ACTION_ADD:
-                MutableLiveData<Yangdian> newData = new MutableLiveData<>();
-                newData.setValue(new Yangdian(0, mYangdianCode));
-                yangdian = newData;
+                MutableLiveData<Yangdian> tmp1 = new MutableLiveData<>();
+                //TODO userid1
+                tmp1.setValue(new Yangdian(1, mYangdianCode));
+                yangdian = tmp1;
+                break;
+            case Macro.ACTION_ADD_RESTORE:
+                MutableLiveData<Yangdian> tmp2 = new MutableLiveData<>();
+                tmp2.setValue(restoredData);
+                yangdian = tmp2;
                 break;
             case Macro.ACTION_EDIT:
                 yangdian = repository.getYangdianByYangdianCode(mYangdianCode);
+                break;
+            case Macro.ACTION_EDIT_RESTORE:
+                MutableLiveData<Yangdian> tmp3 = new MutableLiveData<>();
+                tmp3.setValue(restoredData);
+                yangdian = tmp3;
                 break;
             default:
                 break;
         }
     }
 
-    public void Save(){
+    public boolean save(){
+        if (yangdian == null){
+            return false;
+        }
         Yangdian yangdianRaw = yangdian.getValue();
-        if (yangdianRaw != null){
-            Date dateNow = new Date();
-            yangdianRaw.modifyAt = dateNow;
-            if (mAction == Macro.ACTION_ADD){
-                yangdianRaw.createAt = dateNow;
-                repository.insertYangdian(yangdianRaw);
-            }
-            if (mAction == Macro.ACTION_EDIT){
-                repository.updateYangdian(yangdianRaw);
-            }
+        if (yangdianRaw == null){
+            return false;
         }
+        Date dateNow = new Date();
+        yangdianRaw.modifyAt = dateNow;
+        if (mAction == Macro.ACTION_ADD || mAction == Macro.ACTION_ADD_RESTORE){
+            yangdianRaw.createAt = dateNow;
+            repository.insertYangdian(yangdianRaw);
+        }
+        if (mAction == Macro.ACTION_EDIT || mAction == Macro.ACTION_EDIT_RESTORE){
+            repository.updateYangdian(yangdianRaw);
+        }
+        return true;
     }
 
 
 
-    public static class Factory extends ViewModelProvider.NewInstanceFactory {
-        @NonNull
-        private final Application mApplication;
-        private final int mAction;
-        private final String mYangdianCode;
-        public Factory(@NonNull Application application, int action, String yangdianCode) {
-            mApplication = application;
-            mAction = action;
-            mYangdianCode = yangdianCode;
-        }
-        @Override
-        public <T extends ViewModel> T create(Class<T> modelClass) {
-            //noinspection unchecked
-            return (T) new YangdianActivityViewModel(mApplication, mAction, mYangdianCode);
-        }
-    }
+//    public static class Factory extends ViewModelProvider.NewInstanceFactory {
+//        @NonNull
+//        private final Application mApplication;
+//        private final int mAction;
+//        private final String mYangdianCode;
+//        public Factory(@NonNull Application application, int action, String yangdianCode) {
+//            mApplication = application;
+//            mAction = action;
+//            mYangdianCode = yangdianCode;
+//        }
+//        @Override
+//        public <T extends ViewModel> T create(Class<T> modelClass) {
+//            //noinspection unchecked
+//            return (T) new YangdianActivityViewModel(mApplication, mAction, mYangdianCode);
+//        }
+//    }
 }

@@ -20,83 +20,10 @@ import com.thcreate.vegsurveyassistant.util.Macro;
 import java.util.Date;
 import java.util.List;
 
-public class CaodiyangdiActivityViewModel extends AndroidViewModel {
+public class CaodiyangdiActivityViewModel extends BaseYangdiActivityViewModel {
 
-    private int mAction;
-    private String mCaodiyangdiCode;
-
-    public LiveData<Yangdi> yangdi;
-
-    private YangdiDataRepository yangdiRepository;
-
-    private YangfangDataRepository  yangfangRepository;
-
-    public CaodiyangdiActivityViewModel(@NonNull Application application, int action, String caodiyangdiCode) {
+    public CaodiyangdiActivityViewModel(@NonNull Application application) {
         super(application);
-        mAction = action;
-        mCaodiyangdiCode = caodiyangdiCode;
-
-        yangdiRepository = ((BasicApp)application).getYangdiDataRepository();
-
-        yangfangRepository = ((BasicApp)application).getYangfangDataRepository();
-
-        initYangdi();
-
-    }
-    private void initYangdi(){
-        switch (mAction){
-            case Macro.ACTION_ADD:
-                MutableLiveData<Yangdi> newData = new MutableLiveData<>();
-                newData.setValue(new Yangdi(0, mCaodiyangdiCode, "grass"));
-                yangdi = newData;
-                break;
-            case Macro.ACTION_EDIT:
-                yangdi = yangdiRepository.getYangdiByYangdiCode(mCaodiyangdiCode);
-                break;
-            default:
-                break;
-        }
     }
 
-
-
-    public LiveData<List<CaobenYangfang>> getCaobenyangfangList(){
-        return yangfangRepository.getAllCaobenYangfangByYangdiCode(mCaodiyangdiCode);
-    }
-
-
-
-    public void save(){
-        Yangdi yangdiRaw = yangdi.getValue();
-        if (yangdiRaw != null){
-            Date dateNow = new Date();
-            yangdiRaw.modifyAt = dateNow;
-            if (mAction == Macro.ACTION_ADD){
-                yangdiRaw.createAt = dateNow;
-                yangdiRepository.insertYangdi(yangdiRaw);
-            }
-            if (mAction == Macro.ACTION_EDIT){
-                yangdiRepository.updateYangdi(yangdiRaw);
-            }
-        }
-    }
-
-
-
-    public static class Factory extends ViewModelProvider.NewInstanceFactory {
-        @NonNull
-        private final Application mApplication;
-        private final int mAction;
-        private final String mCaodiyangdiCode;
-        public Factory(@NonNull Application application, int action, String caodiyangdiCode) {
-            mApplication = application;
-            mAction = action;
-            mCaodiyangdiCode = caodiyangdiCode;
-        }
-        @Override
-        public <T extends ViewModel> T create(Class<T> modelClass) {
-            //noinspection unchecked
-            return (T) new CaodiyangdiActivityViewModel(mApplication, mAction, mCaodiyangdiCode);
-        }
-    }
 }

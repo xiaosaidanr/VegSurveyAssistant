@@ -9,24 +9,24 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.thcreate.vegsurveyassistant.R;
-import com.thcreate.vegsurveyassistant.databinding.ItemCaobenwuzhongBinding;
-import com.thcreate.vegsurveyassistant.db.entity.CaobenWuzhong;
+import com.thcreate.vegsurveyassistant.databinding.ItemWuzhongBinding;
+import com.thcreate.vegsurveyassistant.db.entity.BaseWuzhong;
 
 import java.util.List;
 
-public class CaobenwuzhongAdapter extends RecyclerView.Adapter<CaobenwuzhongAdapter.CaobenwuzhongViewHolder> {
+public class WuzhongAdapter<T extends BaseWuzhong> extends RecyclerView.Adapter<WuzhongAdapter.WuzhongViewHolder> {
 
-    List<CaobenWuzhong> mWuzhongList;
+    List<T> mWuzhongList;
 
     @Nullable
-    private final ItemClickCallback<CaobenWuzhong> mWuzhongClickCallback;
+    private final ItemClickCallback<T> mWuzhongClickCallback;
 
-    public CaobenwuzhongAdapter(ItemClickCallback<CaobenWuzhong> callback) {
+    public WuzhongAdapter(ItemClickCallback<T> callback) {
         mWuzhongClickCallback = callback;
         setHasStableIds(true);
     }
 
-    public void setCaobenwuzhongList(final List<CaobenWuzhong> wuzhongList) {
+    public void setWuzhongList(final List<T> wuzhongList) {
         if (mWuzhongList == null) {
             mWuzhongList = wuzhongList;
             notifyItemRangeInserted(0, wuzhongList.size());
@@ -50,12 +50,12 @@ public class CaobenwuzhongAdapter extends RecyclerView.Adapter<CaobenwuzhongAdap
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                    CaobenWuzhong newCaobenWuzhong = wuzhongList.get(newItemPosition);
-                    CaobenWuzhong oldCaobenWuzhong = mWuzhongList.get(oldItemPosition);
-                    return newCaobenWuzhong.id == oldCaobenWuzhong.id
+                    T newWuzhong = wuzhongList.get(newItemPosition);
+                    T oldWuzhong = mWuzhongList.get(oldItemPosition);
+                    return newWuzhong.id == oldWuzhong.id
 //                            && Objects.equals(newYangdian.getDescription(), oldYangdian.getDescription())
 //                            && Objects.equals(newProduct.getName(), oldProduct.getName())
-                            && newCaobenWuzhong.wuzhongCode.equals(oldCaobenWuzhong.wuzhongCode);
+                            && newWuzhong.wuzhongCode.equals(oldWuzhong.wuzhongCode);
                 }
             });
             mWuzhongList = wuzhongList;
@@ -65,16 +65,16 @@ public class CaobenwuzhongAdapter extends RecyclerView.Adapter<CaobenwuzhongAdap
 
     @NonNull
     @Override
-    public CaobenwuzhongViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        ItemCaobenwuzhongBinding binding = DataBindingUtil
-                .inflate(LayoutInflater.from(viewGroup.getContext()), R.layout.item_caobenwuzhong,
+    public WuzhongViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        ItemWuzhongBinding binding = DataBindingUtil
+                .inflate(LayoutInflater.from(viewGroup.getContext()), R.layout.item_wuzhong,
                         viewGroup, false);
         binding.setClickCallback(mWuzhongClickCallback);
-        return new CaobenwuzhongViewHolder(binding);
+        return new WuzhongViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CaobenwuzhongViewHolder wuzhongViewHolder, int i) {
+    public void onBindViewHolder(@NonNull WuzhongViewHolder wuzhongViewHolder, int i) {
         wuzhongViewHolder.binding.setWuzhong(mWuzhongList.get(i));
         wuzhongViewHolder.binding.executePendingBindings();
     }
@@ -90,11 +90,11 @@ public class CaobenwuzhongAdapter extends RecyclerView.Adapter<CaobenwuzhongAdap
     }
 
 
-    static class CaobenwuzhongViewHolder extends RecyclerView.ViewHolder {
+    static class WuzhongViewHolder extends RecyclerView.ViewHolder {
 
-        final ItemCaobenwuzhongBinding binding;
+        final ItemWuzhongBinding binding;
 
-        public CaobenwuzhongViewHolder(ItemCaobenwuzhongBinding binding) {
+        public WuzhongViewHolder(ItemWuzhongBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

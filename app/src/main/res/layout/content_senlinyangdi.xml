@@ -251,6 +251,7 @@
                         android:text="@string/yangfang_number"
                         android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
                     <TextView
+                        android:id="@+id/qiaomuyangfang_count_text_view"
                         android:text="0"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
@@ -268,6 +269,12 @@
                     android:drawableStart="@android:drawable/ic_input_add"
                     android:gravity="center_vertical"
                     android:onClick="onAddQiaomuyangfang"/>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/qiaomuyangfang_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                    />
 
             </com.thcreate.vegsurveyassistant.customUi.ExpandableLinearLayoutWithHeader>
 
@@ -300,6 +307,7 @@
                         android:text="@string/yangfang_number"
                         android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
                     <TextView
+                        android:id="@+id/guanmuyangfang_count_text_view"
                         android:text="0"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
@@ -317,6 +325,12 @@
                     android:drawableStart="@android:drawable/ic_input_add"
                     android:gravity="center_vertical"
                     android:onClick="onAddGuanmuyangfang"/>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/guanmuyangfang_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                    />
 
             </com.thcreate.vegsurveyassistant.customUi.ExpandableLinearLayoutWithHeader>
 
@@ -348,6 +362,7 @@
                         android:text="@string/yangfang_number"
                         android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
                     <TextView
+                        android:id="@+id/caobenyangfang_count_text_view"
                         android:text="0"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
@@ -365,6 +380,12 @@
                     android:drawableStart="@android:drawable/ic_input_add"
                     android:gravity="center_vertical"
                     android:onClick="onAddCaobenyangfang"/>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/caobenyangfang_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                    />
 
             </com.thcreate.vegsurveyassistant.customUi.ExpandableLinearLayoutWithHeader>
 

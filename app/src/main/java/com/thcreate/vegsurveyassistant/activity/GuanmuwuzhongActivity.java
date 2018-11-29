@@ -12,42 +12,30 @@ import android.view.View;
 
 import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.databinding.ActivityGuanmuwuzhongBinding;
+import com.thcreate.vegsurveyassistant.db.entity.GuanmuWuzhong;
 import com.thcreate.vegsurveyassistant.util.IdGenerator;
 import com.thcreate.vegsurveyassistant.util.Macro;
 import com.thcreate.vegsurveyassistant.viewmodel.GuanmuwuzhongActivityViewModel;
 
-public class GuanmuwuzhongActivity extends AppCompatActivity {
+public class GuanmuwuzhongActivity extends BaseWuzhongActivity<GuanmuWuzhong> {
 
     private GuanmuwuzhongActivityViewModel mViewModel;
     private ActivityGuanmuwuzhongBinding mBinding;
 
-    private String mYangfangCode;
-    private int mAction;
-    private String mWuzhongCode;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initParam();
-        initBinding();
+        initBinding(savedInstanceState);
         initLayout();
     }
-    private void initParam(){
-        Intent intent = getIntent();
-        mYangfangCode = intent.getStringExtra(Macro.GUANMUYANGFANG_CODE);
-        mAction = intent.getIntExtra(Macro.ACTION, Macro.ACTION_ADD);
-        if (mAction == Macro.ACTION_ADD){
-            mWuzhongCode = IdGenerator.getId(1, Macro.GUANMU_WUZHONG);
+    private void initBinding(Bundle savedInstanceState){
+        mViewModel = ViewModelProviders.of(this).get(GuanmuwuzhongActivityViewModel.class);
+        if (savedInstanceState == null){
+            mViewModel.initWuzhong(mYangfangCode, mAction, mWuzhongCode, null);
         }
         else {
-            mWuzhongCode = intent.getStringExtra(Macro.GUANMUWUZHONG_CODE);
+            mViewModel.initWuzhong(mYangfangCode, mAction, mWuzhongCode, savedInstanceState.getParcelable(WUZHONG_DATA));
         }
-    }
-    private void initBinding(){
-        GuanmuwuzhongActivityViewModel.Factory factory = new GuanmuwuzhongActivityViewModel.Factory(
-                getApplication(), mAction, mYangfangCode, mWuzhongCode
-        );
-        mViewModel = ViewModelProviders.of(this, factory).get(GuanmuwuzhongActivityViewModel.class);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_guanmuwuzhong);
         mBinding.setViewmodel(mViewModel);
         mBinding.setLifecycleOwner(this);
@@ -56,13 +44,18 @@ public class GuanmuwuzhongActivity extends AppCompatActivity {
         setSupportActionBar(findViewById(R.id.toolbar));
         findViewById(R.id.fab).setOnClickListener((v)->{
             save();
+            finish();
         });
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(WUZHONG_DATA, mViewModel.wuzhong.getValue());
+    }
 
 
-    private void save(){
-        mViewModel.save();
-        finish();
+    private boolean save(){
+        return mViewModel.save();
     }
 }
