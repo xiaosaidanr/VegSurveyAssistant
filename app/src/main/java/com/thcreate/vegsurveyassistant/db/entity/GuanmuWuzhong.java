@@ -3,6 +3,7 @@ package com.thcreate.vegsurveyassistant.db.entity;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
@@ -51,6 +52,7 @@ public class GuanmuWuzhong extends BaseWuzhong implements Parcelable {
     public GuanmuWuzhong() {
     }
 
+    @Ignore
     public GuanmuWuzhong(@NonNull int userId, @NonNull String yangfangCode, @NonNull String wuzhongCode){
         super(userId, yangfangCode, wuzhongCode);
     }
@@ -112,6 +114,7 @@ public class GuanmuWuzhong extends BaseWuzhong implements Parcelable {
         }
     };
 
+    @Ignore
     public GuanmuWuzhong(Parcel source){
         Object tmpId = source.readValue(getClass().getClassLoader());
         if (tmpId != null){

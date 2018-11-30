@@ -3,6 +3,7 @@ package com.thcreate.vegsurveyassistant.db.entity;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
@@ -51,6 +52,7 @@ public class GuanmuYangfang extends BaseYangfang implements Parcelable {
     public GuanmuYangfang() {
     }
 
+    @Ignore
     public GuanmuYangfang(@NonNull int userId, @NonNull String yangdiCode, @NonNull String yangfangCode){
         super(userId, yangdiCode, yangfangCode);
     }
@@ -115,6 +117,7 @@ public class GuanmuYangfang extends BaseYangfang implements Parcelable {
         }
     };
 
+    @Ignore
     public GuanmuYangfang(Parcel source){
         Object tmpId = source.readValue(getClass().getClassLoader());
         if (tmpId != null){
