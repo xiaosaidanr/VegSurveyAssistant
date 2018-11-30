@@ -17,7 +17,7 @@ import java.util.Date;
 abstract public class BaseWuzhongActivityViewModel<T extends BaseWuzhong> extends AndroidViewModel {
 
     protected String mYangfangCode;
-    protected int mAction;
+    protected String mAction;
     protected String mWuzhongCode;
 
     public LiveData<T> wuzhong;
@@ -32,7 +32,7 @@ abstract public class BaseWuzhongActivityViewModel<T extends BaseWuzhong> extend
         clazz = (Class <T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
-    public void initWuzhong(String yangfangCode, int action, String wuzhongCode, T restoredData){
+    public void initWuzhong(String yangfangCode, String action, String wuzhongCode, T restoredData){
         mYangfangCode = yangfangCode;
         mAction = action;
         mWuzhongCode = wuzhongCode;
@@ -84,11 +84,11 @@ abstract public class BaseWuzhongActivityViewModel<T extends BaseWuzhong> extend
         }
         Date dateNow = new Date();
         wuzhongRaw.modifyAt = dateNow;
-        if (mAction == Macro.ACTION_ADD || mAction == Macro.ACTION_ADD_RESTORE){
+        if (mAction.equals(Macro.ACTION_ADD) || mAction.equals(Macro.ACTION_ADD_RESTORE)){
             wuzhongRaw.createAt = dateNow;
             repository.insertWuzhong(wuzhongRaw);
         }
-        if (mAction == Macro.ACTION_EDIT || mAction == Macro.ACTION_EDIT_RESTORE){
+        if (mAction.equals(Macro.ACTION_EDIT) || mAction.equals(Macro.ACTION_EDIT_RESTORE)){
             repository.updateWuzhong(wuzhongRaw);
         }
         return true;

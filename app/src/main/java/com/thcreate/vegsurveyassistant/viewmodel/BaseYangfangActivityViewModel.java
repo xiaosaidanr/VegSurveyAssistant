@@ -4,12 +4,16 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.thcreate.vegsurveyassistant.BasicApp;
 import com.thcreate.vegsurveyassistant.db.entity.BaseYangfang;
 import com.thcreate.vegsurveyassistant.repository.WuzhongDataRepository;
 import com.thcreate.vegsurveyassistant.repository.YangfangDataRepository;
+import com.thcreate.vegsurveyassistant.util.IdGenerator;
 import com.thcreate.vegsurveyassistant.util.Macro;
 
 import java.lang.reflect.ParameterizedType;
@@ -17,40 +21,49 @@ import java.util.Date;
 
 abstract public class BaseYangfangActivityViewModel<T extends BaseYangfang> extends AndroidViewModel {
 
-    protected String mYangdiCode;
-    protected int mAction;
-    protected String mYangfangCode;
+    private static final String YANGFANG_DATA = "yangfang_data";
+
+    //TODO userid1
+    private int userId = 1;
+
+    private String yangdiCode;
+    public String yangdiType;
+    String action;
+    public String yangfangCode;
 
     public LiveData<T> yangfang;
 
-    protected Class<T> clazz;
+    private Class<T> mClazzT;
 
-    protected YangfangDataRepository mYangfangRepository;
+    YangfangDataRepository mYangfangRepository;
 
-    protected WuzhongDataRepository mWuzhongRepository;
+    WuzhongDataRepository mWuzhongRepository;
 
     public BaseYangfangActivityViewModel(@NonNull Application application) {
         super(application);
         mYangfangRepository = ((BasicApp)application).getYangfangDataRepository();
         mWuzhongRepository = ((BasicApp)application).getWuzhongDataRepository();
-        clazz = (Class <T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        mClazzT = (Class <T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
-    public void initYangfang(String yangidCode, int action, String yangfangCode, T restoredData){
-        mYangdiCode = yangidCode;
-        mAction = action;
-        mYangfangCode = yangfangCode;
+    public void init(Bundle data){
+        yangdiCode = data.getString(Macro.YANGDI_CODE);
+        yangdiType = data.getString(Macro.YANGDI_TYPE);
+        action = data.getString(Macro.ACTION);
+        yangfangCode = data.getString(Macro.YANGFANG_CODE);
+        @Nullable T tmp = data.getParcelable(YANGFANG_DATA);
+        initYangfang(tmp);
+    }
 
-
-        switch (mAction){
+    private void initYangfang(T data){
+        switch (action){
             case Macro.ACTION_ADD:
                 MutableLiveData<T> tmp1 = new MutableLiveData<>();
                 try {
-                    T data = clazz.newInstance();
-                    //TODO userid1
-                    data.userId = 1;
-                    data.yangdiCode = mYangdiCode;
-                    data.yangfangCode = mYangfangCode;
+                    data = mClazzT.newInstance();
+                    data.userId = userId;
+                    data.yangdiCode = yangdiCode;
+                    data.yangfangCode = yangfangCode;
                     tmp1.setValue(data);
                     yangfang = tmp1;
                 }
@@ -60,16 +73,15 @@ abstract public class BaseYangfangActivityViewModel<T extends BaseYangfang> exte
                 break;
             case Macro.ACTION_ADD_RESTORE:
                 MutableLiveData<T> tmp2 = new MutableLiveData<>();
-                tmp2.setValue(restoredData);
+                tmp2.setValue(data);
                 yangfang = tmp2;
                 break;
             case Macro.ACTION_EDIT:
-//                yangfang = mYangfangRepository.getCaobenYangfangByYangfangCode(mYangfangCode);
-                getYangfangDataFromDatabase();
+                yangfang = getYangfangData();
                 break;
             case Macro.ACTION_EDIT_RESTORE:
                 MutableLiveData<T> tmp3 = new MutableLiveData<>();
-                tmp3.setValue(restoredData);
+                tmp3.setValue(data);
                 yangfang = tmp3;
                 break;
             default:
@@ -77,7 +89,25 @@ abstract public class BaseYangfangActivityViewModel<T extends BaseYangfang> exte
         }
     }
 
-    abstract public void getYangfangDataFromDatabase();
+    public Bundle onSaveViewModelState(Bundle outState) {
+        outState.putString(Macro.YANGDI_CODE, yangdiCode);
+        outState.putString(Macro.YANGDI_TYPE, yangdiType);
+        outState.putString(Macro.YANGFANG_CODE, yangfangCode);
+        if (action.equals(Macro.ACTION_ADD) || action.equals(Macro.ACTION_ADD_RESTORE)){
+            outState.putString(Macro.ACTION, Macro.ACTION_ADD_RESTORE);
+        }
+        if (action.equals(Macro.ACTION_EDIT) || action.equals(Macro.ACTION_EDIT_RESTORE)){
+            outState.putString(Macro.ACTION, Macro.ACTION_EDIT_RESTORE);
+        }
+        outState.putParcelable(YANGFANG_DATA, (Parcelable) yangfang.getValue());
+        return outState;
+    }
+
+    abstract public LiveData<T> getYangfangData();
+
+    public <U> String generateWuzhongCode(Class<U> modelClass){
+        return IdGenerator.getId(userId, modelClass);
+    }
 
     public boolean save(){
         if (yangfang == null){
@@ -89,11 +119,11 @@ abstract public class BaseYangfangActivityViewModel<T extends BaseYangfang> exte
         }
         Date dateNow = new Date();
         yangfangRaw.modifyAt = dateNow;
-        if (mAction == Macro.ACTION_ADD || mAction == Macro.ACTION_ADD_RESTORE){
+        if (action == Macro.ACTION_ADD || action == Macro.ACTION_ADD_RESTORE){
             yangfangRaw.createAt = dateNow;
             mYangfangRepository.insertYangfang(yangfangRaw);
         }
-        if (mAction == Macro.ACTION_EDIT || mAction == Macro.ACTION_EDIT_RESTORE){
+        if (action == Macro.ACTION_EDIT || action == Macro.ACTION_EDIT_RESTORE){
             mYangfangRepository.updateYangfang(yangfangRaw);
         }
         return true;

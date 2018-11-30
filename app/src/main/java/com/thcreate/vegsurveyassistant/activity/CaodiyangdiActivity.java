@@ -98,7 +98,7 @@ public class CaodiyangdiActivity extends BaseYangdiActivity {
     public void onAddYangfang(View v){
         Intent intent = new Intent(CaodiyangdiActivity.this, CaobenyangfangActivity.class);
         intent.putExtra(Macro.ACTION, Macro.ACTION_ADD);
-        intent.putExtra(Macro.YANGDI_TYPE, Macro.GRASS);
+        intent.putExtra(Macro.YANGDI_TYPE, Macro.YANGDI_TYPE_GRASS);
         intent.putExtra(Macro.YANGDI_CODE, mYangdiCode);
         startActivity(intent);
     }

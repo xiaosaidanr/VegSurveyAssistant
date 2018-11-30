@@ -150,21 +150,21 @@ public class SenlinyangdiActivity extends BaseYangdiActivity {
     public void onAddQiaomuyangfang(View v){
         Intent intent = new Intent(SenlinyangdiActivity.this, QiaomuyangfangActivity.class);
         intent.putExtra(Macro.ACTION, Macro.ACTION_ADD);
-        intent.putExtra(Macro.YANGDI_TYPE, Macro.TREE);
+        intent.putExtra(Macro.YANGDI_TYPE, Macro.YANGDI_TYPE_TREE);
         intent.putExtra(Macro.YANGDI_CODE, mYangdiCode);
         startActivity(intent);
     }
     public void onAddGuanmuyangfang(View v){
         Intent intent = new Intent(SenlinyangdiActivity.this, GuanmuyangfangActivity.class);
         intent.putExtra(Macro.ACTION, Macro.ACTION_ADD);
-        intent.putExtra(Macro.YANGDI_TYPE, Macro.TREE);
+        intent.putExtra(Macro.YANGDI_TYPE, Macro.YANGDI_TYPE_TREE);
         intent.putExtra(Macro.YANGDI_CODE, mYangdiCode);
         startActivity(intent);
     }
     public void onAddCaobenyangfang(View v){
         Intent intent = new Intent(SenlinyangdiActivity.this, CaobenyangfangActivity.class);
         intent.putExtra(Macro.ACTION, Macro.ACTION_ADD);
-        intent.putExtra(Macro.YANGDI_TYPE, Macro.TREE);
+        intent.putExtra(Macro.YANGDI_TYPE, Macro.YANGDI_TYPE_TREE);
         intent.putExtra(Macro.YANGDI_CODE, mYangdiCode);
         startActivity(intent);
     }

@@ -21,7 +21,7 @@ import java.util.List;
 
 public class BaseYangdiActivityViewModel extends AndroidViewModel {
 
-    protected int mAction;
+    protected String mAction;
     protected String mYangdiCode;
     protected String mType;
 
@@ -37,7 +37,7 @@ public class BaseYangdiActivityViewModel extends AndroidViewModel {
         mYangfangRepository = ((BasicApp)application).getYangfangDataRepository();
     }
 
-    public void initYangdi(int action, String yangdiCode, String type, @Nullable Yangdi restoredData){
+    public void initYangdi(String action, String yangdiCode, String type, @Nullable Yangdi restoredData){
         mAction = action;
         mYangdiCode = yangdiCode;
         mType = type;
@@ -87,11 +87,11 @@ public class BaseYangdiActivityViewModel extends AndroidViewModel {
         }
         Date dateNow = new Date();
         yangdiRaw.modifyAt = dateNow;
-        if (mAction == Macro.ACTION_ADD || mAction == Macro.ACTION_ADD_RESTORE){
+        if (mAction.equals(Macro.ACTION_ADD) || mAction.equals(Macro.ACTION_ADD_RESTORE)){
             yangdiRaw.createAt = dateNow;
             mYangdiRepository.insertYangdi(yangdiRaw);
         }
-        if (mAction == Macro.ACTION_EDIT || mAction == Macro.ACTION_EDIT_RESTORE){
+        if (mAction.equals(Macro.ACTION_EDIT) || mAction.equals(Macro.ACTION_EDIT_RESTORE)){
             mYangdiRepository.updateYangdi(yangdiRaw);
         }
         return true;

@@ -23,7 +23,7 @@ import java.util.List;
 public class YangdianActivityViewModel extends AndroidViewModel {
 
     private String mYangdianCode;
-    private int mAction;
+    private String mAction;
 
 //    public LiveData<User> user;
 
@@ -47,7 +47,7 @@ public class YangdianActivityViewModel extends AndroidViewModel {
 
     }
 
-    public void initYangdian(int action, String yangdianCode, Yangdian restoredData){
+    public void initYangdian(String action, String yangdianCode, Yangdian restoredData){
         mAction = action;
         mYangdianCode = yangdianCode;
 
@@ -86,11 +86,11 @@ public class YangdianActivityViewModel extends AndroidViewModel {
         }
         Date dateNow = new Date();
         yangdianRaw.modifyAt = dateNow;
-        if (mAction == Macro.ACTION_ADD || mAction == Macro.ACTION_ADD_RESTORE){
+        if (mAction.equals(Macro.ACTION_ADD) || mAction.equals(Macro.ACTION_ADD_RESTORE)){
             yangdianRaw.createAt = dateNow;
             repository.insertYangdian(yangdianRaw);
         }
-        if (mAction == Macro.ACTION_EDIT || mAction == Macro.ACTION_EDIT_RESTORE){
+        if (mAction.equals(Macro.ACTION_EDIT) || mAction.equals(Macro.ACTION_EDIT_RESTORE)){
             repository.updateYangdian(yangdianRaw);
         }
         return true;

@@ -27,12 +27,12 @@ public class CaobenyangfangActivityViewModel extends BaseYangfangActivityViewMod
     }
 
     @Override
-    public void getYangfangDataFromDatabase(){
-        yangfang = mYangfangRepository.getCaobenYangfangByYangfangCode(mYangfangCode);
+    public LiveData<CaobenYangfang> getYangfangData(){
+        return mYangfangRepository.getCaobenYangfangByYangfangCode(yangfangCode);
     }
 
-    public LiveData<List<CaobenWuzhong>> getCaobenwuzhongList(){
-        return mWuzhongRepository.getAllCaobenWuzhongByYangfangCode(mYangfangCode);
+    public LiveData<List<CaobenWuzhong>> getWuzhongList(){
+        return mWuzhongRepository.getAllCaobenWuzhongByYangfangCode(yangfangCode);
     }
 
 //    private final int mAction;

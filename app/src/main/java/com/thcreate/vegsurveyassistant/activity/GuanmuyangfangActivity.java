@@ -26,9 +26,9 @@ import com.thcreate.vegsurveyassistant.viewmodel.GuanmuyangfangActivityViewModel
 import java.util.Calendar;
 import java.util.List;
 
-public class GuanmuyangfangActivity extends BaseYangfangActivity<GuanmuYangfang> implements DatePickerDialog.OnDateSetListener {
+public class GuanmuyangfangActivity extends BaseYangfangActivity<GuanmuyangfangActivityViewModel> implements DatePickerDialog.OnDateSetListener {
 
-    private GuanmuyangfangActivityViewModel mViewModel;
+//    private GuanmuyangfangActivityViewModel mViewModel;
     private ActivityGuanmuyangfangBinding mBinding;
 
     private EditText longitutdeEditText;
@@ -40,17 +40,17 @@ public class GuanmuyangfangActivity extends BaseYangfangActivity<GuanmuYangfang>
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initBinding(savedInstanceState);
+        initBinding();
         initLayout();
     }
-    private void initBinding(Bundle savedInstanceState){
-        mViewModel = ViewModelProviders.of(this).get(GuanmuyangfangActivityViewModel.class);
-        if (savedInstanceState == null){
-            mViewModel.initYangfang(mYangdiCode, mAction, mYangfangCode, null);
-        }
-        else {
-            mViewModel.initYangfang(mYangdiCode, mAction, mYangfangCode, savedInstanceState.getParcelable(YANGFANG_DATA));
-        }
+    private void initBinding(){
+//        mViewModel = ViewModelProviders.of(this).get(GuanmuyangfangActivityViewModel.class);
+//        if (savedInstanceState == null){
+//            mViewModel.initYangfang(mYangdiCode, mAction, mYangfangCode, null);
+//        }
+//        else {
+//            mViewModel.initYangfang(mYangdiCode, mAction, mYangfangCode, savedInstanceState.getParcelable(YANGFANG_DATA));
+//        }
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_guanmuyangfang);
         mBinding.setViewmodel(mViewModel);
         mBinding.setLifecycleOwner(this);
@@ -58,7 +58,7 @@ public class GuanmuyangfangActivity extends BaseYangfangActivity<GuanmuYangfang>
     private void initLayout(){
         setSupportActionBar(findViewById(R.id.toolbar));
 
-        if (mType == Macro.GRASS || mType == Macro.BUSH){
+        if (mViewModel.yangdiType.equals(Macro.YANGDI_TYPE_GRASS) || mViewModel.yangdiType.equals(Macro.YANGDI_TYPE_BUSH)){
             findViewById(R.id.belong_qiaomuyangfang_code_textview).setVisibility(View.GONE);
             findViewById(R.id.belong_qiaomuyangfang_code_edittext).setVisibility(View.GONE);
         }
@@ -74,7 +74,7 @@ public class GuanmuyangfangActivity extends BaseYangfangActivity<GuanmuYangfang>
 
         mWuzhongAdapter = new WuzhongAdapter<GuanmuWuzhong>(mWuzhongItemClickCallback);
         ((RecyclerView)findViewById(R.id.wuzhong_list)).setAdapter(mWuzhongAdapter);
-        subscribeUi(mViewModel.getGuanmuwuzhongList());
+        subscribeUi(mViewModel.getWuzhongList());
     }
     private void subscribeUi(LiveData<List<GuanmuWuzhong>> liveData) {
         liveData.observe(this, (wuzhongList)->{
@@ -89,17 +89,17 @@ public class GuanmuyangfangActivity extends BaseYangfangActivity<GuanmuYangfang>
     }
     private final ItemClickCallback<GuanmuWuzhong> mWuzhongItemClickCallback = (wuzhong) -> {
         Intent intent = new Intent(GuanmuyangfangActivity.this, GuanmuwuzhongActivity.class);
-        intent.putExtra(Macro.ACTION, Macro.ACTION_EDIT);
         intent.putExtra(Macro.YANGFANG_CODE, wuzhong.yangfangCode);
+        intent.putExtra(Macro.ACTION, Macro.ACTION_EDIT);
         intent.putExtra(Macro.WUZHONG_CODE, wuzhong.wuzhongCode);
         startActivity(intent);
     };
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putParcelable(YANGFANG_DATA, mViewModel.yangfang.getValue());
-    }
+//    @Override
+//    protected void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//        outState.putParcelable(YANGFANG_DATA, mViewModel.yangfang.getValue());
+//    }
 
     public void showDatePickerDialog(View v) {
         Calendar calendar=Calendar.getInstance();
@@ -118,8 +118,9 @@ public class GuanmuyangfangActivity extends BaseYangfangActivity<GuanmuYangfang>
 
     public void onAddWuzhong(View v){
         Intent intent = new Intent(GuanmuyangfangActivity.this, GuanmuwuzhongActivity.class);
-        intent.putExtra(Macro.YANGFANG_CODE, mYangfangCode);
         intent.putExtra(Macro.ACTION, Macro.ACTION_ADD);
+        intent.putExtra(Macro.YANGFANG_CODE, mViewModel.yangfangCode);
+        intent.putExtra(Macro.WUZHONG_CODE, mViewModel.generateWuzhongCode(GuanmuWuzhong.class));
         startActivity(intent);
     }
 

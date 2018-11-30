@@ -2,7 +2,6 @@ package com.thcreate.vegsurveyassistant.activity;
 
 import android.app.DatePickerDialog;
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -17,16 +16,15 @@ import com.thcreate.vegsurveyassistant.adapter.WuzhongAdapter;
 import com.thcreate.vegsurveyassistant.adapter.ItemClickCallback;
 import com.thcreate.vegsurveyassistant.databinding.ActivityCaobenyangfangBinding;
 import com.thcreate.vegsurveyassistant.db.entity.CaobenWuzhong;
-import com.thcreate.vegsurveyassistant.db.entity.CaobenYangfang;
 import com.thcreate.vegsurveyassistant.util.Macro;
 import com.thcreate.vegsurveyassistant.viewmodel.CaobenyangfangActivityViewModel;
 
 import java.util.Calendar;
 import java.util.List;
 
-public class CaobenyangfangActivity extends BaseYangfangActivity<CaobenYangfang> implements DatePickerDialog.OnDateSetListener {
+public class CaobenyangfangActivity extends BaseYangfangActivity<CaobenyangfangActivityViewModel> implements DatePickerDialog.OnDateSetListener {
 
-    private CaobenyangfangActivityViewModel mViewModel;
+//    private CaobenyangfangActivityViewModel mViewModel;
     private ActivityCaobenyangfangBinding mBinding;
 
     private EditText longitutdeEditText;
@@ -38,17 +36,17 @@ public class CaobenyangfangActivity extends BaseYangfangActivity<CaobenYangfang>
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initBinding(savedInstanceState);
+        initBinding();
         initLayout();
     }
-    private void initBinding(Bundle savedInstanceState){
-        mViewModel = ViewModelProviders.of(this).get(CaobenyangfangActivityViewModel.class);
-        if (savedInstanceState == null){
-            mViewModel.initYangfang(mYangdiCode, mAction, mYangfangCode, null);
-        }
-        else {
-            mViewModel.initYangfang(mYangdiCode, mAction, mYangfangCode, savedInstanceState.getParcelable(YANGFANG_DATA));
-        }
+    private void initBinding(){
+//        mViewModel = ViewModelProviders.of(this).get(CaobenyangfangActivityViewModel.class);
+//        if (savedInstanceState == null){
+//            mViewModel.initYangfang(mYangdiCode, mAction, mYangfangCode, null);
+//        }
+//        else {
+//            mViewModel.initYangfang(mYangdiCode, mAction, mYangfangCode, savedInstanceState.getParcelable(YANGFANG_DATA));
+//        }
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_caobenyangfang);
         mBinding.setViewmodel(mViewModel);
         mBinding.setLifecycleOwner(this);
@@ -56,13 +54,13 @@ public class CaobenyangfangActivity extends BaseYangfangActivity<CaobenYangfang>
     private void initLayout(){
         setSupportActionBar(findViewById(R.id.toolbar));
 
-        if (mType == Macro.GRASS){
+        if (mViewModel.yangdiType.equals(Macro.YANGDI_TYPE_GRASS)){
             findViewById(R.id.belong_qiaomuyangfang_code_textview).setVisibility(View.GONE);
             findViewById(R.id.belong_qiaomuyangfang_code_edittext).setVisibility(View.GONE);
             findViewById(R.id.belong_guanmuyangfang_code_textview).setVisibility(View.GONE);
             findViewById(R.id.belong_guanmuyangfang_code_edittext).setVisibility(View.GONE);
         }
-        else if (mType == Macro.BUSH){
+        else if (mViewModel.yangdiType.equals(Macro.YANGDI_TYPE_BUSH)){
             findViewById(R.id.belong_qiaomuyangfang_code_textview).setVisibility(View.GONE);
             findViewById(R.id.belong_qiaomuyangfang_code_edittext).setVisibility(View.GONE);
         }
@@ -78,7 +76,7 @@ public class CaobenyangfangActivity extends BaseYangfangActivity<CaobenYangfang>
 
         mWuzhongAdapter = new WuzhongAdapter<CaobenWuzhong>(mWuzhongItemClickCallback);
         ((RecyclerView)findViewById(R.id.wuzhong_list)).setAdapter(mWuzhongAdapter);
-        subscribeUi(mViewModel.getCaobenwuzhongList());
+        subscribeUi(mViewModel.getWuzhongList());
     }
     private void subscribeUi(LiveData<List<CaobenWuzhong>> liveData) {
         liveData.observe(this, (wuzhongList)->{
@@ -93,17 +91,17 @@ public class CaobenyangfangActivity extends BaseYangfangActivity<CaobenYangfang>
     }
     private final ItemClickCallback<CaobenWuzhong> mWuzhongItemClickCallback = (wuzhong) -> {
         Intent intent = new Intent(CaobenyangfangActivity.this, CaobenwuzhongActivity.class);
-        intent.putExtra(Macro.ACTION, Macro.ACTION_EDIT);
         intent.putExtra(Macro.YANGFANG_CODE, wuzhong.yangfangCode);
+        intent.putExtra(Macro.ACTION, Macro.ACTION_EDIT);
         intent.putExtra(Macro.WUZHONG_CODE, wuzhong.wuzhongCode);
         startActivity(intent);
     };
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putParcelable(YANGFANG_DATA, mViewModel.yangfang.getValue());
-    }
+//    @Override
+//    protected void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//        outState.putParcelable(YANGFANG_DATA, mViewModel.yangfang.getValue());
+//    }
 
     public void showDatePickerDialog(View v) {
         Calendar calendar=Calendar.getInstance();
@@ -122,8 +120,9 @@ public class CaobenyangfangActivity extends BaseYangfangActivity<CaobenYangfang>
 
     public void onAddWuzhong(View v){
         Intent intent = new Intent(CaobenyangfangActivity.this, CaobenwuzhongActivity.class);
-        intent.putExtra(Macro.YANGFANG_CODE, mYangfangCode);
+        intent.putExtra(Macro.YANGFANG_CODE, mViewModel.yangfangCode);
         intent.putExtra(Macro.ACTION, Macro.ACTION_ADD);
+        intent.putExtra(Macro.WUZHONG_CODE, mViewModel.generateWuzhongCode(CaobenWuzhong.class));
         startActivity(intent);
     }
 

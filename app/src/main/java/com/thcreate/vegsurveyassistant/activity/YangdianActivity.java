@@ -27,7 +27,7 @@ public class YangdianActivity extends BaseActivity implements DatePickerDialog.O
     private YangdianActivityViewModel mViewModel;
     private ActivityYangdianBinding mBinding;
 
-    private int mAction;
+    private String mAction;
     private String mYangdianCode;
 
     private TextView dateTextView;
@@ -46,17 +46,17 @@ public class YangdianActivity extends BaseActivity implements DatePickerDialog.O
     }
     private void initParam(Bundle savedInstanceState){
         if (savedInstanceState == null){
-            mAction = getIntent().getIntExtra(Macro.ACTION, Macro.ACTION_ADD);
-            if (mAction == Macro.ACTION_ADD){
+            mAction = getIntent().getStringExtra(Macro.ACTION);
+            if (mAction.equals(Macro.ACTION_ADD)){
                 //TODO userid1
                 mYangdianCode = IdGenerator.getId(1, Yangdian.class);
             }
-            if (mAction == Macro.ACTION_EDIT){
+            if (mAction.equals(Macro.ACTION_EDIT)){
                 mYangdianCode = getIntent().getStringExtra(Macro.YANGDIAN_CODE);
             }
         }
         else {
-            mAction = savedInstanceState.getInt(Macro.ACTION);
+            mAction = savedInstanceState.getString(Macro.ACTION);
             mYangdianCode = savedInstanceState.getString(Macro.YANGDIAN_CODE);
         }
     }
@@ -89,11 +89,11 @@ public class YangdianActivity extends BaseActivity implements DatePickerDialog.O
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(Macro.YANGDIAN_CODE, mYangdianCode);
-        if (mAction == Macro.ACTION_ADD || mAction == Macro.ACTION_ADD_RESTORE){
-            outState.putInt(Macro.ACTION, Macro.ACTION_ADD_RESTORE);
+        if (mAction.equals(Macro.ACTION_ADD) || mAction.equals(Macro.ACTION_ADD_RESTORE)){
+            outState.putString(Macro.ACTION, Macro.ACTION_ADD_RESTORE);
         }
-        if (mAction == Macro.ACTION_EDIT || mAction == Macro.ACTION_EDIT_RESTORE){
-            outState.putInt(Macro.ACTION, Macro.ACTION_EDIT_RESTORE);
+        if (mAction.equals(Macro.ACTION_EDIT) || mAction.equals(Macro.ACTION_EDIT_RESTORE)){
+            outState.putString(Macro.ACTION, Macro.ACTION_EDIT_RESTORE);
         }
         outState.putParcelable(YANGDIAN_DATA, mViewModel.yangdian.getValue());
     }

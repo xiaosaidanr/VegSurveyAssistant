@@ -15,7 +15,7 @@ public class BaseWuzhongActivity<T extends BaseWuzhong> extends BaseActivity {
     static final String WUZHONG_DATA = "wuzhongData";
 
     String mYangfangCode;
-    int mAction;
+    String mAction;
     String mWuzhongCode;
     Class<T> clazzT;
 
@@ -31,8 +31,8 @@ public class BaseWuzhongActivity<T extends BaseWuzhong> extends BaseActivity {
         if (savedInstanceState == null){
             Intent intent = getIntent();
             mYangfangCode = intent.getStringExtra(Macro.YANGFANG_CODE);
-            mAction = intent.getIntExtra(Macro.ACTION, Macro.ACTION_ADD);
-            if (mAction == Macro.ACTION_ADD){
+            mAction = intent.getStringExtra(Macro.ACTION);
+            if (mAction.equals(Macro.ACTION_ADD)){
                 //TODO userid1
                 mWuzhongCode = IdGenerator.getId(1, clazzT);
             }
@@ -42,7 +42,7 @@ public class BaseWuzhongActivity<T extends BaseWuzhong> extends BaseActivity {
         }
         else {
             mYangfangCode = savedInstanceState.getString(Macro.YANGFANG_CODE);
-            mAction = savedInstanceState.getInt(Macro.ACTION);
+            mAction = savedInstanceState.getString(Macro.ACTION);
             mWuzhongCode = savedInstanceState.getString(Macro.WUZHONG_CODE);
         }
     }
@@ -51,11 +51,11 @@ public class BaseWuzhongActivity<T extends BaseWuzhong> extends BaseActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(Macro.YANGFANG_CODE, mYangfangCode);
-        if (mAction == Macro.ACTION_ADD || mAction == Macro.ACTION_ADD_RESTORE){
-            outState.putInt(Macro.ACTION, Macro.ACTION_ADD_RESTORE);
+        if (mAction.equals(Macro.ACTION_ADD) || mAction.equals(Macro.ACTION_ADD_RESTORE)){
+            outState.putString(Macro.ACTION, Macro.ACTION_ADD_RESTORE);
         }
-        if (mAction == Macro.ACTION_EDIT || mAction == Macro.ACTION_EDIT_RESTORE){
-            outState.putInt(Macro.ACTION, Macro.ACTION_EDIT_RESTORE);
+        if (mAction.equals(Macro.ACTION_EDIT) || mAction.equals(Macro.ACTION_EDIT_RESTORE)){
+            outState.putString(Macro.ACTION, Macro.ACTION_EDIT_RESTORE);
         }
         outState.putString(Macro.WUZHONG_CODE, mWuzhongCode);
     }

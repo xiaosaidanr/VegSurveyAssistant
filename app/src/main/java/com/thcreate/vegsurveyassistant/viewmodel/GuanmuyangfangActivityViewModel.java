@@ -27,12 +27,12 @@ public class GuanmuyangfangActivityViewModel extends BaseYangfangActivityViewMod
     }
 
     @Override
-    public void getYangfangDataFromDatabase() {
-        yangfang = mYangfangRepository.getGuanmuYangfangByYangfangCode(mYangfangCode);
+    public LiveData<GuanmuYangfang> getYangfangData() {
+        return mYangfangRepository.getGuanmuYangfangByYangfangCode(yangfangCode);
     }
 
-    public LiveData<List<GuanmuWuzhong>> getGuanmuwuzhongList(){
-        return mWuzhongRepository.getAllGuanmuWuzhongByYangfangCode(mYangfangCode);
+    public LiveData<List<GuanmuWuzhong>> getWuzhongList(){
+        return mWuzhongRepository.getAllGuanmuWuzhongByYangfangCode(yangfangCode);
     }
 
     //    private final String mYangdiCode;
