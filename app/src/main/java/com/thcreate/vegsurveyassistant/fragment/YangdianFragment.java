@@ -25,6 +25,7 @@ import com.thcreate.vegsurveyassistant.adapter.ItemClickCallback;
 import com.thcreate.vegsurveyassistant.adapter.YangdianAdapter;
 import com.thcreate.vegsurveyassistant.databinding.FragmentYangdianBinding;
 import com.thcreate.vegsurveyassistant.db.entity.Yangdian;
+import com.thcreate.vegsurveyassistant.util.IdGenerator;
 import com.thcreate.vegsurveyassistant.util.Macro;
 import com.thcreate.vegsurveyassistant.viewmodel.YangdianListViewModel;
 
@@ -111,26 +112,7 @@ public class YangdianFragment extends BaseFragment {
         subscribeUi(viewModel.getYangdianList());
     }
 
-//    private void subscribeUi(LiveData<List<Yangdian>> liveData) {
-//        // Update the list when the data changes
-//        liveData.observe(this, new Observer<List<Yangdian>>() {
-//            @Override
-//            public void onChanged(@Nullable List<Yangdian> yangdianList) {
-//                if (yangdianList != null) {
-//                    mBinding.setIsLoading(false);
-//                    mYangdianAdapter.setYangdianList(yangdianList);
-//                } else {
-//                    mBinding.setIsLoading(true);
-//                }
-//                // espresso does not know how to wait for data binding's loop so we execute changes
-//                // sync.
-//                mBinding.executePendingBindings();
-//            }
-//        });
-//    }
-
     private void subscribeUi(LiveData<List<Yangdian>> liveData) {
-        // Update the list when the data changes
         liveData.observe(this, (yangdianList)->{
             if (yangdianList != null) {
                 mBinding.setIsLoading(false);
@@ -138,8 +120,6 @@ public class YangdianFragment extends BaseFragment {
             } else {
                 mBinding.setIsLoading(true);
             }
-            // espresso does not know how to wait for data binding's loop so we execute changes
-            // sync.
             mBinding.executePendingBindings();
         });
     }
@@ -167,18 +147,11 @@ public class YangdianFragment extends BaseFragment {
             case R.id.yangdian_add:
                 intent = new Intent(getActivity(), YangdianActivity.class);
                 intent.putExtra(Macro.ACTION, Macro.ACTION_ADD);
+                //TODO userid1
+                intent.putExtra(Macro.YANGDIAN_CODE, IdGenerator.getId(1, Yangdian.class));
                 startActivity(intent);
                 return true;
         }
         return false;
     }
-
-//    @Override
-//    public void onHiddenChanged(boolean hidden) {
-//        super.onHiddenChanged(hidden);
-//        if (!hidden) {
-//            ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
-//            setHasOptionsMenu(true);
-//        }
-//    }
 }

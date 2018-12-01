@@ -27,11 +27,11 @@ import com.thcreate.vegsurveyassistant.viewmodel.GuancongyangdiActivityViewModel
 
 import java.util.List;
 
-public class GuancongyangdiActivity extends BaseYangdiActivity {
+public class GuancongyangdiActivity extends BaseYangdiActivity<GuancongyangdiActivityViewModel> {
 
-    private static final String TYPE = "bush";
+//    private static final String TYPE = "bush";
 
-    private GuancongyangdiActivityViewModel mViewModel;
+//    private GuancongyangdiActivityViewModel mViewModel;
     private ActivityGuancongyangdiBinding mBinding;
 
     private EditText longitutdeEditText;
@@ -45,17 +45,17 @@ public class GuancongyangdiActivity extends BaseYangdiActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initBinding(savedInstanceState);
+        initBinding();
         initLayout();
     }
-    private void initBinding(Bundle savedInstanceState){
-        mViewModel = ViewModelProviders.of(this).get(GuancongyangdiActivityViewModel.class);
-        if (savedInstanceState == null){
-            mViewModel.initYangdi(mAction, mYangdiCode, TYPE, null);
-        }
-        else {
-            mViewModel.initYangdi(mAction, mYangdiCode, TYPE, savedInstanceState.getParcelable(YANGDI_DATA));
-        }
+    private void initBinding(){
+//        mViewModel = ViewModelProviders.of(this).get(GuancongyangdiActivityViewModel.class);
+//        if (savedInstanceState == null){
+//            mViewModel.initYangdi(mAction, mYangdiCode, TYPE, null);
+//        }
+//        else {
+//            mViewModel.initYangdi(mAction, mYangdiCode, TYPE, savedInstanceState.getParcelable(YANGDI_DATA));
+//        }
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_guancongyangdi);
         mBinding.setViewmodel(mViewModel);
         mBinding.setLifecycleOwner(this);
@@ -116,15 +116,15 @@ public class GuancongyangdiActivity extends BaseYangdiActivity {
         startActivity(intent);
     };
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putParcelable(YANGDI_DATA, mViewModel.yangdi.getValue());
-    }
+//    @Override
+//    protected void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//        outState.putParcelable(YANGDI_DATA, mViewModel.yangdi.getValue());
+//    }
 
     public void onAddGuanmuyangfang(View v){
         Intent intent = new Intent(GuancongyangdiActivity.this, GuanmuyangfangActivity.class);
-        intent.putExtra(Macro.YANGDI_CODE, mYangdiCode);
+        intent.putExtra(Macro.YANGDI_CODE, mViewModel.yangdiCode);
         intent.putExtra(Macro.YANGDI_TYPE, Macro.YANGDI_TYPE_BUSH);
         intent.putExtra(Macro.ACTION, Macro.ACTION_ADD);
         intent.putExtra(Macro.YANGFANG_CODE, mViewModel.generateYangfangCode(GuanmuYangfang.class));
@@ -132,7 +132,7 @@ public class GuancongyangdiActivity extends BaseYangdiActivity {
     }
     public void onAddCaobenyangfang(View v){
         Intent intent = new Intent(GuancongyangdiActivity.this, CaobenyangfangActivity.class);
-        intent.putExtra(Macro.YANGDI_CODE, mYangdiCode);
+        intent.putExtra(Macro.YANGDI_CODE, mViewModel.yangdiCode);
         intent.putExtra(Macro.YANGDI_TYPE, Macro.YANGDI_TYPE_BUSH);
         intent.putExtra(Macro.ACTION, Macro.ACTION_ADD);
         intent.putExtra(Macro.YANGFANG_CODE, mViewModel.generateYangfangCode(CaobenYangfang.class));

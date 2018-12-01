@@ -7,7 +7,9 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.databinding.Bindable;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 
@@ -22,8 +24,13 @@ import java.util.List;
 
 public class YangdianActivityViewModel extends AndroidViewModel {
 
-    private String mYangdianCode;
-    private String mAction;
+    private static final String YANGDIAN_DATA = "yangdianData";
+
+    //TODO userid1
+    private int userId = 1;
+
+    public String yangdianCode;
+    public String action;
 
 //    public LiveData<User> user;
 
@@ -47,15 +54,21 @@ public class YangdianActivityViewModel extends AndroidViewModel {
 
     }
 
-    public void initYangdian(String action, String yangdianCode, Yangdian restoredData){
-        mAction = action;
-        mYangdianCode = yangdianCode;
+    public void init(Bundle data){
+        action = data.getString(Macro.ACTION);
+        yangdianCode = data.getString(Macro.YANGDIAN_CODE);
+        @Nullable Yangdian tmp = data.getParcelable(YANGDIAN_DATA);
+        initYangdian(tmp);
+    }
 
-        switch (mAction){
+    private void initYangdian(Yangdian restoredData){
+//        mAction = action;
+//        mYangdianCode = yangdianCode;
+
+        switch (action){
             case Macro.ACTION_ADD:
                 MutableLiveData<Yangdian> tmp1 = new MutableLiveData<>();
-                //TODO userid1
-                tmp1.setValue(new Yangdian(1, mYangdianCode));
+                tmp1.setValue(new Yangdian(userId, yangdianCode));
                 yangdian = tmp1;
                 break;
             case Macro.ACTION_ADD_RESTORE:
@@ -64,7 +77,7 @@ public class YangdianActivityViewModel extends AndroidViewModel {
                 yangdian = tmp2;
                 break;
             case Macro.ACTION_EDIT:
-                yangdian = repository.getYangdianByYangdianCode(mYangdianCode);
+                yangdian = repository.getYangdianByYangdianCode(yangdianCode);
                 break;
             case Macro.ACTION_EDIT_RESTORE:
                 MutableLiveData<Yangdian> tmp3 = new MutableLiveData<>();
@@ -74,6 +87,18 @@ public class YangdianActivityViewModel extends AndroidViewModel {
             default:
                 break;
         }
+    }
+
+    public Bundle onSaveViewModelState(Bundle outState){
+        outState.putString(Macro.YANGDIAN_CODE, yangdianCode);
+        if (action.equals(Macro.ACTION_ADD) || action.equals(Macro.ACTION_ADD_RESTORE)){
+            outState.putString(Macro.ACTION, Macro.ACTION_ADD_RESTORE);
+        }
+        if (action.equals(Macro.ACTION_EDIT) || action.equals(Macro.ACTION_EDIT_RESTORE)){
+            outState.putString(Macro.ACTION, Macro.ACTION_EDIT_RESTORE);
+        }
+        outState.putParcelable(YANGDIAN_DATA, yangdian.getValue());
+        return outState;
     }
 
     public boolean save(){
@@ -86,11 +111,11 @@ public class YangdianActivityViewModel extends AndroidViewModel {
         }
         Date dateNow = new Date();
         yangdianRaw.modifyAt = dateNow;
-        if (mAction.equals(Macro.ACTION_ADD) || mAction.equals(Macro.ACTION_ADD_RESTORE)){
+        if (action.equals(Macro.ACTION_ADD) || action.equals(Macro.ACTION_ADD_RESTORE)){
             yangdianRaw.createAt = dateNow;
             repository.insertYangdian(yangdianRaw);
         }
-        if (mAction.equals(Macro.ACTION_EDIT) || mAction.equals(Macro.ACTION_EDIT_RESTORE)){
+        if (action.equals(Macro.ACTION_EDIT) || action.equals(Macro.ACTION_EDIT_RESTORE)){
             repository.updateYangdian(yangdianRaw);
         }
         return true;

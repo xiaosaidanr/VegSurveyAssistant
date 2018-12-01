@@ -2,6 +2,7 @@ package com.thcreate.vegsurveyassistant.activity;
 
 import android.app.DatePickerDialog;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,13 +23,13 @@ import java.util.Calendar;
 
 public class YangdianActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener {
 
-    private static final String YANGDIAN_DATA = "yangdianData";
+//    private static final String YANGDIAN_DATA = "yangdianData";
 
     private YangdianActivityViewModel mViewModel;
     private ActivityYangdianBinding mBinding;
 
-    private String mAction;
-    private String mYangdianCode;
+//    private String mAction;
+//    private String mYangdianCode;
 
     private TextView dateTextView;
     private EditText longitutdeEditText;
@@ -40,35 +41,45 @@ public class YangdianActivity extends BaseActivity implements DatePickerDialog.O
 
         setIsHandleBackPressed(true);
 
-        initParam(savedInstanceState);
-        initBinding(savedInstanceState);
+//        initParam(savedInstanceState);
+        initViewModel(savedInstanceState);
+        initBinding();
         initLayout();
     }
-    private void initParam(Bundle savedInstanceState){
+//    private void initParam(Bundle savedInstanceState){
+//        if (savedInstanceState == null){
+//            mAction = getIntent().getStringExtra(Macro.ACTION);
+//            if (mAction.equals(Macro.ACTION_ADD)){
+//                mYangdianCode = IdGenerator.getId(1, Yangdian.class);
+//            }
+//            if (mAction.equals(Macro.ACTION_EDIT)){
+//                mYangdianCode = getIntent().getStringExtra(Macro.YANGDIAN_CODE);
+//            }
+//        }
+//        else {
+//            mAction = savedInstanceState.getString(Macro.ACTION);
+//            mYangdianCode = savedInstanceState.getString(Macro.YANGDIAN_CODE);
+//        }
+//    }
+    private void initViewModel(Bundle savedInstanceState){
         if (savedInstanceState == null){
-            mAction = getIntent().getStringExtra(Macro.ACTION);
-            if (mAction.equals(Macro.ACTION_ADD)){
-                //TODO userid1
-                mYangdianCode = IdGenerator.getId(1, Yangdian.class);
-            }
-            if (mAction.equals(Macro.ACTION_EDIT)){
-                mYangdianCode = getIntent().getStringExtra(Macro.YANGDIAN_CODE);
-            }
+            savedInstanceState = new Bundle();
+            Intent intent = getIntent();
+            savedInstanceState.putString(Macro.ACTION, intent.getStringExtra(Macro.ACTION));
+            savedInstanceState.putString(Macro.YANGDIAN_CODE, intent.getStringExtra(Macro.YANGDIAN_CODE));
         }
-        else {
-            mAction = savedInstanceState.getString(Macro.ACTION);
-            mYangdianCode = savedInstanceState.getString(Macro.YANGDIAN_CODE);
-        }
+        mViewModel = ViewModelProviders.of(this).get(YangdianActivityViewModel.class);
+        mViewModel.init(savedInstanceState);
     }
-    private void initBinding(Bundle savedInstanceState){
-        mViewModel = ViewModelProviders.of(this)
-                .get(YangdianActivityViewModel.class);
-        if (savedInstanceState == null){
-            mViewModel.initYangdian(mAction, mYangdianCode, null);
-        }
-        else {
-            mViewModel.initYangdian(mAction, mYangdianCode, (Yangdian)savedInstanceState.getParcelable(YANGDIAN_DATA));
-        }
+    private void initBinding(){
+//        mViewModel = ViewModelProviders.of(this)
+//                .get(YangdianActivityViewModel.class);
+//        if (savedInstanceState == null){
+//            mViewModel.initYangdian(mAction, mYangdianCode, null);
+//        }
+//        else {
+//            mViewModel.initYangdian(mAction, mYangdianCode, (Yangdian)savedInstanceState.getParcelable(YANGDIAN_DATA));
+//        }
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_yangdian);
         mBinding.setViewmodel(mViewModel);
         mBinding.setLifecycleOwner(this);
@@ -87,15 +98,16 @@ public class YangdianActivity extends BaseActivity implements DatePickerDialog.O
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        outState = mViewModel.onSaveViewModelState(outState);
         super.onSaveInstanceState(outState);
-        outState.putString(Macro.YANGDIAN_CODE, mYangdianCode);
-        if (mAction.equals(Macro.ACTION_ADD) || mAction.equals(Macro.ACTION_ADD_RESTORE)){
-            outState.putString(Macro.ACTION, Macro.ACTION_ADD_RESTORE);
-        }
-        if (mAction.equals(Macro.ACTION_EDIT) || mAction.equals(Macro.ACTION_EDIT_RESTORE)){
-            outState.putString(Macro.ACTION, Macro.ACTION_EDIT_RESTORE);
-        }
-        outState.putParcelable(YANGDIAN_DATA, mViewModel.yangdian.getValue());
+//        outState.putString(Macro.YANGDIAN_CODE, mYangdianCode);
+//        if (mAction.equals(Macro.ACTION_ADD) || mAction.equals(Macro.ACTION_ADD_RESTORE)){
+//            outState.putString(Macro.ACTION, Macro.ACTION_ADD_RESTORE);
+//        }
+//        if (mAction.equals(Macro.ACTION_EDIT) || mAction.equals(Macro.ACTION_EDIT_RESTORE)){
+//            outState.putString(Macro.ACTION, Macro.ACTION_EDIT_RESTORE);
+//        }
+//        outState.putParcelable(YANGDIAN_DATA, mViewModel.yangdian.getValue());
     }
 
     public void showDatePickerDialog(View v) {

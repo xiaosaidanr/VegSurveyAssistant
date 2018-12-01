@@ -98,11 +98,11 @@ public class SenlinListFragment extends Fragment {
         Intent intent = new Intent(getActivity(), SenlinyangdiActivity.class);
         intent.putExtra(Macro.ACTION, Macro.ACTION_EDIT);
         intent.putExtra(Macro.YANGDI_CODE, yangdi.yangdiCode);
+        intent.putExtra(Macro.YANGDI_TYPE, Macro.YANGDI_TYPE_TREE);
         startActivity(intent);
     };
 
     private void subscribeUi(LiveData<List<Yangdi>> liveData) {
-        // Update the list when the data changes
         liveData.observe(this, (yangdiList)->{
             if (yangdiList != null) {
                 mBinding.setIsLoading(false);
@@ -110,8 +110,6 @@ public class SenlinListFragment extends Fragment {
             } else {
                 mBinding.setIsLoading(true);
             }
-            // espresso does not know how to wait for data binding's loop so we execute changes
-            // sync.
             mBinding.executePendingBindings();
         });
     }

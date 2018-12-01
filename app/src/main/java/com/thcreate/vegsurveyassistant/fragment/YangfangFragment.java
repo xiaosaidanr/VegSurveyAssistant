@@ -22,6 +22,8 @@ import com.thcreate.vegsurveyassistant.activity.CaodiyangdiActivity;
 import com.thcreate.vegsurveyassistant.activity.GuancongyangdiActivity;
 import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.activity.SenlinyangdiActivity;
+import com.thcreate.vegsurveyassistant.db.entity.Yangdi;
+import com.thcreate.vegsurveyassistant.util.IdGenerator;
 import com.thcreate.vegsurveyassistant.util.Macro;
 
 import java.lang.reflect.Type;
@@ -108,23 +110,30 @@ public class YangfangFragment extends BaseFragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Class type = null;
+        Class activityClazz = null;
+        String yangdiType = "";
         switch (item.getItemId()){
             case R.id.caodiyangfang_add:
-                type = CaodiyangdiActivity.class;
+                activityClazz = CaodiyangdiActivity.class;
+                yangdiType = Macro.YANGDI_TYPE_GRASS;
                 break;
             case R.id.guancongyangfang_add:
-                type = GuancongyangdiActivity.class;
+                activityClazz = GuancongyangdiActivity.class;
+                yangdiType = Macro.YANGDI_TYPE_BUSH;
                 break;
             case R.id.senlinyangfang_add:
-                type = SenlinyangdiActivity.class;
+                activityClazz = SenlinyangdiActivity.class;
+                yangdiType = Macro.YANGDI_TYPE_TREE;
                 break;
             default:
                 break;
         }
-        if (type != null){
-            Intent intent = new Intent(getActivity(), type);
+        if (activityClazz != null){
+            Intent intent = new Intent(getActivity(), activityClazz);
             intent.putExtra(Macro.ACTION, Macro.ACTION_ADD);
+            //TODO userid1
+            intent.putExtra(Macro.YANGDI_CODE, IdGenerator.getId(1, Yangdi.class));
+            intent.putExtra(Macro.YANGDI_TYPE, yangdiType);
             startActivity(intent);
             return true;
         }
@@ -132,16 +141,6 @@ public class YangfangFragment extends BaseFragment {
             return false;
         }
     }
-
-//    @Override
-//    public void onHiddenChanged(boolean hidden) {
-//        super.onHiddenChanged(hidden);
-//        if (!hidden) {
-//            ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
-//            setHasOptionsMenu(true);
-//        }
-//    }
-
 
     public class YangfangTabAdapter extends FragmentPagerAdapter{
 

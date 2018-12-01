@@ -4,6 +4,8 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -22,12 +24,14 @@ import java.util.List;
 
 public class BaseYangdiActivityViewModel extends AndroidViewModel {
 
+    static final String YANGDI_DATA = "yangdiData";
+
     //TODO userid1
     private int userId = 1;
 
-    protected String mAction;
-    protected String mYangdiCode;
-    protected String mType;
+    protected String action;
+    public String yangdiCode;
+    protected String yangdiType;
 
     public LiveData<Yangdi> yangdi;
 
@@ -36,20 +40,23 @@ public class BaseYangdiActivityViewModel extends AndroidViewModel {
 
     public BaseYangdiActivityViewModel(@NonNull Application application) {
         super(application);
-
         mYangdiRepository = ((BasicApp)application).getYangdiDataRepository();
         mYangfangRepository = ((BasicApp)application).getYangfangDataRepository();
     }
 
-    public void initYangdi(String action, String yangdiCode, String type, @Nullable Yangdi restoredData){
-        mAction = action;
-        mYangdiCode = yangdiCode;
-        mType = type;
+    public void init(Bundle data){
+        action = data.getString(Macro.ACTION);
+        yangdiCode = data.getString(Macro.YANGDI_CODE);
+        yangdiType = data.getString(Macro.YANGDI_TYPE);
+        @Nullable Yangdi tmp = data.getParcelable(YANGDI_DATA);
+        initYangdi(tmp);
+    }
 
-        switch (mAction){
+    private void initYangdi(@Nullable Yangdi restoredData){
+        switch (action){
             case Macro.ACTION_ADD:
                 MutableLiveData<Yangdi> tmp1 = new MutableLiveData<>();
-                tmp1.setValue(new Yangdi(userId, mYangdiCode, mType));
+                tmp1.setValue(new Yangdi(userId, yangdiCode, yangdiType));
                 yangdi = tmp1;
                 break;
             case Macro.ACTION_ADD_RESTORE:
@@ -70,14 +77,27 @@ public class BaseYangdiActivityViewModel extends AndroidViewModel {
         }
     }
 
+    public Bundle onSaveViewModelState(Bundle outState){
+        outState.putString(Macro.YANGDI_CODE, yangdiCode);
+        outState.putString(Macro.YANGDI_TYPE, yangdiType);
+        if (action.equals(Macro.ACTION_ADD) || action.equals(Macro.ACTION_ADD_RESTORE)){
+            outState.putString(Macro.ACTION, Macro.ACTION_ADD_RESTORE);
+        }
+        if (action.equals(Macro.ACTION_EDIT) || action.equals(Macro.ACTION_EDIT_RESTORE)){
+            outState.putString(Macro.ACTION, Macro.ACTION_EDIT_RESTORE);
+        }
+        outState.putParcelable(YANGDI_DATA, yangdi.getValue());
+        return outState;
+    }
+
     public LiveData<List<CaobenYangfang>> getCaobenyangfangList(){
-        return mYangfangRepository.getAllCaobenYangfangByYangdiCode(mYangdiCode);
+        return mYangfangRepository.getAllCaobenYangfangByYangdiCode(yangdiCode);
     }
     public LiveData<List<GuanmuYangfang>> getGuanmuyangfangList(){
-        return mYangfangRepository.getAllGuanmuYangfangByYangdiCode(mYangdiCode);
+        return mYangfangRepository.getAllGuanmuYangfangByYangdiCode(yangdiCode);
     }
     public LiveData<List<QiaomuYangfang>> getQiaomuyangfangList(){
-        return mYangfangRepository.getAllQiaomuYangfangByYangdiCode(mYangdiCode);
+        return mYangfangRepository.getAllQiaomuYangfangByYangdiCode(yangdiCode);
     }
 
     public <U> String generateYangfangCode(Class<U> modelClass){
@@ -94,11 +114,11 @@ public class BaseYangdiActivityViewModel extends AndroidViewModel {
         }
         Date dateNow = new Date();
         yangdiRaw.modifyAt = dateNow;
-        if (mAction.equals(Macro.ACTION_ADD) || mAction.equals(Macro.ACTION_ADD_RESTORE)){
+        if (action.equals(Macro.ACTION_ADD) || action.equals(Macro.ACTION_ADD_RESTORE)){
             yangdiRaw.createAt = dateNow;
             mYangdiRepository.insertYangdi(yangdiRaw);
         }
-        if (mAction.equals(Macro.ACTION_EDIT) || mAction.equals(Macro.ACTION_EDIT_RESTORE)){
+        if (action.equals(Macro.ACTION_EDIT) || action.equals(Macro.ACTION_EDIT_RESTORE)){
             mYangdiRepository.updateYangdi(yangdiRaw);
         }
         return true;

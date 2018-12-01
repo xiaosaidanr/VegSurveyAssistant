@@ -30,8 +30,8 @@ public class Macro {
 //    public static final String QIAOMUWUZHONG_CODE = "qiaomuwuzhongCode";
 
     public static final String YANGDI_TYPE = "yangdi_type";
-    public static final String YANGDI_TYPE_GRASS = "yangdi_type_grass";
-    public static final String YANGDI_TYPE_BUSH = "yangdi_type_bush";
-    public static final String YANGDI_TYPE_TREE = "yangdi_type_tree";
+    public static final String YANGDI_TYPE_GRASS = "grass";
+    public static final String YANGDI_TYPE_BUSH = "bush";
+    public static final String YANGDI_TYPE_TREE = "tree";
 
 }
