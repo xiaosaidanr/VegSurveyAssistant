@@ -118,8 +118,8 @@ public class GuanmuyangfangActivity extends BaseYangfangActivity<GuanmuyangfangA
 
     public void onAddWuzhong(View v){
         Intent intent = new Intent(GuanmuyangfangActivity.this, GuanmuwuzhongActivity.class);
-        intent.putExtra(Macro.ACTION, Macro.ACTION_ADD);
         intent.putExtra(Macro.YANGFANG_CODE, mViewModel.yangfangCode);
+        intent.putExtra(Macro.ACTION, Macro.ACTION_ADD);
         intent.putExtra(Macro.WUZHONG_CODE, mViewModel.generateWuzhongCode(GuanmuWuzhong.class));
         startActivity(intent);
     }

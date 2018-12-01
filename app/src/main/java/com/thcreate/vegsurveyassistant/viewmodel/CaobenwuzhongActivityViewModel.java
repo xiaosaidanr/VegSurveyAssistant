@@ -68,8 +68,8 @@ public class CaobenwuzhongActivityViewModel extends BaseWuzhongActivityViewModel
 
 
     @Override
-    public void getWuzhongDataFromDatabase() {
-        wuzhong = repository.getCaobenWuzhongByWuzhongCode(mWuzhongCode);
+    public LiveData<CaobenWuzhong> getWuzhongData() {
+        return repository.getCaobenWuzhongByWuzhongCode(wuzhongCode);
     }
 
 //    public boolean save(){

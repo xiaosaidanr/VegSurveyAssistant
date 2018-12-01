@@ -21,8 +21,8 @@ public class QiaomuwuzhongActivityViewModel extends BaseWuzhongActivityViewModel
         super(application);
     }
     @Override
-    public void getWuzhongDataFromDatabase() {
-        wuzhong = repository.getQiaomuWuzhongByWuzhongCode(mWuzhongCode);
+    public LiveData<QiaomuWuzhong> getWuzhongData() {
+        return repository.getQiaomuWuzhongByWuzhongCode(wuzhongCode);
     }
 
 //    private final String mYangfangCode;

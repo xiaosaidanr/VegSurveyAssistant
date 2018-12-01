@@ -101,15 +101,17 @@ public class GuancongyangdiActivity extends BaseYangdiActivity {
     }
     private final ItemClickCallback<GuanmuYangfang> mGuanmuyangfangItemClickCallback = (yangfang) -> {
         Intent intent = new Intent(GuancongyangdiActivity.this, GuanmuyangfangActivity.class);
-        intent.putExtra(Macro.ACTION, Macro.ACTION_EDIT);
         intent.putExtra(Macro.YANGDI_CODE, yangfang.yangdiCode);
+        intent.putExtra(Macro.YANGDI_TYPE, Macro.YANGDI_TYPE_BUSH);
+        intent.putExtra(Macro.ACTION, Macro.ACTION_EDIT);
         intent.putExtra(Macro.YANGFANG_CODE, yangfang.yangfangCode);
         startActivity(intent);
     };
     private final ItemClickCallback<CaobenYangfang> mCaobenyangfangItemClickCallback = (yangfang) -> {
         Intent intent = new Intent(GuancongyangdiActivity.this, CaobenyangfangActivity.class);
-        intent.putExtra(Macro.ACTION, Macro.ACTION_EDIT);
         intent.putExtra(Macro.YANGDI_CODE, yangfang.yangdiCode);
+        intent.putExtra(Macro.YANGDI_TYPE, Macro.YANGDI_TYPE_BUSH);
+        intent.putExtra(Macro.ACTION, Macro.ACTION_EDIT);
         intent.putExtra(Macro.YANGFANG_CODE, yangfang.yangfangCode);
         startActivity(intent);
     };
@@ -122,16 +124,18 @@ public class GuancongyangdiActivity extends BaseYangdiActivity {
 
     public void onAddGuanmuyangfang(View v){
         Intent intent = new Intent(GuancongyangdiActivity.this, GuanmuyangfangActivity.class);
-        intent.putExtra(Macro.ACTION, Macro.ACTION_ADD);
-        intent.putExtra(Macro.YANGDI_TYPE, Macro.YANGDI_TYPE_BUSH);
         intent.putExtra(Macro.YANGDI_CODE, mYangdiCode);
+        intent.putExtra(Macro.YANGDI_TYPE, Macro.YANGDI_TYPE_BUSH);
+        intent.putExtra(Macro.ACTION, Macro.ACTION_ADD);
+        intent.putExtra(Macro.YANGFANG_CODE, mViewModel.generateYangfangCode(GuanmuYangfang.class));
         startActivity(intent);
     }
     public void onAddCaobenyangfang(View v){
         Intent intent = new Intent(GuancongyangdiActivity.this, CaobenyangfangActivity.class);
-        intent.putExtra(Macro.ACTION, Macro.ACTION_ADD);
-        intent.putExtra(Macro.YANGDI_TYPE, Macro.YANGDI_TYPE_BUSH);
         intent.putExtra(Macro.YANGDI_CODE, mYangdiCode);
+        intent.putExtra(Macro.YANGDI_TYPE, Macro.YANGDI_TYPE_BUSH);
+        intent.putExtra(Macro.ACTION, Macro.ACTION_ADD);
+        intent.putExtra(Macro.YANGFANG_CODE, mViewModel.generateYangfangCode(CaobenYangfang.class));
         startActivity(intent);
     }
 

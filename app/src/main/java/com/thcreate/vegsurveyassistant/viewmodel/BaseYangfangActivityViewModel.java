@@ -119,11 +119,11 @@ abstract public class BaseYangfangActivityViewModel<T extends BaseYangfang> exte
         }
         Date dateNow = new Date();
         yangfangRaw.modifyAt = dateNow;
-        if (action == Macro.ACTION_ADD || action == Macro.ACTION_ADD_RESTORE){
+        if (action.equals(Macro.ACTION_ADD) || action.equals(Macro.ACTION_ADD_RESTORE)){
             yangfangRaw.createAt = dateNow;
             mYangfangRepository.insertYangfang(yangfangRaw);
         }
-        if (action == Macro.ACTION_EDIT || action == Macro.ACTION_EDIT_RESTORE){
+        if (action.equals(Macro.ACTION_EDIT) || action.equals(Macro.ACTION_EDIT_RESTORE)){
             mYangfangRepository.updateYangfang(yangfangRaw);
         }
         return true;

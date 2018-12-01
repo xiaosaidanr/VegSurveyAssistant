@@ -49,7 +49,6 @@ public class BaseYangfangActivity<U extends BaseYangfangActivityViewModel> exten
 //            mType = intent.getIntExtra(Macro.YANGDI_TYPE, Macro.TREE);
 //            mAction = intent.getIntExtra(Macro.ACTION, Macro.ACTION_ADD);
 //            if (mAction == Macro.ACTION_ADD){
-//                //TODO userid1
 //                mYangfangCode = IdGenerator.getId(1, clazzT);
 //            }
 //            if (mAction == Macro.ACTION_EDIT){

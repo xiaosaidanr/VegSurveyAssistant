@@ -17,25 +17,25 @@ import com.thcreate.vegsurveyassistant.util.IdGenerator;
 import com.thcreate.vegsurveyassistant.util.Macro;
 import com.thcreate.vegsurveyassistant.viewmodel.QiaomuwuzhongActivityViewModel;
 
-public class QiaomuwuzhongActivity extends BaseWuzhongActivity<QiaomuWuzhong> {
+public class QiaomuwuzhongActivity extends BaseWuzhongActivity<QiaomuwuzhongActivityViewModel> {
 
-    private QiaomuwuzhongActivityViewModel mViewModel;
+//    private QiaomuwuzhongActivityViewModel mViewModel;
     private ActivityQiaomuwuzhongBinding mBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initBinding(savedInstanceState);
+        initBinding();
         initLayout();
     }
-    private void initBinding(Bundle savedInstanceState){
-        mViewModel = ViewModelProviders.of(this).get(QiaomuwuzhongActivityViewModel.class);
-        if (savedInstanceState == null){
-            mViewModel.initWuzhong(mYangfangCode, mAction, mWuzhongCode, null);
-        }
-        else {
-            mViewModel.initWuzhong(mYangfangCode, mAction, mWuzhongCode, savedInstanceState.getParcelable(WUZHONG_DATA));
-        }
+    private void initBinding(){
+//        mViewModel = ViewModelProviders.of(this).get(QiaomuwuzhongActivityViewModel.class);
+//        if (savedInstanceState == null){
+//            mViewModel.initWuzhong(mYangfangCode, mAction, mWuzhongCode, null);
+//        }
+//        else {
+//            mViewModel.initWuzhong(mYangfangCode, mAction, mWuzhongCode, savedInstanceState.getParcelable(WUZHONG_DATA));
+//        }
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_qiaomuwuzhong);
         mBinding.setViewmodel(mViewModel);
         mBinding.setLifecycleOwner(this);
@@ -48,11 +48,11 @@ public class QiaomuwuzhongActivity extends BaseWuzhongActivity<QiaomuWuzhong> {
         });
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putParcelable(WUZHONG_DATA, mViewModel.wuzhong.getValue());
-    }
+//    @Override
+//    protected void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//        outState.putParcelable(WUZHONG_DATA, mViewModel.wuzhong.getValue());
+//    }
 
     private boolean save(){
         return mViewModel.save();

@@ -4,7 +4,10 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.thcreate.vegsurveyassistant.BasicApp;
 import com.thcreate.vegsurveyassistant.db.entity.BaseWuzhong;
@@ -16,13 +19,18 @@ import java.util.Date;
 
 abstract public class BaseWuzhongActivityViewModel<T extends BaseWuzhong> extends AndroidViewModel {
 
-    protected String mYangfangCode;
-    protected String mAction;
-    protected String mWuzhongCode;
+    static final String WUZHONG_DATA = "wuzhongData";
+
+    //TODO userid1
+    private int userId = 1;
+
+    protected String yangfangCode;
+    protected String action;
+    protected String wuzhongCode;
 
     public LiveData<T> wuzhong;
 
-    protected Class<T> clazz;
+    private Class<T> clazz;
 
     protected WuzhongDataRepository repository;
 
@@ -32,20 +40,24 @@ abstract public class BaseWuzhongActivityViewModel<T extends BaseWuzhong> extend
         clazz = (Class <T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
-    public void initWuzhong(String yangfangCode, String action, String wuzhongCode, T restoredData){
-        mYangfangCode = yangfangCode;
-        mAction = action;
-        mWuzhongCode = wuzhongCode;
+    public void init(Bundle data){
+        yangfangCode = data.getString(Macro.YANGFANG_CODE);
+        action = data.getString(Macro.ACTION);
+        wuzhongCode = data.getString(Macro.WUZHONG_CODE);
+        @Nullable T tmp = data.getParcelable(WUZHONG_DATA);
+        initWuzhong(tmp);
 
-        switch (mAction){
+    }
+
+    public void initWuzhong(T restoredData){
+        switch (action){
             case Macro.ACTION_ADD:
                 MutableLiveData<T> tmp1 = new MutableLiveData<>();
                 try {
                     T data = clazz.newInstance();
-                    //TODO userid1
-                    data.userId = 1;
-                    data.yangfangCode = mYangfangCode;
-                    data.wuzhongCode = mWuzhongCode;
+                    data.userId = userId;
+                    data.yangfangCode = yangfangCode;
+                    data.wuzhongCode = wuzhongCode;
                     tmp1.setValue(data);
                     wuzhong = tmp1;
                 }
@@ -60,7 +72,7 @@ abstract public class BaseWuzhongActivityViewModel<T extends BaseWuzhong> extend
                 break;
             case Macro.ACTION_EDIT:
 //                wuzhong = repository.getCaobenWuzhongByWuzhongCode(mWuzhongCode);
-                getWuzhongDataFromDatabase();
+                wuzhong = getWuzhongData();
                 break;
             case Macro.ACTION_EDIT_RESTORE:
                 MutableLiveData<T> tmp3 = new MutableLiveData<>();
@@ -72,7 +84,20 @@ abstract public class BaseWuzhongActivityViewModel<T extends BaseWuzhong> extend
         }
     }
 
-    abstract public void getWuzhongDataFromDatabase();
+    public Bundle onSaveViewModelState(Bundle outState){
+        outState.putString(Macro.YANGFANG_CODE, yangfangCode);
+        if (action.equals(Macro.ACTION_ADD) || action.equals(Macro.ACTION_ADD_RESTORE)){
+            outState.putString(Macro.ACTION, Macro.ACTION_ADD_RESTORE);
+        }
+        if (action.equals(Macro.ACTION_EDIT) || action.equals(Macro.ACTION_EDIT_RESTORE)){
+            outState.putString(Macro.ACTION, Macro.ACTION_EDIT_RESTORE);
+        }
+        outState.putString(Macro.WUZHONG_CODE, wuzhongCode);
+        outState.putParcelable(WUZHONG_DATA, (Parcelable) wuzhong.getValue());
+        return outState;
+    }
+
+    abstract LiveData<T> getWuzhongData();
 
     public boolean save(){
         if (wuzhong == null){
@@ -84,11 +109,11 @@ abstract public class BaseWuzhongActivityViewModel<T extends BaseWuzhong> extend
         }
         Date dateNow = new Date();
         wuzhongRaw.modifyAt = dateNow;
-        if (mAction.equals(Macro.ACTION_ADD) || mAction.equals(Macro.ACTION_ADD_RESTORE)){
+        if (action.equals(Macro.ACTION_ADD) || action.equals(Macro.ACTION_ADD_RESTORE)){
             wuzhongRaw.createAt = dateNow;
             repository.insertWuzhong(wuzhongRaw);
         }
-        if (mAction.equals(Macro.ACTION_EDIT) || mAction.equals(Macro.ACTION_EDIT_RESTORE)){
+        if (action.equals(Macro.ACTION_EDIT) || action.equals(Macro.ACTION_EDIT_RESTORE)){
             repository.updateWuzhong(wuzhongRaw);
         }
         return true;

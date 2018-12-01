@@ -14,12 +14,16 @@ import com.thcreate.vegsurveyassistant.db.entity.QiaomuYangfang;
 import com.thcreate.vegsurveyassistant.db.entity.Yangdi;
 import com.thcreate.vegsurveyassistant.repository.YangdiDataRepository;
 import com.thcreate.vegsurveyassistant.repository.YangfangDataRepository;
+import com.thcreate.vegsurveyassistant.util.IdGenerator;
 import com.thcreate.vegsurveyassistant.util.Macro;
 
 import java.util.Date;
 import java.util.List;
 
 public class BaseYangdiActivityViewModel extends AndroidViewModel {
+
+    //TODO userid1
+    private int userId = 1;
 
     protected String mAction;
     protected String mYangdiCode;
@@ -45,8 +49,7 @@ public class BaseYangdiActivityViewModel extends AndroidViewModel {
         switch (mAction){
             case Macro.ACTION_ADD:
                 MutableLiveData<Yangdi> tmp1 = new MutableLiveData<>();
-                //TODO userid1
-                tmp1.setValue(new Yangdi(1, mYangdiCode, mType));
+                tmp1.setValue(new Yangdi(userId, mYangdiCode, mType));
                 yangdi = tmp1;
                 break;
             case Macro.ACTION_ADD_RESTORE:
@@ -75,6 +78,10 @@ public class BaseYangdiActivityViewModel extends AndroidViewModel {
     }
     public LiveData<List<QiaomuYangfang>> getQiaomuyangfangList(){
         return mYangfangRepository.getAllQiaomuYangfangByYangdiCode(mYangdiCode);
+    }
+
+    public <U> String generateYangfangCode(Class<U> modelClass){
+        return IdGenerator.getId(userId, modelClass);
     }
 
     public boolean save(){
