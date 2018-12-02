@@ -18,6 +18,8 @@ public class Macro {
     public static final String ACTION_EDIT = "edit";
     public static final String ACTION_ADD_RESTORE = "add_restore";
     public static final String ACTION_EDIT_RESTORE = "edit_restore";
+    public static final String ACTION_TEMP_SAVE = "temp_save";
+    public static final String ACTION_TEMP_SAVE_RESTORE = "temp_save_restore";
 
     public static final String YANGDIAN_CODE = "yangdian_code";
     public static final String YANGDI_CODE = "yangdi_code";

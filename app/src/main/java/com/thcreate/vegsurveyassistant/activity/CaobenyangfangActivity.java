@@ -82,6 +82,7 @@ public class CaobenyangfangActivity extends BaseYangfangActivity<CaobenyangfangA
         });
     }
     private final ItemClickCallback<CaobenWuzhong> mWuzhongItemClickCallback = (wuzhong) -> {
+        mViewModel.onGoForward();
         Intent intent = new Intent(CaobenyangfangActivity.this, CaobenwuzhongActivity.class);
         intent.putExtra(Macro.YANGFANG_CODE, wuzhong.yangfangCode);
         intent.putExtra(Macro.ACTION, Macro.ACTION_EDIT);
@@ -105,6 +106,7 @@ public class CaobenyangfangActivity extends BaseYangfangActivity<CaobenyangfangA
     }
 
     public void onAddWuzhong(View v){
+        mViewModel.onGoForward();
         Intent intent = new Intent(CaobenyangfangActivity.this, CaobenwuzhongActivity.class);
         intent.putExtra(Macro.YANGFANG_CODE, mViewModel.yangfangCode);
         intent.putExtra(Macro.ACTION, Macro.ACTION_ADD);
@@ -119,5 +121,11 @@ public class CaobenyangfangActivity extends BaseYangfangActivity<CaobenyangfangA
 
     private boolean save(){
         return mViewModel.save();
+    }
+
+    @Override
+    public void onPositiveButtonPressed() {
+        mViewModel.onCancel();
+        super.onPositiveButtonPressed();
     }
 }

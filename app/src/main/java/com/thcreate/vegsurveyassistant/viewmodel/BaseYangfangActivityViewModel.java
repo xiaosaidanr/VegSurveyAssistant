@@ -21,6 +21,12 @@ import java.util.Date;
 
 abstract public class BaseYangfangActivityViewModel<T extends BaseYangfang> extends AndroidViewModel {
 
+    abstract public LiveData<T> getYangfangData();
+
+    public <U> String generateWuzhongCode(Class<U> modelClass){
+        return IdGenerator.getId(userId, modelClass);
+    }
+
     private static final String YANGFANG_DATA = "yangfang_data";
 
     //TODO userid1
@@ -84,8 +90,30 @@ abstract public class BaseYangfangActivityViewModel<T extends BaseYangfang> exte
                 tmp3.setValue(data);
                 yangfang = tmp3;
                 break;
+            case Macro.ACTION_TEMP_SAVE:
+                yangfang = getYangfangData();
+                action = Macro.ACTION_TEMP_SAVE_RESTORE;
+                break;
+            case Macro.ACTION_TEMP_SAVE_RESTORE:
+                MutableLiveData<T> tmp4 = new MutableLiveData<>();
+                tmp4.setValue(data);
+                yangfang = tmp4;
+                break;
             default:
                 break;
+        }
+    }
+
+    public void onGoForward(){
+        if (action.equals(Macro.ACTION_ADD) || action.equals(Macro.ACTION_ADD_RESTORE)){
+            mYangfangRepository.insertYangfang(yangfang.getValue());
+            action = Macro.ACTION_TEMP_SAVE;
+        }
+    }
+
+    public void onCancel(){
+        if (action.equals(Macro.ACTION_TEMP_SAVE_RESTORE)){
+            mYangfangRepository.deleteYangfang(yangfang.getValue());
         }
     }
 
@@ -99,14 +127,11 @@ abstract public class BaseYangfangActivityViewModel<T extends BaseYangfang> exte
         if (action.equals(Macro.ACTION_EDIT) || action.equals(Macro.ACTION_EDIT_RESTORE)){
             outState.putString(Macro.ACTION, Macro.ACTION_EDIT_RESTORE);
         }
+        if (action.equals(Macro.ACTION_TEMP_SAVE) || action.equals(Macro.ACTION_TEMP_SAVE_RESTORE)){
+            outState.putString(Macro.ACTION, action);
+        }
         outState.putParcelable(YANGFANG_DATA, (Parcelable) yangfang.getValue());
         return outState;
-    }
-
-    abstract public LiveData<T> getYangfangData();
-
-    public <U> String generateWuzhongCode(Class<U> modelClass){
-        return IdGenerator.getId(userId, modelClass);
     }
 
     public boolean save(){

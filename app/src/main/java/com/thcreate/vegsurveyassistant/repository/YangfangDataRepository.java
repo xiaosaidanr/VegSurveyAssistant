@@ -60,6 +60,9 @@ public class YangfangDataRepository {
             mDatabase.qiaomuYangfangDao().update(data);
         });
     }
+    public void deleteQiaomuyf(QiaomuYangfang data){
+        mAppExecutors.diskIO().execute(()->mDatabase.qiaomuYangfangDao().delete(data));
+    }
 
     public LiveData<GuanmuYangfang> getGuanmuYangfangByYangfangCode(String yangfangCode){
         return mDatabase.guanmuYangfangDao().getGuanmuYangfangByYangfangCode(yangfangCode);
@@ -81,6 +84,9 @@ public class YangfangDataRepository {
             mDatabase.guanmuYangfangDao().update(data);
         });
     }
+    public void deleteGuanmuyf(GuanmuYangfang data){
+        mAppExecutors.diskIO().execute(()->mDatabase.guanmuYangfangDao().delete(data));
+    }
 
     public LiveData<CaobenYangfang> getCaobenYangfangByYangfangCode(String yangfangCode){
         return mDatabase.caobenYangfangDao().getCaobenYangfangByYangfangCode(yangfangCode);
@@ -101,6 +107,9 @@ public class YangfangDataRepository {
         mAppExecutors.diskIO().execute(()->{
             mDatabase.caobenYangfangDao().update(data);
         });
+    }
+    public void deleteCaobenyf(CaobenYangfang data){
+        mAppExecutors.diskIO().execute(()->mDatabase.caobenYangfangDao().delete(data));
     }
 
 
@@ -126,6 +135,18 @@ public class YangfangDataRepository {
         }
         if (data instanceof QiaomuYangfang){
             updateQiaomuyf((QiaomuYangfang) data);
+        }
+    }
+
+    public <T extends BaseYangfang> void deleteYangfang(T data){
+        if (data instanceof CaobenYangfang){
+            deleteCaobenyf((CaobenYangfang) data);
+        }
+        if (data instanceof GuanmuYangfang){
+            deleteGuanmuyf((GuanmuYangfang) data);
+        }
+        if (data instanceof QiaomuYangfang){
+            deleteQiaomuyf((QiaomuYangfang) data);
         }
     }
 }
