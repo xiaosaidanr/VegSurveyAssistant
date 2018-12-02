@@ -29,9 +29,6 @@ import java.util.List;
 
 public class GuancongyangdiActivity extends BaseYangdiActivity<GuancongyangdiActivityViewModel> {
 
-//    private static final String TYPE = "bush";
-
-//    private GuancongyangdiActivityViewModel mViewModel;
     private ActivityGuancongyangdiBinding mBinding;
 
     private EditText longitutdeEditText;
@@ -49,13 +46,6 @@ public class GuancongyangdiActivity extends BaseYangdiActivity<GuancongyangdiAct
         initLayout();
     }
     private void initBinding(){
-//        mViewModel = ViewModelProviders.of(this).get(GuancongyangdiActivityViewModel.class);
-//        if (savedInstanceState == null){
-//            mViewModel.initYangdi(mAction, mYangdiCode, TYPE, null);
-//        }
-//        else {
-//            mViewModel.initYangdi(mAction, mYangdiCode, TYPE, savedInstanceState.getParcelable(YANGDI_DATA));
-//        }
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_guancongyangdi);
         mBinding.setViewmodel(mViewModel);
         mBinding.setLifecycleOwner(this);
@@ -115,12 +105,6 @@ public class GuancongyangdiActivity extends BaseYangdiActivity<GuancongyangdiAct
         intent.putExtra(Macro.YANGFANG_CODE, yangfang.yangfangCode);
         startActivity(intent);
     };
-
-//    @Override
-//    protected void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        outState.putParcelable(YANGDI_DATA, mViewModel.yangdi.getValue());
-//    }
 
     public void onAddGuanmuyangfang(View v){
         Intent intent = new Intent(GuancongyangdiActivity.this, GuanmuyangfangActivity.class);

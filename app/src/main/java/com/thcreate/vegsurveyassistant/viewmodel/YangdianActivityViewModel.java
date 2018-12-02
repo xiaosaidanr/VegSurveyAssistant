@@ -38,20 +38,9 @@ public class YangdianActivityViewModel extends AndroidViewModel {
 
     private YangdianDataRepository repository;
 
-//    public YangdianActivityViewModel(@NonNull Application application, final int action, final String yangdianCode) {
     public YangdianActivityViewModel(@NonNull Application application) {
-
         super(application);
-//        mAction = action;
-//        mYangdianCode = yangdianCode;
-
         repository = ((BasicApp)application).getYangdianDataRepository();
-//        user = repository.getCurrentUser();
-
-//        mAction = Macro.ACTION_EDIT;
-
-//        initYangdian();
-
     }
 
     public void init(Bundle data){
@@ -62,9 +51,6 @@ public class YangdianActivityViewModel extends AndroidViewModel {
     }
 
     private void initYangdian(Yangdian restoredData){
-//        mAction = action;
-//        mYangdianCode = yangdianCode;
-
         switch (action){
             case Macro.ACTION_ADD:
                 MutableLiveData<Yangdian> tmp1 = new MutableLiveData<>();
@@ -121,22 +107,4 @@ public class YangdianActivityViewModel extends AndroidViewModel {
         return true;
     }
 
-
-
-//    public static class Factory extends ViewModelProvider.NewInstanceFactory {
-//        @NonNull
-//        private final Application mApplication;
-//        private final int mAction;
-//        private final String mYangdianCode;
-//        public Factory(@NonNull Application application, int action, String yangdianCode) {
-//            mApplication = application;
-//            mAction = action;
-//            mYangdianCode = yangdianCode;
-//        }
-//        @Override
-//        public <T extends ViewModel> T create(Class<T> modelClass) {
-//            //noinspection unchecked
-//            return (T) new YangdianActivityViewModel(mApplication, mAction, mYangdianCode);
-//        }
-//    }
 }

@@ -23,13 +23,8 @@ import java.util.Calendar;
 
 public class YangdianActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener {
 
-//    private static final String YANGDIAN_DATA = "yangdianData";
-
     private YangdianActivityViewModel mViewModel;
     private ActivityYangdianBinding mBinding;
-
-//    private String mAction;
-//    private String mYangdianCode;
 
     private TextView dateTextView;
     private EditText longitutdeEditText;
@@ -38,29 +33,11 @@ public class YangdianActivity extends BaseActivity implements DatePickerDialog.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setIsHandleBackPressed(true);
-
-//        initParam(savedInstanceState);
         initViewModel(savedInstanceState);
         initBinding();
         initLayout();
     }
-//    private void initParam(Bundle savedInstanceState){
-//        if (savedInstanceState == null){
-//            mAction = getIntent().getStringExtra(Macro.ACTION);
-//            if (mAction.equals(Macro.ACTION_ADD)){
-//                mYangdianCode = IdGenerator.getId(1, Yangdian.class);
-//            }
-//            if (mAction.equals(Macro.ACTION_EDIT)){
-//                mYangdianCode = getIntent().getStringExtra(Macro.YANGDIAN_CODE);
-//            }
-//        }
-//        else {
-//            mAction = savedInstanceState.getString(Macro.ACTION);
-//            mYangdianCode = savedInstanceState.getString(Macro.YANGDIAN_CODE);
-//        }
-//    }
     private void initViewModel(Bundle savedInstanceState){
         if (savedInstanceState == null){
             savedInstanceState = new Bundle();
@@ -72,14 +49,6 @@ public class YangdianActivity extends BaseActivity implements DatePickerDialog.O
         mViewModel.init(savedInstanceState);
     }
     private void initBinding(){
-//        mViewModel = ViewModelProviders.of(this)
-//                .get(YangdianActivityViewModel.class);
-//        if (savedInstanceState == null){
-//            mViewModel.initYangdian(mAction, mYangdianCode, null);
-//        }
-//        else {
-//            mViewModel.initYangdian(mAction, mYangdianCode, (Yangdian)savedInstanceState.getParcelable(YANGDIAN_DATA));
-//        }
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_yangdian);
         mBinding.setViewmodel(mViewModel);
         mBinding.setLifecycleOwner(this);
@@ -95,19 +64,10 @@ public class YangdianActivity extends BaseActivity implements DatePickerDialog.O
         });
     }
 
-
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState = mViewModel.onSaveViewModelState(outState);
         super.onSaveInstanceState(outState);
-//        outState.putString(Macro.YANGDIAN_CODE, mYangdianCode);
-//        if (mAction.equals(Macro.ACTION_ADD) || mAction.equals(Macro.ACTION_ADD_RESTORE)){
-//            outState.putString(Macro.ACTION, Macro.ACTION_ADD_RESTORE);
-//        }
-//        if (mAction.equals(Macro.ACTION_EDIT) || mAction.equals(Macro.ACTION_EDIT_RESTORE)){
-//            outState.putString(Macro.ACTION, Macro.ACTION_EDIT_RESTORE);
-//        }
-//        outState.putParcelable(YANGDIAN_DATA, mViewModel.yangdian.getValue());
     }
 
     public void showDatePickerDialog(View v) {
@@ -122,14 +82,10 @@ public class YangdianActivity extends BaseActivity implements DatePickerDialog.O
         dateTextView.setText(String.valueOf(String.valueOf(year)+"-"+String.valueOf(month+1)+"-"+String.valueOf(day)));
     }
 
-
-
     public void onAutoPosition(View v){
         longitutdeEditText.setText("testtesttest");
         latitudeEditText.setText("testtesttest");
     }
-
-
 
     public boolean save(){
         return mViewModel.save();

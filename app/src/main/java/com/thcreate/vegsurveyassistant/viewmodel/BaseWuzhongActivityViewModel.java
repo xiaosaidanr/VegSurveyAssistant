@@ -71,7 +71,6 @@ abstract public class BaseWuzhongActivityViewModel<T extends BaseWuzhong> extend
                 wuzhong = tmp2;
                 break;
             case Macro.ACTION_EDIT:
-//                wuzhong = repository.getCaobenWuzhongByWuzhongCode(mWuzhongCode);
                 wuzhong = getWuzhongData();
                 break;
             case Macro.ACTION_EDIT_RESTORE:

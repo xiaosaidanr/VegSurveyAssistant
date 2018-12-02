@@ -11,7 +11,6 @@ import com.thcreate.vegsurveyassistant.viewmodel.CaobenwuzhongActivityViewModel;
 
 public class CaobenwuzhongActivity extends BaseWuzhongActivity<CaobenwuzhongActivityViewModel> {
 
-//    CaobenwuzhongActivityViewModel mViewModel;
     ActivityCaobenwuzhongBinding mBinding;
 
     @Override
@@ -21,14 +20,6 @@ public class CaobenwuzhongActivity extends BaseWuzhongActivity<CaobenwuzhongActi
         initLayout();
     }
     private void initBinding(){
-//        mViewModel = ViewModelProviders.of(this)
-//                .get(CaobenwuzhongActivityViewModel.class);
-//        if (savedInstanceState == null){
-//            mViewModel.initWuzhong(mYangfangCode, mAction, mWuzhongCode, null);
-//        }
-//        else {
-//            mViewModel.initWuzhong(mYangfangCode, mAction, mWuzhongCode, savedInstanceState.getParcelable(WUZHONG_DATA));
-//        }
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_caobenwuzhong);
         mBinding.setViewmodel(mViewModel);
         mBinding.setLifecycleOwner(this);
@@ -40,12 +31,6 @@ public class CaobenwuzhongActivity extends BaseWuzhongActivity<CaobenwuzhongActi
             finish();
         });
     }
-
-//    @Override
-//    protected void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        outState.putParcelable(WUZHONG_DATA, mViewModel.wuzhong.getValue());
-//    }
 
     private boolean save(){
         return mViewModel.save();

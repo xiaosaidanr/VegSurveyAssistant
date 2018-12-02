@@ -30,9 +30,6 @@ import java.util.List;
 
 public class SenlinyangdiActivity extends BaseYangdiActivity<SenlinyangdiActivityViewModel> {
 
-//    private static final String TYPE = "tree";
-
-//    private SenlinyangdiActivityViewModel mViewModel;
     private ActivitySenlinyangdiBinding mBinding;
 
     private EditText longitutdeEditText;
@@ -52,13 +49,6 @@ public class SenlinyangdiActivity extends BaseYangdiActivity<SenlinyangdiActivit
         initLayout();
     }
     private void initBinding(){
-//        mViewModel = ViewModelProviders.of(this).get(SenlinyangdiActivityViewModel.class);
-//        if (savedInstanceState == null){
-//            mViewModel.initYangdi(mAction, mYangdiCode, TYPE, null);
-//        }
-//        else {
-//            mViewModel.initYangdi(mAction, mYangdiCode, TYPE, savedInstanceState.getParcelable(YANGDI_DATA));
-//        }
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_senlinyangdi);
         mBinding.setViewmodel(mViewModel);
         mBinding.setLifecycleOwner(this);
@@ -143,12 +133,6 @@ public class SenlinyangdiActivity extends BaseYangdiActivity<SenlinyangdiActivit
         intent.putExtra(Macro.YANGFANG_CODE, yangfang.yangfangCode);
         startActivity(intent);
     };
-
-//    @Override
-//    protected void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        outState.putParcelable(YANGDI_DATA, mViewModel.yangdi.getValue());
-//    }
 
     public void onAddQiaomuyangfang(View v){
         Intent intent = new Intent(SenlinyangdiActivity.this, QiaomuyangfangActivity.class);

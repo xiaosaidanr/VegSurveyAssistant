@@ -28,7 +28,6 @@ import java.util.List;
 
 public class QiaomuyangfangActivity extends BaseYangfangActivity<QiaomuyangfangActivityViewModel> implements DatePickerDialog.OnDateSetListener {
 
-//    private QiaomuyangfangActivityViewModel mViewModel;
     private ActivityQiaomuyangfangBinding mBinding;
 
     private EditText longitutdeEditText;
@@ -44,13 +43,6 @@ public class QiaomuyangfangActivity extends BaseYangfangActivity<QiaomuyangfangA
         initLayout();
     }
     private void initBinding(){
-//        mViewModel = ViewModelProviders.of(this).get(QiaomuyangfangActivityViewModel.class);
-//        if (savedInstanceState == null){
-//            mViewModel.initYangfang(mYangdiCode, mAction, mYangfangCode, null);
-//        }
-//        else {
-//            mViewModel.initYangfang(mYangdiCode, mAction, mYangfangCode, savedInstanceState.getParcelable(YANGFANG_DATA));
-//        }
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_qiaomuyangfang);
         mBinding.setViewmodel(mViewModel);
         mBinding.setLifecycleOwner(this);
@@ -90,12 +82,6 @@ public class QiaomuyangfangActivity extends BaseYangfangActivity<QiaomuyangfangA
         intent.putExtra(Macro.WUZHONG_CODE, wuzhong.wuzhongCode);
         startActivity(intent);
     };
-
-//    @Override
-//    protected void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        outState.putParcelable(YANGFANG_DATA, mViewModel.yangfang.getValue());
-//    }
 
     public void showDatePickerDialog(View v) {
         Calendar calendar=Calendar.getInstance();

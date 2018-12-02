@@ -25,9 +25,6 @@ import java.util.List;
 
 public class CaodiyangdiActivity extends BaseYangdiActivity<CaodiyangdiActivityViewModel> {
 
-//    private static final String TYPE = "grass";
-
-//    private CaodiyangdiActivityViewModel mViewModel;
     private ActivityCaodiyangdiBinding mBinding;
 
     private EditText longitutdeEditText;
@@ -43,13 +40,6 @@ public class CaodiyangdiActivity extends BaseYangdiActivity<CaodiyangdiActivityV
         initLayout();
     }
     private void initBinding(){
-        mViewModel = ViewModelProviders.of(this).get(CaodiyangdiActivityViewModel.class);
-//        if (savedInstanceState == null){
-//            mViewModel.initYangdi(mAction, mYangdiCode, TYPE, null);
-//        }
-//        else {
-//            mViewModel.initYangdi(mAction, mYangdiCode, TYPE, savedInstanceState.getParcelable(YANGDI_DATA));
-//        }
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_caodiyangdi);
         mBinding.setViewmodel(mViewModel);
         mBinding.setLifecycleOwner(this);
