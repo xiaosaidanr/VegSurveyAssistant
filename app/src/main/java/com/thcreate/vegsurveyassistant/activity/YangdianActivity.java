@@ -37,6 +37,7 @@ public class YangdianActivity extends BaseActivity implements DatePickerDialog.O
         initViewModel(savedInstanceState);
         initBinding();
         initLayout();
+        initOnBackPressed();
     }
     private void initViewModel(Bundle savedInstanceState){
         if (savedInstanceState == null){
@@ -62,6 +63,14 @@ public class YangdianActivity extends BaseActivity implements DatePickerDialog.O
             save();
             finish();
         });
+    }
+    private void initOnBackPressed(){
+        if (mViewModel.action.equals(Macro.ACTION_EDIT) || mViewModel.action.equals(Macro.ACTION_EDIT_RESTORE)){
+            setmAlertDialog("放弃本次样点编辑?", null, null);
+        }
+        else{
+            setmAlertDialog("放弃本次样点添加?", null, null);
+        }
     }
 
     @Override
