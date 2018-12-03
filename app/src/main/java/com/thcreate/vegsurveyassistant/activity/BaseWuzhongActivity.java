@@ -23,6 +23,7 @@ public class BaseWuzhongActivity<U extends BaseWuzhongActivityViewModel> extends
         clazzT = (Class <U>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         mViewModel = ViewModelProviders.of(this).get(clazzT);
         initViewModel(savedInstanceState);
+        initOnBackPressed();
     }
 
     private void initViewModel(@Nullable Bundle savedInstanceState){
@@ -34,6 +35,15 @@ public class BaseWuzhongActivity<U extends BaseWuzhongActivityViewModel> extends
             savedInstanceState.putString(Macro.WUZHONG_CODE, intent.getStringExtra(Macro.WUZHONG_CODE));
         }
         mViewModel.init(savedInstanceState);
+    }
+
+    private void initOnBackPressed(){
+        if (mViewModel.action.equals(Macro.ACTION_EDIT) || mViewModel.action.equals(Macro.ACTION_EDIT_RESTORE)){
+            setmAlertDialog("放弃本次物种编辑?", null, null);
+        }
+        else{
+            setmAlertDialog("放弃本次物种添加?", null, null);
+        }
     }
 
     @Override

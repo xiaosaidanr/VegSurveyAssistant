@@ -19,13 +19,13 @@ import java.util.Date;
 
 abstract public class BaseWuzhongActivityViewModel<T extends BaseWuzhong> extends AndroidViewModel {
 
-    static final String WUZHONG_DATA = "wuzhongData";
+    private static final String WUZHONG_DATA = "wuzhongData";
 
     //TODO userid1
     private int userId = 1;
 
     protected String yangfangCode;
-    protected String action;
+    public String action;
     protected String wuzhongCode;
 
     public LiveData<T> wuzhong;
@@ -49,7 +49,7 @@ abstract public class BaseWuzhongActivityViewModel<T extends BaseWuzhong> extend
 
     }
 
-    public void initWuzhong(T restoredData){
+    private void initWuzhong(T restoredData){
         switch (action){
             case Macro.ACTION_ADD:
                 MutableLiveData<T> tmp1 = new MutableLiveData<>();
