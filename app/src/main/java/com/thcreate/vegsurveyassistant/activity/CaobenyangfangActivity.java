@@ -123,9 +123,4 @@ public class CaobenyangfangActivity extends BaseYangfangActivity<CaobenyangfangA
         return mViewModel.save();
     }
 
-    @Override
-    public void onPositiveButtonPressed() {
-        mViewModel.onCancel();
-        super.onPositiveButtonPressed();
-    }
 }

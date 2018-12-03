@@ -34,7 +34,7 @@ abstract public class BaseYangfangActivityViewModel<T extends BaseYangfang> exte
 
     private String yangdiCode;
     public String yangdiType;
-    String action;
+    public String action;
     public String yangfangCode;
 
     public LiveData<T> yangfang;
@@ -149,6 +149,10 @@ abstract public class BaseYangfangActivityViewModel<T extends BaseYangfang> exte
             mYangfangRepository.insertYangfang(yangfangRaw);
         }
         if (action.equals(Macro.ACTION_EDIT) || action.equals(Macro.ACTION_EDIT_RESTORE)){
+            mYangfangRepository.updateYangfang(yangfangRaw);
+        }
+        if (action.equals(Macro.ACTION_TEMP_SAVE) || action.equals(Macro.ACTION_TEMP_SAVE_RESTORE)){
+            yangfangRaw.createAt = dateNow;
             mYangfangRepository.updateYangfang(yangfangRaw);
         }
         return true;

@@ -23,6 +23,7 @@ public class BaseYangfangActivity<U extends BaseYangfangActivityViewModel> exten
         clazzU = (Class <U>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         mViewModel = ViewModelProviders.of(this).get(clazzU);
         initViewModel(savedInstanceState);
+        initOnBackPressed();
     }
     private void initViewModel(Bundle savedInstanceState){
         if (savedInstanceState == null){
@@ -36,9 +37,25 @@ public class BaseYangfangActivity<U extends BaseYangfangActivityViewModel> exten
         mViewModel.init(savedInstanceState);
     }
 
+    private void initOnBackPressed(){
+        if (mViewModel.action.equals(Macro.ACTION_EDIT) || mViewModel.action.equals(Macro.ACTION_EDIT_RESTORE)){
+            setmAlertDialog("放弃本次样方编辑?", null, null);
+        }
+        else{
+            setmAlertDialog("放弃本次样方添加?", null, null);
+        }
+    }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState = mViewModel.onSaveViewModelState(outState);
         super.onSaveInstanceState(outState);
+    }
+
+
+    @Override
+    public void onPositiveButtonPressed() {
+        mViewModel.onCancel();
+        super.onPositiveButtonPressed();
     }
 }
