@@ -32,12 +32,14 @@ abstract public class BaseYangfangActivityViewModel<T extends BaseYangfang> exte
     //TODO userid1
     private int userId = 1;
 
-    private String yangdiCode;
-    public String yangdiType;
+    public String yangdiCode;
+    public MutableLiveData<String> yangdiType;
     public String action;
     public String yangfangCode;
 
     public LiveData<T> yangfang;
+
+    public MutableLiveData<String> wuzhongCount;
 
     private Class<T> mClazzT;
 
@@ -50,11 +52,14 @@ abstract public class BaseYangfangActivityViewModel<T extends BaseYangfang> exte
         mYangfangRepository = ((BasicApp)application).getYangfangDataRepository();
         mWuzhongRepository = ((BasicApp)application).getWuzhongDataRepository();
         mClazzT = (Class <T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        wuzhongCount = new MutableLiveData<>();
+        wuzhongCount.setValue("0");
     }
 
     public void init(Bundle data){
         yangdiCode = data.getString(Macro.YANGDI_CODE);
-        yangdiType = data.getString(Macro.YANGDI_TYPE);
+        yangdiType = new MutableLiveData<>();
+        yangdiType.setValue(data.getString(Macro.YANGDI_TYPE));
         action = data.getString(Macro.ACTION);
         yangfangCode = data.getString(Macro.YANGFANG_CODE);
         @Nullable T tmp = data.getParcelable(YANGFANG_DATA);
@@ -119,7 +124,7 @@ abstract public class BaseYangfangActivityViewModel<T extends BaseYangfang> exte
 
     public Bundle onSaveViewModelState(Bundle outState) {
         outState.putString(Macro.YANGDI_CODE, yangdiCode);
-        outState.putString(Macro.YANGDI_TYPE, yangdiType);
+        outState.putString(Macro.YANGDI_TYPE, yangdiType.getValue());
         outState.putString(Macro.YANGFANG_CODE, yangfangCode);
         if (action.equals(Macro.ACTION_ADD) || action.equals(Macro.ACTION_ADD_RESTORE)){
             outState.putString(Macro.ACTION, Macro.ACTION_ADD_RESTORE);

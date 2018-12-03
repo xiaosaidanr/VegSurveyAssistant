@@ -32,7 +32,6 @@ public class QiaomuyangfangActivity extends BaseYangfangActivity<QiaomuyangfangA
 
     private EditText longitutdeEditText;
     private EditText latitudeEditText;
-    private TextView wuzhongCountTextView;
 
     private WuzhongAdapter mWuzhongAdapter;
 
@@ -52,7 +51,6 @@ public class QiaomuyangfangActivity extends BaseYangfangActivity<QiaomuyangfangA
 
         longitutdeEditText = findViewById(R.id.longitude_edit_text);
         latitudeEditText = findViewById(R.id.latitude_edit_text);
-        wuzhongCountTextView = findViewById(R.id.wuzhong_count_text_view);
 
         findViewById(R.id.fab).setOnClickListener((v)->{
             save();
@@ -68,9 +66,9 @@ public class QiaomuyangfangActivity extends BaseYangfangActivity<QiaomuyangfangA
         liveData.observe(this, (wuzhongList)->{
             if (wuzhongList != null) {
                 mWuzhongAdapter.setWuzhongList(wuzhongList);
-                wuzhongCountTextView.setText(String.valueOf(wuzhongList.size()));
+                mViewModel.wuzhongCount.setValue(String.valueOf(wuzhongList.size()));
             } else {
-                wuzhongCountTextView.setText("0");
+                mViewModel.wuzhongCount.setValue("0");
             }
             mBinding.executePendingBindings();
         });

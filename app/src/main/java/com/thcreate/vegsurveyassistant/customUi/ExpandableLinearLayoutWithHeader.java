@@ -62,12 +62,18 @@ public class ExpandableLinearLayoutWithHeader extends LinearLayout {
     private void initState(){
         header = findViewById(R.id.expandable_linearlayout_header);
         header.setText(headerTitle);
-        mIsFold = true;
         rightArrow = getResources().getDrawable(R.drawable.ic_keyboard_arrow_right_black_24dp);
         rightArrow.setBounds(0, 0, rightArrow.getIntrinsicWidth(), rightArrow.getIntrinsicHeight());
         downArrow = getResources().getDrawable(R.drawable.ic_keyboard_arrow_down_black_24dp);
         downArrow.setBounds(0, 0, downArrow.getIntrinsicWidth(), downArrow.getIntrinsicHeight());
-        header.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, rightArrow, null);
+
+//        //默认是折叠的
+//        mIsFold = true;
+//        header.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, rightArrow, null);
+        //默认是打开的
+        mIsFold = false;
+        header.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, downArrow, null);
+
         header.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -88,7 +94,12 @@ public class ExpandableLinearLayoutWithHeader extends LinearLayout {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        setChildrenVisibility(GONE);
+        if (mIsFold){
+            setChildrenVisibility(GONE);
+        }
+        else {
+            setChildrenVisibility(VISIBLE);
+        }
     }
 
     private void setChildrenVisibility(int visibility){

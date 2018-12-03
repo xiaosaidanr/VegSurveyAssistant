@@ -3,6 +3,7 @@ package com.thcreate.vegsurveyassistant.viewmodel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MediatorLiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
@@ -22,8 +23,16 @@ import java.util.List;
 
 public class SenlinyangdiActivityViewModel extends BaseYangdiActivityViewModel {
 
+    public MediatorLiveData<Boolean> canAddGuanmuyangfang;
+
+    public MediatorLiveData<Boolean> canAddCaobenyangfang;
+
     public SenlinyangdiActivityViewModel(@NonNull Application application) {
         super(application);
+        canAddGuanmuyangfang = new MediatorLiveData<>();
+        canAddGuanmuyangfang.setValue(false);
+        canAddCaobenyangfang = new MediatorLiveData<>();
+        canAddCaobenyangfang.setValue(false);
     }
 
 }

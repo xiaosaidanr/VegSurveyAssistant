@@ -5,6 +5,8 @@
         <variable
             name="viewmodel"
             type="com.thcreate.vegsurveyassistant.viewmodel.GuanmuyangfangActivityViewModel"/>
+        <import type="android.view.View"/>
+        <import type="com.thcreate.vegsurveyassistant.util.Macro"/>
     </data>
 
     <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -51,24 +53,27 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
                 android:text="@={viewmodel.yangfang.yangfangCode}"/>
 
-            <TextView
-                android:id="@+id/belong_qiaomuyangfang_code_textview"
-                android:layout_marginTop="0dp"
-                android:background="@drawable/rect_nobackground_lrborder"
+            <LinearLayout
+                android:visibility="@{viewmodel.yangdiType.equals(Macro.YANGDI_TYPE_TREE)?View.VISIBLE:View.GONE}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/belong_qiaomuyangfang_code"
-                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-            <EditText
-                android:id="@+id/belong_qiaomuyangfang_code_edittext"
-                android:inputType="text"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_text"
-                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:text="@={viewmodel.yangfang.qiaomuyangfangCode}"/>
+                android:orientation="vertical">
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/belong_qiaomuyangfang_code"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                    />
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/belong_qiaomuyangfang_code_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    bind:selectedValue="@={viewmodel.yangfang.qiaomuyangfangCode}"
+                    />
+            </LinearLayout>
 
             <TextView
                 android:layout_marginTop="0dp"
@@ -341,7 +346,7 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
                     <TextView
                         android:id="@+id/wuzhong_count_text_view"
-                        android:text="0"
+                        android:text="@{viewmodel.wuzhongCount}"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

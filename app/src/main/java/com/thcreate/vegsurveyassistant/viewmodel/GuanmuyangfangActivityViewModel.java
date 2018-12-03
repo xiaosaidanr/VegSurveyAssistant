@@ -13,6 +13,7 @@ import android.view.View;
 import com.thcreate.vegsurveyassistant.BasicApp;
 import com.thcreate.vegsurveyassistant.db.entity.GuanmuWuzhong;
 import com.thcreate.vegsurveyassistant.db.entity.GuanmuYangfang;
+import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.YangfangCode;
 import com.thcreate.vegsurveyassistant.repository.WuzhongDataRepository;
 import com.thcreate.vegsurveyassistant.repository.YangfangDataRepository;
 import com.thcreate.vegsurveyassistant.util.Macro;
@@ -24,6 +25,10 @@ public class GuanmuyangfangActivityViewModel extends BaseYangfangActivityViewMod
 
     public GuanmuyangfangActivityViewModel(@NonNull Application application) {
         super(application);
+    }
+
+    public LiveData<List<YangfangCode>> getQiaomuyangfangCodeList(){
+        return mYangfangRepository.getAllQiaomuYangfangCodeByYangdiCode(yangdiCode);
     }
 
     @Override

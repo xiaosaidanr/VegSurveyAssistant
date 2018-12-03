@@ -320,7 +320,7 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
                     <TextView
                         android:id="@+id/wuzhong_count_text_view"
-                        android:text="0"
+                        android:text="@{viewmodel.wuzhongCount}"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

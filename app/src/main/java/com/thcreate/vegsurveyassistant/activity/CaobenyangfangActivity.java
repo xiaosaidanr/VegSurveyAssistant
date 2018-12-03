@@ -5,8 +5,10 @@ import android.arch.lifecycle.LiveData;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,9 +18,11 @@ import com.thcreate.vegsurveyassistant.adapter.WuzhongAdapter;
 import com.thcreate.vegsurveyassistant.adapter.ItemClickCallback;
 import com.thcreate.vegsurveyassistant.databinding.ActivityCaobenyangfangBinding;
 import com.thcreate.vegsurveyassistant.db.entity.CaobenWuzhong;
+import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.YangfangCode;
 import com.thcreate.vegsurveyassistant.util.Macro;
 import com.thcreate.vegsurveyassistant.viewmodel.CaobenyangfangActivityViewModel;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -28,7 +32,9 @@ public class CaobenyangfangActivity extends BaseYangfangActivity<CaobenyangfangA
 
     private EditText longitutdeEditText;
     private EditText latitudeEditText;
-    private TextView wuzhongCountTextView;
+
+    private ArrayAdapter<String> qiaomuyangfangCodeSpinnerAdapter;
+    private ArrayAdapter<String> guanmuyangfangCodeSpinnerAdapter;
 
     private WuzhongAdapter mWuzhongAdapter;
 
@@ -46,20 +52,41 @@ public class CaobenyangfangActivity extends BaseYangfangActivity<CaobenyangfangA
     private void initLayout(){
         setSupportActionBar(findViewById(R.id.toolbar));
 
-        if (mViewModel.yangdiType.equals(Macro.YANGDI_TYPE_GRASS)){
-            findViewById(R.id.belong_qiaomuyangfang_code_textview).setVisibility(View.GONE);
-            findViewById(R.id.belong_qiaomuyangfang_code_edittext).setVisibility(View.GONE);
-            findViewById(R.id.belong_guanmuyangfang_code_textview).setVisibility(View.GONE);
-            findViewById(R.id.belong_guanmuyangfang_code_edittext).setVisibility(View.GONE);
+        if (mViewModel.yangdiType.getValue().equals(Macro.YANGDI_TYPE_TREE)){
+            AppCompatSpinner pAppCompatSpinner = findViewById(R.id.belong_qiaomuyangfang_code_spinner);
+            qiaomuyangfangCodeSpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, new ArrayList<String>());
+            pAppCompatSpinner.setAdapter(qiaomuyangfangCodeSpinnerAdapter);
+            mViewModel.getQiaomuyangfangCodeList().observe(this, (dataList)->{
+                if (dataList != null){
+                    if (dataList.size()>0){
+                        qiaomuyangfangCodeSpinnerAdapter.clear();
+                        for (YangfangCode item: dataList){
+                            qiaomuyangfangCodeSpinnerAdapter.add(item.yangfangCode);
+                        }
+                        qiaomuyangfangCodeSpinnerAdapter.notifyDataSetChanged();
+                    }
+                }
+            });
         }
-        else if (mViewModel.yangdiType.equals(Macro.YANGDI_TYPE_BUSH)){
-            findViewById(R.id.belong_qiaomuyangfang_code_textview).setVisibility(View.GONE);
-            findViewById(R.id.belong_qiaomuyangfang_code_edittext).setVisibility(View.GONE);
+        if (mViewModel.yangdiType.getValue().equals(Macro.YANGDI_TYPE_TREE) || mViewModel.yangdiType.getValue().equals(Macro.YANGDI_TYPE_BUSH)){
+            AppCompatSpinner pAppCompatSpinner = findViewById(R.id.belong_guanmuyangfang_code_spinner);
+            guanmuyangfangCodeSpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, new ArrayList<String>());
+            pAppCompatSpinner.setAdapter(guanmuyangfangCodeSpinnerAdapter);
+            mViewModel.getGuanmuyangfangCodeList().observe(this, (dataList)->{
+                if (dataList != null){
+                    if (dataList.size()>0){
+                        guanmuyangfangCodeSpinnerAdapter.clear();
+                        for (YangfangCode item: dataList){
+                            guanmuyangfangCodeSpinnerAdapter.add(item.yangfangCode);
+                        }
+                        guanmuyangfangCodeSpinnerAdapter.notifyDataSetChanged();
+                    }
+                }
+            });
         }
 
         longitutdeEditText = findViewById(R.id.longitude_edit_text);
         latitudeEditText = findViewById(R.id.latitude_edit_text);
-        wuzhongCountTextView = findViewById(R.id.wuzhong_count_text_view);
 
         findViewById(R.id.fab).setOnClickListener((v)->{
             save();
@@ -74,9 +101,9 @@ public class CaobenyangfangActivity extends BaseYangfangActivity<CaobenyangfangA
         liveData.observe(this, (wuzhongList)->{
             if (wuzhongList != null) {
                 mWuzhongAdapter.setWuzhongList(wuzhongList);
-                wuzhongCountTextView.setText(String.valueOf(wuzhongList.size()));
+                mViewModel.wuzhongCount.setValue(String.valueOf(wuzhongList.size()));
             } else {
-                wuzhongCountTextView.setText("0");
+                mViewModel.wuzhongCount.setValue("0");
             }
             mBinding.executePendingBindings();
         });

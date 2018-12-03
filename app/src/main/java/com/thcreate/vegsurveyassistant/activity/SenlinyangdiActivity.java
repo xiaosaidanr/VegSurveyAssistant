@@ -84,8 +84,15 @@ public class SenlinyangdiActivity extends BaseYangdiActivity<SenlinyangdiActivit
             if (qiaomuyangfangList != null) {
                 mQiaomuyangfangAdapter.setYangfangList(qiaomuyangfangList);
                 qiaomuyangfangCountTextView.setText(String.valueOf(qiaomuyangfangList.size()));
+                if (qiaomuyangfangList.size() == 0){
+                    mViewModel.canAddGuanmuyangfang.setValue(false);
+                }
+                else {
+                    mViewModel.canAddGuanmuyangfang.setValue(true);
+                }
             } else {
                 qiaomuyangfangCountTextView.setText("0");
+                mViewModel.canAddGuanmuyangfang.setValue(false);
             }
             mBinding.executePendingBindings();
         });
@@ -93,9 +100,15 @@ public class SenlinyangdiActivity extends BaseYangdiActivity<SenlinyangdiActivit
             if (guanmuyangfangList != null) {
                 mGuanmuyangfangAdapter.setYangfangList(guanmuyangfangList);
                 guanmuyangfangCountTextView.setText(String.valueOf(guanmuyangfangList.size()));
-
+                if (guanmuyangfangList.size() == 0){
+                    mViewModel.canAddCaobenyangfang.setValue(false);
+                }
+                else {
+                    mViewModel.canAddCaobenyangfang.setValue(true);
+                }
             } else {
                 guanmuyangfangCountTextView.setText("0");
+                mViewModel.canAddCaobenyangfang.setValue(false);
             }
             mBinding.executePendingBindings();
         });

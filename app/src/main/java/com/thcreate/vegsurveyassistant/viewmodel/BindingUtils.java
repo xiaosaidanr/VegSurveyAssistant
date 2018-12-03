@@ -31,6 +31,16 @@ public class BindingUtils {
         return (String) pAppCompatSpinner.getSelectedItem();
     }
 
+//    @BindingAdapter("android:entries")
+//    public static void setEntries(AppCompatSpinner pAppCompatSpinner, LiveData<List<YangfangCode>> yangfangCodeList){
+//        List<YangfangCode> value = yangfangCodeList.getValue();
+//        List<String> tmp = new ArrayList<String>();
+//        for (YangfangCode item:value) {
+//            tmp.add("test");
+//        }
+//        pAppCompatSpinner.setAdapter(new ArrayAdapter<String>(pAppCompatSpinner.getContext(), R.layout.support_simple_spinner_dropdown_item, tmp));
+//    }
+
 //    @BindingAdapter("visibleGone")
 //    public static void showHide(View view, boolean show) {
 //        view.setVisibility(show ? View.VISIBLE : View.GONE);

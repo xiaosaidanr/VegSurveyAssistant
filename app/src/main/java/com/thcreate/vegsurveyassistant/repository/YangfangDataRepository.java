@@ -10,6 +10,7 @@ import com.thcreate.vegsurveyassistant.db.entity.CaobenYangfang;
 import com.thcreate.vegsurveyassistant.db.entity.GuanmuYangfang;
 import com.thcreate.vegsurveyassistant.db.entity.QiaomuYangfang;
 import com.thcreate.vegsurveyassistant.db.entity.User;
+import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.YangfangCode;
 
 import java.util.List;
 
@@ -43,6 +44,9 @@ public class YangfangDataRepository {
     public LiveData<QiaomuYangfang> getQiaomuYangfangByYangfangCode(String yangfangCode){
         return mDatabase.qiaomuYangfangDao().getQiaomuYangfangByYangfangCode(yangfangCode);
     }
+    public LiveData<List<YangfangCode>> getAllQiaomuYangfangCodeByYangdiCode(String yangdiCode){
+        return mDatabase.qiaomuYangfangDao().getAllQiaomuYangfangCodeByYangdiCode(yangdiCode);
+    }
     public LiveData<List<QiaomuYangfang>> getAllQiaomuYangfangByYangdiCode(String yangdiCode){
         return mDatabase.qiaomuYangfangDao().getAllQiaomuYangfangByYangdiCode(yangdiCode);
     }
@@ -66,6 +70,9 @@ public class YangfangDataRepository {
 
     public LiveData<GuanmuYangfang> getGuanmuYangfangByYangfangCode(String yangfangCode){
         return mDatabase.guanmuYangfangDao().getGuanmuYangfangByYangfangCode(yangfangCode);
+    }
+    public LiveData<List<YangfangCode>> getAllGuanmuYangfangCodeByYangdiCode(String yangdiCode){
+        return mDatabase.guanmuYangfangDao().getAllGuanmuYangfangCodeByYangdiCode(yangdiCode);
     }
     public LiveData<List<GuanmuYangfang>> getAllGuanmuYangfangByYangdiCode(String yangdiCode){
         return mDatabase.guanmuYangfangDao().getAllGuanmuYangfangByYangdiCode(yangdiCode);

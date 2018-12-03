@@ -8,6 +8,7 @@ import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
 import com.thcreate.vegsurveyassistant.db.entity.GuanmuYangfang;
+import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.YangfangCode;
 
 import java.util.List;
 
@@ -33,5 +34,8 @@ public interface GuanmuYangfangDao {
 
     @Query("SELECT * FROM guanmu_yangfang WHERE yangdi_code = :yangdiCode ORDER BY id ASC")
     LiveData<List<GuanmuYangfang>> getAllGuanmuYangfangByYangdiCode(String yangdiCode);
+
+    @Query("SELECT yangfang_code FROM guanmu_yangfang WHERE yangdi_code = :yangdiCode ORDER BY id ASC")
+    LiveData<List<YangfangCode>> getAllGuanmuYangfangCodeByYangdiCode(String yangdiCode);
 
 }
