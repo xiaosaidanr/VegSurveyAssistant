@@ -72,6 +72,7 @@ public class CaodiyangdiActivity extends BaseYangdiActivity<CaodiyangdiActivityV
         });
     }
     private final ItemClickCallback<CaobenYangfang> mYangfangItemClickCallback = (yangfang) -> {
+        mViewModel.onGoForward();
         Intent intent = new Intent(CaodiyangdiActivity.this, CaobenyangfangActivity.class);
         intent.putExtra(Macro.YANGDI_CODE, yangfang.yangdiCode);
         intent.putExtra(Macro.YANGDI_TYPE, Macro.YANGDI_TYPE_GRASS);
@@ -87,6 +88,7 @@ public class CaodiyangdiActivity extends BaseYangdiActivity<CaodiyangdiActivityV
 //    }
 
     public void onAddYangfang(View v){
+        mViewModel.onGoForward();
         Intent intent = new Intent(CaodiyangdiActivity.this, CaobenyangfangActivity.class);
         intent.putExtra(Macro.YANGDI_CODE, mViewModel.yangdiCode);
         intent.putExtra(Macro.YANGDI_TYPE, Macro.YANGDI_TYPE_GRASS);

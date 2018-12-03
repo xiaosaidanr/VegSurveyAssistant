@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.thcreate.vegsurveyassistant.db.entity.Yangdi;
-import com.thcreate.vegsurveyassistant.util.IdGenerator;
 import com.thcreate.vegsurveyassistant.util.Macro;
 import com.thcreate.vegsurveyassistant.viewmodel.BaseYangdiActivityViewModel;
 
@@ -25,6 +23,7 @@ public class BaseYangdiActivity<U extends BaseYangdiActivityViewModel> extends B
         clazzU = (Class <U>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         mViewModel = ViewModelProviders.of(this).get(clazzU);
         initViewModel(savedInstanceState);
+        initOnBackPressed();
     }
 
     private void initViewModel(@Nullable Bundle savedInstanceState){
@@ -38,9 +37,24 @@ public class BaseYangdiActivity<U extends BaseYangdiActivityViewModel> extends B
         mViewModel.init(savedInstanceState);
     }
 
+    private void initOnBackPressed(){
+        if (mViewModel.action.equals(Macro.ACTION_EDIT) || mViewModel.action.equals(Macro.ACTION_EDIT_RESTORE)){
+            setmAlertDialog("放弃本次样地编辑?", null, null);
+        }
+        else{
+            setmAlertDialog("放弃本次样地添加?", null, null);
+        }
+    }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState = mViewModel.onSaveViewModelState(outState);
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onPositiveButtonPressed() {
+        mViewModel.onCancel();
+        super.onPositiveButtonPressed();
     }
 }

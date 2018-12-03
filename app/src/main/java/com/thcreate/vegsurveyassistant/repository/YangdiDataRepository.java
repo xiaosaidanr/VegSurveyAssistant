@@ -79,8 +79,9 @@ public class YangdiDataRepository {
         });
     }
     public void updateYangdi(Yangdi data){
-        mAppExecutors.diskIO().execute(()->{
-            mDatabase.yangdiDao().update(data);
-        });
+        mAppExecutors.diskIO().execute(()-> mDatabase.yangdiDao().update(data));
+    }
+    public void deleteYangdi(Yangdi data){
+        mAppExecutors.diskIO().execute(()-> mDatabase.yangdiDao().delete(data));
     }
 }

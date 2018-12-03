@@ -90,6 +90,7 @@ public class GuancongyangdiActivity extends BaseYangdiActivity<GuancongyangdiAct
         });
     }
     private final ItemClickCallback<GuanmuYangfang> mGuanmuyangfangItemClickCallback = (yangfang) -> {
+        mViewModel.onGoForward();
         Intent intent = new Intent(GuancongyangdiActivity.this, GuanmuyangfangActivity.class);
         intent.putExtra(Macro.YANGDI_CODE, yangfang.yangdiCode);
         intent.putExtra(Macro.YANGDI_TYPE, Macro.YANGDI_TYPE_BUSH);
@@ -98,6 +99,7 @@ public class GuancongyangdiActivity extends BaseYangdiActivity<GuancongyangdiAct
         startActivity(intent);
     };
     private final ItemClickCallback<CaobenYangfang> mCaobenyangfangItemClickCallback = (yangfang) -> {
+        mViewModel.onGoForward();
         Intent intent = new Intent(GuancongyangdiActivity.this, CaobenyangfangActivity.class);
         intent.putExtra(Macro.YANGDI_CODE, yangfang.yangdiCode);
         intent.putExtra(Macro.YANGDI_TYPE, Macro.YANGDI_TYPE_BUSH);
@@ -107,6 +109,7 @@ public class GuancongyangdiActivity extends BaseYangdiActivity<GuancongyangdiAct
     };
 
     public void onAddGuanmuyangfang(View v){
+        mViewModel.onGoForward();
         Intent intent = new Intent(GuancongyangdiActivity.this, GuanmuyangfangActivity.class);
         intent.putExtra(Macro.YANGDI_CODE, mViewModel.yangdiCode);
         intent.putExtra(Macro.YANGDI_TYPE, Macro.YANGDI_TYPE_BUSH);
@@ -115,6 +118,7 @@ public class GuancongyangdiActivity extends BaseYangdiActivity<GuancongyangdiAct
         startActivity(intent);
     }
     public void onAddCaobenyangfang(View v){
+        mViewModel.onGoForward();
         Intent intent = new Intent(GuancongyangdiActivity.this, CaobenyangfangActivity.class);
         intent.putExtra(Macro.YANGDI_CODE, mViewModel.yangdiCode);
         intent.putExtra(Macro.YANGDI_TYPE, Macro.YANGDI_TYPE_BUSH);
