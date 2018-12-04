@@ -1,15 +1,10 @@
 package com.thcreate.vegsurveyassistant.activity;
 
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -21,8 +16,6 @@ import com.thcreate.vegsurveyassistant.databinding.ActivitySenlinyangdiBinding;
 import com.thcreate.vegsurveyassistant.db.entity.CaobenYangfang;
 import com.thcreate.vegsurveyassistant.db.entity.GuanmuYangfang;
 import com.thcreate.vegsurveyassistant.db.entity.QiaomuYangfang;
-import com.thcreate.vegsurveyassistant.db.entity.Yangdi;
-import com.thcreate.vegsurveyassistant.util.IdGenerator;
 import com.thcreate.vegsurveyassistant.util.Macro;
 import com.thcreate.vegsurveyassistant.viewmodel.SenlinyangdiActivityViewModel;
 

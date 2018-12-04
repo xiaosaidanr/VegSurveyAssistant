@@ -1,12 +1,9 @@
 package com.thcreate.vegsurveyassistant.activity;
 
 import android.app.DatePickerDialog;
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -20,15 +17,12 @@ import com.thcreate.vegsurveyassistant.adapter.ItemClickCallback;
 import com.thcreate.vegsurveyassistant.adapter.WuzhongAdapter;
 import com.thcreate.vegsurveyassistant.databinding.ActivityGuanmuyangfangBinding;
 import com.thcreate.vegsurveyassistant.db.entity.GuanmuWuzhong;
-import com.thcreate.vegsurveyassistant.db.entity.GuanmuYangfang;
 import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.YangfangCode;
-import com.thcreate.vegsurveyassistant.util.IdGenerator;
 import com.thcreate.vegsurveyassistant.util.Macro;
 import com.thcreate.vegsurveyassistant.viewmodel.GuanmuyangfangActivityViewModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class GuanmuyangfangActivity extends BaseYangfangActivity<GuanmuyangfangActivityViewModel> implements DatePickerDialog.OnDateSetListener {
 
@@ -59,17 +53,6 @@ public class GuanmuyangfangActivity extends BaseYangfangActivity<GuanmuyangfangA
             AppCompatSpinner pAppCompatSpinner = findViewById(R.id.belong_qiaomuyangfang_code_spinner);
             qiaomuyangfangCodeSpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, new ArrayList<String>());
             pAppCompatSpinner.setAdapter(qiaomuyangfangCodeSpinnerAdapter);
-            mViewModel.getQiaomuyangfangCodeList().observe(this, (dataList)->{
-                if (dataList != null){
-                    if (dataList.size()>0){
-                        qiaomuyangfangCodeSpinnerAdapter.clear();
-                        for (YangfangCode item: dataList){
-                            qiaomuyangfangCodeSpinnerAdapter.add(item.yangfangCode);
-                        }
-                        qiaomuyangfangCodeSpinnerAdapter.notifyDataSetChanged();
-                    }
-                }
-            });
         }
 
         longitutdeEditText = findViewById(R.id.longitude_edit_text);
@@ -82,10 +65,10 @@ public class GuanmuyangfangActivity extends BaseYangfangActivity<GuanmuyangfangA
 
         mWuzhongAdapter = new WuzhongAdapter<GuanmuWuzhong>(mWuzhongItemClickCallback);
         ((RecyclerView)findViewById(R.id.wuzhong_list)).setAdapter(mWuzhongAdapter);
-        subscribeUi(mViewModel.getWuzhongList());
+        subscribeUi();
     }
-    private void subscribeUi(LiveData<List<GuanmuWuzhong>> liveData) {
-        liveData.observe(this, (wuzhongList)->{
+    private void subscribeUi() {
+        mViewModel.getWuzhongList().observe(this, (wuzhongList)->{
             if (wuzhongList != null) {
                 mWuzhongAdapter.setWuzhongList(wuzhongList);
                 mViewModel.wuzhongCount.setValue(String.valueOf(wuzhongList.size()));
@@ -94,6 +77,19 @@ public class GuanmuyangfangActivity extends BaseYangfangActivity<GuanmuyangfangA
             }
             mBinding.executePendingBindings();
         });
+        if (qiaomuyangfangCodeSpinnerAdapter != null){
+            mViewModel.getQiaomuyangfangCodeList().observe(this, (dataList)->{
+                if (dataList != null){
+                    if (dataList.size()>0){
+                        qiaomuyangfangCodeSpinnerAdapter.clear();
+                        for (YangfangCode item: dataList){
+                            qiaomuyangfangCodeSpinnerAdapter.add(item.yangfangCode);
+                        }
+                        qiaomuyangfangCodeSpinnerAdapter.notifyDataSetChanged();
+                    }
+                }
+            });
+        }
     }
     private final ItemClickCallback<GuanmuWuzhong> mWuzhongItemClickCallback = (wuzhong) -> {
         mViewModel.onGoForward();

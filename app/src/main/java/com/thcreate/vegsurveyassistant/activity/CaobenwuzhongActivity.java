@@ -1,12 +1,10 @@
 package com.thcreate.vegsurveyassistant.activity;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 
 import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.databinding.ActivityCaobenwuzhongBinding;
-import com.thcreate.vegsurveyassistant.db.entity.CaobenWuzhong;
 import com.thcreate.vegsurveyassistant.viewmodel.CaobenwuzhongActivityViewModel;
 
 public class CaobenwuzhongActivity extends BaseWuzhongActivity<CaobenwuzhongActivityViewModel> {

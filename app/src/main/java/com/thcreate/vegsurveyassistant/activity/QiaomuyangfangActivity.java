@@ -2,11 +2,9 @@ package com.thcreate.vegsurveyassistant.activity;
 
 import android.app.DatePickerDialog;
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.DatePicker;
@@ -18,8 +16,6 @@ import com.thcreate.vegsurveyassistant.adapter.ItemClickCallback;
 import com.thcreate.vegsurveyassistant.adapter.WuzhongAdapter;
 import com.thcreate.vegsurveyassistant.databinding.ActivityQiaomuyangfangBinding;
 import com.thcreate.vegsurveyassistant.db.entity.QiaomuWuzhong;
-import com.thcreate.vegsurveyassistant.db.entity.QiaomuYangfang;
-import com.thcreate.vegsurveyassistant.util.IdGenerator;
 import com.thcreate.vegsurveyassistant.util.Macro;
 import com.thcreate.vegsurveyassistant.viewmodel.QiaomuyangfangActivityViewModel;
 

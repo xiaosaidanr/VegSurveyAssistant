@@ -1,7 +1,6 @@
 package com.thcreate.vegsurveyassistant.activity;
 
 import android.app.DatePickerDialog;
-import android.arch.lifecycle.LiveData;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -24,7 +23,6 @@ import com.thcreate.vegsurveyassistant.viewmodel.CaobenyangfangActivityViewModel
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class CaobenyangfangActivity extends BaseYangfangActivity<CaobenyangfangActivityViewModel> implements DatePickerDialog.OnDateSetListener {
 
@@ -56,33 +54,11 @@ public class CaobenyangfangActivity extends BaseYangfangActivity<CaobenyangfangA
             AppCompatSpinner pAppCompatSpinner = findViewById(R.id.belong_qiaomuyangfang_code_spinner);
             qiaomuyangfangCodeSpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, new ArrayList<String>());
             pAppCompatSpinner.setAdapter(qiaomuyangfangCodeSpinnerAdapter);
-            mViewModel.getQiaomuyangfangCodeList().observe(this, (dataList)->{
-                if (dataList != null){
-                    if (dataList.size()>0){
-                        qiaomuyangfangCodeSpinnerAdapter.clear();
-                        for (YangfangCode item: dataList){
-                            qiaomuyangfangCodeSpinnerAdapter.add(item.yangfangCode);
-                        }
-                        qiaomuyangfangCodeSpinnerAdapter.notifyDataSetChanged();
-                    }
-                }
-            });
         }
         if (mViewModel.yangdiType.getValue().equals(Macro.YANGDI_TYPE_TREE) || mViewModel.yangdiType.getValue().equals(Macro.YANGDI_TYPE_BUSH)){
             AppCompatSpinner pAppCompatSpinner = findViewById(R.id.belong_guanmuyangfang_code_spinner);
             guanmuyangfangCodeSpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, new ArrayList<String>());
             pAppCompatSpinner.setAdapter(guanmuyangfangCodeSpinnerAdapter);
-            mViewModel.getGuanmuyangfangCodeList().observe(this, (dataList)->{
-                if (dataList != null){
-                    if (dataList.size()>0){
-                        guanmuyangfangCodeSpinnerAdapter.clear();
-                        for (YangfangCode item: dataList){
-                            guanmuyangfangCodeSpinnerAdapter.add(item.yangfangCode);
-                        }
-                        guanmuyangfangCodeSpinnerAdapter.notifyDataSetChanged();
-                    }
-                }
-            });
         }
 
         longitutdeEditText = findViewById(R.id.longitude_edit_text);
@@ -95,10 +71,10 @@ public class CaobenyangfangActivity extends BaseYangfangActivity<CaobenyangfangA
 
         mWuzhongAdapter = new WuzhongAdapter<CaobenWuzhong>(mWuzhongItemClickCallback);
         ((RecyclerView)findViewById(R.id.wuzhong_list)).setAdapter(mWuzhongAdapter);
-        subscribeUi(mViewModel.getWuzhongList());
+        subscribeUi();
     }
-    private void subscribeUi(LiveData<List<CaobenWuzhong>> liveData) {
-        liveData.observe(this, (wuzhongList)->{
+    private void subscribeUi() {
+        mViewModel.getWuzhongList().observe(this, (wuzhongList)->{
             if (wuzhongList != null) {
                 mWuzhongAdapter.setWuzhongList(wuzhongList);
                 mViewModel.wuzhongCount.setValue(String.valueOf(wuzhongList.size()));
@@ -107,6 +83,32 @@ public class CaobenyangfangActivity extends BaseYangfangActivity<CaobenyangfangA
             }
             mBinding.executePendingBindings();
         });
+        if (qiaomuyangfangCodeSpinnerAdapter != null){
+            mViewModel.getQiaomuyangfangCodeList().observe(this, (dataList)->{
+                if (dataList != null){
+                    if (dataList.size()>0){
+                        qiaomuyangfangCodeSpinnerAdapter.clear();
+                        for (YangfangCode item: dataList){
+                            qiaomuyangfangCodeSpinnerAdapter.add(item.yangfangCode);
+                        }
+                        qiaomuyangfangCodeSpinnerAdapter.notifyDataSetChanged();
+                    }
+                }
+            });
+        }
+        if (guanmuyangfangCodeSpinnerAdapter != null){
+            mViewModel.getGuanmuyangfangCodeList().observe(this, (dataList)->{
+                if (dataList != null){
+                    if (dataList.size()>0){
+                        guanmuyangfangCodeSpinnerAdapter.clear();
+                        for (YangfangCode item: dataList){
+                            guanmuyangfangCodeSpinnerAdapter.add(item.yangfangCode);
+                        }
+                        guanmuyangfangCodeSpinnerAdapter.notifyDataSetChanged();
+                    }
+                }
+            });
+        }
     }
     private final ItemClickCallback<CaobenWuzhong> mWuzhongItemClickCallback = (wuzhong) -> {
         mViewModel.onGoForward();

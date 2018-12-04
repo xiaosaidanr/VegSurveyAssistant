@@ -1,11 +1,9 @@
 package com.thcreate.vegsurveyassistant.activity;
 
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
@@ -16,8 +14,6 @@ import com.thcreate.vegsurveyassistant.adapter.YangfangAdapter;
 import com.thcreate.vegsurveyassistant.adapter.ItemClickCallback;
 import com.thcreate.vegsurveyassistant.databinding.ActivityCaodiyangdiBinding;
 import com.thcreate.vegsurveyassistant.db.entity.CaobenYangfang;
-import com.thcreate.vegsurveyassistant.db.entity.Yangdi;
-import com.thcreate.vegsurveyassistant.util.IdGenerator;
 import com.thcreate.vegsurveyassistant.util.Macro;
 import com.thcreate.vegsurveyassistant.viewmodel.CaodiyangdiActivityViewModel;
 

@@ -4,23 +4,16 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProvider;
-import android.databinding.Bindable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
-import android.view.View;
 
 import com.thcreate.vegsurveyassistant.BasicApp;
-import com.thcreate.vegsurveyassistant.db.entity.User;
 import com.thcreate.vegsurveyassistant.db.entity.Yangdian;
 import com.thcreate.vegsurveyassistant.repository.YangdianDataRepository;
 import com.thcreate.vegsurveyassistant.util.Macro;
 
 import java.util.Date;
-import java.util.List;
 
 public class YangdianActivityViewModel extends AndroidViewModel {
 
