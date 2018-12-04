@@ -36,4 +36,8 @@ public class SenlinyangdiListViewModel extends AndroidViewModel {
         return mObservableYangdiList;
     }
 
+    public void deleteYangdiById(int id){
+        mRepository.deleteYangdiById(id);
+    }
+
 }

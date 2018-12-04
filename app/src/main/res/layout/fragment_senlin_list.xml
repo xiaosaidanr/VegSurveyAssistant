@@ -13,10 +13,9 @@
             />
     </data>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         tools:context=".fragment.SenlinListFragment">
 
         <TextView
@@ -31,11 +30,13 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/yangdi_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             android:visibility="@{!isLoading ? View.VISIBLE : View.GONE}"
             />
 
-    </LinearLayout>
+    </FrameLayout>
 
 </layout>

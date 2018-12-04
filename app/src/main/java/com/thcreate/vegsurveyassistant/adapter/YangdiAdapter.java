@@ -52,13 +52,11 @@ public class YangdiAdapter extends RecyclerView.Adapter<YangdiAdapter.YangdiView
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
                     Yangdi newYangdi = yangdiList.get(newItemPosition);
                     Yangdi oldYangdi = mYangdiList.get(oldItemPosition);
-                    return newYangdi.id == oldYangdi.id
-//                            && Objects.equals(newYangdian.getDescription(), oldYangdian.getDescription())
-//                            && Objects.equals(newProduct.getName(), oldProduct.getName())
-                            && newYangdi.yangdiCode.equals(oldYangdi.yangdiCode);
+                    return newYangdi.yangdiCode.equals(oldYangdi.yangdiCode);
                 }
             });
             mYangdiList = yangdiList;
+//            notifyDataSetChanged();
             result.dispatchUpdatesTo(this);
         }
     }
@@ -77,6 +75,10 @@ public class YangdiAdapter extends RecyclerView.Adapter<YangdiAdapter.YangdiView
     public void onBindViewHolder(@NonNull YangdiViewHolder yangdiViewHolder, int i) {
         yangdiViewHolder.binding.setYangdi(mYangdiList.get(i));
         yangdiViewHolder.binding.executePendingBindings();
+    }
+
+    public void deleteItemByPosition(int position){
+        mYangdiList.remove(position);
     }
 
     @Override
@@ -98,5 +100,7 @@ public class YangdiAdapter extends RecyclerView.Adapter<YangdiAdapter.YangdiView
             this.binding = binding;
         }
     }
+
+
 
 }

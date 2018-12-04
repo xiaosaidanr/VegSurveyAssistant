@@ -84,4 +84,7 @@ public class YangdiDataRepository {
     public void deleteYangdi(Yangdi data){
         mAppExecutors.diskIO().execute(()-> mDatabase.yangdiDao().delete(data));
     }
+    public void deleteYangdiById(int id){
+        mAppExecutors.diskIO().execute(()-> mDatabase.yangdiDao().deleteById(id));
+    }
 }

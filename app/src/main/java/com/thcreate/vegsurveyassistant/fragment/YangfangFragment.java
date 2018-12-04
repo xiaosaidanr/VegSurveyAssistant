@@ -22,6 +22,7 @@ import com.thcreate.vegsurveyassistant.activity.CaodiyangdiActivity;
 import com.thcreate.vegsurveyassistant.activity.GuancongyangdiActivity;
 import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.activity.SenlinyangdiActivity;
+import com.thcreate.vegsurveyassistant.customUi.NoScrollViewPager;
 import com.thcreate.vegsurveyassistant.db.entity.Yangdi;
 import com.thcreate.vegsurveyassistant.util.IdGenerator;
 import com.thcreate.vegsurveyassistant.util.Macro;
@@ -48,7 +49,7 @@ public class YangfangFragment extends BaseFragment {
     private String mParam2;
 
     private YangfangTabAdapter mYangfangTabAdapter;
-    private ViewPager mViewPager;
+    private NoScrollViewPager mViewPager;
     private TabLayout mTabLayout;
 
     private Toolbar mToolbar;
@@ -178,5 +179,7 @@ public class YangfangFragment extends BaseFragment {
         public int getCount() {
             return tabTitles.length;
         }
+
+
     }
 }

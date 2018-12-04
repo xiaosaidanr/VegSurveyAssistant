@@ -88,4 +88,7 @@
     <string name="region_name">行政地名</string>
     <string name="altitude_m">海拔(m)</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

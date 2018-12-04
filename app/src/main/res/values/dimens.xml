@@ -6,4 +6,5 @@
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="item_horizontal_margin">10dp</dimen>
+    <dimen name="delete_in_recycleview_margin">50dp</dimen>
 </resources>

@@ -26,6 +26,9 @@ public interface YangdiDao {
     @Delete
     void delete(Yangdi obj);
 
+    @Query("DELETE FROM yangdi WHERE id = :id")
+    void deleteById(int id);
+
     @Query("DELETE FROM yangdi")
     void deleteAll();
 
