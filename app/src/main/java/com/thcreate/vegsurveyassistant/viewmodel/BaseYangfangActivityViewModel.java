@@ -95,10 +95,10 @@ abstract public class BaseYangfangActivityViewModel<T extends BaseYangfang> exte
                 tmp3.setValue(data);
                 yangfang = tmp3;
                 break;
-            case Macro.ACTION_TEMP_SAVE:
-                yangfang = getYangfangData();
-                action = Macro.ACTION_TEMP_SAVE_RESTORE;
-                break;
+//            case Macro.ACTION_TEMP_SAVE:
+//                yangfang = getYangfangData();
+//                action = Macro.ACTION_TEMP_SAVE_RESTORE;
+//                break;
             case Macro.ACTION_TEMP_SAVE_RESTORE:
                 MutableLiveData<T> tmp4 = new MutableLiveData<>();
                 tmp4.setValue(data);
@@ -117,7 +117,7 @@ abstract public class BaseYangfangActivityViewModel<T extends BaseYangfang> exte
     }
 
     public void onCancel(){
-        if (action.equals(Macro.ACTION_TEMP_SAVE_RESTORE)){
+        if (action.equals(Macro.ACTION_TEMP_SAVE_RESTORE)||action.equals(Macro.ACTION_TEMP_SAVE)){
             mYangfangRepository.deleteYangfang(yangfang.getValue());
         }
     }
@@ -133,7 +133,7 @@ abstract public class BaseYangfangActivityViewModel<T extends BaseYangfang> exte
             outState.putString(Macro.ACTION, Macro.ACTION_EDIT_RESTORE);
         }
         if (action.equals(Macro.ACTION_TEMP_SAVE) || action.equals(Macro.ACTION_TEMP_SAVE_RESTORE)){
-            outState.putString(Macro.ACTION, action);
+            outState.putString(Macro.ACTION, Macro.ACTION_TEMP_SAVE_RESTORE);
         }
         outState.putParcelable(YANGFANG_DATA, (Parcelable) yangfang.getValue());
         return outState;

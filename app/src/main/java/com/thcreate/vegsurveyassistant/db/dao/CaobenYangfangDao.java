@@ -41,6 +41,9 @@ public interface CaobenYangfangDao {
     CaobenYangfang getYangfangById(int id);
 
     @Query("SELECT * FROM caoben_yangfang WHERE yangfang_code = :yangfangCode")
+    CaobenYangfang getYangfangByYangfangCodeSync(String yangfangCode);
+
+    @Query("SELECT * FROM caoben_yangfang WHERE yangfang_code = :yangfangCode")
     LiveData<CaobenYangfang> getCaobenYangfangByYangfangCode(String yangfangCode);
 
     @Query("SELECT * FROM caoben_yangfang WHERE yangdi_code = :yangdiCode ORDER BY id ASC")

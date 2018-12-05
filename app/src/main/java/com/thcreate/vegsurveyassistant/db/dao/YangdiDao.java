@@ -33,6 +33,9 @@ public interface YangdiDao {
     void deleteAll();
 
     @Query("SELECT * FROM yangdi WHERE yangdi_code = :yangdiCode")
+    Yangdi getYangdiByYangdiCodeSync(String yangdiCode);
+
+    @Query("SELECT * FROM yangdi WHERE yangdi_code = :yangdiCode")
     LiveData<Yangdi> getYangdiByYangdiCode(String yangdiCode);
 
     @Query("SELECT * FROM yangdi WHERE user_id = :userId AND type = :type ORDER BY id ASC")

@@ -71,10 +71,10 @@ public class BaseYangdiActivityViewModel extends AndroidViewModel {
                 tmp3.setValue(restoredData);
                 yangdi = tmp3;
                 break;
-            case Macro.ACTION_TEMP_SAVE:
-                yangdi = mYangdiRepository.getYangdiByYangdiCode(yangdiCode);
-                action = Macro.ACTION_TEMP_SAVE_RESTORE;
-                break;
+//            case Macro.ACTION_TEMP_SAVE:
+//                yangdi = mYangdiRepository.getYangdiByYangdiCode(yangdiCode);
+//                action = Macro.ACTION_TEMP_SAVE_RESTORE;
+//                break;
             case Macro.ACTION_TEMP_SAVE_RESTORE:
                 MutableLiveData<Yangdi> tmp4 = new MutableLiveData<>();
                 tmp4.setValue(restoredData);
@@ -93,7 +93,7 @@ public class BaseYangdiActivityViewModel extends AndroidViewModel {
     }
 
     public void onCancel(){
-        if (action.equals(Macro.ACTION_TEMP_SAVE_RESTORE)){
+        if (action.equals(Macro.ACTION_TEMP_SAVE)||action.equals(Macro.ACTION_TEMP_SAVE_RESTORE)){
             mYangdiRepository.deleteYangdi(yangdi.getValue());
         }
     }
@@ -108,7 +108,7 @@ public class BaseYangdiActivityViewModel extends AndroidViewModel {
             outState.putString(Macro.ACTION, Macro.ACTION_EDIT_RESTORE);
         }
         if (action.equals(Macro.ACTION_TEMP_SAVE) || action.equals(Macro.ACTION_TEMP_SAVE_RESTORE)){
-            outState.putString(Macro.ACTION, action);
+            outState.putString(Macro.ACTION, Macro.ACTION_TEMP_SAVE_RESTORE);
         }
         outState.putParcelable(YANGDI_DATA, yangdi.getValue());
         return outState;

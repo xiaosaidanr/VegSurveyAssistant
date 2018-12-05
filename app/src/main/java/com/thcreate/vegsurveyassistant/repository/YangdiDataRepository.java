@@ -79,10 +79,33 @@ public class YangdiDataRepository {
         });
     }
     public void updateYangdi(Yangdi data){
-        mAppExecutors.diskIO().execute(()-> mDatabase.yangdiDao().update(data));
+        mAppExecutors.diskIO().execute(()-> {
+            if (data.id == 0){
+                Yangdi tmp = mDatabase.yangdiDao().getYangdiByYangdiCodeSync(data.yangdiCode);
+                if (tmp != null){
+                    data.id = tmp.id;
+                    mDatabase.yangdiDao().update(data);
+                }
+            }
+            else {
+                mDatabase.yangdiDao().update(data);
+            }
+        });
     }
     public void deleteYangdi(Yangdi data){
-        mAppExecutors.diskIO().execute(()-> mDatabase.yangdiDao().delete(data));
+        mAppExecutors.diskIO().execute(()-> {
+            if (data.id == 0){
+                Yangdi tmp = mDatabase.yangdiDao().getYangdiByYangdiCodeSync(data.yangdiCode);
+                if (tmp != null){
+                    data.id = tmp.id;
+                    mDatabase.yangdiDao().delete(data);
+                }
+
+            }
+            else {
+                mDatabase.yangdiDao().delete(data);
+            }
+        });
     }
     public void deleteYangdiById(int id){
         mAppExecutors.diskIO().execute(()-> mDatabase.yangdiDao().deleteById(id));

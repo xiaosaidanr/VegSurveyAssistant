@@ -61,11 +61,31 @@ public class YangfangDataRepository {
     }
     public void updateQiaomuyf(QiaomuYangfang data){
         mAppExecutors.diskIO().execute(()->{
-            mDatabase.qiaomuYangfangDao().update(data);
+            if (data.id == 0){
+                QiaomuYangfang tmp = mDatabase.qiaomuYangfangDao().getYangfangByYangfangCodeSync(data.yangfangCode);
+                if (tmp != null){
+                    data.id = tmp.id;
+                    mDatabase.qiaomuYangfangDao().update(data);
+                }
+            }
+            else {
+                mDatabase.qiaomuYangfangDao().update(data);
+            }
         });
     }
     public void deleteQiaomuyf(QiaomuYangfang data){
-        mAppExecutors.diskIO().execute(()->mDatabase.qiaomuYangfangDao().delete(data));
+        mAppExecutors.diskIO().execute(()->{
+            if (data.id == 0){
+                QiaomuYangfang tmp = mDatabase.qiaomuYangfangDao().getYangfangByYangfangCodeSync(data.yangfangCode);
+                if (tmp != null){
+                    data.id = tmp.id;
+                    mDatabase.qiaomuYangfangDao().delete(data);
+                }
+            }
+            else {
+                mDatabase.qiaomuYangfangDao().delete(data);
+            }
+        });
     }
     public void deleteQiaomuyfByIdRelated(int id){
         mAppExecutors.diskIO().execute(()->{
@@ -99,11 +119,31 @@ public class YangfangDataRepository {
     }
     public void updateGuanmuyf(GuanmuYangfang data){
         mAppExecutors.diskIO().execute(()->{
-            mDatabase.guanmuYangfangDao().update(data);
+            if (data.id == 0){
+                GuanmuYangfang tmp = mDatabase.guanmuYangfangDao().getYangfangByYangfangCodeSync(data.yangfangCode);
+                if (tmp != null){
+                    data.id = tmp.id;
+                    mDatabase.guanmuYangfangDao().update(data);
+                }
+            }
+            else {
+                mDatabase.guanmuYangfangDao().update(data);
+            }
         });
     }
     public void deleteGuanmuyf(GuanmuYangfang data){
-        mAppExecutors.diskIO().execute(()->mDatabase.guanmuYangfangDao().delete(data));
+        mAppExecutors.diskIO().execute(()->{
+            if (data.id == 0){
+                GuanmuYangfang tmp = mDatabase.guanmuYangfangDao().getYangfangByYangfangCodeSync(data.yangfangCode);
+                if (tmp != null){
+                    data.id = tmp.id;
+                    mDatabase.guanmuYangfangDao().delete(data);
+                }
+            }
+            else {
+                mDatabase.guanmuYangfangDao().delete(data);
+            }
+        });
     }
     public void deleteGuanmuyfByIdRelated(int id){
         mAppExecutors.diskIO().execute(()->{
@@ -133,11 +173,31 @@ public class YangfangDataRepository {
     }
     public void updateCaobenyf(CaobenYangfang data){
         mAppExecutors.diskIO().execute(()->{
-            mDatabase.caobenYangfangDao().update(data);
+            if (data.id == 0){
+                CaobenYangfang tmp = mDatabase.caobenYangfangDao().getYangfangByYangfangCodeSync(data.yangfangCode);
+                if (tmp != null){
+                    data.id = tmp.id;
+                    mDatabase.caobenYangfangDao().update(data);
+                }
+            }
+            else {
+                mDatabase.caobenYangfangDao().update(data);
+            }
         });
     }
     public void deleteCaobenyf(CaobenYangfang data){
-        mAppExecutors.diskIO().execute(()->mDatabase.caobenYangfangDao().delete(data));
+        mAppExecutors.diskIO().execute(()->{
+            if (data.id == 0){
+                CaobenYangfang tmp = mDatabase.caobenYangfangDao().getYangfangByYangfangCodeSync(data.yangfangCode);
+                if (tmp != null){
+                    data.id = tmp.id;
+                    mDatabase.caobenYangfangDao().delete(data);
+                }
+            }
+            else {
+                mDatabase.caobenYangfangDao().delete(data);
+            }
+        });
     }
     public void deleteCaobenyfByIdRelated(int id){
         mAppExecutors.diskIO().execute(()->mDatabase.caobenYangfangDao().deleteById(id));

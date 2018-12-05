@@ -39,6 +39,9 @@ public interface GuanmuYangfangDao {
     GuanmuYangfang getYangfangById(int id);
 
     @Query("SELECT * FROM guanmu_yangfang WHERE yangfang_code = :yangfangCode")
+    GuanmuYangfang getYangfangByYangfangCodeSync(String yangfangCode);
+
+    @Query("SELECT * FROM guanmu_yangfang WHERE yangfang_code = :yangfangCode")
     LiveData<GuanmuYangfang> getGuanmuYangfangByYangfangCode(String yangfangCode);
 
     @Query("SELECT * FROM guanmu_yangfang WHERE yangdi_code = :yangdiCode ORDER BY id ASC")
