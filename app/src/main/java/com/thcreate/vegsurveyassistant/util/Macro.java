@@ -36,4 +36,8 @@ public class Macro {
     public static final String YANGDI_TYPE_BUSH = "bush";
     public static final String YANGDI_TYPE_TREE = "tree";
 
+    public final static String CoorType_GCJ02 = "gcj02";
+    public final static String CoorType_BD09LL= "bd09ll";
+    public final static String CoorType_BD09MC= "bd09";
+
 }

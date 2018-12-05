@@ -2,6 +2,7 @@ package com.thcreate.vegsurveyassistant;
 
 import android.app.Application;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.thcreate.vegsurveyassistant.db.AppDatabase;
 import com.thcreate.vegsurveyassistant.repository.WuzhongDataRepository;
 import com.thcreate.vegsurveyassistant.repository.YangdiDataRepository;
@@ -17,6 +18,11 @@ public class BasicApp extends Application {
         super.onCreate();
 
         mAppExecutors = new AppExecutors();
+
+        /*
+         * 初始化定位sdk，建议在Application中创建
+         */
+        SDKInitializer.initialize(getApplicationContext());
     }
 
     public AppDatabase getDatabase(){
