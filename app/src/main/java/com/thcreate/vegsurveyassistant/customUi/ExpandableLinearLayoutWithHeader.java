@@ -86,7 +86,6 @@ public class ExpandableLinearLayoutWithHeader extends LinearLayout {
                     setChildrenVisibility(GONE);
                 }
                 mIsFold = !mIsFold;
-//                Log.e("testtesttest", "header clicked");
             }
         });
     }

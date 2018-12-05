@@ -157,7 +157,6 @@ public class YangfangFragment extends BaseFragment {
 
         @Override
         public Fragment getItem(int i) {
-            Log.d(TAG, "getItem " + String.valueOf(i));
             if (i==0){
                 return CaodiListFragment.newInstance(null, null);
             }

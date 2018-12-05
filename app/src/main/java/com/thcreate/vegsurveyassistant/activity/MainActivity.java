@@ -69,7 +69,6 @@ public class MainActivity extends BaseActivity {
                     currentFragment = myFragment;
                 }
             }
-            Log.e("Fragment", currentFragment.getClass().getName());
         }
         initSetLayoutId();
         initData();
