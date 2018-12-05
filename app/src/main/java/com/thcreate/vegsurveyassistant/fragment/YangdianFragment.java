@@ -9,8 +9,10 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,6 +24,7 @@ import android.view.ViewGroup;
 import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.activity.YangdianActivity;
 import com.thcreate.vegsurveyassistant.adapter.ItemClickCallback;
+import com.thcreate.vegsurveyassistant.adapter.RecyclerViewSwipeDismissController;
 import com.thcreate.vegsurveyassistant.adapter.YangdianAdapter;
 import com.thcreate.vegsurveyassistant.databinding.FragmentYangdianBinding;
 import com.thcreate.vegsurveyassistant.db.entity.Yangdian;
@@ -42,6 +45,7 @@ public class YangdianFragment extends BaseFragment {
 
     private Toolbar mToolbar;
 
+    YangdianListViewModel mViewModel;
     private FragmentYangdianBinding mBinding;
 
     private YangdianAdapter mYangdianAdapter;
@@ -93,13 +97,23 @@ public class YangdianFragment extends BaseFragment {
                              Bundle savedInstanceState) {
 
         Log.d(this.getClass().getSimpleName(), "onCreateView" + " " + this.toString());
+
+        RecyclerViewSwipeDismissController controller = new RecyclerViewSwipeDismissController(
+                0,
+                ItemTouchHelper.LEFT,
+                ContextCompat.getDrawable(getActivity(), R.drawable.ic_delete_forever));
+        controller.setOnDeleteCallback((id, position)->{
+            mViewModel.deleteYangdianById(id);
+        });
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(controller);
+
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_yangdian, container, false);
         mToolbar = mBinding.yangdianToolbar;
 
         mYangdianAdapter = new YangdianAdapter(mYangdianItemClickCallback);
 
         mBinding.yangdianList.setAdapter(mYangdianAdapter);
-
+        itemTouchHelper.attachToRecyclerView(mBinding.yangdianList);
         ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
         return mBinding.getRoot();
     }
@@ -107,13 +121,13 @@ public class YangdianFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        final YangdianListViewModel viewModel = ViewModelProviders.of(this).get(YangdianListViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(YangdianListViewModel.class);
 
-        subscribeUi(viewModel.getYangdianList());
+        subscribeUi();
     }
 
-    private void subscribeUi(LiveData<List<Yangdian>> liveData) {
-        liveData.observe(this, (yangdianList)->{
+    private void subscribeUi() {
+        mViewModel.getYangdianList().observe(this, (yangdianList)->{
             if (yangdianList != null) {
                 mBinding.setIsLoading(false);
                 mYangdianAdapter.setYangdianList(yangdianList);

@@ -9,31 +9,21 @@ import android.support.annotation.NonNull;
 import com.thcreate.vegsurveyassistant.BasicApp;
 import com.thcreate.vegsurveyassistant.db.entity.Yangdi;
 import com.thcreate.vegsurveyassistant.repository.YangdiDataRepository;
+import com.thcreate.vegsurveyassistant.util.Macro;
 
 import java.util.List;
 
-public class GuancongyangdiListViewModel extends AndroidViewModel {
-
-    private final YangdiDataRepository mRepository;
-
-    private final MediatorLiveData<List<Yangdi>> mObservableYangdiList;
+public class GuancongyangdiListViewModel extends BaseYangdiListViewModel {
 
     public GuancongyangdiListViewModel(@NonNull Application application) {
         super(application);
-
-        mObservableYangdiList = new MediatorLiveData<>();
-        mObservableYangdiList.setValue(null);
-
-        mRepository = ((BasicApp)application).getYangdiDataRepository();
-        LiveData<List<Yangdi>> yangdiList = mRepository.loadAllYangdiByType("bush");
-
-        mObservableYangdiList.addSource(yangdiList, mObservableYangdiList::setValue);
     }
 
-
-
-    public LiveData<List<Yangdi>> getYangdiList(){
-        return mObservableYangdiList;
+    void initYangdiList(){
+        observableYangdiList = new MediatorLiveData<>();
+        observableYangdiList.setValue(null);
+        LiveData<List<Yangdi>> yangdiList = yangdiRepository.loadAllYangdiByType(Macro.YANGDI_TYPE_BUSH);
+        observableYangdiList.addSource(yangdiList, observableYangdiList::setValue);
     }
 
 }

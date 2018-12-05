@@ -97,5 +97,10 @@ public class YangdianDataRepository {
             mDatabase.yangdianDao().update(data);
         });
     }
+    public void deleteYangdianById(int id){
+        mAppExecutors.diskIO().execute(()->{
+            mDatabase.yangdianDao().deleteById(id);
+        });
+    }
 
 }

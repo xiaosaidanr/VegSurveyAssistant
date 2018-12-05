@@ -8,6 +8,8 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.activity.GuancongyangdiActivity;
 import com.thcreate.vegsurveyassistant.adapter.ItemClickCallback;
+import com.thcreate.vegsurveyassistant.adapter.RecyclerViewSwipeDismissController;
 import com.thcreate.vegsurveyassistant.adapter.YangdiAdapter;
 import com.thcreate.vegsurveyassistant.databinding.FragmentGuancongListBinding;
 import com.thcreate.vegsurveyassistant.db.entity.Yangdi;
@@ -32,6 +35,7 @@ public class GuancongListFragment extends Fragment {
 
     private static final String TAG = "GuancongListFragment";
 
+    private GuancongyangdiListViewModel mViewModel;
     private FragmentGuancongListBinding mBinding;
 
     private YangdiAdapter mYangdiAdapter;
@@ -80,20 +84,25 @@ public class GuancongListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        RecyclerViewSwipeDismissController controller = new RecyclerViewSwipeDismissController(
+                0,
+                ItemTouchHelper.LEFT,
+                ContextCompat.getDrawable(getActivity(), R.drawable.ic_delete_forever));
+        controller.setOnDeleteCallback((id, position)-> mViewModel.deleteYangdiById(id));
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(controller);
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_guancong_list, container, false);
         mYangdiAdapter = new YangdiAdapter(mYangdiItemClickCallback);
         mBinding.yangdiList.setAdapter(mYangdiAdapter);
+        itemTouchHelper.attachToRecyclerView(mBinding.yangdiList);
         return mBinding.getRoot();
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        final GuancongyangdiListViewModel viewModel = ViewModelProviders.of(this).get(GuancongyangdiListViewModel.class);
-
-        subscribeUi(viewModel.getYangdiList());
+        mViewModel = ViewModelProviders.of(this).get(GuancongyangdiListViewModel.class);
+        subscribeUi();
     }
-
     private final ItemClickCallback<Yangdi> mYangdiItemClickCallback = (yangdi) -> {
         Intent intent = new Intent(getActivity(), GuancongyangdiActivity.class);
         intent.putExtra(Macro.ACTION, Macro.ACTION_EDIT);
@@ -101,9 +110,8 @@ public class GuancongListFragment extends Fragment {
         intent.putExtra(Macro.YANGDI_TYPE, Macro.YANGDI_TYPE_BUSH);
         startActivity(intent);
     };
-
-    private void subscribeUi(LiveData<List<Yangdi>> liveData) {
-        liveData.observe(this, (yangdiList)->{
+    private void subscribeUi() {
+        mViewModel.getYangdiList().observe(this, (yangdiList)->{
             if (yangdiList != null) {
                 mBinding.setIsLoading(false);
                 mYangdiAdapter.setYangdiList(yangdiList);

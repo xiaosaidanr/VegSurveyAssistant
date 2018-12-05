@@ -28,6 +28,9 @@ public interface YangdianDao {
     @Query("DELETE FROM yangdian")
     void deleteAll();
 
+    @Query("DELETE FROM yangdian WHERE id = :id")
+    void deleteById(int id);
+
     @Query("SELECT * FROM yangdian WHERE yangdian_code = :yangdianCode")
     LiveData<Yangdian> getYangdianByYangdianCode(String yangdianCode);
 

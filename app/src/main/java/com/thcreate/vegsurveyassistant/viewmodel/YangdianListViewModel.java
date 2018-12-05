@@ -35,4 +35,8 @@ public class YangdianListViewModel extends AndroidViewModel {
     public LiveData<List<Yangdian>> getYangdianList(){
         return mObservableYangdianList;
     }
+
+    public void deleteYangdianById(int id){
+        mRepository.deleteYangdianById(id);
+    }
 }

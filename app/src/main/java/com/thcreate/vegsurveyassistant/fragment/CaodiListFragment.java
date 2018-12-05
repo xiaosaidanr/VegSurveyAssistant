@@ -1,13 +1,13 @@
 package com.thcreate.vegsurveyassistant.fragment;
 
-
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +15,12 @@ import android.view.ViewGroup;
 import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.activity.CaodiyangdiActivity;
 import com.thcreate.vegsurveyassistant.adapter.ItemClickCallback;
+import com.thcreate.vegsurveyassistant.adapter.RecyclerViewSwipeDismissController;
 import com.thcreate.vegsurveyassistant.adapter.YangdiAdapter;
 import com.thcreate.vegsurveyassistant.databinding.FragmentCaodiListBinding;
 import com.thcreate.vegsurveyassistant.db.entity.Yangdi;
 import com.thcreate.vegsurveyassistant.util.Macro;
 import com.thcreate.vegsurveyassistant.viewmodel.CaodiyangdiListViewModel;
-
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,6 +31,7 @@ public class CaodiListFragment extends Fragment {
 
     private static final String TAG = "CaodiListFragment";
 
+    private CaodiyangdiListViewModel mViewModel;
     private FragmentCaodiListBinding mBinding;
 
     private YangdiAdapter mYangdiAdapter;
@@ -80,30 +80,28 @@ public class CaodiListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        RecyclerViewSwipeDismissController controller = new RecyclerViewSwipeDismissController(
+                0,
+                ItemTouchHelper.LEFT,
+                ContextCompat.getDrawable(getActivity(), R.drawable.ic_delete_forever));
+        controller.setOnDeleteCallback((id, position)-> mViewModel.deleteYangdiById(id));
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(controller);
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_caodi_list, container, false);
         mYangdiAdapter = new YangdiAdapter(mYangdiItemClickCallback);
         mBinding.yangdiList.setAdapter(mYangdiAdapter);
+        itemTouchHelper.attachToRecyclerView(mBinding.yangdiList);
         return mBinding.getRoot();
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        final CaodiyangdiListViewModel viewModel = ViewModelProviders.of(this).get(CaodiyangdiListViewModel.class);
-
-        subscribeUi(viewModel.getYangdiList());
+        mViewModel = ViewModelProviders.of(this).get(CaodiyangdiListViewModel.class);
+        subscribeUi();
     }
 
-    private final ItemClickCallback<Yangdi> mYangdiItemClickCallback = (yangdi) -> {
-        Intent intent = new Intent(getActivity(), CaodiyangdiActivity.class);
-        intent.putExtra(Macro.ACTION, Macro.ACTION_EDIT);
-        intent.putExtra(Macro.YANGDI_CODE, yangdi.yangdiCode);
-        intent.putExtra(Macro.YANGDI_TYPE, Macro.YANGDI_TYPE_GRASS);
-        startActivity(intent);
-    };
-
-    private void subscribeUi(LiveData<List<Yangdi>> liveData) {
-        liveData.observe(this, (yangdiList)->{
+    private void subscribeUi() {
+        mViewModel.getYangdiList().observe(this, (yangdiList)->{
             if (yangdiList != null) {
                 mBinding.setIsLoading(false);
                 mYangdiAdapter.setYangdiList(yangdiList);
@@ -113,5 +111,13 @@ public class CaodiListFragment extends Fragment {
             mBinding.executePendingBindings();
         });
     }
+
+    private final ItemClickCallback<Yangdi> mYangdiItemClickCallback = (yangdi) -> {
+        Intent intent = new Intent(getActivity(), CaodiyangdiActivity.class);
+        intent.putExtra(Macro.ACTION, Macro.ACTION_EDIT);
+        intent.putExtra(Macro.YANGDI_CODE, yangdi.yangdiCode);
+        intent.putExtra(Macro.YANGDI_TYPE, Macro.YANGDI_TYPE_GRASS);
+        startActivity(intent);
+    };
 
 }
