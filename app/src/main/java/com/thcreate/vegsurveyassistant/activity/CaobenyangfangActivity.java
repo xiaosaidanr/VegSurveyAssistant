@@ -4,8 +4,10 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -13,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.thcreate.vegsurveyassistant.R;
+import com.thcreate.vegsurveyassistant.adapter.RecyclerViewSwipeDismissController;
 import com.thcreate.vegsurveyassistant.adapter.WuzhongAdapter;
 import com.thcreate.vegsurveyassistant.adapter.ItemClickCallback;
 import com.thcreate.vegsurveyassistant.databinding.ActivityCaobenyangfangBinding;
@@ -69,8 +72,18 @@ public class CaobenyangfangActivity extends BaseYangfangActivity<CaobenyangfangA
             finish();
         });
 
+        RecyclerViewSwipeDismissController controller = new RecyclerViewSwipeDismissController(
+                0,
+                ItemTouchHelper.LEFT,
+                ContextCompat.getDrawable(this, R.drawable.ic_delete_forever));
+        controller.setOnDeleteCallback((id, position)->{
+            mViewModel.deleteWuzhongById(id);
+        });
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(controller);
         mWuzhongAdapter = new WuzhongAdapter<CaobenWuzhong>(mWuzhongItemClickCallback);
         ((RecyclerView)findViewById(R.id.wuzhong_list)).setAdapter(mWuzhongAdapter);
+        itemTouchHelper.attachToRecyclerView(findViewById(R.id.wuzhong_list));
+
         subscribeUi();
     }
     private void subscribeUi() {

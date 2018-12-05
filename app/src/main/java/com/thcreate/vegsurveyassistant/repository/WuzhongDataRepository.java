@@ -59,6 +59,11 @@ public class WuzhongDataRepository {
             mDatabase.qiaomuWuzhongDao().update(data);
         });
     }
+    public void deleteQiaomuwzById(int id){
+        mAppExecutors.diskIO().execute(()->{
+            mDatabase.qiaomuWuzhongDao().deleteById(id);
+        });
+    }
 
 
 
@@ -82,6 +87,11 @@ public class WuzhongDataRepository {
             mDatabase.guanmuWuzhongDao().update(data);
         });
     }
+    public void deleteGuanmuwzById(int id){
+        mAppExecutors.diskIO().execute(()->{
+            mDatabase.guanmuWuzhongDao().deleteById(id);
+        });
+    }
 
 
 
@@ -103,6 +113,11 @@ public class WuzhongDataRepository {
     public void updateCaobenwz(CaobenWuzhong data){
         mAppExecutors.diskIO().execute(()->{
             mDatabase.caobenWuzhongDao().update(data);
+        });
+    }
+    public void deleteCaobenwzById(int id){
+        mAppExecutors.diskIO().execute(()->{
+            mDatabase.caobenWuzhongDao().deleteById(id);
         });
     }
 

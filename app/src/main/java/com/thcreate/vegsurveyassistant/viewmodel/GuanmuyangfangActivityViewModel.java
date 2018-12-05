@@ -27,4 +27,8 @@ public class GuanmuyangfangActivityViewModel extends BaseYangfangActivityViewMod
         return mWuzhongRepository.getAllGuanmuWuzhongByYangfangCode(yangfangCode);
     }
 
+    public void deleteWuzhongById(int id){
+        mWuzhongRepository.deleteGuanmuwzById(id);
+    }
+
 }

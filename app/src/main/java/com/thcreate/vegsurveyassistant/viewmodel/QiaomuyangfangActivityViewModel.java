@@ -23,4 +23,8 @@ public class QiaomuyangfangActivityViewModel extends BaseYangfangActivityViewMod
         return mWuzhongRepository.getAllQiaomuWuzhongByYangfangCode(yangfangCode);
     }
 
+    public void deleteWuzhongById(int id){
+        mWuzhongRepository.deleteQiaomuwzById(id);
+    }
+
 }

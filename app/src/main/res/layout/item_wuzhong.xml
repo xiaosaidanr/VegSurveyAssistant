@@ -16,10 +16,15 @@
     </data>
 
     <TextView
+        android:paddingTop="10dp"
+        android:background="@drawable/rect_nobackground_lrbborder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+        android:gravity="center_vertical"
         android:text="@{wuzhong.wuzhongCode}"
         android:onClick="@{() -> clickCallback.onClick(wuzhong)}"
+        android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
         />
 
 </layout>

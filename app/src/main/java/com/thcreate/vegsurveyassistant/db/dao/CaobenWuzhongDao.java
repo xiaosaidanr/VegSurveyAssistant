@@ -24,6 +24,9 @@ public interface CaobenWuzhongDao {
     @Delete
     void delete(CaobenWuzhong obj);
 
+    @Query("DELETE FROM caoben_wuzhong WHERE id = :id")
+    void deleteById(int id);
+
     @Query("DELETE FROM caoben_wuzhong")
     void deleteAll();
 

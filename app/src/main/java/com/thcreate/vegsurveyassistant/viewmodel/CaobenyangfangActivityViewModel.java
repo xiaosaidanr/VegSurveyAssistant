@@ -32,4 +32,8 @@ public class CaobenyangfangActivityViewModel extends BaseYangfangActivityViewMod
         return mWuzhongRepository.getAllCaobenWuzhongByYangfangCode(yangfangCode);
     }
 
+    public void deleteWuzhongById(int id){
+        mWuzhongRepository.deleteCaobenwzById(id);
+    }
+
 }

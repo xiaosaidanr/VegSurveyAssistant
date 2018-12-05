@@ -25,6 +25,9 @@ public interface GuanmuWuzhongDao {
     @Delete
     void delete(GuanmuWuzhong obj);
 
+    @Query("DELETE FROM guanmu_wuzhong WHERE id = :id")
+    void deleteById(int id);
+
     @Query("DELETE FROM guanmu_wuzhong")
     void deleteAll();
 
