@@ -25,8 +25,20 @@ public interface CaobenYangfangDao {
     @Delete
     void delete(CaobenYangfang obj);
 
+    @Query("DELETE FROM caoben_yangfang WHERE id = :id")
+    void deleteById(int id);
+
+    @Query("DELETE FROM caoben_yangfang WHERE guanmuyangfang_code = :code")
+    void deleteByGuanmuyangfangCode(String code);
+
+    @Query("DELETE FROM caoben_yangfang WHERE qiaomuyangfang_code = :code")
+    void deleteByQiaomuyangfangCode(String code);
+
     @Query("DELETE FROM caoben_yangfang")
     void deleteAll();
+
+    @Query("SELECT * FROM caoben_yangfang WHERE id = :id")
+    CaobenYangfang getYangfangById(int id);
 
     @Query("SELECT * FROM caoben_yangfang WHERE yangfang_code = :yangfangCode")
     LiveData<CaobenYangfang> getCaobenYangfangByYangfangCode(String yangfangCode);

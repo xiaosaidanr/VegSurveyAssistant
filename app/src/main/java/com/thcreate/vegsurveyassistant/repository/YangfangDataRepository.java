@@ -67,6 +67,17 @@ public class YangfangDataRepository {
     public void deleteQiaomuyf(QiaomuYangfang data){
         mAppExecutors.diskIO().execute(()->mDatabase.qiaomuYangfangDao().delete(data));
     }
+    public void deleteQiaomuyfByIdRelated(int id){
+        mAppExecutors.diskIO().execute(()->{
+            QiaomuYangfang tmp = mDatabase.qiaomuYangfangDao().getYangfangById(id);
+            String qiaomuyangfangCode = tmp.yangfangCode;
+            mDatabase.qiaomuYangfangDao().deleteById(id);
+            mDatabase.guanmuYangfangDao().deleteByQiaomuyangfangCode(qiaomuyangfangCode);
+            mDatabase.caobenYangfangDao().deleteByQiaomuyangfangCode(qiaomuyangfangCode);
+        });
+    }
+
+
 
     public LiveData<GuanmuYangfang> getGuanmuYangfangByYangfangCode(String yangfangCode){
         return mDatabase.guanmuYangfangDao().getGuanmuYangfangByYangfangCode(yangfangCode);
@@ -94,6 +105,16 @@ public class YangfangDataRepository {
     public void deleteGuanmuyf(GuanmuYangfang data){
         mAppExecutors.diskIO().execute(()->mDatabase.guanmuYangfangDao().delete(data));
     }
+    public void deleteGuanmuyfByIdRelated(int id){
+        mAppExecutors.diskIO().execute(()->{
+            GuanmuYangfang tmp = mDatabase.guanmuYangfangDao().getYangfangById(id);
+            String guanmuyangfangCode = tmp.yangfangCode;
+            mDatabase.guanmuYangfangDao().deleteById(id);
+            mDatabase.caobenYangfangDao().deleteByGuanmuyangfangCode(guanmuyangfangCode);
+        });
+    }
+
+
 
     public LiveData<CaobenYangfang> getCaobenYangfangByYangfangCode(String yangfangCode){
         return mDatabase.caobenYangfangDao().getCaobenYangfangByYangfangCode(yangfangCode);
@@ -117,6 +138,9 @@ public class YangfangDataRepository {
     }
     public void deleteCaobenyf(CaobenYangfang data){
         mAppExecutors.diskIO().execute(()->mDatabase.caobenYangfangDao().delete(data));
+    }
+    public void deleteCaobenyfByIdRelated(int id){
+        mAppExecutors.diskIO().execute(()->mDatabase.caobenYangfangDao().deleteById(id));
     }
 
 
@@ -156,4 +180,5 @@ public class YangfangDataRepository {
             deleteQiaomuyf((QiaomuYangfang) data);
         }
     }
+
 }

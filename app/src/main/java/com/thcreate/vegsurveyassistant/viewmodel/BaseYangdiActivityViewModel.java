@@ -124,6 +124,18 @@ public class BaseYangdiActivityViewModel extends AndroidViewModel {
         return mYangfangRepository.getAllQiaomuYangfangByYangdiCode(yangdiCode);
     }
 
+    public void deleteCaobenyfById(int id){
+        mYangfangRepository.deleteCaobenyfByIdRelated(id);
+    }
+
+    public void deleteGuanmuyfById(int id){
+        mYangfangRepository.deleteGuanmuyfByIdRelated(id);
+    }
+
+    public void deleteQiaomuyfById(int id){
+        mYangfangRepository.deleteQiaomuyfByIdRelated(id);
+    }
+
     public <U> String generateYangfangCode(Class<U> modelClass){
         return IdGenerator.getId(userId, modelClass);
     }

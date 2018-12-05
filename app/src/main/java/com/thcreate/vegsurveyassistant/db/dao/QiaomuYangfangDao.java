@@ -26,8 +26,14 @@ public interface QiaomuYangfangDao {
     @Delete
     void delete(QiaomuYangfang obj);
 
+    @Query("DELETE FROM qiaomu_yangfang WHERE id = :id")
+    void deleteById(int id);
+
     @Query("DELETE FROM qiaomu_yangfang")
     void deleteAll();
+
+    @Query("SELECT * FROM qiaomu_yangfang WHERE id = :id")
+    QiaomuYangfang getYangfangById(int id);
 
     @Query("SELECT * FROM qiaomu_yangfang WHERE yangfang_code = :yangfangCode")
     LiveData<QiaomuYangfang> getQiaomuYangfangByYangfangCode(String yangfangCode);

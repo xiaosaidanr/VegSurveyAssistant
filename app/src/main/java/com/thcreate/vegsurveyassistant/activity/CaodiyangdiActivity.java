@@ -1,15 +1,16 @@
 package com.thcreate.vegsurveyassistant.activity;
 
-import android.arch.lifecycle.LiveData;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.thcreate.vegsurveyassistant.R;
+import com.thcreate.vegsurveyassistant.adapter.RecyclerViewSwipeDismissController;
 import com.thcreate.vegsurveyassistant.adapter.YangfangAdapter;
 import com.thcreate.vegsurveyassistant.adapter.ItemClickCallback;
 import com.thcreate.vegsurveyassistant.databinding.ActivityCaodiyangdiBinding;
@@ -17,15 +18,12 @@ import com.thcreate.vegsurveyassistant.db.entity.CaobenYangfang;
 import com.thcreate.vegsurveyassistant.util.Macro;
 import com.thcreate.vegsurveyassistant.viewmodel.CaodiyangdiActivityViewModel;
 
-import java.util.List;
-
 public class CaodiyangdiActivity extends BaseYangdiActivity<CaodiyangdiActivityViewModel> {
 
     private ActivityCaodiyangdiBinding mBinding;
 
     private EditText longitutdeEditText;
     private EditText latitudeEditText;
-    private TextView caobenyangfangCountTextView;
 
     private YangfangAdapter mCaobenyangfangAdapter;
 
@@ -45,24 +43,33 @@ public class CaodiyangdiActivity extends BaseYangdiActivity<CaodiyangdiActivityV
 
         longitutdeEditText = findViewById(R.id.longitude_edit_text);
         latitudeEditText = findViewById(R.id.latitude_edit_text);
-        caobenyangfangCountTextView = findViewById(R.id.caobenyangfang_count_text_view);
 
         findViewById(R.id.fab).setOnClickListener((v)->{
             save();
             finish();
         });
 
+        RecyclerViewSwipeDismissController controller = new RecyclerViewSwipeDismissController(
+                0,
+                ItemTouchHelper.LEFT,
+                ContextCompat.getDrawable(this, R.drawable.ic_delete_forever));
+        controller.setOnDeleteCallback((id, position)->{
+            mViewModel.deleteCaobenyfById(id);
+        });
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(controller);
         mCaobenyangfangAdapter = new YangfangAdapter<CaobenYangfang>(mYangfangItemClickCallback);
         ((RecyclerView)findViewById(R.id.yangfang_list)).setAdapter(mCaobenyangfangAdapter);
-        subscribeUi(mViewModel.getCaobenyangfangList());
+        itemTouchHelper.attachToRecyclerView(findViewById(R.id.yangfang_list));
+
+        subscribeUi();
     }
-    private void subscribeUi(LiveData<List<CaobenYangfang>> liveData) {
-        liveData.observe(this, (yangfangList)->{
+    private void subscribeUi() {
+        mViewModel.getCaobenyangfangList().observe(this, (yangfangList)->{
             if (yangfangList != null) {
                 mCaobenyangfangAdapter.setYangfangList(yangfangList);
-                caobenyangfangCountTextView.setText(String.valueOf(yangfangList.size()));
+                mViewModel.caobenyangfangCount.setValue(String.valueOf(yangfangList.size()));
             } else {
-                caobenyangfangCountTextView.setText("0");
+                mViewModel.caobenyangfangCount.setValue("0");
             }
             mBinding.executePendingBindings();
         });
@@ -77,11 +84,7 @@ public class CaodiyangdiActivity extends BaseYangdiActivity<CaodiyangdiActivityV
         startActivity(intent);
     };
 
-//    @Override
-//    protected void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        outState.putParcelable(YANGDI_DATA, mViewModel.yangdi.getValue());
-//    }
+
 
     public void onAddYangfang(View v){
         mViewModel.onGoForward();

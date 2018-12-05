@@ -35,10 +35,12 @@
             <TextView
                 android:gravity="center_vertical"
                 android:id="@+id/yangdi_code"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@{yangdi.yangdiCode}"
                 android:height="40dp"
+                android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
+
                 />
 
         </RelativeLayout>

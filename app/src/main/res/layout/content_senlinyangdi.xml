@@ -229,16 +229,6 @@
                 android:layout_marginBottom="10dp"
                 app:header_title="@string/qiaomuyangfang_list"
                 >
-
-                <!--<TextView-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginStart="10dp"-->
-                    <!--android:layout_marginTop="10dp"-->
-                    <!--android:layout_marginEnd="10dp"-->
-                    <!--android:background="@drawable/rect"-->
-                    <!--android:text="@string/qiaomuyangfang_list"-->
-                    <!--android:textAppearance="@android:style/TextAppearance.Medium"/>-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -251,8 +241,7 @@
                         android:text="@string/yangfang_number"
                         android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
                     <TextView
-                        android:id="@+id/qiaomuyangfang_count_text_view"
-                        android:text="0"
+                        android:text="@{viewmodel.qiaomuyangfangCount}"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -285,16 +274,6 @@
                 android:layout_marginBottom="10dp"
                 app:header_title="@string/guanmuyangfang_list"
                 >
-
-                <!--<TextView-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginStart="10dp"-->
-                    <!--android:layout_marginTop="10dp"-->
-                    <!--android:layout_marginEnd="10dp"-->
-                    <!--android:background="@drawable/rect"-->
-                    <!--android:text="@string/guanmuyangfang_list"-->
-                    <!--android:textAppearance="@android:style/TextAppearance.Medium"/>-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -307,8 +286,7 @@
                         android:text="@string/yangfang_number"
                         android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
                     <TextView
-                        android:id="@+id/guanmuyangfang_count_text_view"
-                        android:text="0"
+                        android:text="@{viewmodel.guanmuyangfangCount}"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -341,16 +319,6 @@
                 android:orientation="vertical"
                 app:header_title="@string/caobenyangfang_list"
                 >
-
-                <!--<TextView-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginStart="10dp"-->
-                    <!--android:layout_marginTop="10dp"-->
-                    <!--android:layout_marginEnd="10dp"-->
-                    <!--android:background="@drawable/rect"-->
-                    <!--android:text="@string/caobenyangfang_list"-->
-                    <!--android:textAppearance="@android:style/TextAppearance.Medium"/>-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -363,8 +331,7 @@
                         android:text="@string/yangfang_number"
                         android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
                     <TextView
-                        android:id="@+id/caobenyangfang_count_text_view"
-                        android:text="0"
+                        android:text="@{viewmodel.caobenyangfangCount}"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

@@ -4,13 +4,16 @@ import android.arch.lifecycle.LiveData;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.adapter.ItemClickCallback;
+import com.thcreate.vegsurveyassistant.adapter.RecyclerViewSwipeDismissController;
 import com.thcreate.vegsurveyassistant.adapter.YangfangAdapter;
 import com.thcreate.vegsurveyassistant.databinding.ActivityGuancongyangdiBinding;
 import com.thcreate.vegsurveyassistant.db.entity.CaobenYangfang;
@@ -26,8 +29,6 @@ public class GuancongyangdiActivity extends BaseYangdiActivity<GuancongyangdiAct
 
     private EditText longitutdeEditText;
     private EditText latitudeEditText;
-    private TextView guanmuyangfangCountTextView;
-    private TextView caobenyangfangCountTextView;
 
     private YangfangAdapter mGuanmuyangfangAdapter;
     private YangfangAdapter mCaobenyangfangAdapter;
@@ -48,25 +49,43 @@ public class GuancongyangdiActivity extends BaseYangdiActivity<GuancongyangdiAct
 
         longitutdeEditText = findViewById(R.id.longitude_edit_text);
         latitudeEditText = findViewById(R.id.latitude_edit_text);
-        guanmuyangfangCountTextView = findViewById(R.id.guanmuyangfang_count_text_view);
-        caobenyangfangCountTextView = findViewById(R.id.caobenyangfang_count_text_view);
 
         findViewById(R.id.fab).setOnClickListener((v)->{
             save();
             finish();
         });
 
+        RecyclerViewSwipeDismissController guanmuyangfangItemController = new RecyclerViewSwipeDismissController(
+                0,
+                ItemTouchHelper.LEFT,
+                ContextCompat.getDrawable(this, R.drawable.ic_delete_forever));
+        guanmuyangfangItemController.setOnDeleteCallback((id, position)->{
+            mViewModel.deleteGuanmuyfById(id);
+        });
+        ItemTouchHelper guanmuyangfangItemTouchHelper = new ItemTouchHelper(guanmuyangfangItemController);
         mGuanmuyangfangAdapter = new YangfangAdapter<GuanmuYangfang>(mGuanmuyangfangItemClickCallback);
         ((RecyclerView)findViewById(R.id.guanmuyangfang_list)).setAdapter(mGuanmuyangfangAdapter);
+        guanmuyangfangItemTouchHelper.attachToRecyclerView(findViewById(R.id.guanmuyangfang_list));
+
+        RecyclerViewSwipeDismissController caobenyangfangItemController = new RecyclerViewSwipeDismissController(
+                0,
+                ItemTouchHelper.LEFT,
+                ContextCompat.getDrawable(this, R.drawable.ic_delete_forever));
+        caobenyangfangItemController.setOnDeleteCallback((id, position)->{
+            mViewModel.deleteCaobenyfById(id);
+        });
+        ItemTouchHelper caobenyangfangItemTouchHelper = new ItemTouchHelper(caobenyangfangItemController);
         mCaobenyangfangAdapter = new YangfangAdapter<CaobenYangfang>(mCaobenyangfangItemClickCallback);
         ((RecyclerView)findViewById(R.id.caobenyangfang_list)).setAdapter(mCaobenyangfangAdapter);
-        subscribeUi(mViewModel.getGuanmuyangfangList(), mViewModel.getCaobenyangfangList());
+        caobenyangfangItemTouchHelper.attachToRecyclerView(findViewById(R.id.caobenyangfang_list));
+
+        subscribeUi();
     }
-    private void subscribeUi(LiveData<List<GuanmuYangfang>> guanmuyangfangLiveData, LiveData<List<CaobenYangfang>> caobenyangfangLiveData) {
-        guanmuyangfangLiveData.observe(this, (guanmuyangfangList)->{
+    private void subscribeUi() {
+        mViewModel.getGuanmuyangfangList().observe(this, (guanmuyangfangList)->{
             if (guanmuyangfangList != null) {
                 mGuanmuyangfangAdapter.setYangfangList(guanmuyangfangList);
-                guanmuyangfangCountTextView.setText(String.valueOf(guanmuyangfangList.size()));
+                mViewModel.guanmuyangfangCount.setValue(String.valueOf(guanmuyangfangList.size()));
                 if (guanmuyangfangList.size() == 0){
                     mViewModel.canAddCaobenyangfang.setValue(false);
                 }
@@ -74,17 +93,17 @@ public class GuancongyangdiActivity extends BaseYangdiActivity<GuancongyangdiAct
                     mViewModel.canAddCaobenyangfang.setValue(true);
                 }
             } else {
-                guanmuyangfangCountTextView.setText("0");
+                mViewModel.guanmuyangfangCount.setValue("0");
                 mViewModel.canAddCaobenyangfang.setValue(false);
             }
             mBinding.executePendingBindings();
         });
-        caobenyangfangLiveData.observe(this, (caobenyangfangList)->{
+        mViewModel.getCaobenyangfangList().observe(this, (caobenyangfangList)->{
             if (caobenyangfangList != null) {
                 mCaobenyangfangAdapter.setYangfangList(caobenyangfangList);
-                caobenyangfangCountTextView.setText(String.valueOf(caobenyangfangList.size()));
+                mViewModel.caobenyangfangCount.setValue(String.valueOf(caobenyangfangList.size()));
             } else {
-                caobenyangfangCountTextView.setText("0");
+                mViewModel.caobenyangfangCount.setValue("0");
             }
             mBinding.executePendingBindings();
         });
