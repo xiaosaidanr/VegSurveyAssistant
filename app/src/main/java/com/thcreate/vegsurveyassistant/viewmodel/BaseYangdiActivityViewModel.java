@@ -4,9 +4,11 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.View;
 
 import com.thcreate.vegsurveyassistant.BasicApp;
 import com.thcreate.vegsurveyassistant.db.entity.CaobenYangfang;
@@ -15,6 +17,8 @@ import com.thcreate.vegsurveyassistant.db.entity.QiaomuYangfang;
 import com.thcreate.vegsurveyassistant.db.entity.Yangdi;
 import com.thcreate.vegsurveyassistant.repository.YangdiDataRepository;
 import com.thcreate.vegsurveyassistant.repository.YangfangDataRepository;
+import com.thcreate.vegsurveyassistant.service.LocationLiveData;
+import com.thcreate.vegsurveyassistant.util.DeviceStatus;
 import com.thcreate.vegsurveyassistant.util.IdGenerator;
 import com.thcreate.vegsurveyassistant.util.Macro;
 
@@ -33,6 +37,7 @@ public class BaseYangdiActivityViewModel extends AndroidViewModel {
     protected String yangdiType;
 
     public LiveData<Yangdi> yangdi;
+    public LocationLiveData locationLiveData;
 
     private final YangdiDataRepository mYangdiRepository;
     private final YangfangDataRepository mYangfangRepository;
@@ -41,6 +46,7 @@ public class BaseYangdiActivityViewModel extends AndroidViewModel {
         super(application);
         mYangdiRepository = ((BasicApp)application).getYangdiDataRepository();
         mYangfangRepository = ((BasicApp)application).getYangfangDataRepository();
+        locationLiveData = new LocationLiveData(application);
     }
 
     public void init(Bundle data){
@@ -83,6 +89,11 @@ public class BaseYangdiActivityViewModel extends AndroidViewModel {
             default:
                 break;
         }
+    }
+
+
+    public void getLocation(){
+        locationLiveData.getLocation();
     }
 
     public void onGoForward(){

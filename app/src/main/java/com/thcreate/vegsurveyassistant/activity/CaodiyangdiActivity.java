@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.adapter.RecyclerViewSwipeDismissController;
@@ -21,9 +22,6 @@ import com.thcreate.vegsurveyassistant.viewmodel.CaodiyangdiActivityViewModel;
 public class CaodiyangdiActivity extends BaseYangdiActivity<CaodiyangdiActivityViewModel> {
 
     private ActivityCaodiyangdiBinding mBinding;
-
-    private EditText longitutdeEditText;
-    private EditText latitudeEditText;
 
     private YangfangAdapter mCaobenyangfangAdapter;
 
@@ -39,13 +37,10 @@ public class CaodiyangdiActivity extends BaseYangdiActivity<CaodiyangdiActivityV
         mBinding.setLifecycleOwner(this);
     }
     private void initLayout(){
-        setSupportActionBar(findViewById(R.id.toolbar));
+        setSupportActionBar(mBinding.toolbar);
 
-        longitutdeEditText = findViewById(R.id.longitude_edit_text);
-        latitudeEditText = findViewById(R.id.latitude_edit_text);
-
-        findViewById(R.id.fab).setOnClickListener((v)->{
-            save();
+        mBinding.fab.setOnClickListener((v)->{
+            mViewModel.save();
             finish();
         });
 
@@ -73,6 +68,18 @@ public class CaodiyangdiActivity extends BaseYangdiActivity<CaodiyangdiActivityV
             }
             mBinding.executePendingBindings();
         });
+
+        mViewModel.locationLiveData.observe(this, locationData -> {
+            if (locationData.isValid){
+                ((EditText)findViewById(R.id.longitude_edit_text)).setText(locationData.longitude);
+                ((EditText)findViewById(R.id.latitude_edit_text)).setText(locationData.latitude);
+                ((EditText)findViewById(R.id.xingzheng_region_edit_text)).setText(locationData.address);
+            }
+            else {
+                Toast.makeText(CaodiyangdiActivity.this, "定位失败", Toast.LENGTH_SHORT).show();
+            }
+
+        });
     }
     private final ItemClickCallback<CaobenYangfang> mYangfangItemClickCallback = (yangfang) -> {
         mViewModel.onGoForward();
@@ -85,7 +92,6 @@ public class CaodiyangdiActivity extends BaseYangdiActivity<CaodiyangdiActivityV
     };
 
 
-
     public void onAddYangfang(View v){
         mViewModel.onGoForward();
         Intent intent = new Intent(CaodiyangdiActivity.this, CaobenyangfangActivity.class);
@@ -96,12 +102,4 @@ public class CaodiyangdiActivity extends BaseYangdiActivity<CaodiyangdiActivityV
         startActivity(intent);
     }
 
-    public void onAutoPosition(View v){
-        longitutdeEditText.setText("testtesttest");
-        latitudeEditText.setText("testtesttest");
-    }
-
-    private boolean save(){
-        return mViewModel.save();
-    }
 }

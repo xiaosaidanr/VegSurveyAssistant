@@ -10,6 +10,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.adapter.ItemClickCallback;
@@ -27,8 +28,8 @@ public class GuancongyangdiActivity extends BaseYangdiActivity<GuancongyangdiAct
 
     private ActivityGuancongyangdiBinding mBinding;
 
-    private EditText longitutdeEditText;
-    private EditText latitudeEditText;
+//    private EditText longitutdeEditText;
+//    private EditText latitudeEditText;
 
     private YangfangAdapter mGuanmuyangfangAdapter;
     private YangfangAdapter mCaobenyangfangAdapter;
@@ -47,11 +48,11 @@ public class GuancongyangdiActivity extends BaseYangdiActivity<GuancongyangdiAct
     private void initLayout(){
         setSupportActionBar(mBinding.toolbar);
 
-        longitutdeEditText = findViewById(R.id.longitude_edit_text);
-        latitudeEditText = findViewById(R.id.latitude_edit_text);
+//        longitutdeEditText = findViewById(R.id.longitude_edit_text);
+//        latitudeEditText = findViewById(R.id.latitude_edit_text);
 
-        findViewById(R.id.fab).setOnClickListener((v)->{
-            save();
+        mBinding.fab.setOnClickListener((v)->{
+            mViewModel.save();
             finish();
         });
 
@@ -107,6 +108,18 @@ public class GuancongyangdiActivity extends BaseYangdiActivity<GuancongyangdiAct
             }
             mBinding.executePendingBindings();
         });
+
+        mViewModel.locationLiveData.observe(this, locationData -> {
+            if (locationData.isValid){
+                ((EditText)findViewById(R.id.longitude_edit_text)).setText(locationData.longitude);
+                ((EditText)findViewById(R.id.latitude_edit_text)).setText(locationData.latitude);
+                ((EditText)findViewById(R.id.xingzheng_region_edit_text)).setText(locationData.address);
+            }
+            else {
+                Toast.makeText(GuancongyangdiActivity.this, "定位失败", Toast.LENGTH_SHORT).show();
+            }
+
+        });
     }
     private final ItemClickCallback<GuanmuYangfang> mGuanmuyangfangItemClickCallback = (yangfang) -> {
         mViewModel.onGoForward();
@@ -146,12 +159,12 @@ public class GuancongyangdiActivity extends BaseYangdiActivity<GuancongyangdiAct
         startActivity(intent);
     }
 
-    public void onAutoPosition(View v){
-        longitutdeEditText.setText("testtesttest");
-        latitudeEditText.setText("testtesttest");
-    }
+//    public void onAutoPosition(View v){
+//        longitutdeEditText.setText("testtesttest");
+//        latitudeEditText.setText("testtesttest");
+//    }
 
-    private boolean save(){
-        return mViewModel.save();
-    }
+//    private boolean save(){
+//        return mViewModel.save();
+//    }
 }

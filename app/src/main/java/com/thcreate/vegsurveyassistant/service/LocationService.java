@@ -1,12 +1,13 @@
 package com.thcreate.vegsurveyassistant.service;
 
+import android.arch.lifecycle.LifecycleObserver;
 import android.content.Context;
 
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 
-public class LocationService {
+public class LocationService implements LifecycleObserver {
 
     private LocationClient mClient = null;
     private LocationClientOption mOption, mDiyOption;

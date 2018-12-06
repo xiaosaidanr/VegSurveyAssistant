@@ -4,14 +4,18 @@ import android.app.DatePickerDialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.location.LocationManager;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.databinding.ActivityYangdianBinding;
+import com.thcreate.vegsurveyassistant.util.DeviceStatus;
 import com.thcreate.vegsurveyassistant.util.Macro;
 import com.thcreate.vegsurveyassistant.viewmodel.YangdianActivityViewModel;
 
@@ -22,9 +26,9 @@ public class YangdianActivity extends BaseActivity implements DatePickerDialog.O
     private YangdianActivityViewModel mViewModel;
     private ActivityYangdianBinding mBinding;
 
-    private TextView dateTextView;
-    private EditText longitutdeEditText;
-    private EditText latitudeEditText;
+//    private TextView dateTextView;
+//    private EditText longitutdeEditText;
+//    private EditText latitudeEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +56,24 @@ public class YangdianActivity extends BaseActivity implements DatePickerDialog.O
     }
     private void initLayout(){
         setSupportActionBar(mBinding.toolbar);
-        dateTextView = findViewById(R.id.date_text_view);
-        longitutdeEditText = findViewById(R.id.longitude_edit_text);
-        latitudeEditText = findViewById(R.id.latitude_edit_text);
-        findViewById(R.id.fab).setOnClickListener((v)->{
-            save();
+        mBinding.fab.setOnClickListener((v)->{
+            mViewModel.save();
             finish();
+        });
+
+        subscribeUi();
+    }
+    private void subscribeUi() {
+        mViewModel.locationLiveData.observe(this, locationData -> {
+            if (locationData.isValid){
+                ((EditText)findViewById(R.id.longitude_edit_text)).setText(locationData.longitude);
+                ((EditText)findViewById(R.id.latitude_edit_text)).setText(locationData.latitude);
+                ((EditText)findViewById(R.id.xingzheng_name_edit_text)).setText(locationData.address);
+            }
+            else {
+                Toast.makeText(YangdianActivity.this, "定位失败", Toast.LENGTH_SHORT).show();
+            }
+
         });
     }
     private void initOnBackPressed(){
@@ -84,15 +100,25 @@ public class YangdianActivity extends BaseActivity implements DatePickerDialog.O
         dialog.show();
     }
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        dateTextView.setText(String.valueOf(String.valueOf(year)+"-"+String.valueOf(month+1)+"-"+String.valueOf(day)));
+        ((TextView)findViewById(R.id.date_text_view)).setText(String.valueOf(String.valueOf(year)+"-"+String.valueOf(month+1)+"-"+String.valueOf(day)));
     }
 
-    public void onAutoPosition(View v){
-        longitutdeEditText.setText("testtesttest");
-        latitudeEditText.setText("testtesttest");
+    public void onAutoLocation(View v){
+        StringBuffer hint = new StringBuffer();
+        if (!DeviceStatus.checkDeviceLocationEnabled((LocationManager)getSystemService(getApplicationContext().LOCATION_SERVICE))){
+            hint.append("未打开位置开关，");
+        }
+        if (!DeviceStatus.checkDeviceHasInternet((ConnectivityManager)getSystemService(getApplicationContext().CONNECTIVITY_SERVICE))){
+            hint.append("无网络连接，");
+        }
+        if (hint.length() > 0){
+            hint.append("可能导致定位失败或定位不准");
+            Toast.makeText(this, hint.toString(), Toast.LENGTH_SHORT).show();
+        }
+        mViewModel.getLocation();
     }
 
-    public boolean save(){
-        return mViewModel.save();
-    }
+//    public boolean save(){
+//        return mViewModel.save();
+//    }
 }

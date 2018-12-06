@@ -64,6 +64,7 @@
                 android:text="@string/xingzheng_region"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
             <EditText
+                android:id="@+id/xingzheng_region_edit_text"
                 android:inputType="text"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
@@ -226,7 +227,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
                 android:drawableStart="@drawable/ic_place_black_24dp"
                 android:gravity="center_vertical"
-                android:onClick="onAutoPosition"/>
+                android:onClick="onAutoLocation"/>
 
             <com.thcreate.vegsurveyassistant.customUi.ExpandableLinearLayoutWithHeader
                 android:layout_width="match_parent"

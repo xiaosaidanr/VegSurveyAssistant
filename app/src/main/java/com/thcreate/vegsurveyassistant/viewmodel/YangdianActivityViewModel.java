@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import com.thcreate.vegsurveyassistant.BasicApp;
 import com.thcreate.vegsurveyassistant.db.entity.Yangdian;
 import com.thcreate.vegsurveyassistant.repository.YangdianDataRepository;
+import com.thcreate.vegsurveyassistant.service.LocationLiveData;
 import com.thcreate.vegsurveyassistant.util.Macro;
 
 import java.util.Date;
@@ -28,12 +29,14 @@ public class YangdianActivityViewModel extends AndroidViewModel {
 //    public LiveData<User> user;
 
     public LiveData<Yangdian> yangdian;
+    public LocationLiveData locationLiveData;
 
     private YangdianDataRepository repository;
 
     public YangdianActivityViewModel(@NonNull Application application) {
         super(application);
         repository = ((BasicApp)application).getYangdianDataRepository();
+        locationLiveData = new LocationLiveData(application);
     }
 
     public void init(Bundle data){
@@ -78,6 +81,10 @@ public class YangdianActivityViewModel extends AndroidViewModel {
         }
         outState.putParcelable(YANGDIAN_DATA, yangdian.getValue());
         return outState;
+    }
+
+    public void getLocation(){
+        locationLiveData.getLocation();
     }
 
     public boolean save(){

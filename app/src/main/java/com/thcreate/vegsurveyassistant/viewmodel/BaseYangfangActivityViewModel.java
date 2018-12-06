@@ -13,6 +13,7 @@ import com.thcreate.vegsurveyassistant.BasicApp;
 import com.thcreate.vegsurveyassistant.db.entity.BaseYangfang;
 import com.thcreate.vegsurveyassistant.repository.WuzhongDataRepository;
 import com.thcreate.vegsurveyassistant.repository.YangfangDataRepository;
+import com.thcreate.vegsurveyassistant.service.LocationLiveData;
 import com.thcreate.vegsurveyassistant.util.IdGenerator;
 import com.thcreate.vegsurveyassistant.util.Macro;
 
@@ -38,6 +39,7 @@ abstract public class BaseYangfangActivityViewModel<T extends BaseYangfang> exte
     public String yangfangCode;
 
     public LiveData<T> yangfang;
+    public LocationLiveData locationLiveData;
 
     public MutableLiveData<String> wuzhongCount;
 
@@ -54,6 +56,7 @@ abstract public class BaseYangfangActivityViewModel<T extends BaseYangfang> exte
         mClazzT = (Class <T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         wuzhongCount = new MutableLiveData<>();
         wuzhongCount.setValue("0");
+        locationLiveData = new LocationLiveData(application);
     }
 
     public void init(Bundle data){
@@ -137,6 +140,10 @@ abstract public class BaseYangfangActivityViewModel<T extends BaseYangfang> exte
         }
         outState.putParcelable(YANGFANG_DATA, (Parcelable) yangfang.getValue());
         return outState;
+    }
+
+    public void getLocation(){
+        locationLiveData.getLocation();
     }
 
     public boolean save(){

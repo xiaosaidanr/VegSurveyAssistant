@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.adapter.ItemClickCallback;
@@ -29,9 +30,6 @@ public class QiaomuyangfangActivity extends BaseYangfangActivity<QiaomuyangfangA
 
     private ActivityQiaomuyangfangBinding mBinding;
 
-    private EditText longitutdeEditText;
-    private EditText latitudeEditText;
-
     private WuzhongAdapter mWuzhongAdapter;
 
     @Override
@@ -46,13 +44,10 @@ public class QiaomuyangfangActivity extends BaseYangfangActivity<QiaomuyangfangA
         mBinding.setLifecycleOwner(this);
     }
     private void initLayout(){
-        setSupportActionBar(findViewById(R.id.toolbar));
+        setSupportActionBar(mBinding.toolbar);
 
-        longitutdeEditText = findViewById(R.id.longitude_edit_text);
-        latitudeEditText = findViewById(R.id.latitude_edit_text);
-
-        findViewById(R.id.fab).setOnClickListener((v)->{
-            save();
+        mBinding.fab.setOnClickListener((v)->{
+            mViewModel.save();
             finish();
         });
 
@@ -80,6 +75,17 @@ public class QiaomuyangfangActivity extends BaseYangfangActivity<QiaomuyangfangA
                 mViewModel.wuzhongCount.setValue("0");
             }
             mBinding.executePendingBindings();
+        });
+
+        mViewModel.locationLiveData.observe(this, locationData -> {
+            if (locationData.isValid){
+                ((EditText)findViewById(R.id.longitude_edit_text)).setText(locationData.longitude);
+                ((EditText)findViewById(R.id.latitude_edit_text)).setText(locationData.latitude);
+            }
+            else {
+                Toast.makeText(QiaomuyangfangActivity.this, "定位失败", Toast.LENGTH_SHORT).show();
+            }
+
         });
     }
     private final ItemClickCallback<QiaomuWuzhong> mWuzhongItemClickCallback = (wuzhong) -> {
@@ -115,12 +121,4 @@ public class QiaomuyangfangActivity extends BaseYangfangActivity<QiaomuyangfangA
         startActivity(intent);
     }
 
-    public void onAutoPosition(View v){
-        longitutdeEditText.setText("testtesttest");
-        latitudeEditText.setText("testtesttest");
-    }
-
-    private boolean save(){
-        return mViewModel.save();
-    }
 }

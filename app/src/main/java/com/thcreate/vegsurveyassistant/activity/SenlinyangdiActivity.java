@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.adapter.ItemClickCallback;
@@ -24,8 +25,8 @@ public class SenlinyangdiActivity extends BaseYangdiActivity<SenlinyangdiActivit
 
     private ActivitySenlinyangdiBinding mBinding;
 
-    private EditText longitutdeEditText;
-    private EditText latitudeEditText;
+//    private EditText longitutdeEditText;
+//    private EditText latitudeEditText;
 
     private YangfangAdapter mQiaomuyangfangAdapter;
     private YangfangAdapter mGuanmuyangfangAdapter;
@@ -45,11 +46,11 @@ public class SenlinyangdiActivity extends BaseYangdiActivity<SenlinyangdiActivit
     private void initLayout(){
         setSupportActionBar(mBinding.toolbar);
 
-        longitutdeEditText = findViewById(R.id.longitude_edit_text);
-        latitudeEditText = findViewById(R.id.latitude_edit_text);
+//        longitutdeEditText = findViewById(R.id.longitude_edit_text);
+//        latitudeEditText = findViewById(R.id.latitude_edit_text);
 
         mBinding.fab.setOnClickListener((v)->{
-            save();
+            mViewModel.save();
             finish();
         });
 
@@ -135,6 +136,18 @@ public class SenlinyangdiActivity extends BaseYangdiActivity<SenlinyangdiActivit
             }
             mBinding.executePendingBindings();
         });
+
+        mViewModel.locationLiveData.observe(this, locationData -> {
+            if (locationData.isValid){
+                ((EditText)findViewById(R.id.longitude_edit_text)).setText(locationData.longitude);
+                ((EditText)findViewById(R.id.latitude_edit_text)).setText(locationData.latitude);
+                ((EditText)findViewById(R.id.xingzheng_region_edit_text)).setText(locationData.address);
+            }
+            else {
+                Toast.makeText(SenlinyangdiActivity.this, "定位失败", Toast.LENGTH_SHORT).show();
+            }
+
+        });
     }
     private final ItemClickCallback<QiaomuYangfang> mQiaomuyangfangItemClickCallback = (yangfang) -> {
         mViewModel.onGoForward();
@@ -194,13 +207,13 @@ public class SenlinyangdiActivity extends BaseYangdiActivity<SenlinyangdiActivit
     }
 
 
-    public void onAutoPosition(View v){
-        longitutdeEditText.setText("testtesttest");
-        latitudeEditText.setText("testtesttest");
-    }
+//    public void onAutoPosition(View v){
+//        longitutdeEditText.setText("testtesttest");
+//        latitudeEditText.setText("testtesttest");
+//    }
 
 
-    private boolean save(){
-        return mViewModel.save();
-    }
+//    private boolean save(){
+//        return mViewModel.save();
+//    }
 }

@@ -26,7 +26,7 @@
             android:background="?attr/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:title="@string/yangdian">
+            app:title="@string/yangdian_investigate">
         </android.support.v7.widget.Toolbar>
 
         <TextView

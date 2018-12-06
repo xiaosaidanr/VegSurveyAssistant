@@ -223,7 +223,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
                 android:drawableStart="@drawable/ic_place_black_24dp"
                 android:gravity="center_vertical"
-                android:onClick="onAutoPosition"/>
+                android:onClick="onAutoLocation"/>
 
             <TextView
                 android:layout_marginTop="0dp"
