@@ -69,6 +69,16 @@ public class YangdiDataRepository {
     public LiveData<Yangdi> getYangdiByYangdiCode(String yangdiCode){
         return mDatabase.yangdiDao().getYangdiByYangdiCode(yangdiCode);
     }
+    public LiveData<List<Yangdi>> loadAllYangdi(){
+        return Transformations.switchMap(mCurrentUserId, id -> {
+            if (id != null){
+                return mDatabase.yangdiDao().getAllYangdiByUserId(id);
+            }
+            else{
+                return null;
+            }
+        });
+    }
     public void insertYangdi(Yangdi data){
         mAppExecutors.diskIO().execute(()->{
             User currentUser = mDatabase.userDao().getCurrentUserSync();

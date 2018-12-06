@@ -38,6 +38,9 @@ public interface YangdiDao {
     @Query("SELECT * FROM yangdi WHERE yangdi_code = :yangdiCode")
     LiveData<Yangdi> getYangdiByYangdiCode(String yangdiCode);
 
+    @Query("SELECT * FROM yangdi WHERE user_id = :userId ORDER BY id ASC")
+    LiveData<List<Yangdi>> getAllYangdiByUserId(int userId);
+
     @Query("SELECT * FROM yangdi WHERE user_id = :userId AND type = :type ORDER BY id ASC")
     LiveData<List<Yangdi>> getAllYangdiByUserIdAndType(int userId, String type);
 

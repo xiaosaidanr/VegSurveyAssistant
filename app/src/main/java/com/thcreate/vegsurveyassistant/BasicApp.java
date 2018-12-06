@@ -2,6 +2,7 @@ package com.thcreate.vegsurveyassistant;
 
 import android.app.Application;
 
+import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.thcreate.vegsurveyassistant.db.AppDatabase;
 import com.thcreate.vegsurveyassistant.repository.WuzhongDataRepository;
@@ -23,6 +24,7 @@ public class BasicApp extends Application {
          * 初始化定位sdk，建议在Application中创建
          */
         SDKInitializer.initialize(getApplicationContext());
+        SDKInitializer.setCoordType(CoordType.BD09LL);
     }
 
     public AppDatabase getDatabase(){
