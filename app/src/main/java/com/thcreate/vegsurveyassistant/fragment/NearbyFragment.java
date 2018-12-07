@@ -8,7 +8,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.MarginLayoutParamsCompat;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +16,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.baidu.mapapi.map.BaiduMap;
-import com.baidu.mapapi.map.MapPoi;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationData;
-import com.baidu.mapapi.model.LatLng;
 import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.activity.CaodiyangdiActivity;
 import com.thcreate.vegsurveyassistant.activity.GuancongyangdiActivity;
@@ -29,8 +27,6 @@ import com.thcreate.vegsurveyassistant.activity.SenlinyangdiActivity;
 import com.thcreate.vegsurveyassistant.databinding.FragmentNearbyBinding;
 import com.thcreate.vegsurveyassistant.util.Macro;
 import com.thcreate.vegsurveyassistant.viewmodel.NearbyFragmentViewModel;
-
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,6 +42,7 @@ public class NearbyFragment extends BaseFragment implements BaiduMap.OnMarkerCli
 
     private MapView mMapView;
     private BaiduMap mBaiduMap;
+    private SearchView mSearchView;
 
     private Marker[] mMarkers;
 
@@ -102,6 +99,7 @@ public class NearbyFragment extends BaseFragment implements BaiduMap.OnMarkerCli
         Log.e(this.getClass().getSimpleName(), "onCreateView" + " " + this.toString());
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_nearby, container, false);
         mMapView = mBinding.mapView;
+        mSearchView = mBinding.searchView;
         mBaiduMap = mMapView.getMap();
         mBaiduMap.setOnMarkerClickListener(this);
         return mBinding.getRoot();
