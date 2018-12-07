@@ -36,13 +36,13 @@ public class YangdianDataRepository {
         mDatabase = database;
         mAppExecutors = appExecutors;
 
-        appExecutors.diskIO().execute(()->{
-            User user = mDatabase.userDao().getCurrentUserSync();
-            if (user == null){
-                User newUser = new User("13521936487", 1);
-                mDatabase.userDao().insert(newUser);
-            }
-        });
+//        appExecutors.diskIO().execute(()->{
+//            User user = mDatabase.userDao().getCurrentUserSync();
+//            if (user == null){
+//                User newUser = new User("13521936487", 1);
+//                mDatabase.userDao().insert(newUser);
+//            }
+//        });
 
         mCurrentUser = mDatabase.userDao().getCurrentUserAsync();
         mCurrentUserId = Transformations.map(mCurrentUser, user->{

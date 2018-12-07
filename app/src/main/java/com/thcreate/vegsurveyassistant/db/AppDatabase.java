@@ -1,5 +1,6 @@
 package com.thcreate.vegsurveyassistant.db;
 
+import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.persistence.db.SupportSQLiteDatabase;
@@ -91,7 +92,22 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase buildDatabase(final Context appContext,
                                              final AppExecutors executors){
-        AppDatabase database = Room.databaseBuilder(appContext, AppDatabase.class, DATABASE_NAME).build();
+        AppDatabase database = Room.databaseBuilder(appContext, AppDatabase.class, DATABASE_NAME)
+                .addCallback(new Callback() {
+                    @Override
+                    public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                        super.onCreate(db);
+                        executors.diskIO().execute(()->{
+                            AppDatabase database = AppDatabase.getInstance(appContext, executors);
+                            User user = database.userDao().getCurrentUserSync();
+                            if (user == null){
+                                User newUser = new User("13521936487", 1);
+                                database.userDao().insert(newUser);
+                            }
+                        });
+                    }
+                })
+                .build();
 //        executors.diskIO().execute(()->{
 //                            AppDatabase database = AppDatabase.getInstance(appContext, executors);
 //                            // Generate the data for pre-population
