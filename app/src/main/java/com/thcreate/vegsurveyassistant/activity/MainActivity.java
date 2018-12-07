@@ -13,13 +13,12 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.databinding.ActivityMainBinding;
 import com.thcreate.vegsurveyassistant.viewmodel.MainActivityViewModel;
-import com.thcreate.vegsurveyassistant.fragment.BaseFragment;
+//import com.thcreate.vegsurveyassistant.fragment.BaseFragment;
 import com.thcreate.vegsurveyassistant.fragment.MyFragment;
 import com.thcreate.vegsurveyassistant.fragment.NearbyFragment;
 import com.thcreate.vegsurveyassistant.fragment.YangdianFragment;
@@ -37,7 +36,8 @@ public class MainActivity extends BaseActivity {
     private YangdianFragment yangdianFragment;
     private MyFragment myFragment;
 
-    private BaseFragment currentFragment;
+//    private BaseFragment currentFragment;
+    private Fragment currentFragment;
 
     private BottomNavigationView navigation;
 
@@ -232,7 +232,7 @@ public class MainActivity extends BaseActivity {
                     .commit();
         }
         currentFragment.setUserVisibleHint(false);//和懒加载有关 原理还没弄清 暂时也注释掉
-        currentFragment = (BaseFragment) fragment;
+        currentFragment = fragment;
         currentFragment.setUserVisibleHint(true);//和懒加载有关 原理还没弄清 暂时也注释掉
     }
 }

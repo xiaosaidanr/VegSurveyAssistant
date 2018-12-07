@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="Preference category">
+        <CheckBoxPreference
+            android:key="checkbox_preference"
+            android:title="checkbox" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Preference category">
+        <CheckBoxPreference
+            android:key="parent_checkbox_preference"
+            android:title="parent checkbox" />
+        <CheckBoxPreference
+            android:dependency="parent_checkbox_preference"
+            android:key="child_checkbox_preference"
+            android:layout="?android:attr/preferenceLayoutChild"
+            android:title="child checkbox" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Preference category">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="switch_preference_1"
+            android:title="Switch" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Preference category">
+        <EditTextPreference
+            android:defaultValue="Default value"
+            android:key="edit_text_preference_1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="Edit text preference" />
+    </PreferenceCategory>
+    <PreferenceCategory>
+        <MultiSelectListPreference
+            android:defaultValue="@array/powei_array"
+            android:entries="@array/powei_array"
+            android:entryValues="@array/powei_array"
+            android:key="multi_select_list_preference_1"
+            android:title="Multi select list preference" />
+    </PreferenceCategory>
+</PreferenceScreen>
