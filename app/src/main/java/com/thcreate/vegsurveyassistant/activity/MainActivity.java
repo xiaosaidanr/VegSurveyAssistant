@@ -17,12 +17,11 @@ import android.view.MenuItem;
 
 import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.databinding.ActivityMainBinding;
+import com.thcreate.vegsurveyassistant.fragment.SamplepointListFragment;
 import com.thcreate.vegsurveyassistant.viewmodel.MainActivityViewModel;
-//import com.thcreate.vegsurveyassistant.fragment.BaseFragment;
 import com.thcreate.vegsurveyassistant.fragment.MyFragment;
 import com.thcreate.vegsurveyassistant.fragment.NearbyFragment;
-import com.thcreate.vegsurveyassistant.fragment.YangdianFragment;
-import com.thcreate.vegsurveyassistant.fragment.YangfangFragment;
+import com.thcreate.vegsurveyassistant.fragment.SampleplotFragment;
 
 import java.util.ArrayList;
 
@@ -32,8 +31,8 @@ public class MainActivity extends BaseActivity {
     private String mPermissionInfo;
 
     private NearbyFragment nearbyFragment;
-    private YangfangFragment yangfangFragment;
-    private YangdianFragment yangdianFragment;
+    private SampleplotFragment sampleplotFragment;
+    private SamplepointListFragment samplepointListFragment;
     private MyFragment myFragment;
 
 //    private BaseFragment currentFragment;
@@ -64,16 +63,16 @@ public class MainActivity extends BaseActivity {
                     currentFragment = nearbyFragment;
                 }
             }
-            if (getSupportFragmentManager().findFragmentByTag(YangfangFragment.class.getName())!=null){
-                yangfangFragment = (YangfangFragment) getSupportFragmentManager().findFragmentByTag(YangfangFragment.class.getName());
-                if (!yangfangFragment.isHidden()){
-                    currentFragment = yangfangFragment;
+            if (getSupportFragmentManager().findFragmentByTag(SampleplotFragment.class.getName())!=null){
+                sampleplotFragment = (SampleplotFragment) getSupportFragmentManager().findFragmentByTag(SampleplotFragment.class.getName());
+                if (!sampleplotFragment.isHidden()){
+                    currentFragment = sampleplotFragment;
                 }
             }
-            if (getSupportFragmentManager().findFragmentByTag(YangdianFragment.class.getName())!=null){
-                yangdianFragment = (YangdianFragment) getSupportFragmentManager().findFragmentByTag(YangdianFragment.class.getName());
-                if (!yangdianFragment.isHidden()){
-                    currentFragment = yangdianFragment;
+            if (getSupportFragmentManager().findFragmentByTag(SamplepointListFragment.class.getName())!=null){
+                samplepointListFragment = (SamplepointListFragment) getSupportFragmentManager().findFragmentByTag(SamplepointListFragment.class.getName());
+                if (!samplepointListFragment.isHidden()){
+                    currentFragment = samplepointListFragment;
                 }
             }
             if (getSupportFragmentManager().findFragmentByTag(MyFragment.class.getName())!=null){
@@ -174,11 +173,11 @@ public class MainActivity extends BaseActivity {
                     case R.id.navigation_nearby:
                         clickNearbyLayout();
                         return true;
-                    case R.id.navigation_yangfang:
-                        clickYangfangLayout();
+                    case R.id.navigation_sampleplot:
+                        clickSampleplotLayout();
                         return true;
-                    case R.id.navigation_yangdian:
-                        clickYangdianLayout();
+                    case R.id.navigation_samplepoint:
+                        clickSamplepointLayout();
                         return true;
                     case R.id.navigation_my:
                         clickMyLayout();
@@ -197,18 +196,18 @@ public class MainActivity extends BaseActivity {
         addOrShowFragment(getSupportFragmentManager().beginTransaction(), nearbyFragment);
     }
 
-    private void clickYangfangLayout(){
-        if (yangfangFragment == null){
-            yangfangFragment = YangfangFragment.newInstance(null, null);
+    private void clickSampleplotLayout(){
+        if (sampleplotFragment == null){
+            sampleplotFragment = SampleplotFragment.newInstance(null, null);
         }
-        addOrShowFragment(getSupportFragmentManager().beginTransaction(), yangfangFragment);
+        addOrShowFragment(getSupportFragmentManager().beginTransaction(), sampleplotFragment);
     }
 
-    private void clickYangdianLayout(){
-        if (yangdianFragment == null){
-            yangdianFragment = YangdianFragment.newInstance(null, null);
+    private void clickSamplepointLayout(){
+        if (samplepointListFragment == null){
+            samplepointListFragment = SamplepointListFragment.newInstance(null, null);
         }
-        addOrShowFragment(getSupportFragmentManager().beginTransaction(), yangdianFragment);
+        addOrShowFragment(getSupportFragmentManager().beginTransaction(), samplepointListFragment);
     }
 
     private void clickMyLayout(){

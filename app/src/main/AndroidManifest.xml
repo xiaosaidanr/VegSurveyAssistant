@@ -53,44 +53,44 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.CaodiyangdiActivity"
-            android:label="@string/caodi"
+            android:name=".activity.HerbLandActivity"
+            android:label="@string/grass"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activity.CaobenyangfangActivity"
-            android:label="@string/caoben"
+            android:name=".activity.HerbPlotActivity"
+            android:label="@string/herb"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activity.CaobenwuzhongActivity"
-            android:label="@string/caoben"
+            android:name=".activity.HerbSpeciesActivity"
+            android:label="@string/herb"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activity.GuancongyangdiActivity"
-            android:label="@string/guancong"
+            android:name=".activity.ShrubLandActivity"
+            android:label="@string/bush"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activity.GuanmuyangfangActivity"
-            android:label="@string/guanmu"
+            android:name=".activity.ShrubPlotActivity"
+            android:label="@string/arbor"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activity.GuanmuwuzhongActivity"
-            android:label="@string/guanmu"
+            android:name=".activity.ShrubSpeciesActivity"
+            android:label="@string/arbor"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activity.SenlinyangdiActivity"
-            android:label="@string/senlin"
+            android:name=".activity.ArborLandActivity"
+            android:label="@string/forest"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activity.QiaomuyangfangActivity"
-            android:label="@string/qiaomu"
+            android:name=".activity.ArborPlotActivity"
+            android:label="@string/shrub"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activity.QiaomuwuzhongActivity"
-            android:label="@string/qiaomu"
+            android:name=".activity.ArborSpeciesActivity"
+            android:label="@string/shrub"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activity.YangdianActivity"
-            android:label="@string/yangdian"
+            android:name=".activity.SamplepointActivity"
+            android:label="@string/samplepoint"
             android:theme="@style/AppTheme"/>
     </application>
 

@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.thcreate.vegsurveyassistant.viewmodel.SamplepointActivityViewModel"/>
+    </data>
+
+    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".activity.SamplepointActivity"
+        tools:showIn="@layout/activity_samplepoint">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rect"
+                android:text="@string/samplepoint_info"
+                android:textAppearance="@android:style/TextAppearance.Medium"/>
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@drawable/rect"-->
+                <!--android:text="@{viewmodel.user.phone}"-->
+                <!--android:textAppearance="@android:style/TextAppearance.Medium"/>-->
+
+            <TextView
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/samplepoint_id"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:inputType="text"
+                android:enabled="false"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.samplepoint.pointId}"/>
+
+            <TextView
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/formation_type"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:inputType="text"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.samplepoint.formationType}"/>
+
+            <TextView
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/dominant_species"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:inputType="text"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.samplepoint.dominantSpecies}"/>
+
+            <TextView
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/community_coverage_percent"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:inputType="numberDecimal"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.samplepoint.communityCoverage}"/>
+
+            <TextView
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/community_height_m"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:inputType="numberDecimal"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.samplepoint.communityHeight}"/>
+
+            <TextView
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/topography_vegetation_status"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:inputType="text"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.samplepoint.topographyVegetationStatus}"/>
+
+            <TextView
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/administrative_name"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:id="@+id/administrative_name_edit_text"
+                android:inputType="text"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.samplepoint.administrativeName}"/>
+
+            <TextView
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/human_activity"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:inputType="text"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.samplepoint.humanActivity}"/>
+
+            <TextView
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/altitude_m"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:inputType="number"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.samplepoint.alt}"/>
+
+            <TextView
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/longitude"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:id="@+id/longitude_edit_text"
+                android:inputType="numberDecimal"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.samplepoint.lng}"/>
+
+            <TextView
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/latitude"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:id="@+id/latitude_edit_text"
+                android:inputType="numberDecimal"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.samplepoint.lat}"/>
+
+            <TextView
+                android:paddingTop="10dp"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/auto_position"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:drawableStart="@drawable/ic_place_black_24dp"
+                android:gravity="center_vertical"
+                android:onClick="onAutoLocation"/>
+
+            <TextView
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/investigator"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:inputType="text"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.samplepoint.investigator}"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:orientation="horizontal"
+                android:onClick="showDatePickerDialog">
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/investigate_date"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/date_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@={viewmodel.samplepoint.investigateDate}"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/note"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:maxLength="50"
+                android:inputType="textLongMessage"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.samplepoint.note}"/>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+</layout>

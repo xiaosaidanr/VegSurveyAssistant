@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <item
+        android:id="@+id/herbland_add"
+        android:title="@string/grass"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/shrubland_add"
+        android:title="@string/bush"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/arborland_add"
+        android:title="@string/forest"
+        app:showAsAction="never"
+        />
+</menu>

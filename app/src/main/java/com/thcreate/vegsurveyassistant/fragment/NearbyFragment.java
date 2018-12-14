@@ -21,9 +21,9 @@ import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationData;
 import com.thcreate.vegsurveyassistant.R;
-import com.thcreate.vegsurveyassistant.activity.CaodiyangdiActivity;
-import com.thcreate.vegsurveyassistant.activity.GuancongyangdiActivity;
-import com.thcreate.vegsurveyassistant.activity.SenlinyangdiActivity;
+import com.thcreate.vegsurveyassistant.activity.HerbLandActivity;
+import com.thcreate.vegsurveyassistant.activity.ShrubLandActivity;
+import com.thcreate.vegsurveyassistant.activity.ArborLandActivity;
 import com.thcreate.vegsurveyassistant.databinding.FragmentNearbyBinding;
 import com.thcreate.vegsurveyassistant.util.Macro;
 import com.thcreate.vegsurveyassistant.viewmodel.NearbyFragmentViewModel;
@@ -131,12 +131,12 @@ public class NearbyFragment extends BaseFragment implements BaiduMap.OnMarkerCli
         });
 
 
-        mViewModel.getYangdiList().observe(this, yangdis -> {
+        mViewModel.getSamplelandEntityList().observe(this, dataList -> {
             clearOverlay(null);
-            if (yangdis != null && yangdis.size() > 0){
-                mMarkers = new Marker[yangdis.size()];
-                for (int i = 0; i < yangdis.size(); i++) {
-                    MarkerOptions tmp = mViewModel.getMarkerOptionFromData(yangdis.get(i));
+            if (dataList != null && dataList.size() > 0){
+                mMarkers = new Marker[dataList.size()];
+                for (int i = 0; i < dataList.size(); i++) {
+                    MarkerOptions tmp = mViewModel.getMarkerOptionFromData(dataList.get(i));
                     if (tmp != null){
                         mMarkers[i] = (Marker)mBaiduMap.addOverlay(tmp);
                     }
@@ -148,25 +148,25 @@ public class NearbyFragment extends BaseFragment implements BaiduMap.OnMarkerCli
     @Override
     public boolean onMarkerClick(Marker marker) {
         Bundle data = marker.getExtraInfo();
-        String type = data.getString(Macro.YANGDI_TYPE);
+        String type = data.getString(Macro.SAMPLELAND_TYPE);
         Intent intent = null;
         switch (type){
-            case Macro.YANGDI_TYPE_GRASS:
-                intent = new Intent(getActivity(), CaodiyangdiActivity.class);
+            case Macro.SAMPLELAND_TYPE_GRASS:
+                intent = new Intent(getActivity(), HerbLandActivity.class);
                 break;
-            case Macro.YANGDI_TYPE_BUSH:
-                intent = new Intent(getActivity(), GuancongyangdiActivity.class);
+            case Macro.SAMPLELAND_TYPE_BUSH:
+                intent = new Intent(getActivity(), ShrubLandActivity.class);
                 break;
-            case Macro.YANGDI_TYPE_TREE:
-                intent = new Intent(getActivity(), SenlinyangdiActivity.class);
+            case Macro.SAMPLELAND_TYPE_TREE:
+                intent = new Intent(getActivity(), ArborLandActivity.class);
                 break;
             default:
                 break;
         }
         if (intent != null){
             intent.putExtra(Macro.ACTION, Macro.ACTION_EDIT);
-            intent.putExtra(Macro.YANGDI_CODE, data.getString(Macro.YANGDI_CODE));
-            intent.putExtra(Macro.YANGDI_TYPE, data.getString(Macro.YANGDI_TYPE));
+            intent.putExtra(Macro.SAMPLELAND_ID, data.getString(Macro.SAMPLELAND_ID));
+            intent.putExtra(Macro.SAMPLELAND_TYPE, data.getString(Macro.SAMPLELAND_TYPE));
             startActivity(intent);
         }
         return true;

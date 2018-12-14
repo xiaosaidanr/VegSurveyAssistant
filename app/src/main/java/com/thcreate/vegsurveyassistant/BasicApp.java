@@ -5,10 +5,10 @@ import android.app.Application;
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.thcreate.vegsurveyassistant.db.AppDatabase;
-import com.thcreate.vegsurveyassistant.repository.WuzhongDataRepository;
-import com.thcreate.vegsurveyassistant.repository.YangdiDataRepository;
-import com.thcreate.vegsurveyassistant.repository.YangdianDataRepository;
-import com.thcreate.vegsurveyassistant.repository.YangfangDataRepository;
+import com.thcreate.vegsurveyassistant.repository.SpeciesRepository;
+import com.thcreate.vegsurveyassistant.repository.SamplelandRepository;
+import com.thcreate.vegsurveyassistant.repository.SamplepointRepository;
+import com.thcreate.vegsurveyassistant.repository.SampleplotRepository;
 
 public class BasicApp extends Application {
 
@@ -31,17 +31,17 @@ public class BasicApp extends Application {
         return AppDatabase.getInstance(this, mAppExecutors);
     }
 
-    public YangdianDataRepository getYangdianDataRepository(){
-        return YangdianDataRepository.getInstance(this, getDatabase(), mAppExecutors);
+    public SamplepointRepository getSamplepointRepository(){
+        return SamplepointRepository.getInstance(this, getDatabase(), mAppExecutors);
     }
-    public WuzhongDataRepository getWuzhongDataRepository(){
-        return WuzhongDataRepository.getInstance(this, getDatabase(), mAppExecutors);
+    public SpeciesRepository getSpeicesRepository(){
+        return SpeciesRepository.getInstance(this, getDatabase(), mAppExecutors);
     }
-    public YangfangDataRepository getYangfangDataRepository(){
-        return YangfangDataRepository.getInstance(this, getDatabase(), mAppExecutors);
+    public SampleplotRepository getSampleplotRepository(){
+        return SampleplotRepository.getInstance(this, getDatabase(), mAppExecutors);
     }
-    public YangdiDataRepository getYangdiDataRepository(){
-        return YangdiDataRepository.getInstance(this, getDatabase(), mAppExecutors);
+    public SamplelandRepository getSamplelandRepository(){
+        return SamplelandRepository.getInstance(this, getDatabase(), mAppExecutors);
     }
 
 }

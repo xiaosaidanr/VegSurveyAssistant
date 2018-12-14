@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="isLoading"
+            type="boolean"
+            />
+        <variable
+            name="viewmodel"
+            type="com.thcreate.vegsurveyassistant.viewmodel.HerbLandActivityViewModel"/>
+    </data>
+
+    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".activity.HerbLandActivity"
+        tools:showIn="@layout/activity_herbland">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rect"
+                android:text="@string/sampleland_info"
+                android:textAppearance="@android:style/TextAppearance.Medium"/>
+
+            <TextView
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sampleland_id"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:inputType="text"
+                android:enabled="false"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.sampleland.landId}"/>
+
+            <TextView
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/administrative_region"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:id="@+id/administrative_region_edit_text"
+                android:inputType="text"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.sampleland.administrativeRegion}"/>
+
+            <TextView
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/aspect"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:inputType="text"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.sampleland.aspect}"/>
+
+            <TextView
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/slope"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:inputType="number"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.sampleland.slope}"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/slope_position"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+                <android.support.v7.widget.AppCompatSpinner
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/slope_position_array"
+                    android:layout_alignParentEnd="true"
+                    bind:selectedValue="@={viewmodel.sampleland.slopePosition}"
+                    />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/landform"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:inputType="text"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.sampleland.landform}"/>
+
+            <TextView
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/soil_characteristic"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:inputType="text"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.sampleland.soilCharacteristic}"/>
+
+            <TextView
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/human_activity"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:inputType="text"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.sampleland.humanActivity}"/>
+
+            <TextView
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/longitude"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:id="@+id/longitude_edit_text"
+                android:inputType="numberDecimal"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.sampleland.lng}"/>
+
+            <TextView
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/latitude"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:id="@+id/latitude_edit_text"
+                android:inputType="numberDecimal"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.sampleland.lat}"/>
+
+            <TextView
+                android:paddingTop="10dp"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/auto_position"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:drawableStart="@drawable/ic_place_black_24dp"
+                android:gravity="center_vertical"
+                android:onClick="onAutoLocation"/>
+
+            <com.thcreate.vegsurveyassistant.customUi.ExpandableLinearLayoutWithHeader
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                app:header_title="@string/sampleplot_list"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rect_nobackground_lrbborder"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sampleplot_count"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+                    <TextView
+                        android:text="@{viewmodel.herbPlotCount}"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Menu"/>
+                </LinearLayout>
+                <TextView
+                    android:paddingTop="10dp"
+                    android:background="@drawable/rect_nobackground_lrbborder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sampleplot_add"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                    android:drawableStart="@android:drawable/ic_input_add"
+                    android:gravity="center_vertical"
+                    android:onClick="onAddSampleplot"/>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/sampleplot_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                    />
+
+            </com.thcreate.vegsurveyassistant.customUi.ExpandableLinearLayoutWithHeader>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</layout>

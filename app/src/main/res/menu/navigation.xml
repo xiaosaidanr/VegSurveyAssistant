@@ -7,14 +7,14 @@
         android:title="@string/nearby" />
 
     <item
-        android:id="@+id/navigation_yangfang"
-        android:icon="@drawable/ic_yangfang"
-        android:title="@string/yangfang" />
+        android:id="@+id/navigation_sampleplot"
+        android:icon="@drawable/ic_sampleplot"
+        android:title="@string/sampleplot" />
 
     <item
-        android:id="@+id/navigation_yangdian"
-        android:icon="@drawable/ic_yangdian"
-        android:title="@string/yangdian" />
+        android:id="@+id/navigation_samplepoint"
+        android:icon="@drawable/ic_samplepoint"
+        android:title="@string/samplepoint" />
 
     <item
         android:id="@+id/navigation_my"

@@ -13,10 +13,10 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.thcreate.vegsurveyassistant.BasicApp;
 import com.thcreate.vegsurveyassistant.R;
-import com.thcreate.vegsurveyassistant.db.entity.Yangdi;
-import com.thcreate.vegsurveyassistant.db.entity.Yangdian;
-import com.thcreate.vegsurveyassistant.repository.YangdiDataRepository;
-import com.thcreate.vegsurveyassistant.repository.YangdianDataRepository;
+import com.thcreate.vegsurveyassistant.db.entity.SamplelandEntity;
+import com.thcreate.vegsurveyassistant.db.entity.SamplepointEntity;
+import com.thcreate.vegsurveyassistant.repository.SamplelandRepository;
+import com.thcreate.vegsurveyassistant.repository.SamplepointRepository;
 import com.thcreate.vegsurveyassistant.service.ContinuousLocationLiveData;
 import com.thcreate.vegsurveyassistant.util.Macro;
 
@@ -26,39 +26,39 @@ public class NearbyFragmentViewModel extends AndroidViewModel {
 
     public ContinuousLocationLiveData myContinuousLocationData;
 
-    private YangdiDataRepository mYangdiDataRepository;
-    private YangdianDataRepository mYangdianDataRepository;
+    private SamplelandRepository mSamplelandRepository;
+    private SamplepointRepository mSamplepointRepository;
 
     private final BitmapDescriptor mMarkerIcon;
 
     public NearbyFragmentViewModel(@NonNull Application application) {
         super(application);
         myContinuousLocationData = new ContinuousLocationLiveData(application);
-        mYangdiDataRepository = ((BasicApp)application).getYangdiDataRepository();
-        mYangdianDataRepository = ((BasicApp)application).getYangdianDataRepository();
+        mSamplelandRepository = ((BasicApp)application).getSamplelandRepository();
+        mSamplepointRepository = ((BasicApp)application).getSamplepointRepository();
         mMarkerIcon = BitmapDescriptorFactory.fromResource(R.drawable.ic_mapmarker);
     }
 
-    public LiveData<List<Yangdi>> getYangdiList(){
-        return mYangdiDataRepository.loadAllYangdi();
+    public LiveData<List<SamplelandEntity>> getSamplelandEntityList(){
+        return mSamplelandRepository.loadAllSamplelandEntity();
     }
 
-    public LiveData<List<Yangdian>> getYangdianList(){
-        return mYangdianDataRepository.loadAllYangdian();
+    public LiveData<List<SamplepointEntity>> getSamplepointEntityList(){
+        return mSamplepointRepository.loadAllSamplepoint();
     }
 
-    public @Nullable MarkerOptions getMarkerOptionFromData(Yangdi yangdi){
-        if (yangdi == null){
+    public @Nullable MarkerOptions getMarkerOptionFromData(SamplelandEntity land){
+        if (land == null){
             return null;
         }
-        if (yangdi.latitude == null || yangdi.longitude == null){
+        if (land.lat == null || land.lng == null){
             return null;
         }
-        LatLng position = new LatLng(Double.valueOf(yangdi.latitude), Double.valueOf(yangdi.longitude));
+        LatLng position = new LatLng(Double.valueOf(land.lat), Double.valueOf(land.lng));
         Bundle data = new Bundle();
         data.putString(Macro.ACTION, Macro.ACTION_EDIT);
-        data.putString(Macro.YANGDI_CODE, yangdi.yangdiCode);
-        data.putString(Macro.YANGDI_TYPE, yangdi.type);
+        data.putString(Macro.SAMPLELAND_ID, land.landId);
+        data.putString(Macro.SAMPLELAND_TYPE, land.type);
         MarkerOptions markerOptions = new MarkerOptions()
                 .position(position)
                 .icon(mMarkerIcon)

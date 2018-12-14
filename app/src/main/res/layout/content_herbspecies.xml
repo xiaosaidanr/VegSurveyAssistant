@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.thcreate.vegsurveyassistant.viewmodel.HerbSpeciesActivityViewModel"/>
+    </data>
+
+    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".activity.HerbSpeciesActivity"
+        tools:showIn="@layout/activity_herbspecies">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rect"
+                android:text="@string/species_info"
+                android:textAppearance="@android:style/TextAppearance.Medium"/>
+
+            <TextView
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/species_name"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:inputType="text"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.species.name}"/>
+
+            <TextView
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/species_id"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:enabled="false"
+                android:inputType="text"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.species.speciesId}"/>
+
+            <TextView
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/plant_count"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:inputType="numberDecimal"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.species.plantCount}"/>
+
+            <TextView
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/vegetative_branch_height_cm"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:inputType="numberDecimal"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.species.vegetativeBranchHeight}"/>
+
+            <TextView
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/generative_branch_height_cm"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:inputType="numberDecimal"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.species.generativeBranchHeight}"/>
+
+            <TextView
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/coverage_percent"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:inputType="numberDecimal"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.species.coverage}"/>
+
+            <TextView
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/biomass_g"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:inputType="numberDecimal"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.species.biomass}"/>
+
+            <TextView
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/note"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            <EditText
+                android:inputType="textLongMessage"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/rect_nobackground_lrbborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:text="@={viewmodel.species.note}"/>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</layout>

@@ -31,9 +31,9 @@
     </PreferenceCategory>
     <PreferenceCategory>
         <MultiSelectListPreference
-            android:defaultValue="@array/powei_array"
-            android:entries="@array/powei_array"
-            android:entryValues="@array/powei_array"
+            android:defaultValue="@array/slope_position_array"
+            android:entries="@array/slope_position_array"
+            android:entryValues="@array/slope_position_array"
             android:key="multi_select_list_preference_1"
             android:title="Multi select list preference" />
     </PreferenceCategory>
