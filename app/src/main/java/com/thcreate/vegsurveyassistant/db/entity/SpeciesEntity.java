@@ -8,6 +8,8 @@ import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import com.thcreate.vegsurveyassistant.db.entity.model.BaseSpecies;
+
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "species",
@@ -54,6 +56,21 @@ public class SpeciesEntity extends BaseEntity {
     public SpeciesEntity(@NonNull String plotId, @NonNull String speciesId){
         this.plotId = plotId;
         this.speciesId = speciesId;
+    }
+
+    public <T extends BaseSpecies> void initCommonFromSpecies(T data){
+        this.id = data.id;
+        this.plotId = data.plotId;
+        this.speciesId = data.speciesId;
+        this.code = data.code;
+        this.type = data.type;
+        this.name = data.name;
+        this.latinName = data.latinName;
+        this.note = data.note;
+        this.createAt = data.createAt;
+        this.updateAt = data.updateAt;
+        this.uploadAt = data.uploadAt;
+        this.deleteAt = data.deleteAt;
     }
 
 }

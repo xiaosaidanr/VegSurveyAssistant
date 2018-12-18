@@ -28,7 +28,8 @@ public class HerbPlotActivityViewModel extends BaseSampleplotActivityViewModel<H
 
     @Override
     public HerbSampleplot getPlotData(SampleplotEntity entity){
-        return new HerbSampleplot();
+        //TODO data transfor
+        return HerbSampleplot.getInstance(entity);
     }
 
     @Override

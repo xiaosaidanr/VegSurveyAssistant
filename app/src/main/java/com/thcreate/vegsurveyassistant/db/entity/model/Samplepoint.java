@@ -4,6 +4,12 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import com.thcreate.vegsurveyassistant.db.entity.SamplepointEntity;
+
 import java.util.Date;
 
 public class Samplepoint implements Parcelable {
@@ -12,18 +18,34 @@ public class Samplepoint implements Parcelable {
     public int userId;//用户ID
     public String pointId;//样点ID
     public String code;//样点编号
+    @Expose
+    @SerializedName("formation_type")
     public String formationType;//群系类型
+    @Expose
+    @SerializedName("dominant_species")
     public String dominantSpecies;//优势种
+    @Expose
+    @SerializedName("community_coverage")
     public String communityCoverage;//群落盖度
+    @Expose
+    @SerializedName("community_height")
     public String communityHeight;//群落高度
+    @Expose
+    @SerializedName("topography_vegetation_status")
     public String topographyVegetationStatus;//地形和植被概况
+    @Expose
+    @SerializedName("administrative_name")
     public String administrativeName;//行政地名
+    @Expose
+    @SerializedName("human_activity")
     public String humanActivity;//人类活动
     public String alt;//海拔
     public String lng;//经度
     public String lat;//纬度
     public String investigator;//调查人
     public String investigateDate;//调查时间
+    @Expose
+    @SerializedName("note")
     public String note;//备注
     public Date createAt;//创建时间
     public Date updateAt;//修改时间
@@ -192,6 +214,45 @@ public class Samplepoint implements Parcelable {
         if (tmpDeleteAt != null){
             deleteAt = new Date((Long)tmpDeleteAt);
         }
+    }
+
+    public static Samplepoint getInstance(SamplepointEntity entity){
+        Samplepoint data;
+        if (entity.data != null){
+            Gson gson = new GsonBuilder()
+                    .excludeFieldsWithoutExposeAnnotation()
+                    .serializeNulls()
+                    .create();
+            data = gson.fromJson(entity.data, Samplepoint.class);
+        }
+        else {
+            data = new Samplepoint();
+        }
+        data.id = entity.id;
+        data.userId = entity.userId;
+        data.pointId = entity.pointId;
+        data.code = entity.code;
+        data.alt = entity.alt;
+        data.lat = entity.lat;
+        data.lng = entity.lng;
+        data.investigateDate = entity.investigateDate;
+        data.investigator = entity.investigator;
+        data.createAt = entity.createAt;
+        data.updateAt = entity.updateAt;
+        data.uploadAt = entity.uploadAt;
+        data.deleteAt = entity.deleteAt;
+        return data;
+    }
+
+    public SamplepointEntity getEntity(){
+        SamplepointEntity data = new SamplepointEntity();
+        data.initCommonFromPoint(this);
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .serializeNulls()
+                .create();
+        data.data = gson.toJson(this, Samplepoint.class);
+        return data;
     }
 }
 

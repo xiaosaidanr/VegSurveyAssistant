@@ -118,10 +118,10 @@ abstract public class BaseSpeciesActivityViewModel<T extends BaseSpecies> extend
         speciesRaw.updateAt = dateNow;
         if (action.equals(Macro.ACTION_ADD) || action.equals(Macro.ACTION_ADD_RESTORE)){
             speciesRaw.createAt = dateNow;
-            repository.insertSpeciesEntity(speciesRaw.getSpeciesEntity());
+            repository.insertSpeciesEntity(speciesRaw.getEntity());
         }
         if (action.equals(Macro.ACTION_EDIT) || action.equals(Macro.ACTION_EDIT_RESTORE)){
-            repository.updateSpeciesEntity(speciesRaw.getSpeciesEntity());
+            repository.updateSpeciesEntity(speciesRaw.getEntity());
         }
         return true;
     }

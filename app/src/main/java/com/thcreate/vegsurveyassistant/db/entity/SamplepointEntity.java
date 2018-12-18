@@ -8,6 +8,8 @@ import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import com.thcreate.vegsurveyassistant.db.entity.model.Samplepoint;
+
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "point",
@@ -55,6 +57,22 @@ public class SamplepointEntity extends BaseEntity {
     public SamplepointEntity(int userId, @NonNull String pointId){
         this.userId = userId;
         this.pointId = pointId;
+    }
+
+    public void initCommonFromPoint(Samplepoint data){
+        this.id = data.id;
+        this.userId = data.userId;
+        this.pointId = data.pointId;
+        this.code = data.code;
+        this.alt = data.alt;
+        this.lat = data.lat;
+        this.lng = data.lng;
+        this.investigateDate = data.investigateDate;
+        this.investigator = data.investigator;
+        this.createAt = data.createAt;
+        this.updateAt = data.updateAt;
+        this.uploadAt = data.uploadAt;
+        this.deleteAt = data.deleteAt;
     }
 
 }

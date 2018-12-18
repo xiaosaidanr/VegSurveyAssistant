@@ -4,6 +4,12 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import com.thcreate.vegsurveyassistant.db.entity.SamplelandEntity;
+
 import java.util.Date;
 
 public class Sampleland implements Parcelable {
@@ -13,12 +19,26 @@ public class Sampleland implements Parcelable {
     public String landId;//样地ID
     public String code;//样地编号
     public String type;//样地类型
+    @Expose
+    @SerializedName("administrative_region")
     public String administrativeRegion;//行政区域
+    @Expose
+    @SerializedName("aspect")
     public String aspect;//坡向
+    @Expose
+    @SerializedName("slope")
     public String slope;//坡度
+    @Expose
+    @SerializedName("slope_position")
     public String slopePosition;//坡位
+    @Expose
+    @SerializedName("landform")
     public String landform;//地貌
+    @Expose
+    @SerializedName("soil_characteristic")
     public String soilCharacteristic;//土壤特征
+    @Expose
+    @SerializedName("human_activity")
     public String humanActivity;//人类活动
     public String lng;//经度
     public String lat;//纬度
@@ -175,6 +195,43 @@ public class Sampleland implements Parcelable {
         if (tmpDeleteAt != null){
             deleteAt = new Date((Long)tmpDeleteAt);
         }
+    }
+
+    public static Sampleland getInstance(SamplelandEntity entity){
+        Sampleland data;
+        if (entity.data != null){
+            Gson gson = new GsonBuilder()
+                    .excludeFieldsWithoutExposeAnnotation()
+                    .serializeNulls()
+                    .create();
+            data = gson.fromJson(entity.data, Sampleland.class);
+        }
+        else {
+            data = new Sampleland();
+        }
+        data.id = entity.id;
+        data.userId = entity.userId;
+        data.landId = entity.landId;
+        data.code = entity.code;
+        data.type = entity.type;
+        data.lng = entity.lng;
+        data.lat = entity.lat;
+        data.createAt = entity.createAt;
+        data.updateAt = entity.updateAt;
+        data.uploadAt = entity.uploadAt;
+        data.deleteAt = entity.deleteAt;
+        return data;
+    }
+
+    public SamplelandEntity getEntity(){
+        SamplelandEntity data = new SamplelandEntity();
+        data.initCommonFromLand(this);
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .serializeNulls()
+                .create();
+        data.data = gson.toJson(this, Sampleland.class);
+        return data;
     }
 
 }

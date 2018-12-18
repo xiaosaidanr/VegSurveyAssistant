@@ -8,6 +8,8 @@ import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import com.thcreate.vegsurveyassistant.db.entity.model.Sampleland;
+
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "land",
@@ -52,6 +54,20 @@ public class SamplelandEntity extends BaseEntity {
         this.userId = userId;
         this.landId = landId;
         this.type = type;
+    }
+
+    public void initCommonFromLand(Sampleland data){
+        this.id = data.id;
+        this.userId = data.userId;
+        this.landId = data.landId;
+        this.code = data.code;
+        this.type = data.type;
+        this.lng = data.lng;
+        this.lat = data.lat;
+        this.createAt = data.createAt;
+        this.updateAt = data.updateAt;
+        this.uploadAt = data.uploadAt;
+        this.deleteAt = data.deleteAt;
     }
 
 }

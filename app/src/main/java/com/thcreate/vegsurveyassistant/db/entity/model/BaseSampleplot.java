@@ -3,6 +3,8 @@ package com.thcreate.vegsurveyassistant.db.entity.model;
 import android.os.Parcel;
 import android.support.annotation.NonNull;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
 
 import java.util.Date;
@@ -14,10 +16,20 @@ abstract public class BaseSampleplot {
     public String plotId;//样方ID
     public String code;//样方编号
     public String type;//样方类型
+    @Expose
+    @SerializedName("community_name")
     public String communityName;//群落名称
+    @Expose
+    @SerializedName("plot_length")
     public String plotLength;//样方长
+    @Expose
+    @SerializedName("plot_width")
     public String plotWidth;//样方宽
+    @Expose
+    @SerializedName("community_coverage")
     public String communityCoverage;//群落盖度
+    @Expose
+    @SerializedName("community_height")
     public String communityHeight;//群落高度
     public String lng;//经度
     public String lat;//纬度
@@ -159,6 +171,22 @@ abstract public class BaseSampleplot {
         }
     }
 
-    abstract public SampleplotEntity getSampleplotEntity();
+    public void initCommonFromEntity(SampleplotEntity entity){
+        this.id = entity.id;
+        this.landId = entity.landId;
+        this.plotId = entity.plotId;
+        this.code = entity.code;
+        this.type = entity.type;
+        this.lng = entity.lng;
+        this.lat = entity.lat;
+        this.investigateDate = entity.investigateDate;
+        this.investigator = entity.investigator;
+        this.createAt = entity.createAt;
+        this.updateAt = entity.updateAt;
+        this.uploadAt = entity.uploadAt;
+        this.deleteAt = entity.deleteAt;
+    }
+
+    abstract public SampleplotEntity getEntity();
 
 }

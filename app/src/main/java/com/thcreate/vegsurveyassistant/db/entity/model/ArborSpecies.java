@@ -3,16 +3,31 @@ package com.thcreate.vegsurveyassistant.db.entity.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresPermission;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity;
 import com.thcreate.vegsurveyassistant.util.Macro;
 
 public class ArborSpecies extends BaseSpecies implements Parcelable {
 
+    @Expose
+    @SerializedName("tree_number")
     public String treeNumber;//树号
+    @Expose
+    @SerializedName("DBH")
     public String DBH;//胸径
+    @Expose
+    @SerializedName("height")
     public String height;//高度
+    @Expose
+    @SerializedName("canopy_x")
     public String canopyX;//冠幅X
+    @Expose
+    @SerializedName("canopy_y")
     public String canopyY;//冠幅Y
 
     public ArborSpecies() {
@@ -81,7 +96,30 @@ public class ArborSpecies extends BaseSpecies implements Parcelable {
     }
 
     @Override
-    public SpeciesEntity getSpeciesEntity() {
-        return null;
+    public SpeciesEntity getEntity() {
+        SpeciesEntity data = new SpeciesEntity();
+        data.initCommonFromSpecies(this);
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .serializeNulls()
+                .create();
+        data.data = gson.toJson(this, ArborSpecies.class);
+        return data;
+    }
+
+    public static ArborSpecies getInstance(SpeciesEntity entity){
+        ArborSpecies data;
+        if (entity.data != null){
+            Gson gson = new GsonBuilder()
+                    .excludeFieldsWithoutExposeAnnotation()
+                    .serializeNulls()
+                    .create();
+            data = gson.fromJson(entity.data, ArborSpecies.class);
+        }
+        else {
+            data = new ArborSpecies();
+        }
+        data.initCommonFromEntity(entity);
+        return data;
     }
 }

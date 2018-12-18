@@ -4,6 +4,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
 import com.thcreate.vegsurveyassistant.util.Macro;
 
@@ -11,7 +15,11 @@ import java.util.Date;
 
 public class ShrubSampleplot extends BaseSampleplot implements Parcelable {
 
+    @Expose
+    @SerializedName("arbor_plot_id")
     public String arborPlotId;//所属乔木样方ID
+    @Expose
+    @SerializedName("average_basal_diameter")
     public String averageBasalDiameter;//平均基径
 
     public ShrubSampleplot() {
@@ -65,7 +73,31 @@ public class ShrubSampleplot extends BaseSampleplot implements Parcelable {
     }
 
     @Override
-    public SampleplotEntity getSampleplotEntity() {
-        return null;
+    public SampleplotEntity getEntity() {
+        SampleplotEntity data = new SampleplotEntity();
+        data.initCommonFromPlot(this);
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .serializeNulls()
+                .create();
+        data.data = gson.toJson(this, ShrubSampleplot.class);
+        return data;
     }
+
+    public static ShrubSampleplot getInstance(SampleplotEntity entity){
+        ShrubSampleplot data;
+        if (entity.data != null){
+            Gson gson = new GsonBuilder()
+                    .excludeFieldsWithoutExposeAnnotation()
+                    .serializeNulls()
+                    .create();
+            data = gson.fromJson(entity.data, ShrubSampleplot.class);
+        }
+        else {
+            data = new ShrubSampleplot();
+        }
+        data.initCommonFromEntity(entity);
+        return data;
+    }
+
 }

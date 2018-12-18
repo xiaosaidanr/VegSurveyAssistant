@@ -64,7 +64,7 @@ public class SamplepointActivityViewModel extends AndroidViewModel {
                 //TODO data transfor
                 samplepoint = Transformations.map(mSamplepointRepository.loadSamplepointByPointId(pointId),(data)->{
                     if (data!=null){
-                        return new Samplepoint(data.id, data.userId, data.pointId);
+                        return Samplepoint.getInstance(data);
                     }
                     return null;
                 });
@@ -108,11 +108,11 @@ public class SamplepointActivityViewModel extends AndroidViewModel {
         if (action.equals(Macro.ACTION_ADD) || action.equals(Macro.ACTION_ADD_RESTORE)){
             samplepointRaw.createAt = dateNow;
             //TODO data transfor
-//            repository.insertSamplepoint(samplepointRaw);
+            mSamplepointRepository.insertSamplepoint(samplepointRaw.getEntity());
         }
         if (action.equals(Macro.ACTION_EDIT) || action.equals(Macro.ACTION_EDIT_RESTORE)){
             //TODO data transfor
-//            repository.updateSamplepoint(samplepointRaw);
+            mSamplepointRepository.updateSamplepoint(samplepointRaw.getEntity());
         }
         return true;
     }

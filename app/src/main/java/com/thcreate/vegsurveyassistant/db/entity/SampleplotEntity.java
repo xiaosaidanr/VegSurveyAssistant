@@ -8,6 +8,8 @@ import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import com.thcreate.vegsurveyassistant.db.entity.model.BaseSampleplot;
+
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "plot",
@@ -56,6 +58,22 @@ public class SampleplotEntity extends BaseEntity {
     public SampleplotEntity(@NonNull String landId, @NonNull String plotId){
         this.landId = landId;
         this.plotId = plotId;
+    }
+
+    public <T extends BaseSampleplot> void initCommonFromPlot(T data){
+        this.id = data.id;
+        this.landId = data.landId;
+        this.plotId = data.plotId;
+        this.code = data.code;
+        this.type = data.type;
+        this.lng = data.lng;
+        this.lat = data.lat;
+        this.investigateDate = data.investigateDate;
+        this.investigator = data.investigator;
+        this.createAt = data.createAt;
+        this.updateAt = data.updateAt;
+        this.uploadAt = data.uploadAt;
+        this.deleteAt = data.deleteAt;
     }
 
 }

@@ -71,7 +71,7 @@ public class BaseSamplelandActivityViewModel extends AndroidViewModel {
                 //TODO data transfor
                 sampleland = Transformations.map(mSamplelandRepository.getSamplelandEntityByLandId(landId), data->{
                     if (data != null){
-                        return new Sampleland(data.id, data.userId, data.landId, data.type);
+                        return Sampleland.getInstance(data);
                     }
                     return null;
                 });
@@ -103,7 +103,7 @@ public class BaseSamplelandActivityViewModel extends AndroidViewModel {
     public void onGoForward(){
         if (action.equals(Macro.ACTION_ADD) || action.equals(Macro.ACTION_ADD_RESTORE)){
             //TODO data transfor
-//            mSamplelandRepository.insertSamplelandEntity(sampleland.getValue());
+            mSamplelandRepository.insertSamplelandEntity(sampleland.getValue().getEntity());
             action = Macro.ACTION_TEMP_SAVE;
         }
     }
@@ -111,7 +111,7 @@ public class BaseSamplelandActivityViewModel extends AndroidViewModel {
     public void onCancel(){
         if (action.equals(Macro.ACTION_TEMP_SAVE)||action.equals(Macro.ACTION_TEMP_SAVE_RESTORE)){
             //TODO data transfor
-//            mSamplelandRepository.deleteSamplelandEntity(sampleland.getValue());
+            mSamplelandRepository.deleteSamplelandEntity(sampleland.getValue().getEntity());
         }
     }
 
@@ -170,16 +170,16 @@ public class BaseSamplelandActivityViewModel extends AndroidViewModel {
         if (action.equals(Macro.ACTION_ADD) || action.equals(Macro.ACTION_ADD_RESTORE)){
             samplelandRaw.createAt = dateNow;
             //TODO data transfor
-//            mSamplelandRepository.insertSamplelandEntity(samplelandRaw);
+            mSamplelandRepository.insertSamplelandEntity(samplelandRaw.getEntity());
         }
         if (action.equals(Macro.ACTION_EDIT) || action.equals(Macro.ACTION_EDIT_RESTORE)){
             //TODO data transfor
-//            mSamplelandRepository.updateSamplelandEntity(samplelandRaw);
+            mSamplelandRepository.updateSamplelandEntity(samplelandRaw.getEntity());
         }
         if (action.equals(Macro.ACTION_TEMP_SAVE) || action.equals(Macro.ACTION_TEMP_SAVE_RESTORE)){
             samplelandRaw.createAt = dateNow;
             //TODO data transfor
-//            mSamplelandRepository.updateSamplelandEntity(samplelandRaw);
+            mSamplelandRepository.updateSamplelandEntity(samplelandRaw.getEntity());
         }
         return true;
     }

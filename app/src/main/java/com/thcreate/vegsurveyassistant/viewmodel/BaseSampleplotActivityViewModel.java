@@ -129,14 +129,14 @@ abstract public class BaseSampleplotActivityViewModel<T extends BaseSampleplot> 
 
     public void onGoForward(){
         if (action.equals(Macro.ACTION_ADD) || action.equals(Macro.ACTION_ADD_RESTORE)){
-            mSampleplotRepository.insertSampleplotEntity(sampleplot.getValue().getSampleplotEntity());
+            mSampleplotRepository.insertSampleplotEntity(sampleplot.getValue().getEntity());
             action = Macro.ACTION_TEMP_SAVE;
         }
     }
 
     public void onCancel(){
         if (action.equals(Macro.ACTION_TEMP_SAVE_RESTORE)||action.equals(Macro.ACTION_TEMP_SAVE)){
-            mSampleplotRepository.deleteSampleplotEntity(sampleplot.getValue().getSampleplotEntity());
+            mSampleplotRepository.deleteSampleplotEntity(sampleplot.getValue().getEntity());
         }
     }
 
@@ -173,14 +173,14 @@ abstract public class BaseSampleplotActivityViewModel<T extends BaseSampleplot> 
         sampleplotRaw.updateAt = dateNow;
         if (action.equals(Macro.ACTION_ADD) || action.equals(Macro.ACTION_ADD_RESTORE)){
             sampleplotRaw.createAt = dateNow;
-            mSampleplotRepository.insertSampleplotEntity(sampleplotRaw.getSampleplotEntity());
+            mSampleplotRepository.insertSampleplotEntity(sampleplotRaw.getEntity());
         }
         if (action.equals(Macro.ACTION_EDIT) || action.equals(Macro.ACTION_EDIT_RESTORE)){
-            mSampleplotRepository.updateSampleplotEntity(sampleplotRaw.getSampleplotEntity());
+            mSampleplotRepository.updateSampleplotEntity(sampleplotRaw.getEntity());
         }
         if (action.equals(Macro.ACTION_TEMP_SAVE) || action.equals(Macro.ACTION_TEMP_SAVE_RESTORE)){
             sampleplotRaw.createAt = dateNow;
-            mSampleplotRepository.updateSampleplotEntity(sampleplotRaw.getSampleplotEntity());
+            mSampleplotRepository.updateSampleplotEntity(sampleplotRaw.getEntity());
         }
         return true;
     }

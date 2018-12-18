@@ -4,15 +4,29 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity;
 import com.thcreate.vegsurveyassistant.util.Macro;
 
 public class HerbSpecies extends BaseSpecies implements Parcelable {
 
+    @Expose
+    @SerializedName("plant_count")
     public String plantCount;//株丛数
+    @Expose
+    @SerializedName("vegetative_bunch_height")
     public String vegetativeBranchHeight;//营养枝高度
+    @Expose
+    @SerializedName("generative_bunch_height")
     public String generativeBranchHeight;//生殖枝高度
+    @Expose
+    @SerializedName("coverage")
     public String coverage;//盖度
+    @Expose
+    @SerializedName("biomass")
     public String biomass;//生物量
 
     public HerbSpecies() {
@@ -81,7 +95,30 @@ public class HerbSpecies extends BaseSpecies implements Parcelable {
     }
 
     @Override
-    public SpeciesEntity getSpeciesEntity() {
-        return null;
+    public SpeciesEntity getEntity() {
+        SpeciesEntity data = new SpeciesEntity();
+        data.initCommonFromSpecies(this);
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .serializeNulls()
+                .create();
+        data.data = gson.toJson(this, HerbSpecies.class);
+        return data;
+    }
+
+    public static HerbSpecies getInstance(SpeciesEntity entity){
+        HerbSpecies data;
+        if (entity.data != null){
+            Gson gson = new GsonBuilder()
+                    .excludeFieldsWithoutExposeAnnotation()
+                    .serializeNulls()
+                    .create();
+            data = gson.fromJson(entity.data, HerbSpecies.class);
+        }
+        else {
+            data = new HerbSpecies();
+        }
+        data.initCommonFromEntity(entity);
+        return data;
     }
 }

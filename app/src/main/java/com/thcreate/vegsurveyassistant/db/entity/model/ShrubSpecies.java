@@ -4,15 +4,29 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity;
 import com.thcreate.vegsurveyassistant.util.Macro;
 
 public class ShrubSpecies extends BaseSpecies implements Parcelable {
 
+    @Expose
+    @SerializedName("tree_number")
     public String treeNumber;//树号
+    @Expose
+    @SerializedName("basal_diameter")
     public String basalDiameter;//基径
+    @Expose
+    @SerializedName("height")
     public String height;//高度
+    @Expose
+    @SerializedName("canopy_x")
     public String canopyX;//冠幅X
+    @Expose
+    @SerializedName("canopy_y")
     public String canopyY;//冠幅Y
 
     public ShrubSpecies() {
@@ -85,7 +99,30 @@ public class ShrubSpecies extends BaseSpecies implements Parcelable {
     }
 
     @Override
-    public SpeciesEntity getSpeciesEntity() {
-        return null;
+    public SpeciesEntity getEntity() {
+        SpeciesEntity data = new SpeciesEntity();
+        data.initCommonFromSpecies(this);
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .serializeNulls()
+                .create();
+        data.data = gson.toJson(this, ShrubSpecies.class);
+        return data;
+    }
+
+    public static ShrubSpecies getInstance(SpeciesEntity entity){
+        ShrubSpecies data;
+        if (entity.data != null){
+            Gson gson = new GsonBuilder()
+                    .excludeFieldsWithoutExposeAnnotation()
+                    .serializeNulls()
+                    .create();
+            data = gson.fromJson(entity.data, ShrubSpecies.class);
+        }
+        else {
+            data = new ShrubSpecies();
+        }
+        data.initCommonFromEntity(entity);
+        return data;
     }
 }

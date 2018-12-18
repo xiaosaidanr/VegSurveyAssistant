@@ -3,6 +3,8 @@ package com.thcreate.vegsurveyassistant.db.entity.model;
 import android.os.Parcel;
 import android.support.annotation.NonNull;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity;
 
 import java.util.Date;
@@ -16,6 +18,8 @@ abstract public class BaseSpecies {
     public String type;//物种类型
     public String name;//物种名
     public String latinName;//拉丁名
+    @Expose
+    @SerializedName("note")
     public String note;//备注
     public Date createAt;//创建时间
     public Date updateAt;//修改时间
@@ -123,6 +127,21 @@ abstract public class BaseSpecies {
         }
     }
 
-    abstract public SpeciesEntity getSpeciesEntity();
+    public void initCommonFromEntity(SpeciesEntity entity){
+        this.id = entity.id;
+        this.plotId = entity.plotId;
+        this.speciesId = entity.speciesId;
+        this.code = entity.code;
+        this.type = entity.type;
+        this.name = entity.name;
+        this.latinName = entity.latinName;
+        this.note = entity.note;
+        this.createAt = entity.createAt;
+        this.updateAt = entity.updateAt;
+        this.uploadAt = entity.uploadAt;
+        this.deleteAt = entity.deleteAt;
+    }
+
+    abstract public SpeciesEntity getEntity();
 
 }
