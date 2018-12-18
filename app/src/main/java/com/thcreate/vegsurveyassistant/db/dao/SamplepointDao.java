@@ -12,28 +12,28 @@ import com.thcreate.vegsurveyassistant.db.entity.SamplepointEntity;
 import java.util.List;
 
 @Dao
-//public interface SamplepointDao extends BaseDao<SamplepointEntity> {
-public interface SamplepointDao {
+public interface SamplepointDao extends BaseDao<SamplepointEntity> {
+//public interface SamplepointDao {
 
-    @Insert
-    void insert(SamplepointEntity obj);
+//    @Insert
+//    void insert(SamplepointEntity obj);
+//
+//    @Update
+//    void update(SamplepointEntity obj);
+//
+//    @Delete
+//    void delete(SamplepointEntity obj);
 
-    @Update
-    void update(SamplepointEntity obj);
-
-    @Delete
-    void delete(SamplepointEntity obj);
-
-    @Query("DELETE FROM sample_point")
+    @Query("DELETE FROM point")
     void deleteAll();
 
-    @Query("DELETE FROM sample_point WHERE id = :id")
+    @Query("DELETE FROM point WHERE id = :id")
     void deleteById(int id);
 
-    @Query("SELECT * FROM sample_point WHERE point_id = :pointId")
+    @Query("SELECT * FROM point WHERE point_id = :pointId")
     LiveData<SamplepointEntity> getSamplepointEntityByPointId(String pointId);
 
-    @Query("SELECT * FROM sample_point WHERE user_id = :userId ORDER BY id ASC")
+    @Query("SELECT * FROM point WHERE user_id = :userId ORDER BY id ASC")
     LiveData<List<SamplepointEntity>> getSamplepointEntityListByUserId(int userId);
 
 }

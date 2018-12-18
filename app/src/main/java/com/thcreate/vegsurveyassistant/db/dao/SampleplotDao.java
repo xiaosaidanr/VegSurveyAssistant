@@ -12,34 +12,34 @@ import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
 import java.util.List;
 
 @Dao
-//public interface SampleplotDao extends BaseDao<SampleplotEntity> {
-public interface SampleplotDao {
+public interface SampleplotDao extends BaseDao<SampleplotEntity> {
+//public interface SampleplotDao {
 
-    @Insert
-    void insert(SampleplotEntity obj);
+//    @Insert
+//    void insert(SampleplotEntity obj);
+//
+//    @Update
+//    void update(SampleplotEntity obj);
+//
+//    @Delete
+//    void delete(SampleplotEntity obj);
 
-    @Update
-    void update(SampleplotEntity obj);
-
-    @Delete
-    void delete(SampleplotEntity obj);
-
-    @Query("DELETE FROM sample_plot WHERE id = :id")
+    @Query("DELETE FROM plot WHERE id = :id")
     void deleteById(int id);
 
-    @Query("DELETE FROM sample_plot")
+    @Query("DELETE FROM plot")
     void deleteAll();
 
-    @Query("SELECT * FROM sample_plot WHERE id = :id")
+    @Query("SELECT * FROM plot WHERE id = :id")
     SampleplotEntity getSampleplotEntityById(int id);
 
-    @Query("SELECT * FROM sample_plot WHERE plot_id = :plotId")
+    @Query("SELECT * FROM plot WHERE plot_id = :plotId")
     SampleplotEntity getSampleplotEntityByPlotIdSync(String plotId);
 
-    @Query("SELECT * FROM sample_plot WHERE plot_id = :plotId")
+    @Query("SELECT * FROM plot WHERE plot_id = :plotId")
     LiveData<SampleplotEntity> getSampleplotEntityByPlotId(String plotId);
 
-    @Query("SELECT * FROM sample_plot WHERE land_id = :landId AND type = :type ORDER BY id ASC")
+    @Query("SELECT * FROM plot WHERE land_id = :landId AND type = :type ORDER BY id ASC")
     LiveData<List<SampleplotEntity>> getSampleplotEntityListByLandIdAndType(String landId, String type);
 
 }

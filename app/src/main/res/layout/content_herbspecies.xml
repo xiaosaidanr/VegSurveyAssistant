@@ -55,10 +55,9 @@
                 android:background="@drawable/rect_nobackground_lrborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/species_id"
+                android:text="@string/species_code"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
             <EditText
-                android:enabled="false"
                 android:inputType="text"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
@@ -66,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:text="@={viewmodel.species.speciesId}"/>
+                android:text="@={viewmodel.species.code}"/>
 
             <TextView
                 android:layout_marginTop="0dp"

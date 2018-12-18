@@ -35,7 +35,7 @@
         <item>下坡位</item>
     </string-array>
     <string name="sampleland_info">样地信息</string>
-    <string name="sampleland_id">样地编号</string>
+    <string name="sampleland_code">样地编号</string>
     <string name="administrative_region">行政区域</string>
     <string name="aspect">坡向</string>
     <string name="slope">坡度</string>
@@ -51,9 +51,9 @@
 
     <!-- 样方相关 -->
     <string name="sampleplot_info">样方信息</string>
-    <string name="sampleplot_id">样方编号</string>
-    <string name="belong_shrub_sampleplot_id">所在乔木样方编号</string>
-    <string name="belong_arbor_sampleplot_id">所在灌木样方编号</string>
+    <string name="sampleplot_code">样方编号</string>
+    <string name="belong_shrub_sampleplot_code">所在乔木样方编号</string>
+    <string name="belong_arbor_sampleplot_code">所在灌木样方编号</string>
     <string name="community_name">群落名称</string>
     <string name="plot_length_m">样方长(m)</string>
     <string name="plot_width_m">样方宽(m)</string>
@@ -69,7 +69,7 @@
     <!-- 物种相关 -->
     <string name="species_info">物种信息</string>
     <string name="species_name">物种名</string>
-    <string name="species_id">标本编号</string>
+    <string name="species_code">标本编号</string>
     <string name="plant_count">株丛数</string>
     <string name="vegetative_branch_height_cm">营养枝高度(cm)</string>
     <string name="generative_branch_height_cm">生殖枝高度(cm)</string>
@@ -84,7 +84,7 @@
 
     <!-- 样点相关 -->
     <string name="samplepoint_info">样点信息</string>
-    <string name="samplepoint_id">样点编号</string>
+    <string name="samplepoint_code">样点编号</string>
     <string name="formation_type">群系类型</string>
     <string name="dominant_species">优势种</string>
     <string name="topography_vegetation_status">地形和植被概况</string>

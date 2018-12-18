@@ -10,7 +10,7 @@ import android.support.annotation.NonNull;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "sample_point",
+@Entity(tableName = "point",
         foreignKeys = @ForeignKey(
                 entity = User.class,
                 parentColumns = "id",
@@ -31,7 +31,9 @@ public class SamplepointEntity extends BaseEntity {
     public int userId;
 
     @ColumnInfo(name = "point_id")
-    public String pointId;//样点编码
+    public String pointId;//样点ID
+
+    public String code;//样点编号
 
     public String data;//数据
 

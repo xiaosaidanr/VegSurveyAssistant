@@ -9,8 +9,9 @@ import java.util.Date;
 public class Samplepoint implements Parcelable {
 
     public int id;
-    public int userId;
-    public String pointId;//样点编号
+    public int userId;//用户ID
+    public String pointId;//样点ID
+    public String code;//样点编号
     public String formationType;//群系类型
     public String dominantSpecies;//优势种
     public String communityCoverage;//群落盖度
@@ -54,6 +55,7 @@ public class Samplepoint implements Parcelable {
         dest.writeValue(id);
         dest.writeValue(userId);
         dest.writeValue(pointId);
+        dest.writeValue(code);
         dest.writeValue(formationType);
         dest.writeValue(dominantSpecies);
         dest.writeValue(communityCoverage);
@@ -117,6 +119,10 @@ public class Samplepoint implements Parcelable {
         Object tmpPointId = source.readValue(getClass().getClassLoader());
         if (tmpPointId != null){
             pointId = (String)tmpPointId;
+        }
+        Object tmpCode = source.readValue(getClass().getClassLoader());
+        if (tmpCode != null){
+            code = (String)tmpCode;
         }
         Object tmpFormationType = source.readValue(getClass().getClassLoader());
         if (tmpFormationType != null){

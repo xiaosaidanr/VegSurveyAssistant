@@ -7,8 +7,6 @@ import android.support.annotation.NonNull;
 import com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity;
 import com.thcreate.vegsurveyassistant.util.Macro;
 
-import java.util.Date;
-
 public class HerbSpecies extends BaseSpecies implements Parcelable {
 
     public String plantCount;//株丛数
@@ -38,42 +36,12 @@ public class HerbSpecies extends BaseSpecies implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeValue(id);
-        dest.writeValue(plotId);
-        dest.writeValue(speciesId);
-        dest.writeValue(type);
-        dest.writeValue(name);
-        dest.writeValue(latinName);
+        dest = writeCommonToParcel(dest);
         dest.writeValue(plantCount);
         dest.writeValue(vegetativeBranchHeight);
         dest.writeValue(generativeBranchHeight);
         dest.writeValue(coverage);
         dest.writeValue(biomass);
-        dest.writeValue(note);
-        if (createAt == null){
-            dest.writeValue(null);
-        }
-        else {
-            dest.writeValue(createAt.getTime());
-        }
-        if (updateAt == null){
-            dest.writeValue(null);
-        }
-        else {
-            dest.writeValue(updateAt.getTime());
-        }
-        if (uploadAt == null){
-            dest.writeValue(null);
-        }
-        else {
-            dest.writeValue(uploadAt.getTime());
-        }
-        if (deleteAt == null){
-            dest.writeValue(null);
-        }
-        else {
-            dest.writeValue(deleteAt.getTime());
-        }
     }
 
     public static final Parcelable.Creator<HerbSpecies> CREATOR = new Creator<HerbSpecies>() {
@@ -89,30 +57,7 @@ public class HerbSpecies extends BaseSpecies implements Parcelable {
     };
 
     public HerbSpecies(Parcel source){
-        Object tmpId = source.readValue(getClass().getClassLoader());
-        if (tmpId != null){
-            id = (int)tmpId;
-        }
-        Object tmpPlotId = source.readValue(getClass().getClassLoader());
-        if (tmpPlotId != null){
-            plotId = (String)tmpPlotId;
-        }
-        Object tmpSpeciesId = source.readValue(getClass().getClassLoader());
-        if (tmpSpeciesId != null){
-            speciesId = (String)tmpSpeciesId;
-        }
-        Object tmpType = source.readValue(getClass().getClassLoader());
-        if (tmpType != null){
-            type = (String)tmpType;
-        }
-        Object tmpName = source.readValue(getClass().getClassLoader());
-        if (tmpName != null){
-            name = (String)tmpName;
-        }
-        Object tmpLatinName = source.readValue(getClass().getClassLoader());
-        if (tmpLatinName != null){
-            latinName = (String)tmpLatinName;
-        }
+        initCommonFromParcelableSource(source);
         Object tmpPlantCount = source.readValue(getClass().getClassLoader());
         if (tmpPlantCount != null){
             plantCount = (String)tmpPlantCount;
@@ -132,26 +77,6 @@ public class HerbSpecies extends BaseSpecies implements Parcelable {
         Object tmpBiomass = source.readValue(getClass().getClassLoader());
         if (tmpBiomass != null){
             biomass = (String)tmpBiomass;
-        }
-        Object tmpNote = source.readValue(getClass().getClassLoader());
-        if (tmpNote != null){
-            note = (String)tmpNote;
-        }
-        Object tmpCreateAt = source.readValue(getClass().getClassLoader());
-        if (tmpCreateAt != null){
-            createAt = new Date((Long)tmpCreateAt);
-        }
-        Object tmpUpdateAt = source.readValue(getClass().getClassLoader());
-        if (tmpUpdateAt != null){
-            updateAt = new Date((Long)tmpUpdateAt);
-        }
-        Object tmpUploadAt = source.readValue(getClass().getClassLoader());
-        if (tmpUploadAt != null){
-            uploadAt = new Date((Long)tmpUploadAt);
-        }
-        Object tmpDeleteAt = source.readValue(getClass().getClassLoader());
-        if (tmpDeleteAt != null){
-            deleteAt = new Date((Long)tmpDeleteAt);
         }
     }
 

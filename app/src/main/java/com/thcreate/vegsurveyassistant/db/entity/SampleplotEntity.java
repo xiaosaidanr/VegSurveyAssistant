@@ -10,7 +10,7 @@ import android.support.annotation.NonNull;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "sample_plot",
+@Entity(tableName = "plot",
         foreignKeys = @ForeignKey(
                 entity = SamplelandEntity.class,
                 parentColumns = "land_id",
@@ -29,10 +29,12 @@ public class SampleplotEntity extends BaseEntity {
     public int id;
 
     @ColumnInfo(name = "land_id")
-    public String landId;//所属样地编号
+    public String landId;//所属样地ID
 
     @ColumnInfo(name = "plot_id")
-    public String plotId;//样方编号
+    public String plotId;//样方ID
+
+    public String code;//样方编号
 
     public String type;//样方类型
 

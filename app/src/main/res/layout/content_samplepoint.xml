@@ -44,18 +44,17 @@
                 android:background="@drawable/rect_nobackground_lrborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/samplepoint_id"
+                android:text="@string/samplepoint_code"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
             <EditText
                 android:inputType="text"
-                android:enabled="false"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:text="@={viewmodel.samplepoint.pointId}"/>
+                android:text="@={viewmodel.samplepoint.code}"/>
 
             <TextView
                 android:layout_marginTop="0dp"

@@ -38,10 +38,9 @@
                 android:background="@drawable/rect_nobackground_lrborder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/sampleplot_id"
+                android:text="@string/sampleplot_code"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
             <EditText
-                android:enabled="false"
                 android:inputType="text"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
@@ -49,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:text="@={viewmodel.sampleplot.plotId}"/>
+                android:text="@={viewmodel.sampleplot.code}"/>
 
             <TextView
                 android:layout_marginTop="0dp"

@@ -9,8 +9,9 @@ import java.util.Date;
 public class Sampleland implements Parcelable {
 
     public int id;
-    public int userId;
-    public String landId;//样地编号
+    public int userId;//用户ID
+    public String landId;//样地ID
+    public String code;//样地编号
     public String type;//样地类型
     public String administrativeRegion;//行政区域
     public String aspect;//坡向
@@ -52,6 +53,7 @@ public class Sampleland implements Parcelable {
         dest.writeValue(id);
         dest.writeValue(userId);
         dest.writeValue(landId);
+        dest.writeValue(code);
         dest.writeValue(type);
         dest.writeValue(administrativeRegion);
         dest.writeValue(aspect);
@@ -112,6 +114,10 @@ public class Sampleland implements Parcelable {
         Object tmpLandId = source.readValue(getClass().getClassLoader());
         if (tmpLandId != null){
             landId = (String)tmpLandId;
+        }
+        Object tmpCode = source.readValue(getClass().getClassLoader());
+        if (tmpCode != null){
+            code = (String)tmpCode;
         }
         Object tmpType = source.readValue(getClass().getClassLoader());
         if (tmpType != null){

@@ -29,10 +29,12 @@ public class SpeciesEntity extends BaseEntity {
     public int id;
 
     @ColumnInfo(name = "plot_id")
-    public String plotId;//所属样方编号
+    public String plotId;//所属样方ID
 
     @ColumnInfo(name = "species_id")
-    public String speciesId;//物种编号
+    public String speciesId;//物种ID
+
+    public String code;//物种编号
 
     public String type;//物种类型
 

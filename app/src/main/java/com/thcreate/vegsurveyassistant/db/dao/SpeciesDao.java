@@ -12,17 +12,17 @@ import com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity;
 import java.util.List;
 
 @Dao
-//public interface SpeciesDao extends BaseDao<SpeciesEntity>
-public interface SpeciesDao {
+public interface SpeciesDao extends BaseDao<SpeciesEntity>{
+//public interface SpeciesDao {
 
-    @Insert
-    void insert(SpeciesEntity obj);
-
-    @Update
-    void update(SpeciesEntity obj);
-
-    @Delete
-    void delete(SpeciesEntity obj);
+//    @Insert
+//    void insert(SpeciesEntity obj);
+//
+//    @Update
+//    void update(SpeciesEntity obj);
+//
+//    @Delete
+//    void delete(SpeciesEntity obj);
 
     @Query("DELETE FROM species WHERE id = :id")
     void deleteById(int id);
