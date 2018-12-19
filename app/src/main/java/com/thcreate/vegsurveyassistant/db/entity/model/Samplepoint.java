@@ -42,8 +42,8 @@ public class Samplepoint implements Parcelable {
     public String alt;//海拔
     public String lng;//经度
     public String lat;//纬度
-    public String investigator;//调查人
-    public String investigateDate;//调查时间
+    public String investigatorName;//调查人
+    public String investigatedAt;//调查时间
     @Expose
     @SerializedName("note")
     public String note;//备注
@@ -88,8 +88,8 @@ public class Samplepoint implements Parcelable {
         dest.writeValue(alt);
         dest.writeValue(lng);
         dest.writeValue(lat);
-        dest.writeValue(investigator);
-        dest.writeValue(investigateDate);
+        dest.writeValue(investigatorName);
+        dest.writeValue(investigatedAt);
         dest.writeValue(note);
         if (createAt == null){
             dest.writeValue(null);
@@ -186,13 +186,13 @@ public class Samplepoint implements Parcelable {
         if (tmpLat != null){
             lat = (String)tmpLat;
         }
-        Object tmpInvestigator = source.readValue(getClass().getClassLoader());
-        if (tmpInvestigator != null){
-            investigator = (String)tmpInvestigator;
+        Object tmpInvestigatorName = source.readValue(getClass().getClassLoader());
+        if (tmpInvestigatorName != null){
+            investigatorName = (String)tmpInvestigatorName;
         }
-        Object tmpInvestigateDate = source.readValue(getClass().getClassLoader());
-        if (tmpInvestigateDate != null){
-            investigateDate = (String)tmpInvestigateDate;
+        Object tmpInvestigatedAt = source.readValue(getClass().getClassLoader());
+        if (tmpInvestigatedAt != null){
+            investigatedAt = (String)tmpInvestigatedAt;
         }
         Object tmpNote = source.readValue(getClass().getClassLoader());
         if (tmpNote != null){
@@ -235,8 +235,8 @@ public class Samplepoint implements Parcelable {
         data.alt = entity.alt;
         data.lat = entity.lat;
         data.lng = entity.lng;
-        data.investigateDate = entity.investigateDate;
-        data.investigator = entity.investigator;
+        data.investigatedAt = entity.investigatedAt;
+        data.investigatorName = entity.investigatorName;
         data.createAt = entity.createAt;
         data.updateAt = entity.updateAt;
         data.uploadAt = entity.uploadAt;

@@ -15,7 +15,6 @@ public class HerbSpeciesActivityViewModel extends BaseSpeciesActivityViewModel<H
 
     @Override
     public HerbSpecies getSpeciesData(SpeciesEntity entity) {
-        //TODO data transfor
         return HerbSpecies.getInstance(entity);
     }
 

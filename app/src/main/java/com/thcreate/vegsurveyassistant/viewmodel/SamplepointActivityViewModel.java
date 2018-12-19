@@ -61,7 +61,6 @@ public class SamplepointActivityViewModel extends AndroidViewModel {
                 samplepoint = tmp2;
                 break;
             case Macro.ACTION_EDIT:
-                //TODO data transfor
                 samplepoint = Transformations.map(mSamplepointRepository.loadSamplepointByPointId(pointId),(data)->{
                     if (data!=null){
                         return Samplepoint.getInstance(data);
@@ -107,11 +106,9 @@ public class SamplepointActivityViewModel extends AndroidViewModel {
         samplepointRaw.updateAt = dateNow;
         if (action.equals(Macro.ACTION_ADD) || action.equals(Macro.ACTION_ADD_RESTORE)){
             samplepointRaw.createAt = dateNow;
-            //TODO data transfor
             mSamplepointRepository.insertSamplepoint(samplepointRaw.getEntity());
         }
         if (action.equals(Macro.ACTION_EDIT) || action.equals(Macro.ACTION_EDIT_RESTORE)){
-            //TODO data transfor
             mSamplepointRepository.updateSamplepoint(samplepointRaw.getEntity());
         }
         return true;

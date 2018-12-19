@@ -33,8 +33,9 @@ abstract public class BaseSampleplot {
     public String communityHeight;//群落高度
     public String lng;//经度
     public String lat;//纬度
-    public String investigator;//调查人
-    public String investigateDate;//调查时间
+    public String alt;//海拔
+    public String investigatorName;//调查人
+    public String investigatedAt;//调查时间
     public Date createAt;//创建时间
     public Date updateAt;//修改时间
     public Date uploadAt;//上传时间
@@ -67,8 +68,9 @@ abstract public class BaseSampleplot {
         dest.writeValue(communityHeight);
         dest.writeValue(lng);
         dest.writeValue(lat);
-        dest.writeValue(investigator);
-        dest.writeValue(investigateDate);
+        dest.writeValue(alt);
+        dest.writeValue(investigatorName);
+        dest.writeValue(investigatedAt);
         if (createAt == null){
             dest.writeValue(null);
         }
@@ -145,13 +147,17 @@ abstract public class BaseSampleplot {
         if (tmpLat != null){
             lat = (String)tmpLat;
         }
-        Object tmpInvestigator = source.readValue(getClass().getClassLoader());
-        if (tmpInvestigator != null){
-            investigator = (String)tmpInvestigator;
+        Object tmpAlt = source.readValue(getClass().getClassLoader());
+        if (tmpAlt != null){
+            alt = (String)tmpAlt;
         }
-        Object tmpInvestigateDate = source.readValue(getClass().getClassLoader());
-        if (tmpInvestigateDate != null){
-            investigateDate = (String)tmpInvestigateDate;
+        Object tmpInvestigatorName = source.readValue(getClass().getClassLoader());
+        if (tmpInvestigatorName != null){
+            investigatorName = (String)tmpInvestigatorName;
+        }
+        Object tmpInvestigatedAt = source.readValue(getClass().getClassLoader());
+        if (tmpInvestigatedAt != null){
+            investigatedAt = (String)tmpInvestigatedAt;
         }
         Object tmpCreateAt = source.readValue(getClass().getClassLoader());
         if (tmpCreateAt != null){
@@ -179,8 +185,9 @@ abstract public class BaseSampleplot {
         this.type = entity.type;
         this.lng = entity.lng;
         this.lat = entity.lat;
-        this.investigateDate = entity.investigateDate;
-        this.investigator = entity.investigator;
+        this.alt = entity.alt;
+        this.investigatedAt = entity.investigatedAt;
+        this.investigatorName = entity.investigatorName;
         this.createAt = entity.createAt;
         this.updateAt = entity.updateAt;
         this.uploadAt = entity.uploadAt;

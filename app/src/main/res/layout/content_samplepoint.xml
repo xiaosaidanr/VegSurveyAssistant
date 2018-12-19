@@ -256,7 +256,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:text="@={viewmodel.samplepoint.investigator}"/>
+                android:text="@={viewmodel.samplepoint.investigatorName}"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -277,7 +277,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@={viewmodel.samplepoint.investigateDate}"/>
+                    android:text="@={viewmodel.samplepoint.investigatedAt}"/>
             </LinearLayout>
 
             <TextView

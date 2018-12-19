@@ -19,7 +19,6 @@ public class ArborPlotActivityViewModel extends BaseSampleplotActivityViewModel<
 
     @Override
     public ArborSampleplot getPlotData(SampleplotEntity entity) {
-        //TODO data transfor
         return ArborSampleplot.getInstance(entity);
     }
 

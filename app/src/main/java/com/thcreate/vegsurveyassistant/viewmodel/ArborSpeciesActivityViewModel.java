@@ -15,7 +15,6 @@ public class ArborSpeciesActivityViewModel extends BaseSpeciesActivityViewModel<
 
     @Override
     public ArborSpecies getSpeciesData(SpeciesEntity entity) {
-        //TODO data transfor
         return ArborSpecies.getInstance(entity);
     }
 

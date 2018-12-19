@@ -23,7 +23,6 @@ public class ShrubPlotActivityViewModel extends BaseSampleplotActivityViewModel<
 
     @Override
     public ShrubSampleplot getPlotData(SampleplotEntity entity) {
-        //TODO data transfor
         return ShrubSampleplot.getInstance(entity);
     }
 

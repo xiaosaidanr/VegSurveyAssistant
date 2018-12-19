@@ -16,7 +16,6 @@ public class ShrubSpeciesActivityViewModel extends BaseSpeciesActivityViewModel<
 
     @Override
     public ShrubSpecies getSpeciesData(SpeciesEntity entity) {
-        //TODO data transfor
         return ShrubSpecies.getInstance(entity);
     }
 

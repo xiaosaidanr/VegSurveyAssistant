@@ -45,10 +45,11 @@ public class SamplepointEntity extends BaseEntity {
 
     public String lat;//纬度
 
-    public String investigator;//调查人
+    @ColumnInfo(name = "investigator_name")
+    public String investigatorName;//调查人
 
-    @ColumnInfo(name = "investigate_date")
-    public String investigateDate;//调查时间
+    @ColumnInfo(name = "investigated_at")
+    public String investigatedAt;//调查时间
 
     public SamplepointEntity() {
     }
@@ -67,8 +68,8 @@ public class SamplepointEntity extends BaseEntity {
         this.alt = data.alt;
         this.lat = data.lat;
         this.lng = data.lng;
-        this.investigateDate = data.investigateDate;
-        this.investigator = data.investigator;
+        this.investigatedAt = data.investigatedAt;
+        this.investigatorName = data.investigatorName;
         this.createAt = data.createAt;
         this.updateAt = data.updateAt;
         this.uploadAt = data.uploadAt;

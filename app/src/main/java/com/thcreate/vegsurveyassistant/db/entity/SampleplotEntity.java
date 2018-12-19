@@ -46,10 +46,13 @@ public class SampleplotEntity extends BaseEntity {
 
     public String lat;//纬度
 
-    public String investigator;//调查人
+    public String alt;//海拔
 
-    @ColumnInfo(name = "investigate_date")
-    public String investigateDate;//调查时间
+    @ColumnInfo(name = "investigator_name")
+    public String investigatorName;//调查人
+
+    @ColumnInfo(name = "investigated_at")
+    public String investigatedAt;//调查时间
 
     public SampleplotEntity() {
     }
@@ -68,8 +71,9 @@ public class SampleplotEntity extends BaseEntity {
         this.type = data.type;
         this.lng = data.lng;
         this.lat = data.lat;
-        this.investigateDate = data.investigateDate;
-        this.investigator = data.investigator;
+        this.alt = data.alt;
+        this.investigatedAt = data.investigatedAt;
+        this.investigatorName = data.investigatorName;
         this.createAt = data.createAt;
         this.updateAt = data.updateAt;
         this.uploadAt = data.uploadAt;
