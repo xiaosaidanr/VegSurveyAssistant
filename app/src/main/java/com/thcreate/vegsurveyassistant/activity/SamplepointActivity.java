@@ -64,6 +64,7 @@ public class SamplepointActivity extends BaseActivity implements DatePickerDialo
             if (locationData.isValid){
                 ((EditText)findViewById(R.id.longitude_edit_text)).setText(locationData.longitude);
                 ((EditText)findViewById(R.id.latitude_edit_text)).setText(locationData.latitude);
+//                ((EditText)findViewById(R.id.altitude_edit_text)).setText(locationData.altitude);
                 ((EditText)findViewById(R.id.administrative_name_edit_text)).setText(locationData.address);
             }
             else {

@@ -47,6 +47,7 @@ public class LocationLiveData extends LiveData<LocationLiveData.LocationData> {
     public static class LocationData {
         public String longitude = null;
         public String latitude = null;
+        public String altitude = null;
         public boolean isValid = false;
         public String address = null;
 
@@ -54,6 +55,7 @@ public class LocationLiveData extends LiveData<LocationLiveData.LocationData> {
 
             longitude = String.valueOf(bdLocation.getLongitude());
             latitude = String.valueOf(bdLocation.getLatitude());
+            altitude = String.valueOf(bdLocation.getAltitude());
             address = bdLocation.getAddrStr();
             if (address == null){
                 isValid = false;
