@@ -91,6 +91,13 @@ public class SampleplotRepository {
         });
     }
 
+    public void softDeleteSampleplotEntityById(int id){
+        long deleteAt = new Date().getTime();
+        mAppExecutors.diskIO().execute(()->{
+            mDatabase.sampleplotDao().softDeleteById(id, deleteAt);
+        });
+    }
+
     public void deleteSampleplotEntity(SampleplotEntity data){
         mAppExecutors.diskIO().execute(()->{
             if (data.id == 0){

@@ -24,16 +24,16 @@ public interface SpeciesDao extends BaseDao<SpeciesEntity>{
 //    @Delete
 //    void delete(SpeciesEntity obj);
 
+    @Query("UPDATE species SET delete_at = :deleteAt WHERE id = :id")
+    void softDeleteById(int id, long deleteAt);
+
     @Query("DELETE FROM species WHERE id = :id")
     void deleteById(int id);
-
-    @Query("DELETE FROM species")
-    void deleteAll();
 
     @Query("SELECT * FROM species WHERE species_id = :speciesId")
     LiveData<SpeciesEntity> getSpeciesEntityBySpeciesId(String speciesId);
 
-    @Query("SELECT * FROM species WHERE plot_id = :plotId AND type = :type ORDER BY id ASC")
+    @Query("SELECT * FROM species WHERE plot_id = :plotId AND type = :type AND delete_at IS NULL ORDER BY id ASC")
     LiveData<List<SpeciesEntity>> getSpeciesEntityListByPlotIdAndType(String plotId, String type);
 
 }

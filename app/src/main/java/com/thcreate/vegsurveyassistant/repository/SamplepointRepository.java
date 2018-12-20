@@ -80,6 +80,12 @@ public class SamplepointRepository {
             mDatabase.samplepointDao().update(data);
         });
     }
+    public void softDeleteSamplepointById(int id){
+        long deleteAt = new Date().getTime();
+        mAppExecutors.diskIO().execute(()->{
+            mDatabase.samplepointDao().softDeleteById(id, deleteAt);
+        });
+    }
     public void deleteSamplepointById(int id){
         mAppExecutors.diskIO().execute(()->{
             mDatabase.samplepointDao().deleteById(id);

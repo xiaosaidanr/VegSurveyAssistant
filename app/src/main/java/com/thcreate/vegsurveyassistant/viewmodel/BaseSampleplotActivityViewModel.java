@@ -124,7 +124,7 @@ abstract public class BaseSampleplotActivityViewModel<T extends BaseSampleplot> 
     }
 
     public void deleteSpeciesEntityById(int id){
-        mSpeciesRepository.deleteSpeciesEntityById(id);
+        mSpeciesRepository.softDeleteSpeciesEntityById(id);
     }
 
     public void onGoForward(){

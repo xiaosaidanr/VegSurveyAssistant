@@ -73,7 +73,12 @@ public class SpeciesRepository {
             mDatabase.speciesDao().update(data);
         });
     }
-
+    public void softDeleteSpeciesEntityById(int id){
+        long deleteAt = new Date().getTime();
+        mAppExecutors.diskIO().execute(()->{
+            mDatabase.speciesDao().softDeleteById(id, deleteAt);
+        });
+    }
     public void deleteSpeciesEntityById(int id){
         mAppExecutors.diskIO().execute(()->{
             mDatabase.speciesDao().deleteById(id);

@@ -24,8 +24,8 @@ public interface SamplepointDao extends BaseDao<SamplepointEntity> {
 //    @Delete
 //    void delete(SamplepointEntity obj);
 
-    @Query("DELETE FROM point")
-    void deleteAll();
+    @Query("UPDATE point SET delete_at = :deleteAt WHERE id = :id")
+    void softDeleteById(int id, long deleteAt);
 
     @Query("DELETE FROM point WHERE id = :id")
     void deleteById(int id);
@@ -33,7 +33,7 @@ public interface SamplepointDao extends BaseDao<SamplepointEntity> {
     @Query("SELECT * FROM point WHERE point_id = :pointId")
     LiveData<SamplepointEntity> getSamplepointEntityByPointId(String pointId);
 
-    @Query("SELECT * FROM point WHERE user_id = :userId ORDER BY id ASC")
+    @Query("SELECT * FROM point WHERE user_id = :userId AND delete_at IS NULL ORDER BY id ASC")
     LiveData<List<SamplepointEntity>> getSamplepointEntityListByUserId(int userId);
 
 }

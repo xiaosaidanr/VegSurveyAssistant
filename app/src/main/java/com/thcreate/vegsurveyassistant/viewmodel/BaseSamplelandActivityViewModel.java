@@ -139,7 +139,7 @@ public class BaseSamplelandActivityViewModel extends AndroidViewModel {
     }
 
     public void deleteSampleplotEntityById(int id){
-        mSampleplotRepository.deleteSampleplotEntityById(id);
+        mSampleplotRepository.softDeleteSampleplotEntityById(id);
     }
 
 //    public void deleteGuanmuyfById(int id){

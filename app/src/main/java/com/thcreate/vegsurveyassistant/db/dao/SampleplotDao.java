@@ -24,14 +24,11 @@ public interface SampleplotDao extends BaseDao<SampleplotEntity> {
 //    @Delete
 //    void delete(SampleplotEntity obj);
 
+    @Query("UPDATE plot SET delete_at = :deleteAt WHERE id = :id")
+    void softDeleteById(int id, long deleteAt);
+
     @Query("DELETE FROM plot WHERE id = :id")
     void deleteById(int id);
-
-    @Query("DELETE FROM plot")
-    void deleteAll();
-
-    @Query("SELECT * FROM plot WHERE id = :id")
-    SampleplotEntity getSampleplotEntityById(int id);
 
     @Query("SELECT * FROM plot WHERE plot_id = :plotId")
     SampleplotEntity getSampleplotEntityByPlotIdSync(String plotId);
@@ -39,7 +36,7 @@ public interface SampleplotDao extends BaseDao<SampleplotEntity> {
     @Query("SELECT * FROM plot WHERE plot_id = :plotId")
     LiveData<SampleplotEntity> getSampleplotEntityByPlotId(String plotId);
 
-    @Query("SELECT * FROM plot WHERE land_id = :landId AND type = :type ORDER BY id ASC")
+    @Query("SELECT * FROM plot WHERE land_id = :landId AND type = :type AND delete_at IS NULL ORDER BY id ASC")
     LiveData<List<SampleplotEntity>> getSampleplotEntityListByLandIdAndType(String landId, String type);
 
 }

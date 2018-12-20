@@ -31,7 +31,7 @@ public abstract class BaseSamplelandListViewModel extends AndroidViewModel {
     }
 
     public void deleteSamplelandEntityById(int id){
-        samplelandRepository.deleteSamplelandEntityById(id);
+        samplelandRepository.softDeleteSamplelandEntityById(id);
     }
 
 }

@@ -125,4 +125,8 @@ public class SamplelandRepository {
     public void deleteSamplelandEntityById(int id){
         mAppExecutors.diskIO().execute(()-> mDatabase.samplelandDao().deleteById(id));
     }
+    public void softDeleteSamplelandEntityById(int id){
+        long deleteAt = new Date().getTime();
+        mAppExecutors.diskIO().execute(()-> mDatabase.samplelandDao().softDeleteById(id, deleteAt));
+    }
 }

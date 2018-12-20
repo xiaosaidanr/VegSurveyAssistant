@@ -21,11 +21,11 @@ public interface SamplelandDao extends BaseDao<SamplelandEntity> {
 //    @Delete
 //    void delete(SamplelandEntity obj);
 
+    @Query("UPDATE land SET delete_at = :deleteAt WHERE id = :id")
+    void softDeleteById(int id, long deleteAt);
+
     @Query("DELETE FROM land WHERE id = :id")
     void deleteById(int id);
-
-    @Query("DELETE FROM land")
-    void deleteAll();
 
     @Query("SELECT * FROM land WHERE land_id = :landId")
     SamplelandEntity getSamplelandEntityByLandIdSync(String landId);
@@ -33,10 +33,10 @@ public interface SamplelandDao extends BaseDao<SamplelandEntity> {
     @Query("SELECT * FROM land WHERE land_id = :landId")
     LiveData<SamplelandEntity> getSamplelandEntityByLandId(String landId);
 
-    @Query("SELECT * FROM land WHERE user_id = :userId ORDER BY id ASC")
+    @Query("SELECT * FROM land WHERE user_id = :userId AND delete_at IS NULL ORDER BY id ASC")
     LiveData<List<SamplelandEntity>> getSamplelandEntityListByUserId(int userId);
 
-    @Query("SELECT * FROM land WHERE user_id = :userId AND type = :type ORDER BY id ASC")
+    @Query("SELECT * FROM land WHERE user_id = :userId AND type = :type AND delete_at IS NULL ORDER BY id ASC")
     LiveData<List<SamplelandEntity>> getSamplelandEntityListByUserIdAndType(int userId, String type);
 
 }

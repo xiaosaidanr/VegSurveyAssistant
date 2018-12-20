@@ -37,6 +37,6 @@ public class SamplepointListViewModel extends AndroidViewModel {
     }
 
     public void deleteSamplepointById(int id){
-        mRepository.deleteSamplepointById(id);
+        mRepository.softDeleteSamplepointById(id);
     }
 }
