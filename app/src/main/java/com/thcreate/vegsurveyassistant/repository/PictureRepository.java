@@ -34,24 +34,34 @@ public class PictureRepository {
         return sINSTANCE;
     }
 
+    public void insertPictureEntity(PictureEntity entity){
+        Date dateNow = new Date();
+        entity.createAt = dateNow;
+        entity.updateAt = dateNow;
+        mAppExecutors.diskIO().execute(()->{
+            mDatabase.pictureDao().insert(entity);
+        });
+    }
+    public void updatePictureEntity(PictureEntity entity){
+        Date dateNow = new Date();
+        entity.updateAt = dateNow;
+        mAppExecutors.diskIO().execute(()->{
+            mDatabase.pictureDao().update(entity);
+        });
+    }
+    public void deletePictureEntity(PictureEntity entity){
+        mAppExecutors.diskIO().execute(()->{
+            mDatabase.pictureDao().delete(entity);
+        });
+    }
     public LiveData<List<PictureEntity>> loadAllPictureEntityByTypeAndOwnerId(String type, String ownerId){
         return mDatabase.pictureDao().getPictureEntityListByTypeAndOwnerId(type, ownerId);
-    }
-    public void softDeletePictureEntityByTypeAndOwnerId(String type, String ownerId){
-        long deleteAt = new Date().getTime();
-        mAppExecutors.diskIO().execute(()->{
-            mDatabase.pictureDao().softDeletePictureEntityByTypeAndOwnerId(type, ownerId, deleteAt);
-        });
     }
     public void softDeletePictureEntityById(int id){
         long deleteAt = new Date().getTime();
         mAppExecutors.diskIO().execute(()->{
             mDatabase.pictureDao().softDeleteById(id, deleteAt);
         });
-    }
-    //TODO softDeleteByPictureId
-    public void deletePictureEntityByPictureId(String pictureId){
-
     }
 
 }
