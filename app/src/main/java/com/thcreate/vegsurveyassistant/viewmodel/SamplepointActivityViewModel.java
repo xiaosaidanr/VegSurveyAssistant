@@ -102,10 +102,7 @@ public class SamplepointActivityViewModel extends AndroidViewModel {
         if (samplepointRaw == null){
             return false;
         }
-        Date dateNow = new Date();
-        samplepointRaw.updateAt = dateNow;
         if (action.equals(Macro.ACTION_ADD) || action.equals(Macro.ACTION_ADD_RESTORE)){
-            samplepointRaw.createAt = dateNow;
             mSamplepointRepository.insertSamplepoint(samplepointRaw.getEntity());
         }
         if (action.equals(Macro.ACTION_EDIT) || action.equals(Macro.ACTION_EDIT_RESTORE)){

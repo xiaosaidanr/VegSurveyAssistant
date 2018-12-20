@@ -9,6 +9,7 @@ import com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity;
 import com.thcreate.vegsurveyassistant.db.entity.User;
 import com.thcreate.vegsurveyassistant.util.Macro;
 
+import java.util.Date;
 import java.util.List;
 
 public class SpeciesRepository {
@@ -54,12 +55,20 @@ public class SpeciesRepository {
     }
 
     public void insertSpeciesEntity(SpeciesEntity data){
+        Date dateNow = new Date();
+        data.createAt = dateNow;
+        data.updateAt = dateNow;
         mAppExecutors.diskIO().execute(()->{
             mDatabase.speciesDao().insert(data);
         });
     }
 
     public void updateSpeciesEntity(SpeciesEntity data){
+        Date dateNow = new Date();
+        data.updateAt = dateNow;
+        if (data.createAt == null){
+            data.createAt = dateNow;
+        }
         mAppExecutors.diskIO().execute(()->{
             mDatabase.speciesDao().update(data);
         });

@@ -169,17 +169,13 @@ abstract public class BaseSampleplotActivityViewModel<T extends BaseSampleplot> 
         if (sampleplotRaw == null){
             return false;
         }
-        Date dateNow = new Date();
-        sampleplotRaw.updateAt = dateNow;
         if (action.equals(Macro.ACTION_ADD) || action.equals(Macro.ACTION_ADD_RESTORE)){
-            sampleplotRaw.createAt = dateNow;
             mSampleplotRepository.insertSampleplotEntity(sampleplotRaw.getEntity());
         }
         if (action.equals(Macro.ACTION_EDIT) || action.equals(Macro.ACTION_EDIT_RESTORE)){
             mSampleplotRepository.updateSampleplotEntity(sampleplotRaw.getEntity());
         }
         if (action.equals(Macro.ACTION_TEMP_SAVE) || action.equals(Macro.ACTION_TEMP_SAVE_RESTORE)){
-            sampleplotRaw.createAt = dateNow;
             mSampleplotRepository.updateSampleplotEntity(sampleplotRaw.getEntity());
         }
         return true;

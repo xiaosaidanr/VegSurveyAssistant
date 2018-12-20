@@ -45,6 +45,9 @@ public class PictureRepository {
     public void updatePictureEntity(PictureEntity entity){
         Date dateNow = new Date();
         entity.updateAt = dateNow;
+        if (entity.createAt == null){
+            entity.createAt = dateNow;
+        }
         mAppExecutors.diskIO().execute(()->{
             mDatabase.pictureDao().update(entity);
         });

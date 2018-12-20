@@ -10,6 +10,7 @@ import com.thcreate.vegsurveyassistant.db.entity.User;
 import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.PlotId;
 import com.thcreate.vegsurveyassistant.util.Macro;
 
+import java.util.Date;
 import java.util.List;
 
 public class SampleplotRepository {
@@ -56,12 +57,20 @@ public class SampleplotRepository {
     }
 
     public void insertSampleplotEntity(SampleplotEntity data){
+        Date dateNow = new Date();
+        data.createAt = dateNow;
+        data.updateAt = dateNow;
         mAppExecutors.diskIO().execute(()->{
             mDatabase.sampleplotDao().insert(data);
         });
     }
 
     public void updateSampleplotEntity(SampleplotEntity data){
+        Date dateNow = new Date();
+        data.updateAt = dateNow;
+        if (data.createAt == null){
+            data.createAt = dateNow;
+        }
         mAppExecutors.diskIO().execute(()->{
             if (data.id == 0){
                 SampleplotEntity tmp = mDatabase.sampleplotDao().getSampleplotEntityByPlotIdSync(data.plotId);

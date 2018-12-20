@@ -162,17 +162,13 @@ public class BaseSamplelandActivityViewModel extends AndroidViewModel {
         if (samplelandRaw == null){
             return false;
         }
-        Date dateNow = new Date();
-        samplelandRaw.updateAt = dateNow;
         if (action.equals(Macro.ACTION_ADD) || action.equals(Macro.ACTION_ADD_RESTORE)){
-            samplelandRaw.createAt = dateNow;
             mSamplelandRepository.insertSamplelandEntity(samplelandRaw.getEntity());
         }
         if (action.equals(Macro.ACTION_EDIT) || action.equals(Macro.ACTION_EDIT_RESTORE)){
             mSamplelandRepository.updateSamplelandEntity(samplelandRaw.getEntity());
         }
         if (action.equals(Macro.ACTION_TEMP_SAVE) || action.equals(Macro.ACTION_TEMP_SAVE_RESTORE)){
-            samplelandRaw.createAt = dateNow;
             mSamplelandRepository.updateSamplelandEntity(samplelandRaw.getEntity());
         }
         return true;

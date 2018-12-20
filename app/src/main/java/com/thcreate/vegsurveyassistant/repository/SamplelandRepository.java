@@ -9,6 +9,7 @@ import com.thcreate.vegsurveyassistant.db.AppDatabase;
 import com.thcreate.vegsurveyassistant.db.entity.SamplelandEntity;
 import com.thcreate.vegsurveyassistant.db.entity.User;
 
+import java.util.Date;
 import java.util.List;
 
 public class SamplelandRepository {
@@ -80,11 +81,19 @@ public class SamplelandRepository {
         });
     }
     public void insertSamplelandEntity(SamplelandEntity data){
+        Date dateNow = new Date();
+        data.createAt = dateNow;
+        data.updateAt = dateNow;
         mAppExecutors.diskIO().execute(()->{
             mDatabase.samplelandDao().insert(data);
         });
     }
     public void updateSamplelandEntity(SamplelandEntity data){
+        Date dateNow = new Date();
+        data.updateAt = dateNow;
+        if (data.createAt == null){
+            data.createAt = dateNow;
+        }
         mAppExecutors.diskIO().execute(()-> {
             if (data.id == 0){
                 SamplelandEntity tmp = mDatabase.samplelandDao().getSamplelandEntityByLandIdSync(data.landId);
