@@ -306,8 +306,8 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Menu"
                     android:drawableStart="@android:drawable/ic_input_add"
                     android:gravity="center_vertical"
-                    android:onClick="onAddHerbPlot"
-                    android:enabled="@{viewmodel.canAddHerbPlot}"/>
+                    android:onClick="onAddHerbPlot"/>
+                    <!--android:enabled="@{viewmodel.canAddHerbPlot}"/>-->
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/herbplot_list"
                     android:layout_width="match_parent"

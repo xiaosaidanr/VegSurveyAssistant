@@ -76,15 +76,15 @@ public class ShrubLandActivity extends BaseSamplelandActivity<ShrubLandActivityV
             if (dataList != null) {
                 mShrubPlotAdapter.setDataList(dataList);
                 mViewModel.shrubPlotCount.setValue(String.valueOf(dataList.size()));
-                if (dataList.size() == 0){
-                    mViewModel.canAddHerbPlot.setValue(false);
-                }
-                else {
-                    mViewModel.canAddHerbPlot.setValue(true);
-                }
+//                if (dataList.size() == 0){
+//                    mViewModel.canAddHerbPlot.setValue(false);
+//                }
+//                else {
+//                    mViewModel.canAddHerbPlot.setValue(true);
+//                }
             } else {
                 mViewModel.shrubPlotCount.setValue("0");
-                mViewModel.canAddHerbPlot.setValue(false);
+//                mViewModel.canAddHerbPlot.setValue(false);
             }
             mBinding.executePendingBindings();
         });

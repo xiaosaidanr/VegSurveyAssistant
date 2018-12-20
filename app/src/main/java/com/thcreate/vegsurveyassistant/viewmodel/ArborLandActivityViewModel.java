@@ -6,9 +6,9 @@ import android.support.annotation.NonNull;
 
 public class ArborLandActivityViewModel extends BaseSamplelandActivityViewModel {
 
-    public MutableLiveData<Boolean> canAddShrubPlot;
-
-    public MutableLiveData<Boolean> canAddHerbPlot;
+//    public MutableLiveData<Boolean> canAddShrubPlot;
+//
+//    public MutableLiveData<Boolean> canAddHerbPlot;
 
     public MutableLiveData<String> arborPlotCount;
 
@@ -18,10 +18,10 @@ public class ArborLandActivityViewModel extends BaseSamplelandActivityViewModel 
 
     public ArborLandActivityViewModel(@NonNull Application application) {
         super(application);
-        canAddShrubPlot = new MutableLiveData<>();
-        canAddShrubPlot.setValue(false);
-        canAddHerbPlot = new MutableLiveData<>();
-        canAddHerbPlot.setValue(false);
+//        canAddShrubPlot = new MutableLiveData<>();
+//        canAddShrubPlot.setValue(false);
+//        canAddHerbPlot = new MutableLiveData<>();
+//        canAddHerbPlot.setValue(false);
 
         arborPlotCount = new MutableLiveData<>();
         shrubPlotCount = new MutableLiveData<>();

@@ -91,15 +91,15 @@ public class ArborLandActivity extends BaseSamplelandActivity<ArborLandActivityV
             if (dataList != null) {
                 mArborPlotAdapter.setDataList(dataList);
                 mViewModel.arborPlotCount.setValue(String.valueOf(dataList.size()));
-                if (dataList.size() == 0){
-                    mViewModel.canAddShrubPlot.setValue(false);
-                }
-                else {
-                    mViewModel.canAddShrubPlot.setValue(true);
-                }
+//                if (dataList.size() == 0){
+//                    mViewModel.canAddShrubPlot.setValue(false);
+//                }
+//                else {
+//                    mViewModel.canAddShrubPlot.setValue(true);
+//                }
             } else {
                 mViewModel.arborPlotCount.setValue("0");
-                mViewModel.canAddShrubPlot.setValue(false);
+//                mViewModel.canAddShrubPlot.setValue(false);
             }
             mBinding.executePendingBindings();
         });
@@ -107,15 +107,15 @@ public class ArborLandActivity extends BaseSamplelandActivity<ArborLandActivityV
             if (dataList != null) {
                 mShrubPlotAdapter.setDataList(dataList);
                 mViewModel.shrubPlotCount.setValue(String.valueOf(dataList.size()));
-                if (dataList.size() == 0){
-                    mViewModel.canAddHerbPlot.setValue(false);
-                }
-                else {
-                    mViewModel.canAddHerbPlot.setValue(true);
-                }
+//                if (dataList.size() == 0){
+//                    mViewModel.canAddHerbPlot.setValue(false);
+//                }
+//                else {
+//                    mViewModel.canAddHerbPlot.setValue(true);
+//                }
             } else {
                 mViewModel.shrubPlotCount.setValue("0");
-                mViewModel.canAddHerbPlot.setValue(false);
+//                mViewModel.canAddHerbPlot.setValue(false);
             }
             mBinding.executePendingBindings();
         });
