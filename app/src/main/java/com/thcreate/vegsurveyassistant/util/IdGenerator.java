@@ -11,12 +11,12 @@ public class IdGenerator {
 
     public static String getId(int userId){
         String dateStr = getTimeNowString();
-        return String.valueOf(userId) + "-" + dateStr;
+        return String.valueOf(userId) + "_" + dateStr;
     }
 
     private static String getTimeNowString(){
         Locale locale = Locale.CHINA;
-        return new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss_SSS", locale).format(new Date());
+        return new SimpleDateFormat("yyyyMMddHHmmssSSS", locale).format(new Date());
     }
 
 }
