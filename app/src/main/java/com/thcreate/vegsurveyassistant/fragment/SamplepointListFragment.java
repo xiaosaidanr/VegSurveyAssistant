@@ -25,11 +25,10 @@ import com.thcreate.vegsurveyassistant.adapter.ItemClickCallback;
 import com.thcreate.vegsurveyassistant.adapter.RecyclerViewSwipeDismissController;
 import com.thcreate.vegsurveyassistant.adapter.SamplepointAdapter;
 import com.thcreate.vegsurveyassistant.databinding.FragmentSamplepointListBinding;
-import com.thcreate.vegsurveyassistant.db.entity.SamplepointEntity;
 import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.PointMainInfo;
 import com.thcreate.vegsurveyassistant.util.IdGenerator;
 import com.thcreate.vegsurveyassistant.util.Macro;
-import com.thcreate.vegsurveyassistant.viewmodel.SamplepointListViewModel;
+import com.thcreate.vegsurveyassistant.viewmodel.MainActivityViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,7 +41,7 @@ public class SamplepointListFragment extends BaseFragment {
 
     private Toolbar mToolbar;
 
-    SamplepointListViewModel mViewModel;
+    private MainActivityViewModel mSharedViewModel;
     private FragmentSamplepointListBinding mBinding;
 
     private SamplepointAdapter mSamplepointAdapter;
@@ -100,7 +99,7 @@ public class SamplepointListFragment extends BaseFragment {
                 ItemTouchHelper.LEFT,
                 ContextCompat.getDrawable(getActivity(), R.drawable.ic_delete_forever));
         controller.setOnDeleteCallback((id, position)->{
-            mViewModel.deleteSamplepointById(id);
+            mSharedViewModel.softDeletePointById(id);
         });
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(controller);
 
@@ -118,13 +117,13 @@ public class SamplepointListFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(SamplepointListViewModel.class);
+        mSharedViewModel = ViewModelProviders.of(getActivity()).get(MainActivityViewModel.class);
 
         subscribeUi();
     }
 
     private void subscribeUi() {
-        mViewModel.getSamplepointList().observe(this, (samplepointList)->{
+        mSharedViewModel.getPointList().observe(this, (samplepointList)->{
             if (samplepointList != null) {
                 mBinding.setIsLoading(false);
                 mSamplepointAdapter.setDataList(samplepointList);

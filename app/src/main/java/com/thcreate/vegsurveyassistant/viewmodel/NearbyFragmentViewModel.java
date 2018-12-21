@@ -27,25 +27,12 @@ public class NearbyFragmentViewModel extends AndroidViewModel {
 
     public ContinuousLocationLiveData myContinuousLocationData;
 
-    private SamplelandRepository mSamplelandRepository;
-    private SamplepointRepository mSamplepointRepository;
-
     private final BitmapDescriptor mMarkerIcon;
 
     public NearbyFragmentViewModel(@NonNull Application application) {
         super(application);
         myContinuousLocationData = new ContinuousLocationLiveData(application);
-        mSamplelandRepository = ((BasicApp)application).getSamplelandRepository();
-        mSamplepointRepository = ((BasicApp)application).getSamplepointRepository();
         mMarkerIcon = BitmapDescriptorFactory.fromResource(R.drawable.ic_mapmarker);
-    }
-
-    public LiveData<List<LandMainInfo>> getSamplelandEntityList(){
-        return mSamplelandRepository.loadAllSamplelandEntity();
-    }
-
-    public LiveData<List<PointMainInfo>> getSamplepointEntityList(){
-        return mSamplepointRepository.loadAllSamplepoint();
     }
 
     public @Nullable MarkerOptions getMarkerOptionFromData(LandMainInfo land){

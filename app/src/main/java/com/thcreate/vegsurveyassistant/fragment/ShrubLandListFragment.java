@@ -19,10 +19,9 @@ import com.thcreate.vegsurveyassistant.adapter.ItemClickCallback;
 import com.thcreate.vegsurveyassistant.adapter.RecyclerViewSwipeDismissController;
 import com.thcreate.vegsurveyassistant.adapter.SamplelandAdapter;
 import com.thcreate.vegsurveyassistant.databinding.FragmentShrublandListBinding;
-import com.thcreate.vegsurveyassistant.db.entity.SamplelandEntity;
 import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.LandMainInfo;
 import com.thcreate.vegsurveyassistant.util.Macro;
-import com.thcreate.vegsurveyassistant.viewmodel.ShrubLandListViewModel;
+import com.thcreate.vegsurveyassistant.viewmodel.MainActivityViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,7 +32,7 @@ public class ShrubLandListFragment extends Fragment {
 
     private static final String TAG = "ShrubLandListFragment";
 
-    private ShrubLandListViewModel mViewModel;
+    private MainActivityViewModel mSharedViewModel;
     private FragmentShrublandListBinding mBinding;
 
     private SamplelandAdapter mSamplelandAdapter;
@@ -86,7 +85,7 @@ public class ShrubLandListFragment extends Fragment {
                 0,
                 ItemTouchHelper.LEFT,
                 ContextCompat.getDrawable(getActivity(), R.drawable.ic_delete_forever));
-        controller.setOnDeleteCallback((id, position)-> mViewModel.deleteSamplelandEntityById(id));
+        controller.setOnDeleteCallback((id, position)-> mSharedViewModel.softDeleteLandById(id));
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(controller);
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_shrubland_list, container, false);
         mSamplelandAdapter = new SamplelandAdapter(mItemClickCallback);
@@ -98,7 +97,7 @@ public class ShrubLandListFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(ShrubLandListViewModel.class);
+        mSharedViewModel = ViewModelProviders.of(getActivity()).get(MainActivityViewModel.class);
         subscribeUi();
     }
     private final ItemClickCallback<LandMainInfo> mItemClickCallback = (data) -> {
@@ -109,7 +108,7 @@ public class ShrubLandListFragment extends Fragment {
         startActivity(intent);
     };
     private void subscribeUi() {
-        mViewModel.getSamplelandEntityList().observe(this, (dataList)->{
+        mSharedViewModel.getBushLandList().observe(this, (dataList)->{
             if (dataList != null) {
                 mBinding.setIsLoading(false);
                 mSamplelandAdapter.setDataList(dataList);

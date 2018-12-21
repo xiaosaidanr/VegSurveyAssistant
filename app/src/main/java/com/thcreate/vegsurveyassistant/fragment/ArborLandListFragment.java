@@ -18,10 +18,9 @@ import com.thcreate.vegsurveyassistant.adapter.ItemClickCallback;
 import com.thcreate.vegsurveyassistant.adapter.RecyclerViewSwipeDismissController;
 import com.thcreate.vegsurveyassistant.adapter.SamplelandAdapter;
 import com.thcreate.vegsurveyassistant.databinding.FragmentArborlandListBinding;
-import com.thcreate.vegsurveyassistant.db.entity.SamplelandEntity;
 import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.LandMainInfo;
 import com.thcreate.vegsurveyassistant.util.Macro;
-import com.thcreate.vegsurveyassistant.viewmodel.ArborLandListViewModel;
+import com.thcreate.vegsurveyassistant.viewmodel.MainActivityViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,7 +31,7 @@ public class ArborLandListFragment extends Fragment {
 
     private static final String TAG = "ArborLandListFragment";
 
-    private ArborLandListViewModel mViewModel;
+    private MainActivityViewModel mSharedViewModel;
     private FragmentArborlandListBinding mBinding;
 
     private SamplelandAdapter mSamplelandAdapter;
@@ -86,7 +85,7 @@ public class ArborLandListFragment extends Fragment {
                 ItemTouchHelper.LEFT,
                 ContextCompat.getDrawable(getActivity(), R.drawable.ic_delete_forever));
         controller.setOnDeleteCallback((id, position)->{
-            mViewModel.deleteSamplelandEntityById(id);
+            mSharedViewModel.softDeleteLandById(id);
         });
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(controller);
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_arborland_list, container, false);
@@ -99,7 +98,7 @@ public class ArborLandListFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(ArborLandListViewModel.class);
+        mSharedViewModel = ViewModelProviders.of(getActivity()).get(MainActivityViewModel.class);
 
         subscribeUi();
     }
@@ -113,7 +112,7 @@ public class ArborLandListFragment extends Fragment {
     };
 
     private void subscribeUi() {
-        mViewModel.getSamplelandEntityList().observe(this, (dataList)->{
+        mSharedViewModel.getTreeLandList().observe(this, (dataList)->{
             if (dataList != null) {
                 mBinding.setIsLoading(false);
                 mSamplelandAdapter.setDataList(dataList);

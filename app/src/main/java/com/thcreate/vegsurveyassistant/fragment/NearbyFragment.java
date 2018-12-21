@@ -26,6 +26,7 @@ import com.thcreate.vegsurveyassistant.activity.ShrubLandActivity;
 import com.thcreate.vegsurveyassistant.activity.ArborLandActivity;
 import com.thcreate.vegsurveyassistant.databinding.FragmentNearbyBinding;
 import com.thcreate.vegsurveyassistant.util.Macro;
+import com.thcreate.vegsurveyassistant.viewmodel.MainActivityViewModel;
 import com.thcreate.vegsurveyassistant.viewmodel.NearbyFragmentViewModel;
 
 /**
@@ -38,6 +39,7 @@ public class NearbyFragment extends BaseFragment implements BaiduMap.OnMarkerCli
     private static final String TAG = "NearbyFragment";
 
     private NearbyFragmentViewModel mViewModel;
+    private MainActivityViewModel mSharedViewModel;
     private FragmentNearbyBinding mBinding;
 
     private MapView mMapView;
@@ -110,6 +112,7 @@ public class NearbyFragment extends BaseFragment implements BaiduMap.OnMarkerCli
         Log.e(this.getClass().getSimpleName(), "onActivityCreated" + " " + this.toString());
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(NearbyFragmentViewModel.class);
+        mSharedViewModel = ViewModelProviders.of(getActivity()).get(MainActivityViewModel.class);
         subscribeUi();
     }
 
@@ -131,7 +134,7 @@ public class NearbyFragment extends BaseFragment implements BaiduMap.OnMarkerCli
         });
 
 
-        mViewModel.getSamplelandEntityList().observe(this, dataList -> {
+        mSharedViewModel.getLandList().observe(this, dataList -> {
             clearOverlay(null);
             if (dataList != null && dataList.size() > 0){
                 mMarkers = new Marker[dataList.size()];

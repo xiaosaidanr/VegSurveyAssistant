@@ -18,10 +18,9 @@ import com.thcreate.vegsurveyassistant.adapter.ItemClickCallback;
 import com.thcreate.vegsurveyassistant.adapter.RecyclerViewSwipeDismissController;
 import com.thcreate.vegsurveyassistant.adapter.SamplelandAdapter;
 import com.thcreate.vegsurveyassistant.databinding.FragmentHerblandListBinding;
-import com.thcreate.vegsurveyassistant.db.entity.SamplelandEntity;
 import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.LandMainInfo;
 import com.thcreate.vegsurveyassistant.util.Macro;
-import com.thcreate.vegsurveyassistant.viewmodel.HerbLandListViewModel;
+import com.thcreate.vegsurveyassistant.viewmodel.MainActivityViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,7 +31,7 @@ public class HerbLandListFragment extends Fragment {
 
     private static final String TAG = "HerbLandListFragment";
 
-    private HerbLandListViewModel mViewModel;
+    private MainActivityViewModel mSharedViewModel;
     private FragmentHerblandListBinding mBinding;
 
     private SamplelandAdapter mSamplelandAdapter;
@@ -85,7 +84,7 @@ public class HerbLandListFragment extends Fragment {
                 0,
                 ItemTouchHelper.LEFT,
                 ContextCompat.getDrawable(getActivity(), R.drawable.ic_delete_forever));
-        controller.setOnDeleteCallback((id, position)-> mViewModel.deleteSamplelandEntityById(id));
+        controller.setOnDeleteCallback((id, position)-> mSharedViewModel.softDeleteLandById(id));
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(controller);
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_herbland_list, container, false);
         mSamplelandAdapter = new SamplelandAdapter(mItemClickCallback);
@@ -97,12 +96,12 @@ public class HerbLandListFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(HerbLandListViewModel.class);
+        mSharedViewModel = ViewModelProviders.of(getActivity()).get(MainActivityViewModel.class);
         subscribeUi();
     }
 
     private void subscribeUi() {
-        mViewModel.getSamplelandEntityList().observe(this, (dataList)->{
+        mSharedViewModel.getGrassLandList().observe(this, (dataList)->{
             if (dataList != null) {
                 mBinding.setIsLoading(false);
                 mSamplelandAdapter.setDataList(dataList);
