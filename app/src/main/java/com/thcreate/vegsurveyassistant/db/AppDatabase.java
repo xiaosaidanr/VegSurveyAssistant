@@ -33,7 +33,7 @@ import com.thcreate.vegsurveyassistant.db.entity.User;
                 SampleplotEntity.class,
                 SpeciesEntity.class,
                 SamplepointEntity.class,
-                PictureEntity.class
+//                PictureEntity.class
         },
         version = 1,
         exportSchema = false
@@ -58,7 +58,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract SamplepointDao samplepointDao();
 
-    public abstract PictureDao pictureDao();
+//    public abstract PictureDao pictureDao();
 
     public static AppDatabase getInstance(final Context context, final AppExecutors executors){
         if (sINSTANCE == null){

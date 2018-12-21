@@ -8,7 +8,6 @@ public class Picture {
 
     public int id;
     public String pictureId;//图片ID
-    public String type;
     public String ownerId;
     public String localAddr;
     public String url;
@@ -23,7 +22,6 @@ public class Picture {
     public Picture(PictureEntity entity){
         this.id = entity.id;
         this.pictureId = entity.pictureId;
-        this.type = entity.type;
         this.ownerId = entity.ownerId;
         this.localAddr = entity.localAddr;
         this.url = entity.url;
@@ -33,11 +31,4 @@ public class Picture {
         this.deleteAt = entity.deleteAt;
     }
 
-    public PictureEntity getEntity(){
-        return new PictureEntity(this);
-    }
-
-//    public static Picture getInstance(PictureEntity entity){
-//        return new Picture(entity);
-//    }
 }

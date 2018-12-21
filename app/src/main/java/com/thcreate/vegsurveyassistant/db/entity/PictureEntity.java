@@ -7,9 +7,6 @@ import android.arch.persistence.room.PrimaryKey;
 
 import com.thcreate.vegsurveyassistant.db.entity.model.Picture;
 
-@Entity(
-        tableName = "picture"
-)
 public class PictureEntity extends BaseEntity {
 
     @PrimaryKey(autoGenerate = true)
@@ -17,8 +14,6 @@ public class PictureEntity extends BaseEntity {
 
     @ColumnInfo(name = "picture_id")
     public String pictureId;
-
-    public String type;
 
     @ColumnInfo(name = "owner_id")
     public String ownerId;
@@ -35,7 +30,6 @@ public class PictureEntity extends BaseEntity {
     public PictureEntity(Picture data){
         this.id = data.id;
         this.pictureId = data.pictureId;
-        this.type = data.type;
         this.ownerId = data.ownerId;
         this.localAddr = data.localAddr;
         this.url = data.url;
