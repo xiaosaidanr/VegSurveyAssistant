@@ -7,6 +7,7 @@ import java.util.Date;
 public class Picture {
 
     public int id;
+    public String pictureId;//图片ID
     public String type;
     public String ownerId;
     public String localAddr;
@@ -21,6 +22,7 @@ public class Picture {
 
     public Picture(PictureEntity entity){
         this.id = entity.id;
+        this.pictureId = entity.pictureId;
         this.type = entity.type;
         this.ownerId = entity.ownerId;
         this.localAddr = entity.localAddr;

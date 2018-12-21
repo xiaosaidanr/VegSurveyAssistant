@@ -15,6 +15,9 @@ public class PictureEntity extends BaseEntity {
     @PrimaryKey(autoGenerate = true)
     public int id;
 
+    @ColumnInfo(name = "picture_id")
+    public String pictureId;
+
     public String type;
 
     @ColumnInfo(name = "owner_id")
@@ -31,6 +34,7 @@ public class PictureEntity extends BaseEntity {
     @Ignore
     public PictureEntity(Picture data){
         this.id = data.id;
+        this.pictureId = data.pictureId;
         this.type = data.type;
         this.ownerId = data.ownerId;
         this.localAddr = data.localAddr;
