@@ -19,11 +19,15 @@ import com.thcreate.vegsurveyassistant.db.dao.SampleplotDao;
 import com.thcreate.vegsurveyassistant.db.dao.SpeciesDao;
 import com.thcreate.vegsurveyassistant.db.dao.UserDao;
 import com.thcreate.vegsurveyassistant.db.dao.SamplepointDao;
+import com.thcreate.vegsurveyassistant.db.entity.LandPictureEntity;
 import com.thcreate.vegsurveyassistant.db.entity.PictureEntity;
+import com.thcreate.vegsurveyassistant.db.entity.PlotPictureEntity;
+import com.thcreate.vegsurveyassistant.db.entity.PointPictureEntity;
 import com.thcreate.vegsurveyassistant.db.entity.SamplelandEntity;
 import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
 import com.thcreate.vegsurveyassistant.db.entity.SamplepointEntity;
 import com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity;
+import com.thcreate.vegsurveyassistant.db.entity.SpeciesPictureEntity;
 import com.thcreate.vegsurveyassistant.db.entity.User;
 
 @Database(
@@ -33,7 +37,10 @@ import com.thcreate.vegsurveyassistant.db.entity.User;
                 SampleplotEntity.class,
                 SpeciesEntity.class,
                 SamplepointEntity.class,
-//                PictureEntity.class
+                PointPictureEntity.class,
+                LandPictureEntity.class,
+                PlotPictureEntity.class,
+                SpeciesPictureEntity.class
         },
         version = 1,
         exportSchema = false
@@ -58,7 +65,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract SamplepointDao samplepointDao();
 
-//    public abstract PictureDao pictureDao();
+    public abstract PictureDao pictureDao();
 
     public static AppDatabase getInstance(final Context context, final AppExecutors executors){
         if (sINSTANCE == null){

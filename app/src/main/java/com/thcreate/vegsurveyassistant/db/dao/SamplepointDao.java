@@ -12,7 +12,7 @@ import java.util.List;
 @Dao
 public interface SamplepointDao extends BaseDao<SamplepointEntity> {
 
-    @Query("UPDATE point SET delete_at = :deleteAt WHERE id = :id")
+    @Query("UPDATE point SET delete_at = :deleteAt, update_at = :deleteAt WHERE id = :id")
     void softDeleteById(int id, long deleteAt);
 
     @Query("DELETE FROM point WHERE id = :id")

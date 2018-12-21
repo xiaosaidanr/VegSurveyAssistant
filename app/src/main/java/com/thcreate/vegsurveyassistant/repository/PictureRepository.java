@@ -6,6 +6,7 @@ import android.content.Context;
 import com.thcreate.vegsurveyassistant.AppExecutors;
 import com.thcreate.vegsurveyassistant.db.AppDatabase;
 import com.thcreate.vegsurveyassistant.db.entity.PictureEntity;
+import com.thcreate.vegsurveyassistant.db.entity.PlotPictureEntity;
 
 import java.util.Date;
 import java.util.List;
@@ -34,37 +35,29 @@ public class PictureRepository {
         return sINSTANCE;
     }
 
-//    public void insertPictureEntity(PictureEntity entity){
-//        Date dateNow = new Date();
-//        entity.createAt = dateNow;
-//        entity.updateAt = dateNow;
-//        mAppExecutors.diskIO().execute(()->{
-//            mDatabase.pictureDao().insert(entity);
-//        });
-//    }
-//    public void updatePictureEntity(PictureEntity entity){
-//        Date dateNow = new Date();
-//        entity.updateAt = dateNow;
-//        if (entity.createAt == null){
-//            entity.createAt = dateNow;
-//        }
-//        mAppExecutors.diskIO().execute(()->{
-//            mDatabase.pictureDao().update(entity);
-//        });
-//    }
-//    public void deletePictureEntity(PictureEntity entity){
-//        mAppExecutors.diskIO().execute(()->{
-//            mDatabase.pictureDao().delete(entity);
-//        });
-//    }
-//    public LiveData<List<PictureEntity>> loadAllPictureEntityByOwnerId(String ownerId){
-//        return mDatabase.pictureDao().getPictureEntityListByOwnerId(ownerId);
-//    }
-//    public void softDeletePictureEntityById(int id){
-//        long deleteAt = new Date().getTime();
-//        mAppExecutors.diskIO().execute(()->{
-//            mDatabase.pictureDao().softDeleteById(id, deleteAt);
-//        });
-//    }
+    public void insertPlotPictureEntity(PlotPictureEntity entity){
+        Date dateNow = new Date();
+        entity.createAt = dateNow;
+        entity.updateAt = dateNow;
+        mAppExecutors.diskIO().execute(()->{
+            mDatabase.pictureDao().insertPlotPicture(entity);
+        });
+    }
+    public void softDeletePlotPictureEntity(PlotPictureEntity entity){
+        Date dateNow = new Date();
+        entity.updateAt = dateNow;
+        entity.deleteAt = dateNow;
+        mAppExecutors.diskIO().execute(()->{
+            mDatabase.pictureDao().updatePlotPicture(entity);
+        });
+    }
+    public void deletePlotPictureEntity(PlotPictureEntity entity){
+        mAppExecutors.diskIO().execute(()->{
+            mDatabase.pictureDao().deletePlotPicture(entity);
+        });
+    }
+    public LiveData<List<PlotPictureEntity>> loadAllPlotPictureEntityByOwnerId(String ownerId){
+        return mDatabase.pictureDao().getPlotPictureEntityListByOwnerId(ownerId);
+    }
 
 }

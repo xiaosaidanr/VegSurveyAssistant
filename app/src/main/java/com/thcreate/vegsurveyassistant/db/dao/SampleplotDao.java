@@ -15,7 +15,7 @@ import java.util.List;
 @Dao
 public interface SampleplotDao extends BaseDao<SampleplotEntity> {
 
-    @Query("UPDATE plot SET delete_at = :deleteAt WHERE id = :id")
+    @Query("UPDATE plot SET delete_at = :deleteAt, update_at = :deleteAt WHERE id = :id")
     void softDeleteById(int id, long deleteAt);
 
     @Query("DELETE FROM plot WHERE id = :id")

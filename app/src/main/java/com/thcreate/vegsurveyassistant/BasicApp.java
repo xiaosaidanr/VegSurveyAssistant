@@ -5,6 +5,7 @@ import android.app.Application;
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.thcreate.vegsurveyassistant.db.AppDatabase;
+import com.thcreate.vegsurveyassistant.repository.PictureRepository;
 import com.thcreate.vegsurveyassistant.repository.SpeciesRepository;
 import com.thcreate.vegsurveyassistant.repository.SamplelandRepository;
 import com.thcreate.vegsurveyassistant.repository.SamplepointRepository;
@@ -42,6 +43,9 @@ public class BasicApp extends Application {
     }
     public SamplelandRepository getSamplelandRepository(){
         return SamplelandRepository.getInstance(this, getDatabase(), mAppExecutors);
+    }
+    public PictureRepository getPictureRepository(){
+        return PictureRepository.getInstance(this, getDatabase(), mAppExecutors);
     }
 
 }
