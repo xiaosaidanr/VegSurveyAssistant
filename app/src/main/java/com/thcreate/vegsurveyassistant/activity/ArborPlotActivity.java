@@ -19,6 +19,7 @@ import com.thcreate.vegsurveyassistant.adapter.RecyclerViewSwipeDismissControlle
 import com.thcreate.vegsurveyassistant.adapter.SpeciesAdapter;
 import com.thcreate.vegsurveyassistant.databinding.ActivityArborplotBinding;
 import com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity;
+import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.SpeciesMainInfo;
 import com.thcreate.vegsurveyassistant.util.Macro;
 import com.thcreate.vegsurveyassistant.viewmodel.ArborPlotActivityViewModel;
 
@@ -86,7 +87,7 @@ public class ArborPlotActivity extends BaseSampleplotActivity<ArborPlotActivityV
 
         });
     }
-    private final ItemClickCallback<SpeciesEntity> mItemClickCallback = (data) -> {
+    private final ItemClickCallback<SpeciesMainInfo> mItemClickCallback = (data) -> {
         mViewModel.onGoForward();
         Intent intent = new Intent(ArborPlotActivity.this, ArborSpeciesActivity.class);
         intent.putExtra(Macro.SAMPLEPLOT_ID, data.plotId);

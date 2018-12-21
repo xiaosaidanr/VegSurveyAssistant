@@ -16,6 +16,7 @@ import com.thcreate.vegsurveyassistant.adapter.RecyclerViewSwipeDismissControlle
 import com.thcreate.vegsurveyassistant.adapter.SampleplotAdapter;
 import com.thcreate.vegsurveyassistant.databinding.ActivityShrublandBinding;
 import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
+import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.PlotMainInfo;
 import com.thcreate.vegsurveyassistant.util.Macro;
 import com.thcreate.vegsurveyassistant.viewmodel.ShrubLandActivityViewModel;
 
@@ -110,7 +111,7 @@ public class ShrubLandActivity extends BaseSamplelandActivity<ShrubLandActivityV
 
         });
     }
-    private final ItemClickCallback<SampleplotEntity> mShrubPlotItemClickCallback = (data) -> {
+    private final ItemClickCallback<PlotMainInfo> mShrubPlotItemClickCallback = (data) -> {
         mViewModel.onGoForward();
         Intent intent = new Intent(ShrubLandActivity.this, ShrubPlotActivity.class);
         intent.putExtra(Macro.SAMPLELAND_ID, data.landId);
@@ -119,7 +120,7 @@ public class ShrubLandActivity extends BaseSamplelandActivity<ShrubLandActivityV
         intent.putExtra(Macro.SAMPLEPLOT_ID, data.plotId);
         startActivity(intent);
     };
-    private final ItemClickCallback<SampleplotEntity> mHerbPlotItemClickCallback = (data) -> {
+    private final ItemClickCallback<PlotMainInfo> mHerbPlotItemClickCallback = (data) -> {
         mViewModel.onGoForward();
         Intent intent = new Intent(ShrubLandActivity.this, HerbPlotActivity.class);
         intent.putExtra(Macro.SAMPLELAND_ID, data.landId);

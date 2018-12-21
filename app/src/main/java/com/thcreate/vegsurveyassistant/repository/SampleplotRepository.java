@@ -6,8 +6,7 @@ import android.content.Context;
 import com.thcreate.vegsurveyassistant.AppExecutors;
 import com.thcreate.vegsurveyassistant.db.AppDatabase;
 import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
-import com.thcreate.vegsurveyassistant.db.entity.User;
-import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.PlotId;
+import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.PlotMainInfo;
 import com.thcreate.vegsurveyassistant.util.Macro;
 
 import java.util.Date;
@@ -44,16 +43,16 @@ public class SampleplotRepository {
         return mDatabase.sampleplotDao().getSampleplotEntityByPlotId(plotId);
     }
 
-    public LiveData<List<SampleplotEntity>> getAllArborSampleplotEntityByLandId(String landId){
-        return mDatabase.sampleplotDao().getSampleplotEntityListByLandIdAndType(landId, Macro.ARBOR);
+    public LiveData<List<PlotMainInfo>> getAllArborSampleplotEntityByLandId(String landId){
+        return mDatabase.sampleplotDao().getPlotMainInfoListByLandIdAndType(landId, Macro.ARBOR);
     }
 
-    public LiveData<List<SampleplotEntity>> getAllShrubSampleplotEntityByLandId(String landId){
-        return mDatabase.sampleplotDao().getSampleplotEntityListByLandIdAndType(landId, Macro.SHRUB);
+    public LiveData<List<PlotMainInfo>> getAllShrubSampleplotEntityByLandId(String landId){
+        return mDatabase.sampleplotDao().getPlotMainInfoListByLandIdAndType(landId, Macro.SHRUB);
     }
 
-    public LiveData<List<SampleplotEntity>> getAllHerbSampleplotEntityByLandId(String landId){
-        return mDatabase.sampleplotDao().getSampleplotEntityListByLandIdAndType(landId, Macro.HERB);
+    public LiveData<List<PlotMainInfo>> getAllHerbSampleplotEntityByLandId(String landId){
+        return mDatabase.sampleplotDao().getPlotMainInfoListByLandIdAndType(landId, Macro.HERB);
     }
 
     public void insertSampleplotEntity(SampleplotEntity data){

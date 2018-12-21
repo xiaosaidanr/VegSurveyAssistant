@@ -11,22 +11,23 @@ import android.view.ViewGroup;
 import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.databinding.ItemSamplelandBinding;
 import com.thcreate.vegsurveyassistant.db.entity.SamplelandEntity;
+import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.LandMainInfo;
 
 import java.util.List;
 
 public class SamplelandAdapter extends RecyclerView.Adapter<SamplelandAdapter.LandViewHolder> {
 
-    List<SamplelandEntity> mDataList;
+    List<LandMainInfo> mDataList;
 
     @Nullable
-    private final ItemClickCallback<SamplelandEntity> mClickCallback;
+    private final ItemClickCallback<LandMainInfo> mClickCallback;
 
-    public SamplelandAdapter(ItemClickCallback<SamplelandEntity> callback) {
+    public SamplelandAdapter(ItemClickCallback<LandMainInfo> callback) {
         mClickCallback = callback;
         setHasStableIds(true);
     }
 
-    public void setDataList(final List<SamplelandEntity> dataList) {
+    public void setDataList(final List<LandMainInfo> dataList) {
         if (mDataList == null) {
             mDataList = dataList;
             notifyItemRangeInserted(0, dataList.size());
@@ -50,8 +51,8 @@ public class SamplelandAdapter extends RecyclerView.Adapter<SamplelandAdapter.La
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                    SamplelandEntity newData = dataList.get(newItemPosition);
-                    SamplelandEntity oldData = mDataList.get(oldItemPosition);
+                    LandMainInfo newData = dataList.get(newItemPosition);
+                    LandMainInfo oldData = mDataList.get(oldItemPosition);
                     return newData.landId.equals(oldData.landId);
                 }
             });

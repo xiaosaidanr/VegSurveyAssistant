@@ -16,6 +16,7 @@ import com.thcreate.vegsurveyassistant.adapter.SampleplotAdapter;
 import com.thcreate.vegsurveyassistant.adapter.ItemClickCallback;
 import com.thcreate.vegsurveyassistant.databinding.ActivityHerblandBinding;
 import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
+import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.PlotMainInfo;
 import com.thcreate.vegsurveyassistant.util.Macro;
 import com.thcreate.vegsurveyassistant.viewmodel.HerbLandActivityViewModel;
 
@@ -81,7 +82,7 @@ public class HerbLandActivity extends BaseSamplelandActivity<HerbLandActivityVie
 
         });
     }
-    private final ItemClickCallback<SampleplotEntity> mItemClickCallback = (data) -> {
+    private final ItemClickCallback<PlotMainInfo> mItemClickCallback = (data) -> {
         mViewModel.onGoForward();
         Intent intent = new Intent(HerbLandActivity.this, HerbPlotActivity.class);
         intent.putExtra(Macro.SAMPLELAND_ID, data.landId);

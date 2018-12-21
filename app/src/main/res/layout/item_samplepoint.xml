@@ -8,7 +8,7 @@
 
         <variable
             name="pointData"
-            type="com.thcreate.vegsurveyassistant.db.entity.SamplepointEntity"/>
+            type="com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.PointMainInfo"/>
         <variable
             name="clickCallback"
             type="com.thcreate.vegsurveyassistant.adapter.ItemClickCallback"/>

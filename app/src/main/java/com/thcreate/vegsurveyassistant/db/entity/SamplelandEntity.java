@@ -46,6 +46,8 @@ public class SamplelandEntity extends BaseEntity {
 
     public String lat;//纬度
 
+    public String alt;//海拔
+
     public SamplelandEntity() {
     }
 
@@ -64,6 +66,7 @@ public class SamplelandEntity extends BaseEntity {
         this.type = data.type;
         this.lng = data.lng;
         this.lat = data.lat;
+        this.alt = data.alt;
         this.createAt = data.createAt;
         this.updateAt = data.updateAt;
         this.uploadAt = data.uploadAt;

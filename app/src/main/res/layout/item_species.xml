@@ -8,7 +8,7 @@
 
         <variable
             name="speciesData"
-            type="com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity"/>
+            type="com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.SpeciesMainInfo"/>
         <variable
             name="clickCallback"
             type="com.thcreate.vegsurveyassistant.adapter.ItemClickCallback"/>

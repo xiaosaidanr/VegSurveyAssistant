@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 
 import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
 import com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity;
+import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.SpeciesMainInfo;
 import com.thcreate.vegsurveyassistant.db.entity.model.ArborSampleplot;
 import com.thcreate.vegsurveyassistant.util.Macro;
 
@@ -27,7 +28,7 @@ public class ArborPlotActivityViewModel extends BaseSampleplotActivityViewModel<
         return Macro.ARBOR;
     }
 
-    public LiveData<List<SpeciesEntity>> getSpeciesEntityList(){
+    public LiveData<List<SpeciesMainInfo>> getSpeciesEntityList(){
         return mSpeciesRepository.getAllArborSpeciesEntityByPlotId(plotId);
     }
 

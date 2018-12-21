@@ -8,21 +8,12 @@ import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
 import com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity;
+import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.SpeciesMainInfo;
 
 import java.util.List;
 
 @Dao
 public interface SpeciesDao extends BaseDao<SpeciesEntity>{
-//public interface SpeciesDao {
-
-//    @Insert
-//    void insert(SpeciesEntity obj);
-//
-//    @Update
-//    void update(SpeciesEntity obj);
-//
-//    @Delete
-//    void delete(SpeciesEntity obj);
 
     @Query("UPDATE species SET delete_at = :deleteAt WHERE id = :id")
     void softDeleteById(int id, long deleteAt);
@@ -33,7 +24,10 @@ public interface SpeciesDao extends BaseDao<SpeciesEntity>{
     @Query("SELECT * FROM species WHERE species_id = :speciesId")
     LiveData<SpeciesEntity> getSpeciesEntityBySpeciesId(String speciesId);
 
+//    @Query("SELECT * FROM species WHERE plot_id = :plotId AND type = :type AND delete_at IS NULL ORDER BY id ASC")
+//    LiveData<List<SpeciesEntity>> getSpeciesEntityListByPlotIdAndType(String plotId, String type);
+
     @Query("SELECT * FROM species WHERE plot_id = :plotId AND type = :type AND delete_at IS NULL ORDER BY id ASC")
-    LiveData<List<SpeciesEntity>> getSpeciesEntityListByPlotIdAndType(String plotId, String type);
+    LiveData<List<SpeciesMainInfo>> getSpeciesMainInfoListByPlotIdAndType(String plotId, String type);
 
 }

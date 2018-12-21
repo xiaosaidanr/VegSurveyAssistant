@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 
 import com.thcreate.vegsurveyassistant.BasicApp;
 import com.thcreate.vegsurveyassistant.db.entity.SamplelandEntity;
+import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.LandMainInfo;
 import com.thcreate.vegsurveyassistant.repository.SamplelandRepository;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public abstract class BaseSamplelandListViewModel extends AndroidViewModel {
 
     final SamplelandRepository samplelandRepository;
 
-    MediatorLiveData<List<SamplelandEntity>> observableSamplelandEntityList;
+    MediatorLiveData<List<LandMainInfo>> observableSamplelandEntityList;
 
     public BaseSamplelandListViewModel(@NonNull Application application) {
         super(application);
@@ -26,7 +27,7 @@ public abstract class BaseSamplelandListViewModel extends AndroidViewModel {
 
     abstract void initSamplelandEntityList();
 
-    public LiveData<List<SamplelandEntity>> getSamplelandEntityList(){
+    public LiveData<List<LandMainInfo>> getSamplelandEntityList(){
         return observableSamplelandEntityList;
     }
 

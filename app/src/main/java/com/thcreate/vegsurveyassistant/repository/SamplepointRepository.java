@@ -8,6 +8,7 @@ import com.thcreate.vegsurveyassistant.AppExecutors;
 import com.thcreate.vegsurveyassistant.db.AppDatabase;
 import com.thcreate.vegsurveyassistant.db.entity.SamplepointEntity;
 import com.thcreate.vegsurveyassistant.db.entity.User;
+import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.PointMainInfo;
 
 import java.util.Date;
 import java.util.List;
@@ -49,10 +50,10 @@ public class SamplepointRepository {
         return sINSTANCE;
     }
 
-    public LiveData<List<SamplepointEntity>> loadAllSamplepoint() {
+    public LiveData<List<PointMainInfo>> loadAllSamplepoint() {
         return Transformations.switchMap(mCurrentUserId, id -> {
             if (id != null){
-                return mDatabase.samplepointDao().getSamplepointEntityListByUserId(id);
+                return mDatabase.samplepointDao().getPointMainInfoListByUserId(id);
             }
             else{
                 return null;

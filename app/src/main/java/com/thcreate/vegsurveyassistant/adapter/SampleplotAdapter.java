@@ -11,22 +11,23 @@ import android.view.ViewGroup;
 import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.databinding.ItemSampleplotBinding;
 import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
+import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.PlotMainInfo;
 
 import java.util.List;
 
 public class SampleplotAdapter extends RecyclerView.Adapter<SampleplotAdapter.PlotViewHolder> {
 
-    List<SampleplotEntity> mDataList;
+    List<PlotMainInfo> mDataList;
 
     @Nullable
-    private final ItemClickCallback<SampleplotEntity> mClickCallback;
+    private final ItemClickCallback<PlotMainInfo> mClickCallback;
 
-    public SampleplotAdapter(ItemClickCallback<SampleplotEntity> callback) {
+    public SampleplotAdapter(ItemClickCallback<PlotMainInfo> callback) {
         mClickCallback = callback;
         setHasStableIds(true);
     }
 
-    public void setDataList(final List<SampleplotEntity> dataList) {
+    public void setDataList(final List<PlotMainInfo> dataList) {
         if (mDataList == null) {
             mDataList = dataList;
             notifyItemRangeInserted(0, dataList.size());
@@ -50,8 +51,8 @@ public class SampleplotAdapter extends RecyclerView.Adapter<SampleplotAdapter.Pl
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                    SampleplotEntity newData = dataList.get(newItemPosition);
-                    SampleplotEntity oldData = mDataList.get(oldItemPosition);
+                    PlotMainInfo newData = dataList.get(newItemPosition);
+                    PlotMainInfo oldData = mDataList.get(oldItemPosition);
                     return newData.plotId.equals(oldData.plotId);
                 }
             });

@@ -16,6 +16,7 @@ import com.thcreate.vegsurveyassistant.adapter.RecyclerViewSwipeDismissControlle
 import com.thcreate.vegsurveyassistant.adapter.SampleplotAdapter;
 import com.thcreate.vegsurveyassistant.databinding.ActivityArborlandBinding;
 import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
+import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.PlotMainInfo;
 import com.thcreate.vegsurveyassistant.util.Macro;
 import com.thcreate.vegsurveyassistant.viewmodel.ArborLandActivityViewModel;
 
@@ -141,7 +142,7 @@ public class ArborLandActivity extends BaseSamplelandActivity<ArborLandActivityV
 
         });
     }
-    private final ItemClickCallback<SampleplotEntity> mArborPlotItemClickCallback = (plot) -> {
+    private final ItemClickCallback<PlotMainInfo> mArborPlotItemClickCallback = (plot) -> {
         mViewModel.onGoForward();
         Intent intent = new Intent(ArborLandActivity.this, ArborPlotActivity.class);
         intent.putExtra(Macro.SAMPLELAND_ID, plot.landId);
@@ -150,7 +151,7 @@ public class ArborLandActivity extends BaseSamplelandActivity<ArborLandActivityV
         intent.putExtra(Macro.SAMPLEPLOT_ID, plot.plotId);
         startActivity(intent);
     };
-    private final ItemClickCallback<SampleplotEntity> mShrubPlotItemClickCallback = (plot) -> {
+    private final ItemClickCallback<PlotMainInfo> mShrubPlotItemClickCallback = (plot) -> {
         mViewModel.onGoForward();
         Intent intent = new Intent(ArborLandActivity.this, ShrubPlotActivity.class);
         intent.putExtra(Macro.SAMPLELAND_ID, plot.landId);
@@ -159,7 +160,7 @@ public class ArborLandActivity extends BaseSamplelandActivity<ArborLandActivityV
         intent.putExtra(Macro.SAMPLEPLOT_ID, plot.plotId);
         startActivity(intent);
     };
-    private final ItemClickCallback<SampleplotEntity> mHerbPlotItemClickCallback = (plot) -> {
+    private final ItemClickCallback<PlotMainInfo> mHerbPlotItemClickCallback = (plot) -> {
         mViewModel.onGoForward();
         Intent intent = new Intent(ArborLandActivity.this, HerbPlotActivity.class);
         intent.putExtra(Macro.SAMPLELAND_ID, plot.landId);

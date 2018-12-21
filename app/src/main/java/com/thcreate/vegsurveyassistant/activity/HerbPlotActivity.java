@@ -22,6 +22,8 @@ import com.thcreate.vegsurveyassistant.adapter.ItemClickCallback;
 import com.thcreate.vegsurveyassistant.databinding.ActivityHerbplotBinding;
 import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
 import com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity;
+import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.PlotMainInfo;
+import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.SpeciesMainInfo;
 import com.thcreate.vegsurveyassistant.util.Macro;
 import com.thcreate.vegsurveyassistant.viewmodel.HerbPlotActivityViewModel;
 
@@ -96,7 +98,7 @@ public class HerbPlotActivity extends BaseSampleplotActivity<HerbPlotActivityVie
                 if (dataList != null){
                     if (dataList.size()>0){
                         arborplotCodeSpinnerAdapter.clear();
-                        for (SampleplotEntity item: dataList){
+                        for (PlotMainInfo item: dataList){
                             arborplotCodeSpinnerAdapter.add(item.plotId);
                         }
                         arborplotCodeSpinnerAdapter.notifyDataSetChanged();
@@ -109,7 +111,7 @@ public class HerbPlotActivity extends BaseSampleplotActivity<HerbPlotActivityVie
                 if (dataList != null){
                     if (dataList.size()>0){
                         shrubplotCodeSpinnerAdapter.clear();
-                        for (SampleplotEntity item: dataList){
+                        for (PlotMainInfo item: dataList){
                             shrubplotCodeSpinnerAdapter.add(item.plotId);
                         }
                         shrubplotCodeSpinnerAdapter.notifyDataSetChanged();
@@ -129,7 +131,7 @@ public class HerbPlotActivity extends BaseSampleplotActivity<HerbPlotActivityVie
 
         });
     }
-    private final ItemClickCallback<SpeciesEntity> mItemClickCallback = (data) -> {
+    private final ItemClickCallback<SpeciesMainInfo> mItemClickCallback = (data) -> {
         mViewModel.onGoForward();
         Intent intent = new Intent(HerbPlotActivity.this, HerbSpeciesActivity.class);
         intent.putExtra(Macro.SAMPLEPLOT_ID, data.plotId);

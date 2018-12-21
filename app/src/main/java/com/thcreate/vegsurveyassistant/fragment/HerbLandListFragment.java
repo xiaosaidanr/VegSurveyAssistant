@@ -19,6 +19,7 @@ import com.thcreate.vegsurveyassistant.adapter.RecyclerViewSwipeDismissControlle
 import com.thcreate.vegsurveyassistant.adapter.SamplelandAdapter;
 import com.thcreate.vegsurveyassistant.databinding.FragmentHerblandListBinding;
 import com.thcreate.vegsurveyassistant.db.entity.SamplelandEntity;
+import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.LandMainInfo;
 import com.thcreate.vegsurveyassistant.util.Macro;
 import com.thcreate.vegsurveyassistant.viewmodel.HerbLandListViewModel;
 
@@ -112,7 +113,7 @@ public class HerbLandListFragment extends Fragment {
         });
     }
 
-    private final ItemClickCallback<SamplelandEntity> mItemClickCallback = (data) -> {
+    private final ItemClickCallback<LandMainInfo> mItemClickCallback = (data) -> {
         Intent intent = new Intent(getActivity(), HerbLandActivity.class);
         intent.putExtra(Macro.ACTION, Macro.ACTION_EDIT);
         intent.putExtra(Macro.SAMPLELAND_ID, data.landId);

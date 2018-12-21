@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 
 import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
 import com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity;
+import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.PlotMainInfo;
+import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.SpeciesMainInfo;
 import com.thcreate.vegsurveyassistant.db.entity.model.ShrubSampleplot;
 import com.thcreate.vegsurveyassistant.util.Macro;
 
@@ -17,7 +19,7 @@ public class ShrubPlotActivityViewModel extends BaseSampleplotActivityViewModel<
         super(application);
     }
 
-    public LiveData<List<SampleplotEntity>> getArborPlotEntityList(){
+    public LiveData<List<PlotMainInfo>> getArborPlotEntityList(){
         return mSampleplotRepository.getAllArborSampleplotEntityByLandId(landId);
     }
 
@@ -31,7 +33,7 @@ public class ShrubPlotActivityViewModel extends BaseSampleplotActivityViewModel<
         return Macro.SHRUB;
     }
 
-    public LiveData<List<SpeciesEntity>> getSpeciesEntityList(){
+    public LiveData<List<SpeciesMainInfo>> getSpeciesEntityList(){
         return mSpeciesRepository.getAllShrubSpeciesEntityByPlotId(plotId);
     }
 

@@ -8,7 +8,7 @@
 
         <variable
             name="plotData"
-            type="com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity"/>
+            type="com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.PlotMainInfo"/>
         <variable
             name="clickCallback"
             type="com.thcreate.vegsurveyassistant.adapter.ItemClickCallback"/>

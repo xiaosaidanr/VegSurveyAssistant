@@ -5,8 +5,8 @@ import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
 import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
-import com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity;
-import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.PlotId;
+import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.PlotMainInfo;
+import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.SpeciesMainInfo;
 import com.thcreate.vegsurveyassistant.db.entity.model.HerbSampleplot;
 import com.thcreate.vegsurveyassistant.util.Macro;
 
@@ -18,11 +18,11 @@ public class HerbPlotActivityViewModel extends BaseSampleplotActivityViewModel<H
         super(application);
     }
 
-    public LiveData<List<SampleplotEntity>> getShrubPlotEntityList(){
+    public LiveData<List<PlotMainInfo>> getShrubPlotEntityList(){
         return mSampleplotRepository.getAllShrubSampleplotEntityByLandId(landId);
     }
 
-    public LiveData<List<SampleplotEntity>> getArborPlotEntityList(){
+    public LiveData<List<PlotMainInfo>> getArborPlotEntityList(){
         return mSampleplotRepository.getAllArborSampleplotEntityByLandId(landId);
     }
 
@@ -36,7 +36,7 @@ public class HerbPlotActivityViewModel extends BaseSampleplotActivityViewModel<H
         return Macro.HERB;
     }
 
-    public LiveData<List<SpeciesEntity>> getSpeciesEntityList(){
+    public LiveData<List<SpeciesMainInfo>> getSpeciesEntityList(){
         return mSpeciesRepository.getAllHerbSpeciesEntityByPlotId(plotId);
     }
 

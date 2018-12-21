@@ -9,6 +9,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.thcreate.vegsurveyassistant.db.entity.SamplelandEntity;
+import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
 
 import java.util.Date;
 
@@ -42,6 +43,7 @@ public class Sampleland implements Parcelable {
     public String humanActivity;//人类活动
     public String lng;//经度
     public String lat;//纬度
+    public String alt;//海拔
     public Date createAt;//创建时间
     public Date updateAt;//修改时间
     public Date uploadAt;//上传时间
@@ -84,6 +86,7 @@ public class Sampleland implements Parcelable {
         dest.writeValue(humanActivity);
         dest.writeValue(lng);
         dest.writeValue(lat);
+        dest.writeValue(alt);
         if (createAt == null){
             dest.writeValue(null);
         }
@@ -179,6 +182,10 @@ public class Sampleland implements Parcelable {
         if (tmpLat != null){
             lat = (String)tmpLat;
         }
+        Object tmpAlt = source.readValue(getClass().getClassLoader());
+        if (tmpAlt != null){
+            alt = (String)tmpAlt;
+        }
         Object tmpCreateAt = source.readValue(getClass().getClassLoader());
         if (tmpCreateAt != null){
             createAt = new Date((Long)tmpCreateAt);
@@ -209,18 +216,23 @@ public class Sampleland implements Parcelable {
         else {
             data = new Sampleland();
         }
-        data.id = entity.id;
-        data.userId = entity.userId;
-        data.landId = entity.landId;
-        data.code = entity.code;
-        data.type = entity.type;
-        data.lng = entity.lng;
-        data.lat = entity.lat;
-        data.createAt = entity.createAt;
-        data.updateAt = entity.updateAt;
-        data.uploadAt = entity.uploadAt;
-        data.deleteAt = entity.deleteAt;
+        data.initCommonFromEntity(entity);
         return data;
+    }
+
+    public void initCommonFromEntity(SamplelandEntity entity){
+        this.id = entity.id;
+        this.userId = entity.userId;
+        this.landId = entity.landId;
+        this.code = entity.code;
+        this.type = entity.type;
+        this.lng = entity.lng;
+        this.lat = entity.lat;
+        this.alt = entity.alt;
+        this.createAt = entity.createAt;
+        this.updateAt = entity.updateAt;
+        this.uploadAt = entity.uploadAt;
+        this.deleteAt = entity.deleteAt;
     }
 
     public SamplelandEntity getEntity(){

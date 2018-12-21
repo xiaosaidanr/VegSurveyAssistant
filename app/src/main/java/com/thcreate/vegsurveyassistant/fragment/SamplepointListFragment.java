@@ -26,6 +26,7 @@ import com.thcreate.vegsurveyassistant.adapter.RecyclerViewSwipeDismissControlle
 import com.thcreate.vegsurveyassistant.adapter.SamplepointAdapter;
 import com.thcreate.vegsurveyassistant.databinding.FragmentSamplepointListBinding;
 import com.thcreate.vegsurveyassistant.db.entity.SamplepointEntity;
+import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.PointMainInfo;
 import com.thcreate.vegsurveyassistant.util.IdGenerator;
 import com.thcreate.vegsurveyassistant.util.Macro;
 import com.thcreate.vegsurveyassistant.viewmodel.SamplepointListViewModel;
@@ -134,9 +135,9 @@ public class SamplepointListFragment extends BaseFragment {
         });
     }
 
-    private final ItemClickCallback<SamplepointEntity> mItemClickCallback = new ItemClickCallback<SamplepointEntity>() {
+    private final ItemClickCallback<PointMainInfo> mItemClickCallback = new ItemClickCallback<PointMainInfo>() {
         @Override
-        public void onClick(SamplepointEntity item) {
+        public void onClick(PointMainInfo item) {
             Intent intent = new Intent(getActivity(), SamplepointActivity.class);
             intent.putExtra(Macro.ACTION, Macro.ACTION_EDIT);
             intent.putExtra(Macro.SAMPLEPOINT_ID, item.pointId);

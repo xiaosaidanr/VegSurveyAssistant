@@ -11,22 +11,23 @@ import android.view.ViewGroup;
 import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.databinding.ItemSpeciesBinding;
 import com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity;
+import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.SpeciesMainInfo;
 
 import java.util.List;
 
 public class SpeciesAdapter extends RecyclerView.Adapter<SpeciesAdapter.SpeciesViewHolder> {
 
-    List<SpeciesEntity> mDataList;
+    List<SpeciesMainInfo> mDataList;
 
     @Nullable
-    private final ItemClickCallback<SpeciesEntity> mClickCallback;
+    private final ItemClickCallback<SpeciesMainInfo> mClickCallback;
 
-    public SpeciesAdapter(ItemClickCallback<SpeciesEntity> callback) {
+    public SpeciesAdapter(ItemClickCallback<SpeciesMainInfo> callback) {
         mClickCallback = callback;
         setHasStableIds(true);
     }
 
-    public void setDataList(final List<SpeciesEntity> dataList) {
+    public void setDataList(final List<SpeciesMainInfo> dataList) {
         if (mDataList == null) {
             mDataList = dataList;
             notifyItemRangeInserted(0, mDataList.size());
@@ -50,8 +51,8 @@ public class SpeciesAdapter extends RecyclerView.Adapter<SpeciesAdapter.SpeciesV
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                    SpeciesEntity newData = dataList.get(newItemPosition);
-                    SpeciesEntity oldData = mDataList.get(oldItemPosition);
+                    SpeciesMainInfo newData = dataList.get(newItemPosition);
+                    SpeciesMainInfo oldData = mDataList.get(oldItemPosition);
                     return newData.id == oldData.id
                             && newData.speciesId.equals(oldData.speciesId);
                 }

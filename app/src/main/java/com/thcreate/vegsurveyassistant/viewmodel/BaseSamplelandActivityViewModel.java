@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import com.thcreate.vegsurveyassistant.BasicApp;
 import com.thcreate.vegsurveyassistant.db.entity.SamplelandEntity;
 import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
+import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.PlotMainInfo;
 import com.thcreate.vegsurveyassistant.db.entity.model.HerbSampleplot;
 import com.thcreate.vegsurveyassistant.db.entity.model.Sampleland;
 import com.thcreate.vegsurveyassistant.repository.SamplelandRepository;
@@ -128,13 +129,13 @@ public class BaseSamplelandActivityViewModel extends AndroidViewModel {
         return outState;
     }
 
-    public LiveData<List<SampleplotEntity>> getHerbSampleplotEntityList(){
+    public LiveData<List<PlotMainInfo>> getHerbSampleplotEntityList(){
         return mSampleplotRepository.getAllHerbSampleplotEntityByLandId(landId);
     }
-    public LiveData<List<SampleplotEntity>> getShrubSampleplotEntityList(){
+    public LiveData<List<PlotMainInfo>> getShrubSampleplotEntityList(){
         return mSampleplotRepository.getAllShrubSampleplotEntityByLandId(landId);
     }
-    public LiveData<List<SampleplotEntity>> getArborSampleplotEntityList(){
+    public LiveData<List<PlotMainInfo>> getArborSampleplotEntityList(){
         return mSampleplotRepository.getAllArborSampleplotEntityByLandId(landId);
     }
 

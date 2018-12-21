@@ -22,6 +22,8 @@ import com.thcreate.vegsurveyassistant.adapter.SpeciesAdapter;
 import com.thcreate.vegsurveyassistant.databinding.ActivityShrubplotBinding;
 import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
 import com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity;
+import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.PlotMainInfo;
+import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.SpeciesMainInfo;
 import com.thcreate.vegsurveyassistant.util.Macro;
 import com.thcreate.vegsurveyassistant.viewmodel.ShrubPlotActivityViewModel;
 
@@ -90,7 +92,7 @@ public class ShrubPlotActivity extends BaseSampleplotActivity<ShrubPlotActivityV
                 if (dataList != null){
                     if (dataList.size()>0){
                         arborplotCodeSpinnerAdapter.clear();
-                        for (SampleplotEntity item: dataList){
+                        for (PlotMainInfo item: dataList){
                             arborplotCodeSpinnerAdapter.add(item.plotId);
                         }
                         arborplotCodeSpinnerAdapter.notifyDataSetChanged();
@@ -110,7 +112,7 @@ public class ShrubPlotActivity extends BaseSampleplotActivity<ShrubPlotActivityV
 
         });
     }
-    private final ItemClickCallback<SpeciesEntity> mItemClickCallback = (data) -> {
+    private final ItemClickCallback<SpeciesMainInfo> mItemClickCallback = (data) -> {
         mViewModel.onGoForward();
         Intent intent = new Intent(ShrubPlotActivity.this, ShrubSpeciesActivity.class);
         intent.putExtra(Macro.SAMPLEPLOT_ID, data.plotId);

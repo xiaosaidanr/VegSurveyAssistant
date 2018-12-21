@@ -7,6 +7,7 @@ import com.thcreate.vegsurveyassistant.AppExecutors;
 import com.thcreate.vegsurveyassistant.db.AppDatabase;
 import com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity;
 import com.thcreate.vegsurveyassistant.db.entity.User;
+import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.SpeciesMainInfo;
 import com.thcreate.vegsurveyassistant.util.Macro;
 
 import java.util.Date;
@@ -42,16 +43,16 @@ public class SpeciesRepository {
         return mDatabase.speciesDao().getSpeciesEntityBySpeciesId(speciesId);
     }
 
-    public LiveData<List<SpeciesEntity>> getAllArborSpeciesEntityByPlotId(String plotId){
-        return mDatabase.speciesDao().getSpeciesEntityListByPlotIdAndType(plotId, Macro.ARBOR);
+    public LiveData<List<SpeciesMainInfo>> getAllArborSpeciesEntityByPlotId(String plotId){
+        return mDatabase.speciesDao().getSpeciesMainInfoListByPlotIdAndType(plotId, Macro.ARBOR);
     }
 
-    public LiveData<List<SpeciesEntity>> getAllShrubSpeciesEntityByPlotId(String plotId){
-        return mDatabase.speciesDao().getSpeciesEntityListByPlotIdAndType(plotId, Macro.SHRUB);
+    public LiveData<List<SpeciesMainInfo>> getAllShrubSpeciesEntityByPlotId(String plotId){
+        return mDatabase.speciesDao().getSpeciesMainInfoListByPlotIdAndType(plotId, Macro.SHRUB);
     }
 
-    public LiveData<List<SpeciesEntity>> getAllHerbSpeciesEntityByPlotId(String plotId){
-        return mDatabase.speciesDao().getSpeciesEntityListByPlotIdAndType(plotId, Macro.HERB);
+    public LiveData<List<SpeciesMainInfo>> getAllHerbSpeciesEntityByPlotId(String plotId){
+        return mDatabase.speciesDao().getSpeciesMainInfoListByPlotIdAndType(plotId, Macro.HERB);
     }
 
     public void insertSpeciesEntity(SpeciesEntity data){

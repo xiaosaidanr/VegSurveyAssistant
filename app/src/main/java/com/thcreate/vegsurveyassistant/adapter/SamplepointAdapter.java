@@ -11,23 +11,24 @@ import android.view.ViewGroup;
 import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.databinding.ItemSamplepointBinding;
 import com.thcreate.vegsurveyassistant.db.entity.SamplepointEntity;
+import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.PointMainInfo;
 
 import java.util.List;
 
 public class SamplepointAdapter extends RecyclerView.Adapter<SamplepointAdapter.PointViewHolder> {
 
 
-    List<SamplepointEntity> mDataList;
+    List<PointMainInfo> mDataList;
 
     @Nullable
-    private final ItemClickCallback<SamplepointEntity> mClickCallback;
+    private final ItemClickCallback<PointMainInfo> mClickCallback;
 
-    public SamplepointAdapter(ItemClickCallback<SamplepointEntity> callback) {
+    public SamplepointAdapter(ItemClickCallback<PointMainInfo> callback) {
         mClickCallback = callback;
         setHasStableIds(true);
     }
 
-    public void setDataList(final List<SamplepointEntity> dataList) {
+    public void setDataList(final List<PointMainInfo> dataList) {
         if (mDataList == null) {
             mDataList = dataList;
             notifyItemRangeInserted(0, dataList.size());
@@ -51,8 +52,8 @@ public class SamplepointAdapter extends RecyclerView.Adapter<SamplepointAdapter.
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                    SamplepointEntity newData = dataList.get(newItemPosition);
-                    SamplepointEntity oldData = mDataList.get(oldItemPosition);
+                    PointMainInfo newData = dataList.get(newItemPosition);
+                    PointMainInfo oldData = mDataList.get(oldItemPosition);
                     return newData.id == oldData.id
                             && newData.pointId.equals(oldData.pointId);
                 }

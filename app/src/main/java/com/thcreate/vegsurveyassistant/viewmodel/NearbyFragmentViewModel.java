@@ -14,7 +14,8 @@ import com.baidu.mapapi.model.LatLng;
 import com.thcreate.vegsurveyassistant.BasicApp;
 import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.db.entity.SamplelandEntity;
-import com.thcreate.vegsurveyassistant.db.entity.SamplepointEntity;
+import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.LandMainInfo;
+import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.PointMainInfo;
 import com.thcreate.vegsurveyassistant.repository.SamplelandRepository;
 import com.thcreate.vegsurveyassistant.repository.SamplepointRepository;
 import com.thcreate.vegsurveyassistant.service.ContinuousLocationLiveData;
@@ -39,15 +40,15 @@ public class NearbyFragmentViewModel extends AndroidViewModel {
         mMarkerIcon = BitmapDescriptorFactory.fromResource(R.drawable.ic_mapmarker);
     }
 
-    public LiveData<List<SamplelandEntity>> getSamplelandEntityList(){
+    public LiveData<List<LandMainInfo>> getSamplelandEntityList(){
         return mSamplelandRepository.loadAllSamplelandEntity();
     }
 
-    public LiveData<List<SamplepointEntity>> getSamplepointEntityList(){
+    public LiveData<List<PointMainInfo>> getSamplepointEntityList(){
         return mSamplepointRepository.loadAllSamplepoint();
     }
 
-    public @Nullable MarkerOptions getMarkerOptionFromData(SamplelandEntity land){
+    public @Nullable MarkerOptions getMarkerOptionFromData(LandMainInfo land){
         if (land == null){
             return null;
         }

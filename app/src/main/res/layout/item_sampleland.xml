@@ -8,7 +8,7 @@
 
         <variable
             name="landData"
-            type="com.thcreate.vegsurveyassistant.db.entity.SamplelandEntity"/>
+            type="com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.LandMainInfo"/>
         <variable
             name="clickCallback"
             type="com.thcreate.vegsurveyassistant.adapter.ItemClickCallback"/>

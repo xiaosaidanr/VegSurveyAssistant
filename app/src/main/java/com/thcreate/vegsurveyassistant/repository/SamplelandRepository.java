@@ -8,6 +8,7 @@ import com.thcreate.vegsurveyassistant.AppExecutors;
 import com.thcreate.vegsurveyassistant.db.AppDatabase;
 import com.thcreate.vegsurveyassistant.db.entity.SamplelandEntity;
 import com.thcreate.vegsurveyassistant.db.entity.User;
+import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.LandMainInfo;
 
 import java.util.Date;
 import java.util.List;
@@ -57,10 +58,10 @@ public class SamplelandRepository {
      * @param type "tree"代表森林 "bush"代表灌丛 "grass"代表草地
      * @return List<SamplelandEntity> wrap by LiveData
      */
-    public LiveData<List<SamplelandEntity>> loadAllSamplelandEntityByType(String type) {
+    public LiveData<List<LandMainInfo>> loadAllSamplelandEntityByType(String type) {
         return Transformations.switchMap(mCurrentUserId, id -> {
             if (id != null){
-                return mDatabase.samplelandDao().getSamplelandEntityListByUserIdAndType(id, type);
+                return mDatabase.samplelandDao().getLandMainInfoListByUserIdAndType(id, type);
             }
             else{
                 return null;
@@ -70,10 +71,10 @@ public class SamplelandRepository {
     public LiveData<SamplelandEntity> getSamplelandEntityByLandId(String landId){
         return mDatabase.samplelandDao().getSamplelandEntityByLandId(landId);
     }
-    public LiveData<List<SamplelandEntity>> loadAllSamplelandEntity(){
+    public LiveData<List<LandMainInfo>> loadAllSamplelandEntity(){
         return Transformations.switchMap(mCurrentUserId, id -> {
             if (id != null){
-                return mDatabase.samplelandDao().getSamplelandEntityListByUserId(id);
+                return mDatabase.samplelandDao().getLandMainInfoListByUserId(id);
             }
             else{
                 return null;

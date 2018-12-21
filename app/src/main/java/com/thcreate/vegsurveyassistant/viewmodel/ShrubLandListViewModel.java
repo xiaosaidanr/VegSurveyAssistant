@@ -6,6 +6,7 @@ import android.arch.lifecycle.MediatorLiveData;
 import android.support.annotation.NonNull;
 
 import com.thcreate.vegsurveyassistant.db.entity.SamplelandEntity;
+import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.LandMainInfo;
 import com.thcreate.vegsurveyassistant.util.Macro;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class ShrubLandListViewModel extends BaseSamplelandListViewModel {
     void initSamplelandEntityList(){
         observableSamplelandEntityList = new MediatorLiveData<>();
         observableSamplelandEntityList.setValue(null);
-        LiveData<List<SamplelandEntity>> samplelandEntityList = samplelandRepository.loadAllSamplelandEntityByType(Macro.SAMPLELAND_TYPE_BUSH);
+        LiveData<List<LandMainInfo>> samplelandEntityList = samplelandRepository.loadAllSamplelandEntityByType(Macro.SAMPLELAND_TYPE_BUSH);
         observableSamplelandEntityList.addSource(samplelandEntityList, observableSamplelandEntityList::setValue);
     }
 
