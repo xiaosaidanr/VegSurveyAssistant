@@ -30,10 +30,10 @@ public interface SamplelandDao extends BaseDao<SamplelandEntity> {
 //    @Query("SELECT * FROM land WHERE user_id = :userId AND type = :type AND delete_at IS NULL ORDER BY id ASC")
 //    LiveData<List<SamplelandEntity>> getSamplelandEntityListByUserIdAndType(int userId, String type);
 
-    @Query("SELECT * FROM land WHERE user_id = :userId AND delete_at IS NULL ORDER BY id ASC")
+    @Query("SELECT id, land_id, code, type, lng, lat, alt FROM land WHERE user_id = :userId AND delete_at IS NULL ORDER BY id ASC")
     LiveData<List<LandMainInfo>> getLandMainInfoListByUserId(int userId);
 
-    @Query("SELECT * FROM land WHERE user_id = :userId AND type = :type AND delete_at IS NULL ORDER BY id ASC")
+    @Query("SELECT id, land_id, code, type, lng, lat, alt FROM land WHERE user_id = :userId AND type = :type AND delete_at IS NULL ORDER BY id ASC")
     LiveData<List<LandMainInfo>> getLandMainInfoListByUserIdAndType(int userId, String type);
 
 }

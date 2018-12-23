@@ -27,7 +27,7 @@ public interface SpeciesDao extends BaseDao<SpeciesEntity>{
 //    @Query("SELECT * FROM species WHERE plot_id = :plotId AND type = :type AND delete_at IS NULL ORDER BY id ASC")
 //    LiveData<List<SpeciesEntity>> getSpeciesEntityListByPlotIdAndType(String plotId, String type);
 
-    @Query("SELECT * FROM species WHERE plot_id = :plotId AND type = :type AND delete_at IS NULL ORDER BY id ASC")
+    @Query("SELECT id, plot_id, species_id, code, type, name FROM species WHERE plot_id = :plotId AND type = :type AND delete_at IS NULL ORDER BY id ASC")
     LiveData<List<SpeciesMainInfo>> getSpeciesMainInfoListByPlotIdAndType(String plotId, String type);
 
 }
