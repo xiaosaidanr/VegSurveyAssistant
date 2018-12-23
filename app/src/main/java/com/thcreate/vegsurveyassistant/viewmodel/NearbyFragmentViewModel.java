@@ -36,23 +36,29 @@ public class NearbyFragmentViewModel extends AndroidViewModel {
     }
 
     public @Nullable MarkerOptions getMarkerOptionFromData(LandMainInfo land){
-        if (land == null){
+        try {
+            if (land == null){
+                return null;
+            }
+            if (land.lat == null || land.lng == null){
+                return null;
+            }
+            LatLng position = new LatLng(Double.valueOf(land.lat), Double.valueOf(land.lng));
+            Bundle data = new Bundle();
+            data.putString(Macro.ACTION, Macro.ACTION_EDIT);
+            data.putString(Macro.SAMPLELAND_ID, land.landId);
+            data.putString(Macro.SAMPLELAND_TYPE, land.type);
+            MarkerOptions markerOptions = new MarkerOptions()
+                    .position(position)
+                    .icon(mMarkerIcon)
+                    .draggable(false)
+                    .extraInfo(data);
+            return markerOptions;
+        }
+        catch (Exception e){
+            e.printStackTrace();
             return null;
         }
-        if (land.lat == null || land.lng == null){
-            return null;
-        }
-        LatLng position = new LatLng(Double.valueOf(land.lat), Double.valueOf(land.lng));
-        Bundle data = new Bundle();
-        data.putString(Macro.ACTION, Macro.ACTION_EDIT);
-        data.putString(Macro.SAMPLELAND_ID, land.landId);
-        data.putString(Macro.SAMPLELAND_TYPE, land.type);
-        MarkerOptions markerOptions = new MarkerOptions()
-                .position(position)
-                .icon(mMarkerIcon)
-                .draggable(false)
-                .extraInfo(data);
-        return markerOptions;
     }
 
     @Override
