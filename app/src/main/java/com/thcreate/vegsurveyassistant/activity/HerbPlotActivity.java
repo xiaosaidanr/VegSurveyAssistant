@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -16,12 +17,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.thcreate.vegsurveyassistant.R;
+import com.thcreate.vegsurveyassistant.adapter.PictureAdapter;
 import com.thcreate.vegsurveyassistant.adapter.RecyclerViewSwipeDismissController;
 import com.thcreate.vegsurveyassistant.adapter.SpeciesAdapter;
 import com.thcreate.vegsurveyassistant.adapter.ItemClickCallback;
 import com.thcreate.vegsurveyassistant.databinding.ActivityHerbplotBinding;
-import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
-import com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity;
+import com.thcreate.vegsurveyassistant.db.entity.PlotPictureEntity;
 import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.PlotMainInfo;
 import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.SpeciesMainInfo;
 import com.thcreate.vegsurveyassistant.util.Macro;
@@ -38,6 +39,7 @@ public class HerbPlotActivity extends BaseSampleplotActivity<HerbPlotActivityVie
     private ArrayAdapter<String> shrubplotCodeSpinnerAdapter;
 
     private SpeciesAdapter mSpeciesAdapter;
+    private PictureAdapter mPictureAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,9 +83,27 @@ public class HerbPlotActivity extends BaseSampleplotActivity<HerbPlotActivityVie
         ((RecyclerView)findViewById(R.id.species_list)).setAdapter(mSpeciesAdapter);
         itemTouchHelper.attachToRecyclerView(findViewById(R.id.species_list));
 
+        RecyclerViewSwipeDismissController pictureController = new RecyclerViewSwipeDismissController(
+                0,
+                ItemTouchHelper.LEFT,
+                ContextCompat.getDrawable(this, R.drawable.ic_delete_forever));
+        pictureController.setOnDeleteCallback((id, position)->{
+            mViewModel.deletePlotPictureEntityById(id);
+        });
+        ItemTouchHelper pictureItemTouchHelper = new ItemTouchHelper(pictureController);
+        mPictureAdapter = new PictureAdapter(mPictureClickCallback);
+        ((RecyclerView)findViewById(R.id.picture_list)).setAdapter(mPictureAdapter);
+        pictureItemTouchHelper.attachToRecyclerView(findViewById(R.id.picture_list));
+
         subscribeUi();
     }
     private void subscribeUi() {
+        mViewModel.getPlotPictureEntityList().observe(this, (dataList)->{
+            if (dataList != null){
+                mPictureAdapter.setDataList(dataList);
+            }
+            mBinding.executePendingBindings();
+        });
         mViewModel.getSpeciesEntityList().observe(this, (dataList)->{
             if (dataList != null) {
                 mSpeciesAdapter.setDataList(dataList);
@@ -137,6 +157,12 @@ public class HerbPlotActivity extends BaseSampleplotActivity<HerbPlotActivityVie
         intent.putExtra(Macro.SAMPLEPLOT_ID, data.plotId);
         intent.putExtra(Macro.ACTION, Macro.ACTION_EDIT);
         intent.putExtra(Macro.SPECIES_ID, data.speciesId);
+        startActivity(intent);
+    };
+
+    private final ItemClickCallback<PlotPictureEntity> mPictureClickCallback = (data)->{
+        Intent intent = new Intent(HerbPlotActivity.this, PicturePreviewActivity.class);
+        intent.putExtra(Macro.IMAGE_PATH, data.localAddr);
         startActivity(intent);
     };
 

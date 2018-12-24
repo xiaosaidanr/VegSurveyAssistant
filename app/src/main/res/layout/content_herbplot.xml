@@ -303,7 +303,15 @@
                     android:text="@string/photo_add"
                     android:textAppearance="@style/TextAppearance.AppCompat.Menu"
                     android:drawableStart="@android:drawable/ic_menu_camera"
-                    android:gravity="center_vertical"/>
+                    android:gravity="center_vertical"
+                    android:onClick="onTakePhoto"
+                    />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/picture_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                    />
 
             </com.thcreate.vegsurveyassistant.customUi.ExpandableLinearLayoutWithHeader>
 

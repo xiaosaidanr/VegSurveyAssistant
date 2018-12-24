@@ -1,21 +1,44 @@
 package com.thcreate.vegsurveyassistant.activity;
 
+import android.Manifest;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.view.View;
 import android.widget.Toast;
 
 import com.thcreate.vegsurveyassistant.util.DeviceStatus;
+import com.thcreate.vegsurveyassistant.util.IdGenerator;
 import com.thcreate.vegsurveyassistant.util.Macro;
 import com.thcreate.vegsurveyassistant.viewmodel.BaseSampleplotActivityViewModel;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
 
 public class BaseSampleplotActivity<U extends BaseSampleplotActivityViewModel> extends BaseActivity {
+
+    private final int REQUEST_IMAGE_CAPTURE =39;
+    private final int SDK_PERMISSION_REQUEST = 127;
+
+    private String mCurrentPicturePath;
+    private Uri mCurrentPictureUri;
+    private String mPictureId;
 
     U mViewModel;
 
@@ -77,5 +100,117 @@ public class BaseSampleplotActivity<U extends BaseSampleplotActivityViewModel> e
     public void onPositiveButtonPressed() {
         mViewModel.onCancel();
         super.onPositiveButtonPressed();
+    }
+
+    public void onTakePhoto(View v){
+        checkTakePhotoRelatedPermissions();
+    }
+
+    private File createImageFile() throws IOException {
+        //TODO userid1
+        mPictureId = IdGenerator.getId(1);
+        File storeDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                mPictureId,
+                ".jpg",
+                storeDir
+        );
+        mCurrentPicturePath = image.getAbsolutePath();
+        return image;
+    }
+
+    private void dispatchTakePhotoIntent(){
+        mCurrentPicturePath = null;
+        mCurrentPictureUri = null;
+        mPictureId = null;
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (intent.resolveActivity(getPackageManager()) != null){
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+            if (photoFile != null){
+                if (Build.VERSION.SDK_INT >= 24){
+                    mCurrentPictureUri = FileProvider.getUriForFile(
+                            this,
+                            "com.thcreate.vegsurveyassistant.fileprovider",
+                            photoFile
+                    );
+                }
+                else {
+                    mCurrentPictureUri = Uri.fromFile(photoFile);
+                }
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, mCurrentPictureUri);
+                mViewModel.onGoForward();
+                startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+            }
+        }
+    }
+    private void checkTakePhotoRelatedPermissions(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            ArrayList<String> permissions = new ArrayList<>();
+            /*
+             * 摄像头权限为必须权限，用户如果禁止，则每次进入都会申请
+             */
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)!=PackageManager.PERMISSION_GRANTED){
+                permissions.add(Manifest.permission.CAMERA);
+            }
+            /*
+             * 写数据权限为必须权限，用户如果禁止，则每次进入都会申请
+             */
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED){
+                permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            }
+            if (permissions.size() > 0){
+                ActivityCompat.requestPermissions(this, permissions.toArray(new String[permissions.size()]), SDK_PERMISSION_REQUEST);
+            }
+            else {
+                dispatchTakePhotoIntent();
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case SDK_PERMISSION_REQUEST:
+                if (grantResults.length>0){
+                    int grantedCount = 0;
+                    for (int result:
+                         grantResults) {
+                        if (result == PackageManager.PERMISSION_GRANTED){
+                            grantedCount += 1;
+                        }
+                    }
+                    if (grantedCount == grantResults.length){
+                        dispatchTakePhotoIntent();
+                    }
+                    else {
+                        Toast.makeText(this, "获取权限失败！", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else {
+                    Toast.makeText(this, "获取权限失败！", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){
+            if (mViewModel.savePicture(mPictureId, mCurrentPicturePath)){
+                Toast.makeText(this, "图片保存成功！", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(this, "图片保存失败！", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

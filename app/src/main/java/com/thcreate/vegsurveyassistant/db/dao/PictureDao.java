@@ -20,9 +20,11 @@ public interface PictureDao {
     void insertPlotPicture(PlotPictureEntity entity);
     @Delete
     void deletePlotPicture(PlotPictureEntity entity);
+    @Query("UPDATE plot_picture SET delete_at = :deleteAt, update_at = :deleteAt WHERE id = :id")
+    void softDeletePlotPictureById(int id, long deleteAt);
     @Update
     void updatePlotPicture(PlotPictureEntity entity);
-    @Query("SELECT * FROM plot_picture WHERE owner_id = :ownerId AND delete_at IS NOT NULL")
+    @Query("SELECT * FROM plot_picture WHERE owner_id = :ownerId AND delete_at IS NULL")
     LiveData<List<PlotPictureEntity>> getPlotPictureEntityListByOwnerId(String ownerId);
 
 }

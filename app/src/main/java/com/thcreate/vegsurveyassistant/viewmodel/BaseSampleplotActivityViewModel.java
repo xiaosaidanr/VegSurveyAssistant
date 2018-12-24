@@ -11,8 +11,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.thcreate.vegsurveyassistant.BasicApp;
+import com.thcreate.vegsurveyassistant.db.entity.PictureEntity;
+import com.thcreate.vegsurveyassistant.db.entity.PlotPictureEntity;
 import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
 import com.thcreate.vegsurveyassistant.db.entity.model.BaseSampleplot;
+import com.thcreate.vegsurveyassistant.repository.PictureRepository;
 import com.thcreate.vegsurveyassistant.repository.SpeciesRepository;
 import com.thcreate.vegsurveyassistant.repository.SampleplotRepository;
 import com.thcreate.vegsurveyassistant.service.LocationLiveData;
@@ -21,6 +24,7 @@ import com.thcreate.vegsurveyassistant.util.Macro;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.Date;
+import java.util.List;
 
 abstract public class BaseSampleplotActivityViewModel<T extends BaseSampleplot> extends AndroidViewModel {
 
@@ -51,13 +55,14 @@ abstract public class BaseSampleplotActivityViewModel<T extends BaseSampleplot> 
     private Class<T> mClazzT;
 
     SampleplotRepository mSampleplotRepository;
-
     SpeciesRepository mSpeciesRepository;
+    PictureRepository mPictureRepository;
 
     public BaseSampleplotActivityViewModel(@NonNull Application application) {
         super(application);
         mSampleplotRepository = ((BasicApp)application).getSampleplotRepository();
         mSpeciesRepository = ((BasicApp)application).getSpeicesRepository();
+        mPictureRepository = ((BasicApp)application).getPictureRepository();
         mClazzT = (Class <T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         speciesCount = new MutableLiveData<>();
         speciesCount.setValue("0");
@@ -123,8 +128,16 @@ abstract public class BaseSampleplotActivityViewModel<T extends BaseSampleplot> 
         }
     }
 
+    public LiveData<List<PlotPictureEntity>> getPlotPictureEntityList(){
+        return mPictureRepository.loadAllPlotPictureEntityByOwnerId(plotId);
+    }
+
     public void deleteSpeciesEntityById(int id){
         mSpeciesRepository.softDeleteSpeciesEntityById(id);
+    }
+
+    public void deletePlotPictureEntityById(int id){
+        mPictureRepository.softDeletePlotPictureEntityById(id);
     }
 
     public void onGoForward(){
@@ -180,4 +193,19 @@ abstract public class BaseSampleplotActivityViewModel<T extends BaseSampleplot> 
         }
         return true;
     }
+
+    public boolean savePicture(String pictureId, String localAddr){
+        PlotPictureEntity entity = new PlotPictureEntity();
+        if (pictureId == null || localAddr == null){
+            return false;
+        }
+        else {
+            entity.ownerId = plotId;
+            entity.pictureId = pictureId;
+            entity.localAddr = localAddr;
+            mPictureRepository.insertPlotPictureEntity(entity);
+            return true;
+        }
+    }
+
 }

@@ -51,6 +51,12 @@ public class PictureRepository {
             mDatabase.pictureDao().updatePlotPicture(entity);
         });
     }
+    public void softDeletePlotPictureEntityById(int id){
+        long deleteAt = new Date().getTime();
+        mAppExecutors.diskIO().execute(()->{
+            mDatabase.pictureDao().softDeletePlotPictureById(id, deleteAt);
+        });
+    }
     public void deletePlotPictureEntity(PlotPictureEntity entity){
         mAppExecutors.diskIO().execute(()->{
             mDatabase.pictureDao().deletePlotPicture(entity);
