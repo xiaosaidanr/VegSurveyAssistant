@@ -285,7 +285,8 @@
                         android:text="@string/photo_number"
                         android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
                     <TextView
-                        android:text="0"
+                        android:id="@+id/picture_count_text_view"
+                        android:text="@{viewmodel.pictureCount}"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

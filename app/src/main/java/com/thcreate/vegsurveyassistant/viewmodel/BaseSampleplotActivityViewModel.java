@@ -51,6 +51,7 @@ abstract public class BaseSampleplotActivityViewModel<T extends BaseSampleplot> 
     public LocationLiveData locationLiveData;
 
     public MutableLiveData<String> speciesCount;
+    public MutableLiveData<String> pictureCount;
 
     private Class<T> mClazzT;
 
@@ -66,6 +67,8 @@ abstract public class BaseSampleplotActivityViewModel<T extends BaseSampleplot> 
         mClazzT = (Class <T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         speciesCount = new MutableLiveData<>();
         speciesCount.setValue("0");
+        pictureCount = new MutableLiveData<>();
+        pictureCount.setValue("0");
 //        plotType = getPlotType();
         locationLiveData = new LocationLiveData(application);
     }

@@ -101,6 +101,10 @@ public class HerbPlotActivity extends BaseSampleplotActivity<HerbPlotActivityVie
         mViewModel.getPlotPictureEntityList().observe(this, (dataList)->{
             if (dataList != null){
                 mPictureAdapter.setDataList(dataList);
+                mViewModel.pictureCount.setValue(String.valueOf(dataList.size()));
+            }
+            else {
+                mViewModel.pictureCount.setValue("0");
             }
             mBinding.executePendingBindings();
         });
