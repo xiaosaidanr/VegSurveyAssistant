@@ -40,10 +40,15 @@ public class HerbLandActivity extends BaseSamplelandActivity<HerbLandActivityVie
     private void initLayout(){
         setSupportActionBar(mBinding.toolbar);
 
-        mBinding.fab.setOnClickListener((v)->{
-            mViewModel.save();
-            finish();
-        });
+//        mBinding.fab.setOnClickListener((v)->{
+//            String result = mViewModel.save();
+//            if (result == null){
+//                finish();
+//            }
+//            else {
+//                Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         RecyclerViewSwipeDismissController controller = new RecyclerViewSwipeDismissController(
                 0,

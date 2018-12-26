@@ -4,6 +4,8 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.Toast;
 
 import com.thcreate.vegsurveyassistant.util.Macro;
 import com.thcreate.vegsurveyassistant.viewmodel.BaseSpeciesActivityViewModel;
@@ -50,6 +52,16 @@ public class BaseSpeciesActivity<U extends BaseSpeciesActivityViewModel> extends
     protected void onSaveInstanceState(Bundle outState) {
         outState = mViewModel.onSaveViewModelState(outState);
         super.onSaveInstanceState(outState);
+    }
+
+    public void saveSpecies(View v){
+        String result = mViewModel.save();
+        if (result == null){
+            finish();
+        }
+        else {
+            Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

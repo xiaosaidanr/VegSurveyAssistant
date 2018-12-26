@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.thcreate.vegsurveyassistant.BasicApp;
+import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.db.entity.SamplelandEntity;
 import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
 import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.PlotMainInfo;
@@ -155,13 +156,16 @@ public class BaseSamplelandActivityViewModel extends AndroidViewModel {
         return IdGenerator.getId(userId);
     }
 
-    public boolean save(){
+    public String save(){
         if (sampleland == null){
-            return false;
+            return getApplication().getString(R.string.land_save_error);
         }
         Sampleland samplelandRaw = sampleland.getValue();
         if (samplelandRaw == null){
-            return false;
+            return getApplication().getString(R.string.land_save_error);
+        }
+        if (samplelandRaw.code == null){
+            return getApplication().getString(R.string.please_fill_land_code);
         }
         if (action.equals(Macro.ACTION_ADD) || action.equals(Macro.ACTION_ADD_RESTORE)){
             mSamplelandRepository.insertSamplelandEntity(samplelandRaw.getEntity());
@@ -172,6 +176,6 @@ public class BaseSamplelandActivityViewModel extends AndroidViewModel {
         if (action.equals(Macro.ACTION_TEMP_SAVE) || action.equals(Macro.ACTION_TEMP_SAVE_RESTORE)){
             mSamplelandRepository.updateSamplelandEntity(samplelandRaw.getEntity());
         }
-        return true;
+        return null;
     }
 }

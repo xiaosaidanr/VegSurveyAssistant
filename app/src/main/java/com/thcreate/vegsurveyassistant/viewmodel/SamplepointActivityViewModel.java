@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.thcreate.vegsurveyassistant.BasicApp;
+import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.db.entity.SamplepointEntity;
 import com.thcreate.vegsurveyassistant.db.entity.model.Samplepoint;
 import com.thcreate.vegsurveyassistant.repository.SamplepointRepository;
@@ -94,13 +95,16 @@ public class SamplepointActivityViewModel extends AndroidViewModel {
         locationLiveData.getLocation();
     }
 
-    public boolean save(){
+    public String save(){
         if (samplepoint == null){
-            return false;
+            return getApplication().getString(R.string.point_save_error);
         }
         Samplepoint samplepointRaw = samplepoint.getValue();
         if (samplepointRaw == null){
-            return false;
+            return getApplication().getString(R.string.point_save_error);
+        }
+        if (samplepointRaw.code == null){
+            return getApplication().getString(R.string.please_fill_point_code);
         }
         if (action.equals(Macro.ACTION_ADD) || action.equals(Macro.ACTION_ADD_RESTORE)){
             mSamplepointRepository.insertSamplepoint(samplepointRaw.getEntity());
@@ -108,7 +112,7 @@ public class SamplepointActivityViewModel extends AndroidViewModel {
         if (action.equals(Macro.ACTION_EDIT) || action.equals(Macro.ACTION_EDIT_RESTORE)){
             mSamplepointRepository.updateSamplepoint(samplepointRaw.getEntity());
         }
-        return true;
+        return null;
     }
 
 }

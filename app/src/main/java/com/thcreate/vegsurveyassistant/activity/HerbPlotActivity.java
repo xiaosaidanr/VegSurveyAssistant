@@ -66,10 +66,10 @@ public class HerbPlotActivity extends BaseSampleplotActivity<HerbPlotActivityVie
             pAppCompatSpinner.setAdapter(shrubplotCodeSpinnerAdapter);
         }
 
-        mBinding.fab.setOnClickListener((v)->{
-            mViewModel.save();
-            finish();
-        });
+//        mBinding.fab.setOnClickListener((v)->{
+//            mViewModel.save();
+//            finish();
+//        });
 
         RecyclerViewSwipeDismissController controller = new RecyclerViewSwipeDismissController(
                 0,

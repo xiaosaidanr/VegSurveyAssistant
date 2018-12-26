@@ -53,8 +53,13 @@ public class SamplepointActivity extends BaseActivity implements DatePickerDialo
     private void initLayout(){
         setSupportActionBar(mBinding.toolbar);
         mBinding.fab.setOnClickListener((v)->{
-            mViewModel.save();
-            finish();
+            String result = mViewModel.save();
+            if (result == null){
+                finish();
+            }
+            else {
+                Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+            }
         });
 
         subscribeUi();

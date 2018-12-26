@@ -41,10 +41,10 @@ public class ShrubLandActivity extends BaseSamplelandActivity<ShrubLandActivityV
     private void initLayout(){
         setSupportActionBar(mBinding.toolbar);
 
-        mBinding.fab.setOnClickListener((v)->{
-            mViewModel.save();
-            finish();
-        });
+//        mBinding.fab.setOnClickListener((v)->{
+//            mViewModel.save();
+//            finish();
+//        });
 
         RecyclerViewSwipeDismissController shrubplotItemController = new RecyclerViewSwipeDismissController(
                 0,

@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.thcreate.vegsurveyassistant.BasicApp;
+import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.db.entity.PictureEntity;
 import com.thcreate.vegsurveyassistant.db.entity.PlotPictureEntity;
 import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
@@ -177,13 +178,16 @@ abstract public class BaseSampleplotActivityViewModel<T extends BaseSampleplot> 
         locationLiveData.getLocation();
     }
 
-    public boolean save(){
+    public String save(){
         if (sampleplot == null){
-            return false;
+            return getApplication().getString(R.string.plot_save_error);
         }
         T sampleplotRaw = sampleplot.getValue();
         if (sampleplotRaw == null){
-            return false;
+            return getApplication().getString(R.string.plot_save_error);
+        }
+        if (sampleplotRaw.code == null){
+            return getApplication().getString(R.string.please_fill_plot_code);
         }
         if (action.equals(Macro.ACTION_ADD) || action.equals(Macro.ACTION_ADD_RESTORE)){
             mSampleplotRepository.insertSampleplotEntity(sampleplotRaw.getEntity());
@@ -194,7 +198,7 @@ abstract public class BaseSampleplotActivityViewModel<T extends BaseSampleplot> 
         if (action.equals(Macro.ACTION_TEMP_SAVE) || action.equals(Macro.ACTION_TEMP_SAVE_RESTORE)){
             mSampleplotRepository.updateSampleplotEntity(sampleplotRaw.getEntity());
         }
-        return true;
+        return null;
     }
 
     public boolean savePicture(String pictureId, String localAddr){

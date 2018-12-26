@@ -24,13 +24,13 @@ public class ArborSpeciesActivity extends BaseSpeciesActivity<ArborSpeciesActivi
     }
     private void initLayout(){
         setSupportActionBar(findViewById(R.id.toolbar));
-        findViewById(R.id.fab).setOnClickListener((v)->{
-            save();
-            finish();
-        });
+//        findViewById(R.id.fab).setOnClickListener((v)->{
+//            save();
+//            finish();
+//        });
     }
 
-    private boolean save(){
-        return mViewModel.save();
-    }
+//    private boolean save(){
+//        return mViewModel.save();
+//    }
 }

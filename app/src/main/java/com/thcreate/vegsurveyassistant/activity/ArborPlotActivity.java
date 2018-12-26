@@ -49,10 +49,10 @@ public class ArborPlotActivity extends BaseSampleplotActivity<ArborPlotActivityV
     private void initLayout(){
         setSupportActionBar(mBinding.toolbar);
 
-        mBinding.fab.setOnClickListener((v)->{
-            mViewModel.save();
-            finish();
-        });
+//        mBinding.fab.setOnClickListener((v)->{
+//            mViewModel.save();
+//            finish();
+//        });
 
         RecyclerViewSwipeDismissController controller = new RecyclerViewSwipeDismissController(
                 0,

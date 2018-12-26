@@ -102,6 +102,16 @@ public class BaseSampleplotActivity<U extends BaseSampleplotActivityViewModel> e
         super.onPositiveButtonPressed();
     }
 
+    public void savePlot(View v){
+        String result = mViewModel.save();
+        if (result == null){
+            finish();
+        }
+        else {
+            Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public void onTakePhoto(View v){
         checkTakePhotoRelatedPermissions();
     }

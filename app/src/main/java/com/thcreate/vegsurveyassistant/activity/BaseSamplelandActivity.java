@@ -79,4 +79,14 @@ public class BaseSamplelandActivity<U extends BaseSamplelandActivityViewModel> e
         mViewModel.getLocation();
     }
 
+    public void saveLand(View v){
+        String result = mViewModel.save();
+        if (result == null){
+            finish();
+        }
+        else {
+            Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }

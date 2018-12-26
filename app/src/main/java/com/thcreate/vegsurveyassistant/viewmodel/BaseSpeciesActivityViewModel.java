@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.thcreate.vegsurveyassistant.BasicApp;
+import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity;
 import com.thcreate.vegsurveyassistant.db.entity.model.BaseSpecies;
 import com.thcreate.vegsurveyassistant.repository.SpeciesRepository;
@@ -106,13 +107,16 @@ abstract public class BaseSpeciesActivityViewModel<T extends BaseSpecies> extend
         return outState;
     }
 
-    public boolean save(){
+    public String save(){
         if (species == null){
-            return false;
+            return getApplication().getString(R.string.species_save_error);
         }
         T speciesRaw = species.getValue();
         if (speciesRaw == null){
-            return false;
+            return getApplication().getString(R.string.species_save_error);
+        }
+        if (speciesRaw.code == null){
+            return getApplication().getString(R.string.please_fill_species_code);
         }
         if (action.equals(Macro.ACTION_ADD) || action.equals(Macro.ACTION_ADD_RESTORE)){
             repository.insertSpeciesEntity(speciesRaw.getEntity());
@@ -120,7 +124,7 @@ abstract public class BaseSpeciesActivityViewModel<T extends BaseSpecies> extend
         if (action.equals(Macro.ACTION_EDIT) || action.equals(Macro.ACTION_EDIT_RESTORE)){
             repository.updateSpeciesEntity(speciesRaw.getEntity());
         }
-        return true;
+        return null;
     }
 
 }
