@@ -49,7 +49,7 @@
         android:background="@drawable/rect_nobackground_lrbborder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@{plotData.plotId}"
+        android:text="@{plotData.code}"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         android:gravity="center_vertical"
         android:onClick="@{() -> clickCallback.onClick(plotData)}"

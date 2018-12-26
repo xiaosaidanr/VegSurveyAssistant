@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
         android:gravity="center_vertical"
-        android:text="@{speciesData.speciesId}"
+        android:text="@{speciesData.code}"
         android:onClick="@{() -> clickCallback.onClick(speciesData)}"
         android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
         />

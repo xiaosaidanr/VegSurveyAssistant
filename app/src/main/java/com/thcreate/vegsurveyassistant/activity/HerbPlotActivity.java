@@ -8,7 +8,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -65,11 +64,6 @@ public class HerbPlotActivity extends BaseSampleplotActivity<HerbPlotActivityVie
             shrubplotCodeSpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, new ArrayList<String>());
             pAppCompatSpinner.setAdapter(shrubplotCodeSpinnerAdapter);
         }
-
-//        mBinding.fab.setOnClickListener((v)->{
-//            mViewModel.save();
-//            finish();
-//        });
 
         RecyclerViewSwipeDismissController controller = new RecyclerViewSwipeDismissController(
                 0,

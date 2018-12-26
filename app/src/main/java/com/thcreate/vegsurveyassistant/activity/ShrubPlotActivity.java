@@ -62,11 +62,6 @@ public class ShrubPlotActivity extends BaseSampleplotActivity<ShrubPlotActivityV
             pAppCompatSpinner.setAdapter(arborplotCodeSpinnerAdapter);
         }
 
-//        mBinding.fab.setOnClickListener((v)->{
-//            mViewModel.save();
-//            finish();
-//        });
-
         RecyclerViewSwipeDismissController controller = new RecyclerViewSwipeDismissController(
                 0,
                 ItemTouchHelper.LEFT,

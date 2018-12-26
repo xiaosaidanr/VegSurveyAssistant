@@ -42,16 +42,6 @@ public class ArborLandActivity extends BaseSamplelandActivity<ArborLandActivityV
     private void initLayout(){
         setSupportActionBar(mBinding.toolbar);
 
-//        mBinding.fab.setOnClickListener((v)->{
-//            String result = mViewModel.save();
-//            if (result == null){
-//                finish();
-//            }
-//            else {
-//                Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
         RecyclerViewSwipeDismissController arborplotItemController = new RecyclerViewSwipeDismissController(
                 0,
                 ItemTouchHelper.LEFT,
