@@ -52,8 +52,8 @@
     <!-- 样方相关 -->
     <string name="sampleplot_info">样方信息</string>
     <string name="sampleplot_code">样方编号*</string>
-    <string name="belong_shrub_sampleplot_code">所在乔木样方编号</string>
-    <string name="belong_arbor_sampleplot_code">所在灌木样方编号</string>
+    <string name="belong_shrub_sampleplot_code">所在灌木样方编号</string>
+    <string name="belong_arbor_sampleplot_code">所在乔木样方编号</string>
     <string name="community_name">群落名称</string>
     <string name="plot_length_m">样方长(m)</string>
     <string name="plot_width_m">样方宽(m)</string>

@@ -63,7 +63,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/belong_shrub_sampleplot_code"
+                    android:text="@string/belong_arbor_sampleplot_code"
                     android:textAppearance="@style/TextAppearance.AppCompat.Menu"
                     />
                 <android.support.v7.widget.AppCompatSpinner
@@ -85,7 +85,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/belong_arbor_sampleplot_code"
+                    android:text="@string/belong_shrub_sampleplot_code"
                     android:textAppearance="@style/TextAppearance.AppCompat.Menu"
                     />
                 <android.support.v7.widget.AppCompatSpinner
