@@ -118,19 +118,6 @@ public class ShrubPlotActivity extends BaseSampleplotActivity<ShrubPlotActivityV
             }
             mBinding.executePendingBindings();
         });
-//        if (arborplotCodeSpinnerAdapter != null){
-//            mViewModel.getArborPlotEntityList().observe(this, (dataList)->{
-//                if (dataList != null){
-//                    if (dataList.size()>0){
-//                        arborplotCodeSpinnerAdapter.clear();
-//                        for (PlotMainInfo item: dataList){
-//                            arborplotCodeSpinnerAdapter.add(new PlotPlotRelationData(item.plotId, item.code, item.type));
-//                        }
-//                        arborplotCodeSpinnerAdapter.notifyDataSetChanged();
-//                    }
-//                }
-//            });
-//        }
 
         mViewModel.locationLiveData.observe(this, locationData -> {
             if (locationData.isValid){

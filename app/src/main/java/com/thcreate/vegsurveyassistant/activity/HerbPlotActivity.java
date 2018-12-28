@@ -42,8 +42,6 @@ public class HerbPlotActivity extends BaseSampleplotActivity<HerbPlotActivityVie
 
     private ActivityHerbplotBinding mBinding;
 
-//    private ArrayAdapter<String> arborplotCodeSpinnerAdapter;
-//    private ArrayAdapter<String> shrubplotCodeSpinnerAdapter;
     private AppCompatSpinner mAppCompatSpinner;
     private ArrayAdapter<PlotPlotRelationData> parentPlotCodeSpinnerAdapter;
     private PlotPlotRelationTask mTask;
@@ -75,16 +73,6 @@ public class HerbPlotActivity extends BaseSampleplotActivity<HerbPlotActivityVie
         mAppCompatSpinner = findViewById(R.id.belong_plot_code_spinner);
         mAppCompatSpinner.setOnItemSelectedListener(this);
 
-//        if (mViewModel.landType.getValue().equals(Macro.SAMPLELAND_TYPE_TREE)){
-//            AppCompatSpinner pAppCompatSpinner = findViewById(R.id.belong_arborplot_code_spinner);
-//            arborplotCodeSpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, new ArrayList<String>());
-//            pAppCompatSpinner.setAdapter(arborplotCodeSpinnerAdapter);
-//        }
-//        if (mViewModel.landType.getValue().equals(Macro.SAMPLELAND_TYPE_TREE) || mViewModel.landType.getValue().equals(Macro.SAMPLELAND_TYPE_BUSH)){
-//            AppCompatSpinner pAppCompatSpinner = findViewById(R.id.belong_shrubplot_code_spinner);
-//            shrubplotCodeSpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, new ArrayList<String>());
-//            pAppCompatSpinner.setAdapter(shrubplotCodeSpinnerAdapter);
-//        }
         if (mViewModel.landType.getValue().equals(Macro.SAMPLELAND_TYPE_TREE) || mViewModel.landType.getValue().equals(Macro.SAMPLELAND_TYPE_BUSH)){
             parentPlotCodeSpinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, new ArrayList<>());
             mTask = new PlotPlotRelationTask(this);
@@ -138,32 +126,6 @@ public class HerbPlotActivity extends BaseSampleplotActivity<HerbPlotActivityVie
             }
             mBinding.executePendingBindings();
         });
-//        if (arborplotCodeSpinnerAdapter != null){
-//            mViewModel.getArborPlotEntityList().observe(this, (dataList)->{
-//                if (dataList != null){
-//                    if (dataList.size()>0){
-//                        arborplotCodeSpinnerAdapter.clear();
-//                        for (PlotMainInfo item: dataList){
-//                            arborplotCodeSpinnerAdapter.add(item.plotId);
-//                        }
-//                        arborplotCodeSpinnerAdapter.notifyDataSetChanged();
-//                    }
-//                }
-//            });
-//        }
-//        if (shrubplotCodeSpinnerAdapter != null){
-//            mViewModel.getShrubPlotEntityList().observe(this, (dataList)->{
-//                if (dataList != null){
-//                    if (dataList.size()>0){
-//                        shrubplotCodeSpinnerAdapter.clear();
-//                        for (PlotMainInfo item: dataList){
-//                            shrubplotCodeSpinnerAdapter.add(item.plotId);
-//                        }
-//                        shrubplotCodeSpinnerAdapter.notifyDataSetChanged();
-//                    }
-//                }
-//            });
-//        }
 
         mViewModel.locationLiveData.observe(this, locationData -> {
             if (locationData.isValid){

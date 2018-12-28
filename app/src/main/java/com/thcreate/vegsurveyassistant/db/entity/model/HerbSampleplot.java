@@ -15,12 +15,12 @@ import java.util.Date;
 
 public class HerbSampleplot extends BaseSampleplot implements Parcelable {
 
-    @Expose
-    @SerializedName("arbor_plot_id")
-    public String arborPlotId;//所属乔木样方ID
-    @Expose
-    @SerializedName("shrub_plot_id")
-    public String shrubPlotId;//所属灌木样方ID
+//    @Expose
+//    @SerializedName("arbor_plot_id")
+//    public String arborPlotId;//所属乔木样方ID
+//    @Expose
+//    @SerializedName("shrub_plot_id")
+//    public String shrubPlotId;//所属灌木样方ID
 
     public HerbSampleplot() {
         this.type = Macro.HERB;
@@ -44,8 +44,8 @@ public class HerbSampleplot extends BaseSampleplot implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest = writeCommonToParcel(dest);
-        dest.writeValue(arborPlotId);
-        dest.writeValue(shrubPlotId);
+//        dest.writeValue(arborPlotId);
+//        dest.writeValue(shrubPlotId);
     }
 
     public static final Parcelable.Creator<HerbSampleplot> CREATOR = new Creator<HerbSampleplot>() {
@@ -62,14 +62,14 @@ public class HerbSampleplot extends BaseSampleplot implements Parcelable {
 
     public HerbSampleplot(Parcel source){
         initCommonFromParcelableSource(source);
-        Object tmpArborPlotId = source.readValue(getClass().getClassLoader());
-        if (tmpArborPlotId != null){
-            arborPlotId = (String)tmpArborPlotId;
-        }
-        Object tmpShrubPlotId = source.readValue(getClass().getClassLoader());
-        if (tmpShrubPlotId != null){
-            shrubPlotId = (String)tmpShrubPlotId;
-        }
+//        Object tmpArborPlotId = source.readValue(getClass().getClassLoader());
+//        if (tmpArborPlotId != null){
+//            arborPlotId = (String)tmpArborPlotId;
+//        }
+//        Object tmpShrubPlotId = source.readValue(getClass().getClassLoader());
+//        if (tmpShrubPlotId != null){
+//            shrubPlotId = (String)tmpShrubPlotId;
+//        }
     }
 
     @Override

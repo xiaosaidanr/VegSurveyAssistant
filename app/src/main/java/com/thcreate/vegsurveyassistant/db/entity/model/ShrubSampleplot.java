@@ -15,9 +15,9 @@ import java.util.Date;
 
 public class ShrubSampleplot extends BaseSampleplot implements Parcelable {
 
-    @Expose
-    @SerializedName("arbor_plot_id")
-    public String arborPlotId;//所属乔木样方ID
+//    @Expose
+//    @SerializedName("arbor_plot_id")
+//    public String arborPlotId;//所属乔木样方ID
     @Expose
     @SerializedName("average_basal_diameter")
     public String averageBasalDiameter;//平均基径
@@ -44,7 +44,7 @@ public class ShrubSampleplot extends BaseSampleplot implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest = writeCommonToParcel(dest);
-        dest.writeValue(arborPlotId);
+//        dest.writeValue(arborPlotId);
         dest.writeValue(averageBasalDiameter);
     }
 
@@ -62,10 +62,10 @@ public class ShrubSampleplot extends BaseSampleplot implements Parcelable {
 
     public ShrubSampleplot(Parcel source){
         initCommonFromParcelableSource(source);
-        Object tmpArborPlotId = source.readValue(getClass().getClassLoader());
-        if (tmpArborPlotId != null){
-            arborPlotId = (String)tmpArborPlotId;
-        }
+//        Object tmpArborPlotId = source.readValue(getClass().getClassLoader());
+//        if (tmpArborPlotId != null){
+//            arborPlotId = (String)tmpArborPlotId;
+//        }
         Object tmpAverageBasalDiameter = source.readValue(getClass().getClassLoader());
         if (tmpAverageBasalDiameter != null){
             averageBasalDiameter = (String)tmpAverageBasalDiameter;
