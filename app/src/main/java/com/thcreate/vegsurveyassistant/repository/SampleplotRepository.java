@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.thcreate.vegsurveyassistant.AppExecutors;
 import com.thcreate.vegsurveyassistant.db.AppDatabase;
+import com.thcreate.vegsurveyassistant.db.entity.PlotPlotEntity;
 import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
 import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.PlotMainInfo;
 import com.thcreate.vegsurveyassistant.util.Macro;
@@ -43,14 +44,23 @@ public class SampleplotRepository {
         return mDatabase.sampleplotDao().getSampleplotEntityByPlotId(plotId);
     }
 
+    public List<PlotMainInfo> getAllArborSampleplotEntityByLandIdSync(String landId){
+        return mDatabase.sampleplotDao().getPlotMainInfoListByLandIdAndTypeSync(landId, Macro.ARBOR);
+    }
     public LiveData<List<PlotMainInfo>> getAllArborSampleplotEntityByLandId(String landId){
         return mDatabase.sampleplotDao().getPlotMainInfoListByLandIdAndType(landId, Macro.ARBOR);
     }
 
+    public List<PlotMainInfo> getAllShrubSampleplotEntityByLandIdSync(String landId){
+        return mDatabase.sampleplotDao().getPlotMainInfoListByLandIdAndTypeSync(landId, Macro.SHRUB);
+    }
     public LiveData<List<PlotMainInfo>> getAllShrubSampleplotEntityByLandId(String landId){
         return mDatabase.sampleplotDao().getPlotMainInfoListByLandIdAndType(landId, Macro.SHRUB);
     }
 
+    public List<PlotMainInfo> getAllHerbSampleplotEntityByLandIdSync(String landId){
+        return mDatabase.sampleplotDao().getPlotMainInfoListByLandIdAndTypeSync(landId, Macro.HERB);
+    }
     public LiveData<List<PlotMainInfo>> getAllHerbSampleplotEntityByLandId(String landId){
         return mDatabase.sampleplotDao().getPlotMainInfoListByLandIdAndType(landId, Macro.HERB);
     }
@@ -84,16 +94,31 @@ public class SampleplotRepository {
         });
     }
 
-    public void deleteSampleplotEntityById(int id){
-        mAppExecutors.diskIO().execute(()->{
-            mDatabase.sampleplotDao().deleteById(id);
-        });
+    private void deleteRelatedSampleplotEntityByParentId(String parentId){
+        List<PlotPlotEntity> plotPlotEntityList = mDatabase.plotPlotDao().getPlotPlotEntityListByParentIdSync(parentId);
+        if (plotPlotEntityList == null){
+            return;
+        }
+        for (PlotPlotEntity entity:
+                plotPlotEntityList) {
+            mDatabase.plotPlotDao().delete(entity);
+            mDatabase.sampleplotDao().deleteByPlotId(entity.childId);
+            deleteRelatedSampleplotEntityByParentId(entity.childId);
+        }
     }
+
+//    public void deleteSampleplotEntityById(int id){
+//        mAppExecutors.diskIO().execute(()->{
+//            mDatabase.sampleplotDao().deleteById(id);
+//        });
+//    }
 
     public void softDeleteSampleplotEntityById(int id){
         long deleteAt = new Date().getTime();
         mAppExecutors.diskIO().execute(()->{
             mDatabase.sampleplotDao().softDeleteById(id, deleteAt);
+            SampleplotEntity sampleplotEntity = mDatabase.sampleplotDao().getSampleplotEntityByIdSync(id);
+            deleteRelatedSampleplotEntityByParentId(sampleplotEntity.plotId);
         });
     }
 
@@ -109,30 +134,48 @@ public class SampleplotRepository {
             else {
                 mDatabase.sampleplotDao().delete(data);
             }
+            deleteRelatedSampleplotEntityByParentId(data.plotId);
         });
     }
 
-//    public void deleteArborSampleplotEntityByIdRelated(int id){
-//        mAppExecutors.diskIO().execute(()->{
-//            QiaomuYangfang tmp = mDatabase.qiaomuYangfangDao().getYangfangById(id);
-//            String qiaomuyangfangCode = tmp.yangfangCode;
-//            mDatabase.qiaomuYangfangDao().deleteById(id);
-//            mDatabase.guanmuYangfangDao().deleteByQiaomuyangfangCode(qiaomuyangfangCode);
-//            mDatabase.caobenYangfangDao().deleteByQiaomuyangfangCode(qiaomuyangfangCode);
-//        });
+
+
+    public void insertPlotPlotEntity(PlotPlotEntity data){
+        Date dateNow = new Date();
+        data.createAt = dateNow;
+        data.updateAt = dateNow;
+        mAppExecutors.diskIO().execute(()->{
+            mDatabase.plotPlotDao().insert(data);
+        });
+    }
+
+    public void updatePlotPlotEntity(PlotPlotEntity data){
+        Date dateNow = new Date();
+        mAppExecutors.diskIO().execute(()->{
+            PlotPlotEntity tmp = mDatabase.plotPlotDao().getPlotPlotEntityByChildIdSync(data.childId);
+            if (tmp != null){
+                tmp.parentId = data.parentId;
+                tmp.parentType = data.parentType;
+                tmp.updateAt = dateNow;
+                mDatabase.plotPlotDao().update(tmp);
+            }
+        });
+    }
+
+    public PlotPlotEntity getPlotPlotEntityByChildIdSync(String childId){
+        return mDatabase.plotPlotDao().getPlotPlotEntityByChildIdSync(childId);
+    }
+
+//    public LiveData<PlotPlotEntity> getPlotPlotEntityByChildId(String childId){
+//        return mDatabase.plotPlotDao().getPlotPlotEntityByChildId(childId);
 //    }
 //
-//    public void deleteShrubSampleplotEntityByIdRelated(int id){
-//        mAppExecutors.diskIO().execute(()->{
-//            GuanmuYangfang tmp = mDatabase.guanmuYangfangDao().getYangfangById(id);
-//            String guanmuyangfangCode = tmp.yangfangCode;
-//            mDatabase.guanmuYangfangDao().deleteById(id);
-//            mDatabase.caobenYangfangDao().deleteByGuanmuyangfangCode(guanmuyangfangCode);
-//        });
+//    public LiveData<List<PlotPlotEntity>> getPlotPlotEntityListByParentId(String parentId){
+//        return mDatabase.plotPlotDao().getPlotPlotEntityListByParentId(parentId);
 //    }
-//
-//    public void deleteHerbSampleplotEntityByIdRelated(int id){
-//        mAppExecutors.diskIO().execute(()->mDatabase.caobenYangfangDao().deleteById(id));
-//    }
+
+    public List<PlotPlotEntity> getPlotPlotEntityListByLandIdSync(String landId){
+        return mDatabase.plotPlotDao().getPlotPlotEntityListByLandIdSync(landId);
+    }
 
 }

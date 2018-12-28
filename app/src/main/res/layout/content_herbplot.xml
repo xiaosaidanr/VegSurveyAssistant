@@ -53,7 +53,7 @@
                 android:text="@={viewmodel.sampleplot.code}"/>
 
             <LinearLayout
-                android:visibility="@{viewmodel.landType.equals(Macro.SAMPLELAND_TYPE_TREE)?View.VISIBLE:View.GONE}"
+                android:visibility="@{(viewmodel.landType.equals(Macro.SAMPLELAND_TYPE_TREE) || viewmodel.landType.equals(Macro.SAMPLELAND_TYPE_BUSH))?View.VISIBLE:View.GONE}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"
@@ -63,38 +63,38 @@
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/belong_arbor_sampleplot_code"
+                    android:text="@string/belong_sampleplot_code"
                     android:textAppearance="@style/TextAppearance.AppCompat.Menu"
                     />
                 <android.support.v7.widget.AppCompatSpinner
-                    android:id="@+id/belong_arborplot_code_spinner"
+                    android:id="@+id/belong_plot_code_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    bind:selectedValue="@={viewmodel.sampleplot.arborPlotId}"
                     />
+                <!--bind:selectedValue="@={viewmodel.sampleplot.arborPlotId}"-->
             </LinearLayout>
 
-            <LinearLayout
-                android:visibility="@{(viewmodel.landType.equals(Macro.SAMPLELAND_TYPE_TREE)||viewmodel.landType.equals(Macro.SAMPLELAND_TYPE_BUSH))?View.VISIBLE:View.GONE}"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:background="@drawable/rect_nobackground_lrbborder"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_marginTop="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/belong_shrub_sampleplot_code"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                    />
-                <android.support.v7.widget.AppCompatSpinner
-                    android:id="@+id/belong_shrubplot_code_spinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    bind:selectedValue="@={viewmodel.sampleplot.shrubPlotId}"
-                    />
-            </LinearLayout>
+            <!--<LinearLayout-->
+                <!--android:visibility="@{(viewmodel.landType.equals(Macro.SAMPLELAND_TYPE_TREE)||viewmodel.landType.equals(Macro.SAMPLELAND_TYPE_BUSH))?View.VISIBLE:View.GONE}"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="0dp"-->
+                <!--android:background="@drawable/rect_nobackground_lrbborder"-->
+                <!--android:orientation="vertical">-->
+                <!--<TextView-->
+                    <!--android:layout_marginTop="10dp"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="@string/belong_shrub_sampleplot_code"-->
+                    <!--android:textAppearance="@style/TextAppearance.AppCompat.Menu"-->
+                    <!--/>-->
+                <!--<android.support.v7.widget.AppCompatSpinner-->
+                    <!--android:id="@+id/belong_shrubplot_code_spinner"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--bind:selectedValue="@={viewmodel.sampleplot.shrubPlotId}"-->
+                    <!--/>-->
+            <!--</LinearLayout>-->
 
             <TextView
                 android:layout_marginTop="0dp"

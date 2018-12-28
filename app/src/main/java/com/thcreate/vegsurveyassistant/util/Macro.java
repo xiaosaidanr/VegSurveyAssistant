@@ -23,6 +23,9 @@ public class Macro {
 
     public static final String IMAGE_PATH = "image_path";
 
+    public static final String PARENT_PLOT_ID = "parentPlotId";
+    public static final String PARENT_PLOT_TYPE = "parentPlotType";
+
     public static final String HERB = "herb";
     public static final String SHRUB = "shrub";
     public static final String ARBOR = "arbor";

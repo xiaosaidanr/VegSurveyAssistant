@@ -19,8 +19,12 @@ public class ShrubPlotActivityViewModel extends BaseSampleplotActivityViewModel<
         super(application);
     }
 
-    public LiveData<List<PlotMainInfo>> getArborPlotEntityList(){
-        return mSampleplotRepository.getAllArborSampleplotEntityByLandId(landId);
+//    public LiveData<List<PlotMainInfo>> getArborPlotEntityList(){
+//        return mSampleplotRepository.getAllArborSampleplotEntityByLandId(landId);
+//    }
+
+    public List<PlotMainInfo> getArborPlotEntityListSync(){
+        return mSampleplotRepository.getAllArborSampleplotEntityByLandIdSync(landId);
     }
 
     @Override

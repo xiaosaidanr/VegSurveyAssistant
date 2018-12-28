@@ -3,13 +3,14 @@ package com.thcreate.vegsurveyassistant.activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -22,22 +23,28 @@ import com.thcreate.vegsurveyassistant.adapter.PictureAdapter;
 import com.thcreate.vegsurveyassistant.adapter.RecyclerViewSwipeDismissController;
 import com.thcreate.vegsurveyassistant.adapter.SpeciesAdapter;
 import com.thcreate.vegsurveyassistant.databinding.ActivityShrubplotBinding;
+import com.thcreate.vegsurveyassistant.db.entity.PlotPlotEntity;
+import com.thcreate.vegsurveyassistant.model.PlotPlotRelationData;
 import com.thcreate.vegsurveyassistant.db.entity.PlotPictureEntity;
-import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
-import com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity;
 import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.PlotMainInfo;
 import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.SpeciesMainInfo;
 import com.thcreate.vegsurveyassistant.util.Macro;
 import com.thcreate.vegsurveyassistant.viewmodel.ShrubPlotActivityViewModel;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class ShrubPlotActivity extends BaseSampleplotActivity<ShrubPlotActivityViewModel> implements DatePickerDialog.OnDateSetListener {
+public class ShrubPlotActivity extends BaseSampleplotActivity<ShrubPlotActivityViewModel> implements DatePickerDialog.OnDateSetListener, AppCompatSpinner.OnItemSelectedListener {
 
     private ActivityShrubplotBinding mBinding;
 
-    private ArrayAdapter<String> arborplotCodeSpinnerAdapter;
+    private AppCompatSpinner mAppCompatSpinner;
+    private ArrayAdapter<PlotPlotRelationData> parentPlotCodeSpinnerAdapter;
+    private PlotPlotRelationTask mTask;
 
     private SpeciesAdapter mSpeciesAdapter;
     private PictureAdapter mPictureAdapter;
@@ -55,11 +62,14 @@ public class ShrubPlotActivity extends BaseSampleplotActivity<ShrubPlotActivityV
     }
     private void initLayout(){
         setSupportActionBar(mBinding.toolbar);
+        mAppCompatSpinner = findViewById(R.id.belong_plot_code_spinner);
+        mAppCompatSpinner.setOnItemSelectedListener(this);
 
         if (mViewModel.landType.getValue().equals(Macro.SAMPLELAND_TYPE_TREE)){
-            AppCompatSpinner pAppCompatSpinner = findViewById(R.id.belong_arborplot_code_spinner);
-            arborplotCodeSpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, new ArrayList<String>());
-            pAppCompatSpinner.setAdapter(arborplotCodeSpinnerAdapter);
+            parentPlotCodeSpinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, new ArrayList<>());
+            mTask = new PlotPlotRelationTask(this);
+            mTask.execute();
+            mAppCompatSpinner.setAdapter(parentPlotCodeSpinnerAdapter);
         }
 
         RecyclerViewSwipeDismissController controller = new RecyclerViewSwipeDismissController(
@@ -108,19 +118,19 @@ public class ShrubPlotActivity extends BaseSampleplotActivity<ShrubPlotActivityV
             }
             mBinding.executePendingBindings();
         });
-        if (arborplotCodeSpinnerAdapter != null){
-            mViewModel.getArborPlotEntityList().observe(this, (dataList)->{
-                if (dataList != null){
-                    if (dataList.size()>0){
-                        arborplotCodeSpinnerAdapter.clear();
-                        for (PlotMainInfo item: dataList){
-                            arborplotCodeSpinnerAdapter.add(item.plotId);
-                        }
-                        arborplotCodeSpinnerAdapter.notifyDataSetChanged();
-                    }
-                }
-            });
-        }
+//        if (arborplotCodeSpinnerAdapter != null){
+//            mViewModel.getArborPlotEntityList().observe(this, (dataList)->{
+//                if (dataList != null){
+//                    if (dataList.size()>0){
+//                        arborplotCodeSpinnerAdapter.clear();
+//                        for (PlotMainInfo item: dataList){
+//                            arborplotCodeSpinnerAdapter.add(new PlotPlotRelationData(item.plotId, item.code, item.type));
+//                        }
+//                        arborplotCodeSpinnerAdapter.notifyDataSetChanged();
+//                    }
+//                }
+//            });
+//        }
 
         mViewModel.locationLiveData.observe(this, locationData -> {
             if (locationData.isValid){
@@ -170,6 +180,105 @@ public class ShrubPlotActivity extends BaseSampleplotActivity<ShrubPlotActivityV
         intent.putExtra(Macro.ACTION, Macro.ACTION_ADD);
         intent.putExtra(Macro.SPECIES_ID, mViewModel.generateSpeciesId());
         startActivity(intent);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        PlotPlotRelationData tmp = parentPlotCodeSpinnerAdapter.getItem(position);
+        mViewModel.parentPlotId = tmp.childId;
+        mViewModel.parentPlotType = tmp.childType;
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mTask != null){
+            mTask.cancel(true);
+        }
+    }
+
+    private static class PlotPlotRelationTask extends AsyncTask<Void, Void, List<PlotPlotRelationData>>{
+        private WeakReference<ShrubPlotActivity> weakReferenceActivty;
+        public PlotPlotRelationTask(ShrubPlotActivity activity) {
+            weakReferenceActivty = new WeakReference<>(activity);
+        }
+        @Override
+        protected List<PlotPlotRelationData> doInBackground(Void... params) {
+            ArrayList<PlotPlotRelationData> result = new ArrayList<>();
+            try {
+                ShrubPlotActivity activity = weakReferenceActivty.get();
+                result.add(new PlotPlotRelationData(null, null, null));
+                Map<String,PlotMainInfo> allUpperPlotMainInfoMap = new HashMap<>();
+                Map<String, PlotPlotEntity> allPlotPlotEntityMap = new HashMap<>();
+                List<PlotMainInfo> arborPlotInfoList = activity.mViewModel.getArborPlotEntityListSync();
+                if (arborPlotInfoList == null){
+                    return result;
+                }
+                for (PlotMainInfo item:
+                        arborPlotInfoList) {
+                    allUpperPlotMainInfoMap.put(item.plotId, item);
+                }
+                List<PlotPlotEntity> plotPlotEntityList = activity.mViewModel.getPlotPlotEntityListByLandIdSync(activity.mViewModel.landId);
+                if (plotPlotEntityList != null && plotPlotEntityList.size() > 0){
+                    for (PlotPlotEntity item:
+                            plotPlotEntityList) {
+                        allPlotPlotEntityMap.put(item.childId, item);
+                    }
+                }
+                for (PlotMainInfo item:
+                        arborPlotInfoList) {
+                    PlotPlotRelationData plotPlotRelationData = new PlotPlotRelationData(item.plotId, item.code, item.type);
+                    if (allPlotPlotEntityMap.containsKey(item.plotId)){
+                        PlotPlotEntity plotPlotEntity = allPlotPlotEntityMap.get(item.plotId);
+                        plotPlotRelationData.parentId = plotPlotEntity.parentId;
+                        plotPlotRelationData.parentType = plotPlotEntity.parentType;
+                        if (allUpperPlotMainInfoMap.containsKey(plotPlotEntity.parentId)){
+                            PlotMainInfo plotMainInfo = allUpperPlotMainInfoMap.get(plotPlotEntity.parentId);
+                            plotPlotRelationData.parentCode = plotMainInfo.code;
+                        }
+                    }
+                    result.add(plotPlotRelationData);
+                }
+                if (activity.mViewModel.action.equals(Macro.ACTION_ADD) || activity.mViewModel.action.equals(Macro.ACTION_EDIT)){
+                    PlotPlotEntity data = activity.mViewModel.getPlotPlotEntityByChildIdSync(activity.mViewModel.plotId);
+                    if (data != null){
+                        activity.mViewModel.parentPlotId = data.parentId;
+                        activity.mViewModel.parentPlotType = data.parentType;
+                    }
+                }
+            }
+            catch (Exception e){
+                e.printStackTrace();
+                result.clear();
+            }
+            return result;
+        }
+        @Override
+        protected void onPostExecute(List<PlotPlotRelationData> result) {
+            super.onPostExecute(result);
+            ShrubPlotActivity activity;
+            if((activity = weakReferenceActivty.get())!=null){
+                if (activity.parentPlotCodeSpinnerAdapter != null){
+                    int selectedId = -1;
+                    for (int i = 0; i < result.size(); i++) {
+                        PlotPlotRelationData item = result.get(i);
+                        if (item.childId != null){
+                            if (item.childId.equals(activity.mViewModel.parentPlotId)){
+                                selectedId = i;
+                            }
+                        }
+                        activity.parentPlotCodeSpinnerAdapter.add(item);
+
+                    }
+                    activity.mAppCompatSpinner.setSelection(selectedId, true);
+                    activity.parentPlotCodeSpinnerAdapter.notifyDataSetChanged();
+                }
+            }
+        }
     }
 
 }

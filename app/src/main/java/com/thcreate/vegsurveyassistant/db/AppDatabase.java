@@ -14,6 +14,7 @@ import android.support.annotation.VisibleForTesting;
 import com.thcreate.vegsurveyassistant.AppExecutors;
 import com.thcreate.vegsurveyassistant.db.converter.DateConverter;
 import com.thcreate.vegsurveyassistant.db.dao.PictureDao;
+import com.thcreate.vegsurveyassistant.db.dao.PlotPlotDao;
 import com.thcreate.vegsurveyassistant.db.dao.SamplelandDao;
 import com.thcreate.vegsurveyassistant.db.dao.SampleplotDao;
 import com.thcreate.vegsurveyassistant.db.dao.SpeciesDao;
@@ -22,6 +23,7 @@ import com.thcreate.vegsurveyassistant.db.dao.SamplepointDao;
 import com.thcreate.vegsurveyassistant.db.entity.LandPictureEntity;
 import com.thcreate.vegsurveyassistant.db.entity.PictureEntity;
 import com.thcreate.vegsurveyassistant.db.entity.PlotPictureEntity;
+import com.thcreate.vegsurveyassistant.db.entity.PlotPlotEntity;
 import com.thcreate.vegsurveyassistant.db.entity.PointPictureEntity;
 import com.thcreate.vegsurveyassistant.db.entity.SamplelandEntity;
 import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
@@ -40,7 +42,8 @@ import com.thcreate.vegsurveyassistant.db.entity.User;
                 PointPictureEntity.class,
                 LandPictureEntity.class,
                 PlotPictureEntity.class,
-                SpeciesPictureEntity.class
+                SpeciesPictureEntity.class,
+                PlotPlotEntity.class
         },
         version = 1,
         exportSchema = false
@@ -66,6 +69,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract SamplepointDao samplepointDao();
 
     public abstract PictureDao pictureDao();
+
+    public abstract PlotPlotDao plotPlotDao();
 
     public static AppDatabase getInstance(final Context context, final AppExecutors executors){
         if (sINSTANCE == null){

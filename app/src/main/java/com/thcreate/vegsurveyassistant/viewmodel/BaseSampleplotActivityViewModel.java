@@ -14,6 +14,7 @@ import com.thcreate.vegsurveyassistant.BasicApp;
 import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.db.entity.PictureEntity;
 import com.thcreate.vegsurveyassistant.db.entity.PlotPictureEntity;
+import com.thcreate.vegsurveyassistant.db.entity.PlotPlotEntity;
 import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
 import com.thcreate.vegsurveyassistant.db.entity.model.BaseSampleplot;
 import com.thcreate.vegsurveyassistant.repository.PictureRepository;
@@ -46,9 +47,12 @@ abstract public class BaseSampleplotActivityViewModel<T extends BaseSampleplot> 
     public MutableLiveData<String> landType;
     public String action;
     public String plotId;
-//    private String plotType;
 
     public LiveData<T> sampleplot;
+
+    public String parentPlotId;
+    public String parentPlotType;
+
     public LocationLiveData locationLiveData;
 
     public MutableLiveData<String> speciesCount;
@@ -70,7 +74,6 @@ abstract public class BaseSampleplotActivityViewModel<T extends BaseSampleplot> 
         speciesCount.setValue("0");
         pictureCount = new MutableLiveData<>();
         pictureCount.setValue("0");
-//        plotType = getPlotType();
         locationLiveData = new LocationLiveData(application);
     }
 
@@ -80,6 +83,10 @@ abstract public class BaseSampleplotActivityViewModel<T extends BaseSampleplot> 
         landType.setValue(data.getString(Macro.SAMPLELAND_TYPE));
         action = data.getString(Macro.ACTION);
         plotId = data.getString(Macro.SAMPLEPLOT_ID);
+        if (!(action.equals(Macro.ACTION_ADD) || action.equals(Macro.ACTION_EDIT))){
+            parentPlotId = data.getString(Macro.PARENT_PLOT_ID);
+            parentPlotType = data.getString(Macro.PARENT_PLOT_TYPE);
+        }
         @Nullable T tmp = data.getParcelable(SAMPLEPLOT_DATA);
         initSampleplot(tmp);
     }
@@ -136,6 +143,14 @@ abstract public class BaseSampleplotActivityViewModel<T extends BaseSampleplot> 
         return mPictureRepository.loadAllPlotPictureEntityByOwnerId(plotId);
     }
 
+    public List<PlotPlotEntity> getPlotPlotEntityListByLandIdSync(String landId){
+        return mSampleplotRepository.getPlotPlotEntityListByLandIdSync(landId);
+    }
+
+    public PlotPlotEntity getPlotPlotEntityByChildIdSync(String childId){
+        return mSampleplotRepository.getPlotPlotEntityByChildIdSync(childId);
+    }
+
     public void deleteSpeciesEntityById(int id){
         mSpeciesRepository.softDeleteSpeciesEntityById(id);
     }
@@ -146,7 +161,9 @@ abstract public class BaseSampleplotActivityViewModel<T extends BaseSampleplot> 
 
     public void onGoForward(){
         if (action.equals(Macro.ACTION_ADD) || action.equals(Macro.ACTION_ADD_RESTORE)){
-            mSampleplotRepository.insertSampleplotEntity(sampleplot.getValue().getEntity());
+            SampleplotEntity tempSaveData = sampleplot.getValue().getEntity();
+            tempSaveData.deleteAt = new Date();
+            mSampleplotRepository.insertSampleplotEntity(tempSaveData);
             action = Macro.ACTION_TEMP_SAVE;
         }
     }
@@ -161,6 +178,10 @@ abstract public class BaseSampleplotActivityViewModel<T extends BaseSampleplot> 
         outState.putString(Macro.SAMPLELAND_ID, landId);
         outState.putString(Macro.SAMPLELAND_TYPE, landType.getValue());
         outState.putString(Macro.SAMPLEPLOT_ID, plotId);
+
+        outState.putString(Macro.PARENT_PLOT_ID, parentPlotId);
+        outState.putString(Macro.PARENT_PLOT_TYPE, parentPlotType);
+
         if (action.equals(Macro.ACTION_ADD) || action.equals(Macro.ACTION_ADD_RESTORE)){
             outState.putString(Macro.ACTION, Macro.ACTION_ADD_RESTORE);
         }
@@ -189,14 +210,18 @@ abstract public class BaseSampleplotActivityViewModel<T extends BaseSampleplot> 
         if (sampleplotRaw.code == null){
             return getApplication().getString(R.string.please_fill_plot_code);
         }
+        PlotPlotEntity plotPlotEntity = new PlotPlotEntity(landId, parentPlotId, parentPlotType, plotId, getPlotType());
         if (action.equals(Macro.ACTION_ADD) || action.equals(Macro.ACTION_ADD_RESTORE)){
             mSampleplotRepository.insertSampleplotEntity(sampleplotRaw.getEntity());
+            mSampleplotRepository.insertPlotPlotEntity(plotPlotEntity);
         }
         if (action.equals(Macro.ACTION_EDIT) || action.equals(Macro.ACTION_EDIT_RESTORE)){
             mSampleplotRepository.updateSampleplotEntity(sampleplotRaw.getEntity());
+            mSampleplotRepository.updatePlotPlotEntity(plotPlotEntity);
         }
         if (action.equals(Macro.ACTION_TEMP_SAVE) || action.equals(Macro.ACTION_TEMP_SAVE_RESTORE)){
             mSampleplotRepository.updateSampleplotEntity(sampleplotRaw.getEntity());
+            mSampleplotRepository.insertPlotPlotEntity(plotPlotEntity);
         }
         return null;
     }

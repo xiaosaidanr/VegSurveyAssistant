@@ -1,8 +1,6 @@
 package com.thcreate.vegsurveyassistant.activity;
 
 import android.Manifest;
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -33,7 +31,7 @@ import java.util.ArrayList;
 
 public class BaseSampleplotActivity<U extends BaseSampleplotActivityViewModel> extends BaseActivity {
 
-    private final int REQUEST_IMAGE_CAPTURE =39;
+    private final int REQUEST_IMAGE_CAPTURE = 39;
     private final int SDK_PERMISSION_REQUEST = 127;
 
     private String mCurrentPicturePath;

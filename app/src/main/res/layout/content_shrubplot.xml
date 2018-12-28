@@ -63,15 +63,15 @@
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/belong_arbor_sampleplot_code"
+                    android:text="@string/belong_sampleplot_code"
                     android:textAppearance="@style/TextAppearance.AppCompat.Menu"
                     />
                 <android.support.v7.widget.AppCompatSpinner
-                    android:id="@+id/belong_arborplot_code_spinner"
+                    android:id="@+id/belong_plot_code_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    bind:selectedValue="@={viewmodel.sampleplot.arborPlotId}"
                     />
+                <!--bind:selectedValue="@={viewmodel.sampleplot.arborPlotId}"-->
             </LinearLayout>
 
             <TextView
