@@ -16,55 +16,51 @@ public class Samplepoint implements Parcelable {
 
     public int id;
     public int userId;//用户ID
+    @Expose
+    @SerializedName("point_id")
     public String pointId;//样点ID
+    @Expose
+    @SerializedName("code")
     public String code;//样点编号
     @Expose
-    @SerializedName("formation_type")
-    public String formationType;//群系类型
+    @SerializedName("data")
+    public PointData data;//数据
     @Expose
-    @SerializedName("dominant_species")
-    public String dominantSpecies;//优势种
-    @Expose
-    @SerializedName("community_coverage")
-    public String communityCoverage;//群落盖度
-    @Expose
-    @SerializedName("community_height")
-    public String communityHeight;//群落高度
-    @Expose
-    @SerializedName("topography_vegetation_status")
-    public String topographyVegetationStatus;//地形和植被概况
-    @Expose
-    @SerializedName("administrative_name")
-    public String administrativeName;//行政地名
-    @Expose
-    @SerializedName("human_activity")
-    public String humanActivity;//人类活动
+    @SerializedName("alt")
     public String alt;//海拔
-    public String lng;//经度
-    public String lat;//纬度
-    public String investigatorName;//调查人
-    public String investigatedAt;//调查时间
     @Expose
-    @SerializedName("note")
-    public String note;//备注
+    @SerializedName("lng")
+    public String lng;//经度
+    @Expose
+    @SerializedName("lat")
+    public String lat;//纬度
+    @Expose
+    @SerializedName("investigator_name")
+    public String investigatorName;//调查人
+    @Expose
+    @SerializedName("investigated_at")
+    public String investigatedAt;//调查时间
     public Date createAt;//创建时间
     public Date updateAt;//修改时间
+    //TODO upload_at
     public Date uploadAt;//上传时间
     public Date deleteAt;//删除时间
 
     public Samplepoint(){
-
+        this.data = new PointData();
     }
 
     public Samplepoint(int userId, @NonNull String pointId){
         this.userId = userId;
         this.pointId = pointId;
+        this.data = new PointData();
     }
 
     public Samplepoint(int id, int userId, @NonNull String pointId){
         this.id = id;
         this.userId = userId;
         this.pointId = pointId;
+        this.data = new PointData();
     }
 
     @Override
@@ -78,19 +74,12 @@ public class Samplepoint implements Parcelable {
         dest.writeValue(userId);
         dest.writeValue(pointId);
         dest.writeValue(code);
-        dest.writeValue(formationType);
-        dest.writeValue(dominantSpecies);
-        dest.writeValue(communityCoverage);
-        dest.writeValue(communityHeight);
-        dest.writeValue(topographyVegetationStatus);
-        dest.writeValue(administrativeName);
-        dest.writeValue(humanActivity);
+        dest.writeParcelable(data, PARCELABLE_WRITE_RETURN_VALUE);
         dest.writeValue(alt);
         dest.writeValue(lng);
         dest.writeValue(lat);
         dest.writeValue(investigatorName);
         dest.writeValue(investigatedAt);
-        dest.writeValue(note);
         if (createAt == null){
             dest.writeValue(null);
         }
@@ -130,74 +119,52 @@ public class Samplepoint implements Parcelable {
     };
 
     public Samplepoint(Parcel source){
-        Object tmpId = source.readValue(getClass().getClassLoader());
-        if (tmpId != null){
-            id = (int)tmpId;
-        }
-        Object tmpUserId = source.readValue(getClass().getClassLoader());
-        if (tmpUserId != null){
-            userId = (int)tmpUserId;
-        }
-        Object tmpPointId = source.readValue(getClass().getClassLoader());
-        if (tmpPointId != null){
-            pointId = (String)tmpPointId;
-        }
-        Object tmpCode = source.readValue(getClass().getClassLoader());
-        if (tmpCode != null){
-            code = (String)tmpCode;
-        }
-        Object tmpFormationType = source.readValue(getClass().getClassLoader());
-        if (tmpFormationType != null){
-            formationType = (String)tmpFormationType;
-        }
-        Object tmpDominantSpecies = source.readValue(getClass().getClassLoader());
-        if (tmpDominantSpecies != null){
-            dominantSpecies = (String)tmpDominantSpecies;
-        }
-        Object tmpCommunityCoverage = source.readValue(getClass().getClassLoader());
-        if (tmpCommunityCoverage != null){
-            communityCoverage = (String)tmpCommunityCoverage;
-        }
-        Object tmpCommunityHeight = source.readValue(getClass().getClassLoader());
-        if (tmpCommunityHeight != null){
-            communityHeight = (String)tmpCommunityHeight;
-        }
-        Object tmpTopographyVegetationStatus = source.readValue(getClass().getClassLoader());
-        if (tmpTopographyVegetationStatus != null){
-            topographyVegetationStatus = (String)tmpTopographyVegetationStatus;
-        }
-        Object tmpAdministrativeName = source.readValue(getClass().getClassLoader());
-        if (tmpAdministrativeName != null){
-            administrativeName = (String)tmpAdministrativeName;
-        }
-        Object tmpHumanActivity = source.readValue(getClass().getClassLoader());
-        if (tmpHumanActivity != null){
-            humanActivity = (String)tmpHumanActivity;
-        }
-        Object tmpAlt = source.readValue(getClass().getClassLoader());
-        if (tmpAlt != null){
-            alt = (String)tmpAlt;
-        }
-        Object tmpLng = source.readValue(getClass().getClassLoader());
-        if (tmpLng != null){
-            lng = (String)tmpLng;
-        }
-        Object tmpLat = source.readValue(getClass().getClassLoader());
-        if (tmpLat != null){
-            lat = (String)tmpLat;
-        }
-        Object tmpInvestigatorName = source.readValue(getClass().getClassLoader());
-        if (tmpInvestigatorName != null){
-            investigatorName = (String)tmpInvestigatorName;
-        }
-        Object tmpInvestigatedAt = source.readValue(getClass().getClassLoader());
-        if (tmpInvestigatedAt != null){
-            investigatedAt = (String)tmpInvestigatedAt;
-        }
-        Object tmpNote = source.readValue(getClass().getClassLoader());
-        if (tmpNote != null){
-            note = (String)tmpNote;
-        }
+        id = source.readInt();
+        userId = source.readInt();
+        pointId = source.readString();
+        code = source.readString();
+        data = source.readParcelable(PointData.class.getClassLoader());
+        alt = source.readString();
+        lng = source.readString();
+        lat = source.readString();
+        investigatorName = source.readString();
+        investigatedAt = source.readString();
+//        Object tmpId = source.readValue(getClass().getClassLoader());
+//        if (tmpId != null){
+//            id = (int)tmpId;
+//        }
+//        Object tmpUserId = source.readValue(getClass().getClassLoader());
+//        if (tmpUserId != null){
+//            userId = (int)tmpUserId;
+//        }
+//        Object tmpPointId = source.readValue(getClass().getClassLoader());
+//        if (tmpPointId != null){
+//            pointId = (String)tmpPointId;
+//        }
+//        Object tmpCode = source.readValue(getClass().getClassLoader());
+//        if (tmpCode != null){
+//            code = (String)tmpCode;
+//        }
+//        Object tmpAlt = source.readValue(getClass().getClassLoader());
+//        if (tmpAlt != null){
+//            alt = (String)tmpAlt;
+//        }
+//        Object tmpLng = source.readValue(getClass().getClassLoader());
+//        if (tmpLng != null){
+//            lng = (String)tmpLng;
+//        }
+//        Object tmpLat = source.readValue(getClass().getClassLoader());
+//        if (tmpLat != null){
+//            lat = (String)tmpLat;
+//        }
+//        Object tmpInvestigatorName = source.readValue(getClass().getClassLoader());
+//        if (tmpInvestigatorName != null){
+//            investigatorName = (String)tmpInvestigatorName;
+//        }
+//        Object tmpInvestigatedAt = source.readValue(getClass().getClassLoader());
+//        if (tmpInvestigatedAt != null){
+//            investigatedAt = (String)tmpInvestigatedAt;
+//        }
         Object tmpCreateAt = source.readValue(getClass().getClassLoader());
         if (tmpCreateAt != null){
             createAt = new Date((Long)tmpCreateAt);
@@ -217,31 +184,31 @@ public class Samplepoint implements Parcelable {
     }
 
     public static Samplepoint getInstance(SamplepointEntity entity){
-        Samplepoint data;
+        Samplepoint point = new Samplepoint();
         if (entity.data != null){
             Gson gson = new GsonBuilder()
                     .excludeFieldsWithoutExposeAnnotation()
                     .serializeNulls()
                     .create();
-            data = gson.fromJson(entity.data, Samplepoint.class);
+            point.data = gson.fromJson(entity.data, PointData.class);
         }
-        else {
-            data = new Samplepoint();
-        }
-        data.id = entity.id;
-        data.userId = entity.userId;
-        data.pointId = entity.pointId;
-        data.code = entity.code;
-        data.alt = entity.alt;
-        data.lat = entity.lat;
-        data.lng = entity.lng;
-        data.investigatedAt = entity.investigatedAt;
-        data.investigatorName = entity.investigatorName;
-        data.createAt = entity.createAt;
-        data.updateAt = entity.updateAt;
-        data.uploadAt = entity.uploadAt;
-        data.deleteAt = entity.deleteAt;
-        return data;
+//        else {
+//            data = new Samplepoint();
+//        }
+        point.id = entity.id;
+        point.userId = entity.userId;
+        point.pointId = entity.pointId;
+        point.code = entity.code;
+        point.alt = entity.alt;
+        point.lat = entity.lat;
+        point.lng = entity.lng;
+        point.investigatedAt = entity.investigatedAt;
+        point.investigatorName = entity.investigatorName;
+        point.createAt = entity.createAt;
+        point.updateAt = entity.updateAt;
+        point.uploadAt = entity.uploadAt;
+        point.deleteAt = entity.deleteAt;
+        return point;
     }
 
     public SamplepointEntity getEntity(){
@@ -251,8 +218,113 @@ public class Samplepoint implements Parcelable {
                 .excludeFieldsWithoutExposeAnnotation()
                 .serializeNulls()
                 .create();
-        data.data = gson.toJson(this, Samplepoint.class);
+        data.data = gson.toJson(this.data, PointData.class);
         return data;
     }
+
+    public static class PointData implements Parcelable {
+
+        public PointData() {
+        }
+
+        @Expose
+        @SerializedName("formation_type")
+        public String formationType;//群系类型
+        @Expose
+        @SerializedName("dominant_species")
+        public String dominantSpecies;//优势种
+        @Expose
+        @SerializedName("community_coverage")
+        public String communityCoverage;//群落盖度
+        @Expose
+        @SerializedName("community_height")
+        public String communityHeight;//群落高度
+        @Expose
+        @SerializedName("topography_vegetation_status")
+        public String topographyVegetationStatus;//地形和植被概况
+        @Expose
+        @SerializedName("administrative_name")
+        public String administrativeName;//行政地名
+        @Expose
+        @SerializedName("human_activity")
+        public String humanActivity;//人类活动
+        @Expose
+        @SerializedName("note")
+        public String note;//备注
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(formationType);
+            dest.writeString(dominantSpecies);
+            dest.writeString(communityCoverage);
+            dest.writeString(communityHeight);
+            dest.writeString(topographyVegetationStatus);
+            dest.writeString(administrativeName);
+            dest.writeString(humanActivity);
+            dest.writeString(note);
+        }
+
+        public static final Parcelable.Creator<PointData> CREATOR = new Creator<PointData>() {
+            @Override
+            public PointData createFromParcel(Parcel source) {
+                return new PointData(source);
+            }
+
+            @Override
+            public PointData[] newArray(int size) {
+                return new PointData[0];
+            }
+        };
+
+        public PointData(Parcel source){
+            formationType = source.readString();
+            dominantSpecies = source.readString();
+            communityCoverage = source.readString();
+            communityHeight = source.readString();
+            topographyVegetationStatus = source.readString();
+            administrativeName = source.readString();
+            humanActivity = source.readString();
+            note = source.readString();
+//            Object tmpFormationType = source.readValue(getClass().getClassLoader());
+//            if (tmpFormationType != null){
+//                formationType = (String)tmpFormationType;
+//            }
+//            Object tmpDominantSpecies = source.readValue(getClass().getClassLoader());
+//            if (tmpDominantSpecies != null){
+//                dominantSpecies = (String)tmpDominantSpecies;
+//            }
+//            Object tmpCommunityCoverage = source.readValue(getClass().getClassLoader());
+//            if (tmpCommunityCoverage != null){
+//                communityCoverage = (String)tmpCommunityCoverage;
+//            }
+//            Object tmpCommunityHeight = source.readValue(getClass().getClassLoader());
+//            if (tmpCommunityHeight != null){
+//                communityHeight = (String)tmpCommunityHeight;
+//            }
+//            Object tmpTopographyVegetationStatus = source.readValue(getClass().getClassLoader());
+//            if (tmpTopographyVegetationStatus != null){
+//                topographyVegetationStatus = (String)tmpTopographyVegetationStatus;
+//            }
+//            Object tmpAdministrativeName = source.readValue(getClass().getClassLoader());
+//            if (tmpAdministrativeName != null){
+//                administrativeName = (String)tmpAdministrativeName;
+//            }
+//            Object tmpHumanActivity = source.readValue(getClass().getClassLoader());
+//            if (tmpHumanActivity != null){
+//                humanActivity = (String)tmpHumanActivity;
+//            }
+//            Object tmpNote = source.readValue(getClass().getClassLoader());
+//            if (tmpNote != null){
+//                note = (String)tmpNote;
+//            }
+        }
+
+    }
+
 }
 

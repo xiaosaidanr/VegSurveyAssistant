@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:text="@={viewmodel.samplepoint.formationType}"/>
+                android:text="@={viewmodel.samplepoint.data.formationType}"/>
 
             <TextView
                 android:layout_marginTop="0dp"
@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:text="@={viewmodel.samplepoint.dominantSpecies}"/>
+                android:text="@={viewmodel.samplepoint.data.dominantSpecies}"/>
 
             <TextView
                 android:layout_marginTop="0dp"
@@ -105,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:text="@={viewmodel.samplepoint.communityCoverage}"/>
+                android:text="@={viewmodel.samplepoint.data.communityCoverage}"/>
 
             <TextView
                 android:layout_marginTop="0dp"
@@ -122,7 +122,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:text="@={viewmodel.samplepoint.communityHeight}"/>
+                android:text="@={viewmodel.samplepoint.data.communityHeight}"/>
 
             <TextView
                 android:layout_marginTop="0dp"
@@ -139,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:text="@={viewmodel.samplepoint.topographyVegetationStatus}"/>
+                android:text="@={viewmodel.samplepoint.data.topographyVegetationStatus}"/>
 
             <TextView
                 android:layout_marginTop="0dp"
@@ -157,7 +157,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:text="@={viewmodel.samplepoint.administrativeName}"/>
+                android:text="@={viewmodel.samplepoint.data.administrativeName}"/>
 
             <TextView
                 android:layout_marginTop="0dp"
@@ -174,7 +174,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:text="@={viewmodel.samplepoint.humanActivity}"/>
+                android:text="@={viewmodel.samplepoint.data.humanActivity}"/>
 
             <TextView
                 android:layout_marginTop="0dp"
@@ -297,7 +297,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:text="@={viewmodel.samplepoint.note}"/>
+                android:text="@={viewmodel.samplepoint.data.note}"/>
 
         </LinearLayout>
 
