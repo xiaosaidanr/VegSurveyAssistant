@@ -1,4 +1,4 @@
-package com.thcreate.vegsurveyassistant.viewmodel;
+package com.thcreate.vegsurveyassistant.util;
 
 import android.databinding.BindingAdapter;
 import android.databinding.InverseBindingAdapter;
