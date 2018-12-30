@@ -129,42 +129,6 @@ public class Samplepoint implements Parcelable {
         lat = source.readString();
         investigatorName = source.readString();
         investigatedAt = source.readString();
-//        Object tmpId = source.readValue(getClass().getClassLoader());
-//        if (tmpId != null){
-//            id = (int)tmpId;
-//        }
-//        Object tmpUserId = source.readValue(getClass().getClassLoader());
-//        if (tmpUserId != null){
-//            userId = (int)tmpUserId;
-//        }
-//        Object tmpPointId = source.readValue(getClass().getClassLoader());
-//        if (tmpPointId != null){
-//            pointId = (String)tmpPointId;
-//        }
-//        Object tmpCode = source.readValue(getClass().getClassLoader());
-//        if (tmpCode != null){
-//            code = (String)tmpCode;
-//        }
-//        Object tmpAlt = source.readValue(getClass().getClassLoader());
-//        if (tmpAlt != null){
-//            alt = (String)tmpAlt;
-//        }
-//        Object tmpLng = source.readValue(getClass().getClassLoader());
-//        if (tmpLng != null){
-//            lng = (String)tmpLng;
-//        }
-//        Object tmpLat = source.readValue(getClass().getClassLoader());
-//        if (tmpLat != null){
-//            lat = (String)tmpLat;
-//        }
-//        Object tmpInvestigatorName = source.readValue(getClass().getClassLoader());
-//        if (tmpInvestigatorName != null){
-//            investigatorName = (String)tmpInvestigatorName;
-//        }
-//        Object tmpInvestigatedAt = source.readValue(getClass().getClassLoader());
-//        if (tmpInvestigatedAt != null){
-//            investigatedAt = (String)tmpInvestigatedAt;
-//        }
         Object tmpCreateAt = source.readValue(getClass().getClassLoader());
         if (tmpCreateAt != null){
             createAt = new Date((Long)tmpCreateAt);
@@ -192,9 +156,6 @@ public class Samplepoint implements Parcelable {
                     .create();
             point.data = gson.fromJson(entity.data, PointData.class);
         }
-//        else {
-//            data = new Samplepoint();
-//        }
         point.id = entity.id;
         point.userId = entity.userId;
         point.pointId = entity.pointId;
@@ -290,38 +251,6 @@ public class Samplepoint implements Parcelable {
             administrativeName = source.readString();
             humanActivity = source.readString();
             note = source.readString();
-//            Object tmpFormationType = source.readValue(getClass().getClassLoader());
-//            if (tmpFormationType != null){
-//                formationType = (String)tmpFormationType;
-//            }
-//            Object tmpDominantSpecies = source.readValue(getClass().getClassLoader());
-//            if (tmpDominantSpecies != null){
-//                dominantSpecies = (String)tmpDominantSpecies;
-//            }
-//            Object tmpCommunityCoverage = source.readValue(getClass().getClassLoader());
-//            if (tmpCommunityCoverage != null){
-//                communityCoverage = (String)tmpCommunityCoverage;
-//            }
-//            Object tmpCommunityHeight = source.readValue(getClass().getClassLoader());
-//            if (tmpCommunityHeight != null){
-//                communityHeight = (String)tmpCommunityHeight;
-//            }
-//            Object tmpTopographyVegetationStatus = source.readValue(getClass().getClassLoader());
-//            if (tmpTopographyVegetationStatus != null){
-//                topographyVegetationStatus = (String)tmpTopographyVegetationStatus;
-//            }
-//            Object tmpAdministrativeName = source.readValue(getClass().getClassLoader());
-//            if (tmpAdministrativeName != null){
-//                administrativeName = (String)tmpAdministrativeName;
-//            }
-//            Object tmpHumanActivity = source.readValue(getClass().getClassLoader());
-//            if (tmpHumanActivity != null){
-//                humanActivity = (String)tmpHumanActivity;
-//            }
-//            Object tmpNote = source.readValue(getClass().getClassLoader());
-//            if (tmpNote != null){
-//                note = (String)tmpNote;
-//            }
         }
 
     }

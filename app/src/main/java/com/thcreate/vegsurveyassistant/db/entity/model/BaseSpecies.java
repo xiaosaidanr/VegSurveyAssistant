@@ -13,16 +13,24 @@ abstract public class BaseSpecies {
 
     public int id;
     public String plotId;//所属样方ID
-    public String speciesId;//物种ID
-    public String code;//物种编号
-    public String type;//物种类型
-    public String name;//物种名
-    public String latinName;//拉丁名
     @Expose
-    @SerializedName("note")
-    public String note;//备注
+    @SerializedName("species_id")
+    public String speciesId;//物种ID
+    @Expose
+    @SerializedName("code")
+    public String code;//物种编号
+    @Expose
+    @SerializedName("type")
+    public String type;//物种类型
+    @Expose
+    @SerializedName("name")
+    public String name;//物种名
+    @Expose
+    @SerializedName("latin_name")
+    public String latinName;//拉丁名
     public Date createAt;//创建时间
     public Date updateAt;//修改时间
+    //TODO upload_at
     public Date uploadAt;//上传时间
     public Date deleteAt;//删除时间
 
@@ -48,7 +56,6 @@ abstract public class BaseSpecies {
         dest.writeValue(type);
         dest.writeValue(name);
         dest.writeValue(latinName);
-        dest.writeValue(note);
         if (createAt == null){
             dest.writeValue(null);
         }
@@ -105,10 +112,6 @@ abstract public class BaseSpecies {
         if (tmpLatinName != null){
             latinName = (String)tmpLatinName;
         }
-        Object tmpNote = source.readValue(getClass().getClassLoader());
-        if (tmpNote != null){
-            note = (String)tmpNote;
-        }
         Object tmpCreateAt = source.readValue(getClass().getClassLoader());
         if (tmpCreateAt != null){
             createAt = new Date((Long)tmpCreateAt);
@@ -135,7 +138,6 @@ abstract public class BaseSpecies {
         this.type = entity.type;
         this.name = entity.name;
         this.latinName = entity.latinName;
-        this.note = entity.note;
         this.createAt = entity.createAt;
         this.updateAt = entity.updateAt;
         this.uploadAt = entity.uploadAt;

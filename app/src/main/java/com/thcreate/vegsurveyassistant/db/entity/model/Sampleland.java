@@ -17,15 +17,30 @@ public class Sampleland implements Parcelable {
 
     public int id;
     public int userId;//用户ID
+    @Expose
+    @SerializedName("land_id")
     public String landId;//样地ID
+    @Expose
+    @SerializedName("code")
     public String code;//样地编号
+    @Expose
+    @SerializedName("type")
     public String type;//样地类型
+    @Expose
+    @SerializedName("data")
     public LandData data;//数据
+    @Expose
+    @SerializedName("lng")
     public String lng;//经度
+    @Expose
+    @SerializedName("lat")
     public String lat;//纬度
+    @Expose
+    @SerializedName("alt")
     public String alt;//海拔
     public Date createAt;//创建时间
     public Date updateAt;//修改时间
+    //TODO upload_at
     public Date uploadAt;//上传时间
     public Date deleteAt;//删除时间
 
@@ -112,66 +127,6 @@ public class Sampleland implements Parcelable {
         lng = source.readString();
         lat = source.readString();
         alt = source.readString();
-//        Object tmpId = source.readValue(getClass().getClassLoader());
-//        if (tmpId != null){
-//            id = (int)tmpId;
-//        }
-//        Object tmpUserId = source.readValue(getClass().getClassLoader());
-//        if (tmpUserId != null){
-//            userId = (int)tmpUserId;
-//        }
-//        Object tmpLandId = source.readValue(getClass().getClassLoader());
-//        if (tmpLandId != null){
-//            landId = (String)tmpLandId;
-//        }
-//        Object tmpCode = source.readValue(getClass().getClassLoader());
-//        if (tmpCode != null){
-//            code = (String)tmpCode;
-//        }
-//        Object tmpType = source.readValue(getClass().getClassLoader());
-//        if (tmpType != null){
-//            type = (String)tmpType;
-//        }
-//        Object tmpAdministrativeRegion = source.readValue(getClass().getClassLoader());
-//        if (tmpAdministrativeRegion != null){
-//            administrativeRegion = (String)tmpAdministrativeRegion;
-//        }
-//        Object tmpAspect = source.readValue(getClass().getClassLoader());
-//        if (tmpAspect != null){
-//            aspect = (String)tmpAspect;
-//        }
-//        Object tmpSlope = source.readValue(getClass().getClassLoader());
-//        if (tmpSlope != null){
-//            slope = (String)tmpSlope;
-//        }
-//        Object tmpSlopePosition = source.readValue(getClass().getClassLoader());
-//        if (tmpSlopePosition != null){
-//            slopePosition = (String)tmpSlopePosition;
-//        }
-//        Object tmpLandform = source.readValue(getClass().getClassLoader());
-//        if (tmpLandform != null){
-//            landform = (String)tmpLandform;
-//        }
-//        Object tmpSoilCharacteristic = source.readValue(getClass().getClassLoader());
-//        if (tmpSoilCharacteristic != null){
-//            soilCharacteristic = (String)tmpSoilCharacteristic;
-//        }
-//        Object tmpHumanActivity = source.readValue(getClass().getClassLoader());
-//        if (tmpHumanActivity != null){
-//            humanActivity = (String)tmpHumanActivity;
-//        }
-//        Object tmpLng = source.readValue(getClass().getClassLoader());
-//        if (tmpLng != null){
-//            lng = (String)tmpLng;
-//        }
-//        Object tmpLat = source.readValue(getClass().getClassLoader());
-//        if (tmpLat != null){
-//            lat = (String)tmpLat;
-//        }
-//        Object tmpAlt = source.readValue(getClass().getClassLoader());
-//        if (tmpAlt != null){
-//            alt = (String)tmpAlt;
-//        }
         Object tmpCreateAt = source.readValue(getClass().getClassLoader());
         if (tmpCreateAt != null){
             createAt = new Date((Long)tmpCreateAt);
@@ -200,9 +155,6 @@ public class Sampleland implements Parcelable {
                     .create();
             data.data = gson.fromJson(entity.data, LandData.class);
         }
-//        else {
-//            data = new Sampleland();
-//        }
         return data;
     }
 

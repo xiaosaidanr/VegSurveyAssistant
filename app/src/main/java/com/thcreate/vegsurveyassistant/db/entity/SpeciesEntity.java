@@ -47,8 +47,6 @@ public class SpeciesEntity extends BaseEntity {
 
     public String data;//数据
 
-    public String note;//备注
-
     public SpeciesEntity() {
     }
 
@@ -66,7 +64,6 @@ public class SpeciesEntity extends BaseEntity {
         this.type = data.type;
         this.name = data.name;
         this.latinName = data.latinName;
-        this.note = data.note;
         this.createAt = data.createAt;
         this.updateAt = data.updateAt;
         this.uploadAt = data.uploadAt;

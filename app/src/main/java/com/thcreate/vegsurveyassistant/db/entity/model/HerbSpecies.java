@@ -14,33 +14,24 @@ import com.thcreate.vegsurveyassistant.util.Macro;
 public class HerbSpecies extends BaseSpecies implements Parcelable {
 
     @Expose
-    @SerializedName("plant_count")
-    public String plantCount;//株丛数
-    @Expose
-    @SerializedName("vegetative_bunch_height")
-    public String vegetativeBranchHeight;//营养枝高度
-    @Expose
-    @SerializedName("generative_bunch_height")
-    public String generativeBranchHeight;//生殖枝高度
-    @Expose
-    @SerializedName("coverage")
-    public String coverage;//盖度
-    @Expose
-    @SerializedName("biomass")
-    public String biomass;//生物量
+    @SerializedName("data")
+    public HerbSpeciesData data;
 
     public HerbSpecies() {
         this.type = Macro.HERB;
+        this.data = new HerbSpeciesData();
     }
 
     public HerbSpecies(@NonNull String plotId, @NonNull String speciesId){
         super(plotId, speciesId);
         this.type = Macro.HERB;
+        this.data = new HerbSpeciesData();
     }
 
     public HerbSpecies(int id, @NonNull String plotId, @NonNull String speciesId){
         super(id, plotId, speciesId);
         this.type = Macro.HERB;
+        this.data = new HerbSpeciesData();
     }
 
     @Override
@@ -51,11 +42,7 @@ public class HerbSpecies extends BaseSpecies implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest = writeCommonToParcel(dest);
-        dest.writeValue(plantCount);
-        dest.writeValue(vegetativeBranchHeight);
-        dest.writeValue(generativeBranchHeight);
-        dest.writeValue(coverage);
-        dest.writeValue(biomass);
+        dest.writeParcelable(data, PARCELABLE_WRITE_RETURN_VALUE);
     }
 
     public static final Parcelable.Creator<HerbSpecies> CREATOR = new Creator<HerbSpecies>() {
@@ -72,26 +59,7 @@ public class HerbSpecies extends BaseSpecies implements Parcelable {
 
     public HerbSpecies(Parcel source){
         initCommonFromParcelableSource(source);
-        Object tmpPlantCount = source.readValue(getClass().getClassLoader());
-        if (tmpPlantCount != null){
-            plantCount = (String)tmpPlantCount;
-        }
-        Object tmpVegetativeBranchHeight = source.readValue(getClass().getClassLoader());
-        if (tmpVegetativeBranchHeight != null){
-            vegetativeBranchHeight = (String)tmpVegetativeBranchHeight;
-        }
-        Object tmpGenerativeBranchHeight = source.readValue(getClass().getClassLoader());
-        if (tmpGenerativeBranchHeight != null){
-            generativeBranchHeight = (String)tmpGenerativeBranchHeight;
-        }
-        Object tmpCoverage = source.readValue(getClass().getClassLoader());
-        if (tmpCoverage != null){
-            coverage = (String)tmpCoverage;
-        }
-        Object tmpBiomass = source.readValue(getClass().getClassLoader());
-        if (tmpBiomass != null){
-            biomass = (String)tmpBiomass;
-        }
+        data = source.readParcelable(HerbSpeciesData.class.getClassLoader());
     }
 
     @Override
@@ -102,23 +70,88 @@ public class HerbSpecies extends BaseSpecies implements Parcelable {
                 .excludeFieldsWithoutExposeAnnotation()
                 .serializeNulls()
                 .create();
-        data.data = gson.toJson(this, HerbSpecies.class);
+        data.data = gson.toJson(this.data, HerbSpeciesData.class);
         return data;
     }
 
     public static HerbSpecies getInstance(SpeciesEntity entity){
-        HerbSpecies data;
+        HerbSpecies data = new HerbSpecies();
+        data.initCommonFromEntity(entity);
         if (entity.data != null){
             Gson gson = new GsonBuilder()
                     .excludeFieldsWithoutExposeAnnotation()
                     .serializeNulls()
                     .create();
-            data = gson.fromJson(entity.data, HerbSpecies.class);
+            data.data = gson.fromJson(entity.data, HerbSpeciesData.class);
         }
-        else {
-            data = new HerbSpecies();
-        }
-        data.initCommonFromEntity(entity);
+//        else {
+//            data = new HerbSpecies();
+//        }
         return data;
     }
+
+    public static class HerbSpeciesData implements Parcelable {
+
+        public HerbSpeciesData() {
+        }
+
+        @Expose
+        @SerializedName("plant_count")
+        public String plantCount;//株丛数
+        @Expose
+        @SerializedName("vegetative_bunch_height")
+        public String vegetativeBranchHeight;//营养枝高度
+        @Expose
+        @SerializedName("generative_bunch_height")
+        public String generativeBranchHeight;//生殖枝高度
+        @Expose
+        @SerializedName("coverage")
+        public String coverage;//盖度
+        @Expose
+        @SerializedName("biomass")
+        public String biomass;//生物量
+        @Expose
+        @SerializedName("note")
+        public String note;//备注
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel parcel, int i) {
+            parcel.writeString(plantCount);
+            parcel.writeString(vegetativeBranchHeight);
+            parcel.writeString(generativeBranchHeight);
+            parcel.writeString(coverage);
+            parcel.writeString(biomass);
+            parcel.writeString(note);
+        }
+
+        public static final Parcelable.Creator<HerbSpeciesData> CREATOR = new Creator<HerbSpeciesData>() {
+            @Override
+            public HerbSpeciesData createFromParcel(Parcel source) {
+                return new HerbSpeciesData(source);
+            }
+
+            @Override
+            public HerbSpeciesData[] newArray(int size) {
+                return new HerbSpeciesData[0];
+            }
+        };
+
+        public HerbSpeciesData(Parcel source){
+            plantCount = source.readString();
+            vegetativeBranchHeight = source.readString();
+            generativeBranchHeight = source.readString();
+            coverage = source.readString();
+            biomass = source.readString();
+            note = source.readString();
+        }
+
+    }
+
+
+
 }

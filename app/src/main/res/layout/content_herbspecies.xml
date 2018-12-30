@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:text="@={viewmodel.species.plantCount}"/>
+                android:text="@={viewmodel.species.data.plantCount}"/>
 
             <TextView
                 android:layout_marginTop="0dp"
@@ -99,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:text="@={viewmodel.species.vegetativeBranchHeight}"/>
+                android:text="@={viewmodel.species.data.vegetativeBranchHeight}"/>
 
             <TextView
                 android:layout_marginTop="0dp"
@@ -116,7 +116,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:text="@={viewmodel.species.generativeBranchHeight}"/>
+                android:text="@={viewmodel.species.data.generativeBranchHeight}"/>
 
             <TextView
                 android:layout_marginTop="0dp"
@@ -133,7 +133,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:text="@={viewmodel.species.coverage}"/>
+                android:text="@={viewmodel.species.data.coverage}"/>
 
             <TextView
                 android:layout_marginTop="0dp"
@@ -150,7 +150,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:text="@={viewmodel.species.biomass}"/>
+                android:text="@={viewmodel.species.data.biomass}"/>
 
             <TextView
                 android:layout_marginTop="0dp"
@@ -167,7 +167,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:text="@={viewmodel.species.note}"/>
+                android:text="@={viewmodel.species.data.note}"/>
 
         </LinearLayout>
 
