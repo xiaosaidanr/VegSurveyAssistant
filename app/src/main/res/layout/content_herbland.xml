@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:text="@={viewmodel.sampleland.administrativeRegion}"/>
+                android:text="@={viewmodel.sampleland.data.administrativeRegion}"/>
 
             <TextView
                 android:layout_marginTop="0dp"
@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:text="@={viewmodel.sampleland.aspect}"/>
+                android:text="@={viewmodel.sampleland.data.aspect}"/>
 
             <TextView
                 android:layout_marginTop="0dp"
@@ -105,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:text="@={viewmodel.sampleland.slope}"/>
+                android:text="@={viewmodel.sampleland.data.slope}"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -125,7 +125,7 @@
                     android:layout_height="wrap_content"
                     android:entries="@array/slope_position_array"
                     android:layout_alignParentEnd="true"
-                    bind:selectedValue="@={viewmodel.sampleland.slopePosition}"
+                    bind:selectedValue="@={viewmodel.sampleland.data.slopePosition}"
                     />
             </RelativeLayout>
 
@@ -144,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:text="@={viewmodel.sampleland.landform}"/>
+                android:text="@={viewmodel.sampleland.data.landform}"/>
 
             <TextView
                 android:layout_marginTop="0dp"
@@ -161,7 +161,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:text="@={viewmodel.sampleland.soilCharacteristic}"/>
+                android:text="@={viewmodel.sampleland.data.soilCharacteristic}"/>
 
             <TextView
                 android:layout_marginTop="0dp"
@@ -178,7 +178,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:text="@={viewmodel.sampleland.humanActivity}"/>
+                android:text="@={viewmodel.sampleland.data.humanActivity}"/>
 
             <TextView
                 android:layout_marginTop="0dp"
