@@ -13,31 +13,33 @@ abstract public class BaseSampleplot {
 
     public int id;
     public String landId;//所属样地ID
+    @Expose
+    @SerializedName("plot_id")
     public String plotId;//样方ID
+    @Expose
+    @SerializedName("code")
     public String code;//样方编号
+    @Expose
+    @SerializedName("type")
     public String type;//样方类型
     @Expose
-    @SerializedName("community_name")
-    public String communityName;//群落名称
-    @Expose
-    @SerializedName("plot_length")
-    public String plotLength;//样方长
-    @Expose
-    @SerializedName("plot_width")
-    public String plotWidth;//样方宽
-    @Expose
-    @SerializedName("community_coverage")
-    public String communityCoverage;//群落盖度
-    @Expose
-    @SerializedName("community_height")
-    public String communityHeight;//群落高度
+    @SerializedName("lng")
     public String lng;//经度
+    @Expose
+    @SerializedName("lat")
     public String lat;//纬度
+    @Expose
+    @SerializedName("alt")
     public String alt;//海拔
+    @Expose
+    @SerializedName("investigator_name")
     public String investigatorName;//调查人
+    @Expose
+    @SerializedName("investigated_at")
     public String investigatedAt;//调查时间
     public Date createAt;//创建时间
     public Date updateAt;//修改时间
+    //TODO upload_at
     public Date uploadAt;//上传时间
     public Date deleteAt;//删除时间
 
@@ -56,21 +58,16 @@ abstract public class BaseSampleplot {
     }
 
     public Parcel writeCommonToParcel(Parcel dest){
-        dest.writeValue(id);
-        dest.writeValue(landId);
-        dest.writeValue(plotId);
-        dest.writeValue(code);
-        dest.writeValue(type);
-        dest.writeValue(communityName);
-        dest.writeValue(plotLength);
-        dest.writeValue(plotWidth);
-        dest.writeValue(communityCoverage);
-        dest.writeValue(communityHeight);
-        dest.writeValue(lng);
-        dest.writeValue(lat);
-        dest.writeValue(alt);
-        dest.writeValue(investigatorName);
-        dest.writeValue(investigatedAt);
+        dest.writeInt(id);
+        dest.writeString(landId);
+        dest.writeString(plotId);
+        dest.writeString(code);
+        dest.writeString(type);
+        dest.writeString(lng);
+        dest.writeString(lat);
+        dest.writeString(alt);
+        dest.writeString(investigatorName);
+        dest.writeString(investigatedAt);
         if (createAt == null){
             dest.writeValue(null);
         }
@@ -99,66 +96,16 @@ abstract public class BaseSampleplot {
     }
 
     public void initCommonFromParcelableSource(Parcel source){
-        Object tmpId = source.readValue(getClass().getClassLoader());
-        if (tmpId != null){
-            id = (int)tmpId;
-        }
-        Object tmpLandId = source.readValue(getClass().getClassLoader());
-        if (tmpLandId != null){
-            landId = (String)tmpLandId;
-        }
-        Object tmpPlotId = source.readValue(getClass().getClassLoader());
-        if (tmpPlotId != null){
-            plotId = (String)tmpPlotId;
-        }
-        Object tmpCode = source.readValue(getClass().getClassLoader());
-        if (tmpCode != null){
-            code = (String)tmpCode;
-        }
-        Object tmpType = source.readValue(getClass().getClassLoader());
-        if (tmpType != null){
-            type = (String)tmpType;
-        }
-        Object tmpCommunityName = source.readValue(getClass().getClassLoader());
-        if (tmpCommunityName != null){
-            communityName = (String)tmpCommunityName;
-        }
-        Object tmpPlotLength = source.readValue(getClass().getClassLoader());
-        if (tmpPlotLength != null){
-            plotLength = (String)tmpPlotLength;
-        }
-        Object tmpPlotWidth = source.readValue(getClass().getClassLoader());
-        if (tmpPlotWidth != null){
-            plotWidth = (String)tmpPlotWidth;
-        }
-        Object tmpCommunityCoverage = source.readValue(getClass().getClassLoader());
-        if (tmpCommunityCoverage != null){
-            communityCoverage = (String)tmpCommunityCoverage;
-        }
-        Object tmpCommunityHeight = source.readValue(getClass().getClassLoader());
-        if (tmpCommunityHeight != null){
-            communityHeight = (String)tmpCommunityHeight;
-        }
-        Object tmpLng = source.readValue(getClass().getClassLoader());
-        if (tmpLng != null){
-            lng = (String)tmpLng;
-        }
-        Object tmpLat = source.readValue(getClass().getClassLoader());
-        if (tmpLat != null){
-            lat = (String)tmpLat;
-        }
-        Object tmpAlt = source.readValue(getClass().getClassLoader());
-        if (tmpAlt != null){
-            alt = (String)tmpAlt;
-        }
-        Object tmpInvestigatorName = source.readValue(getClass().getClassLoader());
-        if (tmpInvestigatorName != null){
-            investigatorName = (String)tmpInvestigatorName;
-        }
-        Object tmpInvestigatedAt = source.readValue(getClass().getClassLoader());
-        if (tmpInvestigatedAt != null){
-            investigatedAt = (String)tmpInvestigatedAt;
-        }
+        id = source.readInt();
+        landId = source.readString();
+        plotId = source.readString();
+        code = source.readString();
+        type = source.readString();
+        lng = source.readString();
+        lat = source.readString();
+        alt = source.readString();
+        investigatorName = source.readString();
+        investigatedAt = source.readString();
         Object tmpCreateAt = source.readValue(getClass().getClassLoader());
         if (tmpCreateAt != null){
             createAt = new Date((Long)tmpCreateAt);

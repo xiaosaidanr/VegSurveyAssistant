@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:text="@={viewmodel.sampleplot.communityName}"/>
+                android:text="@={viewmodel.sampleplot.data.communityName}"/>
 
             <TextView
                 android:layout_marginTop="0dp"
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:text="@={viewmodel.sampleplot.plotLength}"/>
+                android:text="@={viewmodel.sampleplot.data.plotLength}"/>
 
             <TextView
                 android:layout_marginTop="0dp"
@@ -99,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:text="@={viewmodel.sampleplot.plotWidth}"/>
+                android:text="@={viewmodel.sampleplot.data.plotWidth}"/>
 
             <TextView
                 android:layout_marginTop="0dp"
@@ -116,7 +116,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:text="@={viewmodel.sampleplot.communityCoverage}"/>
+                android:text="@={viewmodel.sampleplot.data.communityCoverage}"/>
 
             <TextView
                 android:layout_marginTop="0dp"
@@ -133,7 +133,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:text="@={viewmodel.sampleplot.communityHeight}"/>
+                android:text="@={viewmodel.sampleplot.data.communityHeight}"/>
 
             <TextView
                 android:layout_marginTop="0dp"
@@ -149,7 +149,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:text="@={viewmodel.sampleplot.averageDBH}"/>
+                android:text="@={viewmodel.sampleplot.data.averageDBH}"/>
 
             <TextView
                 android:layout_marginTop="0dp"
