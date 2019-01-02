@@ -7,9 +7,11 @@ import android.support.annotation.NonNull;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.thcreate.vegsurveyassistant.db.entity.SamplelandEntity;
 import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
+import com.thcreate.vegsurveyassistant.db.gsonTypeAdapter.DateTypeAdapter;
 
 import java.util.Date;
 
@@ -40,7 +42,9 @@ public class Sampleland implements Parcelable {
     public String alt;//海拔
     public Date createAt;//创建时间
     public Date updateAt;//修改时间
-    //TODO upload_at
+    @Expose
+    @SerializedName("upload_at")
+    @JsonAdapter(DateTypeAdapter.class)
     public Date uploadAt;//上传时间
     public Date deleteAt;//删除时间
 
