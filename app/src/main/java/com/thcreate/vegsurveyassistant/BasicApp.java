@@ -15,6 +15,8 @@ public class BasicApp extends Application {
 
     private AppExecutors mAppExecutors;
 
+    private static BasicApp instance;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -26,6 +28,9 @@ public class BasicApp extends Application {
          */
         SDKInitializer.initialize(getApplicationContext());
         SDKInitializer.setCoordType(CoordType.BD09LL);
+
+        instance = this;
+
     }
 
     public AppDatabase getDatabase(){
@@ -46,6 +51,10 @@ public class BasicApp extends Application {
     }
     public PictureRepository getPictureRepository(){
         return PictureRepository.getInstance(this, getDatabase(), mAppExecutors);
+    }
+
+    public static BasicApp getAppliction(){
+        return instance;
     }
 
 }

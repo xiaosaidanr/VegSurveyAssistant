@@ -15,6 +15,9 @@ import java.util.List;
 
 public class SamplepointRepository {
 
+    //TODO userid1
+    private int mUserId = 1;
+
     private static SamplepointRepository sINSTANCE;
 
     private final AppDatabase mDatabase;
@@ -91,6 +94,19 @@ public class SamplepointRepository {
         mAppExecutors.diskIO().execute(()->{
             mDatabase.samplepointDao().deleteById(id);
         });
+    }
+
+    public List<SamplepointEntity> getSamplepointEntityListNeedDeleteRemote(){
+        return mDatabase.samplepointDao().getSamplepointEntityListNeedDeleteRemote(mUserId);
+    }
+    public void deleteSamplepointEntitiesNeedDeleteLocal(){
+        mDatabase.samplepointDao().deleteSamplepointEntitiesNeedDeleteLocal(mUserId);
+    }
+    public List<SamplepointEntity> getSamplepointEntityListNeedAddRemote(){
+        return mDatabase.samplepointDao().getSamplepointEntityListNeedAddRemote(mUserId);
+    }
+    public List<SamplepointEntity> getSamplepointEntityListNeedUpdateRemote(){
+        return mDatabase.samplepointDao().getSamplepointEntityListNeedUpdateRemote(mUserId);
     }
 
 }
