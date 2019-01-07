@@ -80,6 +80,9 @@ public class SamplepointRepository {
         if (data.createAt == null){
             data.createAt = dateNow;
         }
+        updateSamplepointManual(data);
+    }
+    public void updateSamplepointManual(SamplepointEntity data){
         mAppExecutors.diskIO().execute(()->{
             mDatabase.samplepointDao().update(data);
         });

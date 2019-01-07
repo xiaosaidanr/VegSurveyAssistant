@@ -6,7 +6,6 @@ import android.content.Context;
 import com.thcreate.vegsurveyassistant.AppExecutors;
 import com.thcreate.vegsurveyassistant.db.AppDatabase;
 import com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity;
-import com.thcreate.vegsurveyassistant.db.entity.User;
 import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.SpeciesMainInfo;
 import com.thcreate.vegsurveyassistant.util.Macro;
 
@@ -14,6 +13,9 @@ import java.util.Date;
 import java.util.List;
 
 public class SpeciesRepository {
+
+    //TODO userid1
+    private int mUserId = 1;
 
     private static SpeciesRepository sINSTANCE;
 
@@ -63,16 +65,18 @@ public class SpeciesRepository {
             mDatabase.speciesDao().insert(data);
         });
     }
-
+    public void updateSpeciesEntityManual(SpeciesEntity data){
+        mAppExecutors.diskIO().execute(()->{
+            mDatabase.speciesDao().update(data);
+        });
+    }
     public void updateSpeciesEntity(SpeciesEntity data){
         Date dateNow = new Date();
         data.updateAt = dateNow;
         if (data.createAt == null){
             data.createAt = dateNow;
         }
-        mAppExecutors.diskIO().execute(()->{
-            mDatabase.speciesDao().update(data);
-        });
+        updateSpeciesEntityManual(data);
     }
     public void softDeleteSpeciesEntityById(int id){
         long deleteAt = new Date().getTime();
@@ -84,6 +88,23 @@ public class SpeciesRepository {
         mAppExecutors.diskIO().execute(()->{
             mDatabase.speciesDao().deleteById(id);
         });
+    }
+
+    public List<SpeciesEntity> getSpeciesEntityListNeedDeleteRemote(){
+        String userIdLimit = String.valueOf(mUserId) + "-%";
+        return mDatabase.speciesDao().getSpeciesEntityListNeedDeleteRemote(userIdLimit);
+    }
+    public void deleteSpeciesEntitiesNeedDeleteLocal(){
+        String userIdLimit = String.valueOf(mUserId) + "-%";
+        mDatabase.speciesDao().deleteSpeciesEntitiesNeedDeleteLocal(userIdLimit);
+    }
+    public List<SpeciesEntity> getSpeciesEntityListNeedAddRemote(){
+        String userIdLimit = String.valueOf(mUserId) + "-%";
+        return mDatabase.speciesDao().getSpeciesEntityListNeedAddRemote(userIdLimit);
+    }
+    public List<SpeciesEntity> getSpeciesEntityListNeedUpdateRemote(){
+        String userIdLimit = String.valueOf(mUserId) + "-%";
+        return mDatabase.speciesDao().getSpeciesEntityListNeedUpdateRemote(userIdLimit);
     }
 
 }

@@ -48,7 +48,7 @@ public class PointUploadService implements IUploadService {
     public void cancel() {
     }
 
-    public void executeSync(){
+    private void executeSync(){
         deleteDataListRemote(getDataListNeedDeleteRemote());
         deleteDataListLocal();
         addDataListRemote(getDataListNeedAddRemote());
@@ -132,7 +132,7 @@ public class PointUploadService implements IUploadService {
     private void onAddDataRemoteSuccess(Samplepoint data){
         SamplepointEntity entity = data.getEntity();
         entity.uploadAt = new Date();
-        mPointRepository.updateSamplepoint(entity);
+        mPointRepository.updateSamplepointManual(entity);
     }
     private void onAddDataRemoteFail(Samplepoint data){
 
@@ -173,7 +173,7 @@ public class PointUploadService implements IUploadService {
     private void onUpdateDataRemoteSuccess(Samplepoint data){
         SamplepointEntity entity = data.getEntity();
         entity.uploadAt = new Date();
-        mPointRepository.updateSamplepoint(entity);
+        mPointRepository.updateSamplepointManual(entity);
     }
     private void onUpdateDataRemoteFail(Samplepoint data){
     }

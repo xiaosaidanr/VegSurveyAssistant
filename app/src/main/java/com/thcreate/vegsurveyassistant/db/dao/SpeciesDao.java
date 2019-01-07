@@ -2,10 +2,7 @@ package com.thcreate.vegsurveyassistant.db.dao;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Delete;
-import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
-import android.arch.persistence.room.Update;
 
 import com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity;
 import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.SpeciesMainInfo;
@@ -29,5 +26,31 @@ public interface SpeciesDao extends BaseDao<SpeciesEntity>{
 
     @Query("SELECT id, plot_id, species_id, code, type, name FROM species WHERE plot_id = :plotId AND type = :type AND delete_at IS NULL ORDER BY id ASC")
     LiveData<List<SpeciesMainInfo>> getSpeciesMainInfoListByPlotIdAndType(String plotId, String type);
+
+    @Query("SELECT * FROM species " +
+            "WHERE delete_at IS NOT NULL " +//数据已被软删除
+            "AND upload_at IS NOT NULL " +//数据已被上传到服务器
+            "AND upload_at < update_at " +//数据上传后有更新
+            "AND species_id LIKE :speciesIdLimit")//根据所属用户id查找species_id
+    List<SpeciesEntity> getSpeciesEntityListNeedDeleteRemote(String speciesIdLimit);
+
+    @Query("DELETE FROM species " +
+            "WHERE delete_at IS NOT NULL " +//数据已被软删除
+            "AND upload_at IS NULL " +//数据未被上传到服务器
+            "AND species_id LIKE :speciesIdLimit")//根据所属用户id查找species_id
+    void deleteSpeciesEntitiesNeedDeleteLocal(String speciesIdLimit);
+
+    @Query("SELECT * FROM species " +
+            "WHERE delete_at IS NULL " +//数据未被软删除
+            "AND upload_at IS NULL " +//数据未被上传到服务器
+            "AND species_id LIKE :speciesIdLimit")//根据所属用户id查找species_id
+    List<SpeciesEntity> getSpeciesEntityListNeedAddRemote(String speciesIdLimit);
+
+    @Query("SELECT * FROM species " +
+            "WHERE delete_at IS NULL " +//数据未被软删除
+            "AND upload_at IS NOT NULL " +//数据已被上传到服务器
+            "AND upload_at < update_at " +//数据上传后有更新
+            "AND species_id LIKE :speciesIdLimit")//根据所属用户id查找species_id
+    List<SpeciesEntity> getSpeciesEntityListNeedUpdateRemote(String speciesIdLimit);
 
 }
