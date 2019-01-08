@@ -30,8 +30,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PlotUploadService implements IUploadService {
 
-    //TODO picture_list
-
 //    private BasicApp mApplication;
     private Retrofit mRetrofit;
     private PlotApi mRequest;

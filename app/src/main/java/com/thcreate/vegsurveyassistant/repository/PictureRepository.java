@@ -13,6 +13,9 @@ import java.util.List;
 
 public class PictureRepository {
 
+    //TODO userid1
+    private int mUserId = 1;
+
     private static PictureRepository sINSTANCE;
 
     private final AppDatabase mDatabase;
@@ -64,6 +67,18 @@ public class PictureRepository {
     }
     public LiveData<List<PlotPictureEntity>> loadAllPlotPictureEntityByOwnerId(String ownerId){
         return mDatabase.pictureDao().getPlotPictureEntityListByOwnerId(ownerId);
+    }
+
+    public List<PlotPictureEntity> getPlotPictureEntityListNeedDelete(){
+        String ownerIdLimit = String.valueOf(mUserId) + "-%";
+        return mDatabase.pictureDao().getPlotPictureEntityListNeedDelete(ownerIdLimit);
+    }
+    public void updatePlotPictureEntityUploadAtByPictureId(String pictureId, long uploadAt){
+        mDatabase.pictureDao().updatePlotPictureEntityUploadAtByPictureId(pictureId, uploadAt);
+    }
+    public List<PlotPictureEntity> getPlotPictureEntityListNeedAddRemote(){
+        String ownerIdLimit = String.valueOf(mUserId) + "-%";
+        return mDatabase.pictureDao().getPlotPictureEntityListNeedAddRemote(ownerIdLimit);
     }
 
 }
