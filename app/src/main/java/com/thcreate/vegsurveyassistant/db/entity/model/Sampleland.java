@@ -14,6 +14,7 @@ import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
 import com.thcreate.vegsurveyassistant.db.gsonTypeAdapter.DateTypeAdapter;
 
 import java.util.Date;
+import java.util.List;
 
 public class Sampleland implements Parcelable {
 
@@ -47,6 +48,10 @@ public class Sampleland implements Parcelable {
     @JsonAdapter(DateTypeAdapter.class)
     public Date uploadAt;//上传时间
     public Date deleteAt;//删除时间
+
+    @Expose
+    @SerializedName("plot_list")
+    public List<BaseSampleplot> plotList;
 
     public Sampleland() {
         this.data = new LandData();

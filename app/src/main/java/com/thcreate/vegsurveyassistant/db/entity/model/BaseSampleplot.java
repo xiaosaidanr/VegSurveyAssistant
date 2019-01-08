@@ -9,7 +9,10 @@ import com.google.gson.annotations.SerializedName;
 import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
 import com.thcreate.vegsurveyassistant.db.gsonTypeAdapter.DateTypeAdapter;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 abstract public class BaseSampleplot {
 
@@ -46,6 +49,14 @@ abstract public class BaseSampleplot {
     @JsonAdapter(DateTypeAdapter.class)
     public Date uploadAt;//上传时间
     public Date deleteAt;//删除时间
+
+    @Expose
+    @SerializedName("species_list")
+    public List<BaseSpecies> speciesList;
+
+    @Expose
+    @SerializedName("owner_list")
+    public Map<String, List<String>> ownerList;
 
     public BaseSampleplot() {
     }

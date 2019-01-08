@@ -36,4 +36,33 @@ public interface SamplelandDao extends BaseDao<SamplelandEntity> {
     @Query("SELECT id, land_id, code, type, lng, lat, alt FROM land WHERE user_id = :userId AND type = :type AND delete_at IS NULL ORDER BY id ASC")
     LiveData<List<LandMainInfo>> getLandMainInfoListByUserIdAndType(int userId, String type);
 
+    @Query("SELECT * FROM land " +
+            "WHERE user_id = :userId " +
+            "AND delete_at IS NOT NULL " +//数据已被软删除
+            "AND upload_at IS NOT NULL " +//数据已被上传到服务器
+            "AND upload_at < update_at")//数据上传后有更新
+    List<SamplelandEntity> getSamplelandEntityListNeedDeleteRemote(int userId);
+
+    @Query("DELETE FROM land " +
+            "WHERE user_id = :userId " +
+            "AND delete_at IS NOT NULL " +//数据已被软删除
+            "AND upload_at IS NULL")//数据未被上传到服务器
+    void deleteSamplelandEntitiesNeedDeleteLocal(int userId);
+
+    @Query("SELECT * FROM land " +
+            "WHERE user_id = :userId " +
+            "AND delete_at IS NULL " +//数据未被软删除
+            "AND upload_at IS NULL")//数据未被上传到服务器
+    List<SamplelandEntity> getSamplelandEntityListNeedAddRemote(int userId);
+
+    @Query("SELECT * FROM land " +
+            "WHERE user_id = :userId " +
+            "AND delete_at IS NULL " +//数据未被软删除
+            "AND upload_at IS NOT NULL " +//数据已被上传到服务器
+            "AND upload_at < update_at")//数据上传后有更新
+    List<SamplelandEntity> getSamplelandEntityListNeedUpdateRemote(int userId);
+
+    @Query("UPDATE land SET upload_at = :uploadAt WHERE land_id = :landId")
+    void updateSamplelandEntityUploadAtByLandId(String landId, long uploadAt);
+
 }

@@ -1,7 +1,5 @@
 package com.thcreate.vegsurveyassistant.upload;
 
-import android.content.Context;
-
 import com.thcreate.vegsurveyassistant.BasicApp;
 import com.thcreate.vegsurveyassistant.db.entity.SamplepointEntity;
 import com.thcreate.vegsurveyassistant.db.entity.model.Samplepoint;

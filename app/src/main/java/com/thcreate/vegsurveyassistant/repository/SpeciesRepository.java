@@ -78,6 +78,9 @@ public class SpeciesRepository {
         }
         updateSpeciesEntityManual(data);
     }
+    public void updateSpeciesEntityUploadAtBySpeciesId(String speciesId, long uploadAt){
+        mDatabase.speciesDao().updateSpeciesEntityUploadAtBySpeciesId(speciesId, uploadAt);
+    }
     public void softDeleteSpeciesEntityById(int id){
         long deleteAt = new Date().getTime();
         mAppExecutors.diskIO().execute(()->{
@@ -91,20 +94,23 @@ public class SpeciesRepository {
     }
 
     public List<SpeciesEntity> getSpeciesEntityListNeedDeleteRemote(){
-        String userIdLimit = String.valueOf(mUserId) + "-%";
-        return mDatabase.speciesDao().getSpeciesEntityListNeedDeleteRemote(userIdLimit);
+        String speciesIdLimit = String.valueOf(mUserId) + "-%";
+        return mDatabase.speciesDao().getSpeciesEntityListNeedDeleteRemote(speciesIdLimit);
     }
     public void deleteSpeciesEntitiesNeedDeleteLocal(){
-        String userIdLimit = String.valueOf(mUserId) + "-%";
-        mDatabase.speciesDao().deleteSpeciesEntitiesNeedDeleteLocal(userIdLimit);
+        String speciesIdLimit = String.valueOf(mUserId) + "-%";
+        mDatabase.speciesDao().deleteSpeciesEntitiesNeedDeleteLocal(speciesIdLimit);
     }
     public List<SpeciesEntity> getSpeciesEntityListNeedAddRemote(){
-        String userIdLimit = String.valueOf(mUserId) + "-%";
-        return mDatabase.speciesDao().getSpeciesEntityListNeedAddRemote(userIdLimit);
+        String speciesIdLimit = String.valueOf(mUserId) + "-%";
+        return mDatabase.speciesDao().getSpeciesEntityListNeedAddRemote(speciesIdLimit);
     }
     public List<SpeciesEntity> getSpeciesEntityListNeedUpdateRemote(){
-        String userIdLimit = String.valueOf(mUserId) + "-%";
-        return mDatabase.speciesDao().getSpeciesEntityListNeedUpdateRemote(userIdLimit);
+        String speciesIdLimit = String.valueOf(mUserId) + "-%";
+        return mDatabase.speciesDao().getSpeciesEntityListNeedUpdateRemote(speciesIdLimit);
+    }
+    public List<SpeciesEntity> getNotDeletedSpeciesEntityListByPlotId(String plotId){
+        return mDatabase.speciesDao().getNotDeletedSpeciesEntityListByPlotId(plotId);
     }
 
 }

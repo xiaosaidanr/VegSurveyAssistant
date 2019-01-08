@@ -3,6 +3,8 @@ package com.thcreate.vegsurveyassistant.upload;
 import com.thcreate.vegsurveyassistant.BasicApp;
 import com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity;
 import com.thcreate.vegsurveyassistant.db.entity.model.ArborSpecies;
+import com.thcreate.vegsurveyassistant.db.entity.model.BaseSampleplot;
+import com.thcreate.vegsurveyassistant.db.entity.model.BaseSpecies;
 import com.thcreate.vegsurveyassistant.db.entity.model.HerbSpecies;
 import com.thcreate.vegsurveyassistant.db.entity.model.ShrubSpecies;
 import com.thcreate.vegsurveyassistant.http.api.SpeciesApi;
@@ -21,14 +23,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SpeciesUploadService implements IUploadService {
 
-    private BasicApp mApplication;
+//    private BasicApp mApplication;
     private Retrofit mRetrofit;
     private SpeciesApi mRequest;
-    private SpeciesRepository mSpeciesRepository;
+//    private SpeciesRepository mSpeciesRepository;
 
     public SpeciesUploadService() {
-        mApplication = BasicApp.getAppliction();
-        mSpeciesRepository = mApplication.getSpeicesRepository();
+//        mApplication = BasicApp.getAppliction();
+//        mSpeciesRepository = mApplication.getSpeicesRepository();
     }
 
     @Override
@@ -46,19 +48,20 @@ public class SpeciesUploadService implements IUploadService {
 
     @Override
     public void cancel() {
-
     }
 
     private void executeSync(){
         deleteDataListRemote(getDataListNeedDeleteRemote());
         deleteDataListLocal();
+        addDataListRemote(getDataListNeedAddRemote());
+        updateDataListRemote(getDataListNeedUpdateRemote());
     }
 
     private void deleteDataListLocal(){
-        mSpeciesRepository.deleteSpeciesEntitiesNeedDeleteLocal();
+        BasicApp.getAppliction().getSpeicesRepository().deleteSpeciesEntitiesNeedDeleteLocal();
     }
     private List<SpeciesEntity> getDataListNeedDeleteRemote(){
-        return mSpeciesRepository.getSpeciesEntityListNeedDeleteRemote();
+        return BasicApp.getAppliction().getSpeicesRepository().getSpeciesEntityListNeedDeleteRemote();
     }
     private void deleteDataListRemote(List<SpeciesEntity> dataList){
         for (SpeciesEntity data :
@@ -83,14 +86,14 @@ public class SpeciesUploadService implements IUploadService {
         }
     }
     private void onDeleteDataRemoteSuccess(SpeciesEntity data){
-        mSpeciesRepository.deleteSpeciesEntityById(data.id);
+        BasicApp.getAppliction().getSpeicesRepository().deleteSpeciesEntityById(data.id);
     }
     private void onDeleteDataRemoteFail(SpeciesEntity data){
 
     }
 
     private List<SpeciesEntity> getDataListNeedAddRemote(){
-        return mSpeciesRepository.getSpeciesEntityListNeedAddRemote();
+        return BasicApp.getAppliction().getSpeicesRepository().getSpeciesEntityListNeedAddRemote();
     }
     private void addDataListRemote(List<SpeciesEntity> dataList){
         for (SpeciesEntity data :
@@ -99,46 +102,45 @@ public class SpeciesUploadService implements IUploadService {
         }
     }
     private void addDataRemote(SpeciesEntity data){
+        addDataRemoteGeneric(generateDataForAddRemote(data));
+    }
+    private <T extends BaseSpecies> void addDataRemoteGeneric(T data){
         try {
-            Call<ResponseBody> call = null;
-            switch (data.type){
-                case Macro.HERB:
-                    call = mRequest.addSpecies(HerbSpecies.getInstance(data));
-                    break;
-                case Macro.SHRUB:
-                    call = mRequest.addSpecies(ShrubSpecies.getInstance(data));
-                    break;
-                case Macro.ARBOR:
-                    call = mRequest.addSpecies(ArborSpecies.getInstance(data));
-                    break;
-                    default:
-                        break;
+            Call<ResponseBody> call = mRequest.addSpecies(data);
+            Response<ResponseBody> response = call.execute();
+            if (response.isSuccessful()){
+                onAddDataRemoteSuccess(data.speciesId, new Date().getTime());
             }
-            if (call != null){
-                Response<ResponseBody> response = call.execute();
-                if (response.isSuccessful()){
-                    onAddDataRemoteSuccess(data);
-                }
-                else {
-                    onAddDataRemoteFail(data);
-                }
+            else {
+                onAddDataRemoteFail(data.speciesId);
             }
         }
         catch (Exception e){
-            onAddDataRemoteFail(data);
+            onAddDataRemoteFail(data.speciesId);
             e.printStackTrace();
         }
     }
-    private void onAddDataRemoteSuccess(SpeciesEntity data){
-        data.uploadAt = new Date();
-        mSpeciesRepository.updateSpeciesEntityManual(data);
+    public static <T extends BaseSpecies> T generateDataForAddRemote(SpeciesEntity entity){
+        switch (entity.type){
+            case Macro.HERB:
+                return (T)HerbSpecies.getInstance(entity);
+            case Macro.SHRUB:
+                return (T)ShrubSpecies.getInstance(entity);
+            case Macro.ARBOR:
+                return (T)ArborSpecies.getInstance(entity);
+            default:
+                return null;
+        }
     }
-    private void onAddDataRemoteFail(SpeciesEntity data){
+    public static void onAddDataRemoteSuccess(String speciesId, long uploadAt){
+        BasicApp.getAppliction().getSpeicesRepository().updateSpeciesEntityUploadAtBySpeciesId(speciesId, uploadAt);
+    }
+    public static void onAddDataRemoteFail(String speciesId){
 
     }
 
     private List<SpeciesEntity> getDataListNeedUpdateRemote(){
-        return mSpeciesRepository.getSpeciesEntityListNeedUpdateRemote();
+        return BasicApp.getAppliction().getSpeicesRepository().getSpeciesEntityListNeedUpdateRemote();
     }
     private void updateDataListRemote(List<SpeciesEntity> dataList){
         for (SpeciesEntity data :
@@ -178,8 +180,8 @@ public class SpeciesUploadService implements IUploadService {
         }
     }
     private void onUpdateDataRemoteSuccess(SpeciesEntity data){
-        data.uploadAt = new Date();
-        mSpeciesRepository.updateSpeciesEntityManual(data);
+        long uploadAt = new Date().getTime();
+        BasicApp.getAppliction().getSpeicesRepository().updateSpeciesEntityUploadAtBySpeciesId(data.speciesId, uploadAt);
     }
     private void onUpdateDataRemoteFail(SpeciesEntity data){
 

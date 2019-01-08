@@ -42,4 +42,38 @@ public interface SampleplotDao extends BaseDao<SampleplotEntity> {
     @Query("SELECT id, land_id, plot_id, code, type FROM plot WHERE land_id = :landId AND type = :type AND delete_at IS NULL ORDER BY id ASC")
     LiveData<List<PlotMainInfo>> getPlotMainInfoListByLandIdAndType(String landId, String type);
 
+    @Query("SELECT * FROM plot " +
+            "WHERE delete_at IS NOT NULL " +//数据已被软删除
+            "AND upload_at IS NOT NULL " +//数据已被上传到服务器
+            "AND upload_at < update_at " +//数据上传后有更新
+            "AND plot_id LIKE :plotIdLimit")//根据所属用户id查找plot_id
+    List<SampleplotEntity> getSampleplotEntityListNeedDeleteRemote(String plotIdLimit);
+
+    @Query("SELECT * FROM plot " +
+            "WHERE delete_at IS NOT NULL " +//数据已被软删除
+            "AND upload_at IS NULL " +//数据未被上传到服务器
+            "AND plot_id LIKE :plotIdLimit")//根据所属用户id查找species_id
+    List<SampleplotEntity> getSampleplotEntitiesNeedDeleteLocal(String plotIdLimit);
+
+    @Query("SELECT * FROM plot " +
+            "WHERE delete_at IS NULL " +//数据未被软删除
+            "AND upload_at IS NULL " +//数据未被上传到服务器
+            "AND land_id LIKE :plotIdLimit")//根据所属用户id查找species_id
+    List<SampleplotEntity> getSampleplotEntityListNeedAddRemote(String plotIdLimit);
+
+    @Query("SELECT * FROM plot " +
+            "WHERE delete_at IS NULL " +//数据未被软删除
+            "AND upload_at IS NOT NULL " +//数据已被上传到服务器
+            "AND upload_at < update_at " +//数据上传后有更新
+            "AND land_id LIKE :plotIdLimit")//根据所属用户id查找species_id
+    List<SampleplotEntity> getSampleplotEntityListNeedUpdateRemote(String plotIdLimit);
+
+    @Query("UPDATE plot SET upload_at = :uploadAt WHERE plot_id = :plotId")
+    void updateSampleplotEntityUploadAtByPlotId(String plotId, long uploadAt);
+
+    @Query("SELECT * FROM plot " +
+            "WHERE delete_at IS NULL " +//数据未被软删除
+            "AND land_id = :landId")
+    List<SampleplotEntity> getNotDeletedSampleplotEntityListByLandId(String landId);
+
 }

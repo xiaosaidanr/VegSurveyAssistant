@@ -7,6 +7,7 @@ import com.thcreate.vegsurveyassistant.AppExecutors;
 import com.thcreate.vegsurveyassistant.db.AppDatabase;
 import com.thcreate.vegsurveyassistant.db.entity.PlotPlotEntity;
 import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
+import com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity;
 import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.PlotMainInfo;
 import com.thcreate.vegsurveyassistant.util.Macro;
 
@@ -14,6 +15,9 @@ import java.util.Date;
 import java.util.List;
 
 public class SampleplotRepository {
+
+    //TODO userid1
+    private int mUserId = 1;
 
     private static SampleplotRepository sINSTANCE;
 
@@ -58,9 +62,9 @@ public class SampleplotRepository {
         return mDatabase.sampleplotDao().getPlotMainInfoListByLandIdAndType(landId, Macro.SHRUB);
     }
 
-    public List<PlotMainInfo> getAllHerbSampleplotEntityByLandIdSync(String landId){
-        return mDatabase.sampleplotDao().getPlotMainInfoListByLandIdAndTypeSync(landId, Macro.HERB);
-    }
+//    public List<PlotMainInfo> getAllHerbSampleplotEntityByLandIdSync(String landId){
+//        return mDatabase.sampleplotDao().getPlotMainInfoListByLandIdAndTypeSync(landId, Macro.HERB);
+//    }
     public LiveData<List<PlotMainInfo>> getAllHerbSampleplotEntityByLandId(String landId){
         return mDatabase.sampleplotDao().getPlotMainInfoListByLandIdAndType(landId, Macro.HERB);
     }
@@ -80,6 +84,9 @@ public class SampleplotRepository {
         if (data.createAt == null){
             data.createAt = dateNow;
         }
+        updateSampleplotEntityManual(data);
+    }
+    public void updateSampleplotEntityManual(SampleplotEntity data){
         mAppExecutors.diskIO().execute(()->{
             if (data.id == 0){
                 SampleplotEntity tmp = mDatabase.sampleplotDao().getSampleplotEntityByPlotIdSync(data.plotId);
@@ -92,6 +99,9 @@ public class SampleplotRepository {
                 mDatabase.sampleplotDao().update(data);
             }
         });
+    }
+    public void updateSampleplotEntityUploadAtByPlotId(String plotId, long uploadAt){
+        mDatabase.sampleplotDao().updateSampleplotEntityUploadAtByPlotId(plotId, uploadAt);
     }
 
     private void deleteRelatedSampleplotEntityByParentId(String parentId){
@@ -119,6 +129,7 @@ public class SampleplotRepository {
             mDatabase.sampleplotDao().softDeleteById(id, deleteAt);
             SampleplotEntity sampleplotEntity = mDatabase.sampleplotDao().getSampleplotEntityByIdSync(id);
             deleteRelatedSampleplotEntityByParentId(sampleplotEntity.plotId);
+            mDatabase.plotPlotDao().deletePlotPlotEntityByChildId(sampleplotEntity.plotId);
         });
     }
 
@@ -135,6 +146,7 @@ public class SampleplotRepository {
                 mDatabase.sampleplotDao().delete(data);
             }
             deleteRelatedSampleplotEntityByParentId(data.plotId);
+            mDatabase.plotPlotDao().deletePlotPlotEntityByChildId(data.plotId);
         });
     }
 
@@ -166,6 +178,14 @@ public class SampleplotRepository {
         return mDatabase.plotPlotDao().getPlotPlotEntityByChildIdSync(childId);
     }
 
+    public void getParentPlotPlotEntityByChildIdRecursively(List<String> parentList, String childId){
+        PlotPlotEntity entity = getPlotPlotEntityByChildIdSync(childId);
+        if (entity != null){
+            parentList.add(entity.parentId);
+            getParentPlotPlotEntityByChildIdRecursively(parentList, entity.parentId);
+        }
+    }
+
 //    public LiveData<PlotPlotEntity> getPlotPlotEntityByChildId(String childId){
 //        return mDatabase.plotPlotDao().getPlotPlotEntityByChildId(childId);
 //    }
@@ -176,6 +196,32 @@ public class SampleplotRepository {
 
     public List<PlotPlotEntity> getPlotPlotEntityListByLandIdSync(String landId){
         return mDatabase.plotPlotDao().getPlotPlotEntityListByLandIdSync(landId);
+    }
+
+    public List<SampleplotEntity> getSampleplotEntityListNeedDeleteRemote(){
+        String plotIdLimit = String.valueOf(mUserId) + "-%";
+        return mDatabase.sampleplotDao().getSampleplotEntityListNeedDeleteRemote(plotIdLimit);
+    }
+    public void deleteSampleplotEntitiesNeedDeleteLocal(){
+        String plotIdLimit = String.valueOf(mUserId) + "-%";
+        List<SampleplotEntity> speciesEntityList = mDatabase.sampleplotDao().getSampleplotEntitiesNeedDeleteLocal(plotIdLimit);
+        if (speciesEntityList != null &&  speciesEntityList.size() > 0){
+            for (SampleplotEntity entity :
+                    speciesEntityList) {
+                deleteSampleplotEntity(entity);
+            }
+        }
+    }
+    public List<SampleplotEntity> getSampleplotEntityNeedAddRemote(){
+        String plotIdLimit = String.valueOf(mUserId) + "-%";
+        return mDatabase.sampleplotDao().getSampleplotEntityListNeedAddRemote(plotIdLimit);
+    }
+    public List<SampleplotEntity> getSampleplotEntityNeedUpdateRemote(){
+        String plotIdLimit = String.valueOf(mUserId) + "-%";
+        return mDatabase.sampleplotDao().getSampleplotEntityListNeedUpdateRemote(plotIdLimit);
+    }
+    public List<SampleplotEntity> getNotDeletedSampleplotEntityListByLandId(String landId){
+        return mDatabase.sampleplotDao().getNotDeletedSampleplotEntityListByLandId(landId);
     }
 
 }

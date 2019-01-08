@@ -53,4 +53,12 @@ public interface SpeciesDao extends BaseDao<SpeciesEntity>{
             "AND species_id LIKE :speciesIdLimit")//根据所属用户id查找species_id
     List<SpeciesEntity> getSpeciesEntityListNeedUpdateRemote(String speciesIdLimit);
 
+    @Query("SELECT * FROM species " +
+            "WHERE delete_at IS NULL " +//数据未被软删除
+            "AND plot_id = :plotId")
+    List<SpeciesEntity> getNotDeletedSpeciesEntityListByPlotId(String plotId);
+
+    @Query("UPDATE species SET upload_at = :uploadAt WHERE species_id = :speciesId")
+    void updateSpeciesEntityUploadAtBySpeciesId(String speciesId, long uploadAt);
+
 }

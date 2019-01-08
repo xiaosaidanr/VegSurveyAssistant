@@ -12,9 +12,6 @@ import java.util.List;
 public interface PlotPlotDao extends BaseDao<PlotPlotEntity> {
 
     @Query("SELECT * FROM plot_plot WHERE child_id = :childId LIMIT 1")
-    PlotPlotEntity PlotPlotEntityByChildIdSync(String childId);
-
-    @Query("SELECT * FROM plot_plot WHERE child_id = :childId LIMIT 1")
     PlotPlotEntity getPlotPlotEntityByChildIdSync(String childId);
 
     @Query("SELECT * FROM plot_plot WHERE child_id = :childId LIMIT 1")
@@ -31,5 +28,8 @@ public interface PlotPlotDao extends BaseDao<PlotPlotEntity> {
 
     @Query("SELECT * FROM plot_plot WHERE land_id = :landId")
     LiveData<List<PlotPlotEntity>> getPlotPlotEntityListByLandId(String landId);
+
+    @Query("DELETE FROM plot_plot WHERE child_id = :childId")
+    void deletePlotPlotEntityByChildId(String childId);
 
 }

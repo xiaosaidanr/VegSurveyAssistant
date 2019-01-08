@@ -7,6 +7,7 @@ import android.content.Context;
 import com.thcreate.vegsurveyassistant.AppExecutors;
 import com.thcreate.vegsurveyassistant.db.AppDatabase;
 import com.thcreate.vegsurveyassistant.db.entity.SamplelandEntity;
+import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
 import com.thcreate.vegsurveyassistant.db.entity.User;
 import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.LandMainInfo;
 
@@ -14,6 +15,9 @@ import java.util.Date;
 import java.util.List;
 
 public class SamplelandRepository {
+
+    //TODO userid1
+    private int mUserId = 1;
 
     private static SamplelandRepository sINSTANCE;
 
@@ -108,6 +112,9 @@ public class SamplelandRepository {
             }
         });
     }
+    public void updateSamplelandEntityUploadAtByLandId(String landId, long uploadAt){
+        mDatabase.samplelandDao().updateSamplelandEntityUploadAtByLandId(landId, uploadAt);
+    }
     public void deleteSamplelandEntity(SamplelandEntity data){
         mAppExecutors.diskIO().execute(()-> {
             if (data.id == 0){
@@ -129,5 +136,18 @@ public class SamplelandRepository {
     public void softDeleteSamplelandEntityById(int id){
         long deleteAt = new Date().getTime();
         mAppExecutors.diskIO().execute(()-> mDatabase.samplelandDao().softDeleteById(id, deleteAt));
+    }
+
+    public List<SamplelandEntity> getSamplelandEntityListNeedDeleteRemote(){
+        return mDatabase.samplelandDao().getSamplelandEntityListNeedDeleteRemote(mUserId);
+    }
+    public void deleteSamplelandEntitiesNeedDeleteLocal(){
+        mDatabase.samplelandDao().deleteSamplelandEntitiesNeedDeleteLocal(mUserId);
+    }
+    public List<SamplelandEntity> getSamplelandEntityListNeedAddRemote(){
+        return mDatabase.samplelandDao().getSamplelandEntityListNeedAddRemote(mUserId);
+    }
+    public List<SamplelandEntity> getSamplelandEntityListNeedUpdateRemote(){
+        return mDatabase.samplelandDao().getSamplelandEntityListNeedUpdateRemote(mUserId);
     }
 }
