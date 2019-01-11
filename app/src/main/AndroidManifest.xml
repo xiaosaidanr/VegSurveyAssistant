@@ -43,21 +43,17 @@
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote"></service>
+            android:process=":remote" />
 
         <!-- 百度地位(地图) AK鉴权 -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="OFza8RpsRjscpblbZBBqbZAH6X86aFSH"></meta-data>
+            android:value="OFza8RpsRjscpblbZBBqbZAH6X86aFSH" />
 
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activity.HerbLandActivity"
@@ -99,7 +95,14 @@
             android:name=".activity.SamplepointActivity"
             android:label="@string/samplepoint"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activity.PicturePreviewActivity"></activity>
+        <activity android:name=".activity.PicturePreviewActivity" />
+        <activity android:name=".activity.auth.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

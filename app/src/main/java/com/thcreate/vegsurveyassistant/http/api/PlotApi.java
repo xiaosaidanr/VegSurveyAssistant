@@ -14,13 +14,13 @@ import retrofit2.http.Path;
 
 public interface PlotApi {
 
-    @POST("data/plots")
+    @POST("/data/plots")
     <T> Call<ResponseBody> addPlot(@Body T plot);
 
-    @PUT("data/plots/{plot_id}")
+    @PUT("/data/plots/{plot_id}")
     <T> Call<ResponseBody> updatePlot(@Path("plot_id") String plotId, @Body T plot);
 
-    @DELETE("data/plots/{plot_id}")
+    @DELETE("/data/plots/{plot_id}")
     Call<ResponseBody> deletePlot(@Path("plot_id") String plotId);
 
 }
