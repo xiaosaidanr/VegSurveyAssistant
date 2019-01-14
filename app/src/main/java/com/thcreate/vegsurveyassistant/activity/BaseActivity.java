@@ -1,21 +1,37 @@
 package com.thcreate.vegsurveyassistant.activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
+import com.thcreate.vegsurveyassistant.activity.auth.LoginActivity;
+import com.thcreate.vegsurveyassistant.service.ActivityCollector;
+import com.thcreate.vegsurveyassistant.service.SessionManager;
+
 public class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActivityCollector.addActivity(this);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         mIsHandleBackPressed = false;
+        checkIsLoggedIn();
     }
 
+    private void checkIsLoggedIn(){
+        if (!this.getClass().getSimpleName().equals(LoginActivity.class.getSimpleName())){
+            if (!SessionManager.isLoggedIn()){
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }
+    }
 
     private boolean mIsHandleBackPressed;
     public void setIsHandleBackPressed(boolean value){
@@ -67,4 +83,9 @@ public class BaseActivity extends AppCompatActivity {
         return;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityCollector.removeActivity(this);
+    }
 }

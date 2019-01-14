@@ -176,7 +176,9 @@ public class NearbyFragment extends BaseFragment implements BaiduMap.OnMarkerCli
     }
 
     public void clearOverlay(View v){
-        mBaiduMap.clear();
+        if (mBaiduMap != null){
+            mBaiduMap.clear();
+        }
         if (mMarkers != null){
             for (int i = 0; i < mMarkers.length; i++) {
                 mMarkers[i] = null;
@@ -201,7 +203,11 @@ public class NearbyFragment extends BaseFragment implements BaiduMap.OnMarkerCli
     public void onDestroy() {
         super.onDestroy();
         clearOverlay(null);
-        mBaiduMap.setMyLocationEnabled(false);
-        mMapView.onDestroy();
+        if (mBaiduMap != null){
+            mBaiduMap.setMyLocationEnabled(false);
+        }
+        if (mMapView != null){
+            mMapView.onDestroy();
+        }
     }
 }

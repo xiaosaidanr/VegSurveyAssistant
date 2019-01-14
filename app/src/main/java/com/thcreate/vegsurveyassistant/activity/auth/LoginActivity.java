@@ -20,6 +20,7 @@ import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.activity.BaseActivity;
 import com.thcreate.vegsurveyassistant.activity.MainActivity;
 import com.thcreate.vegsurveyassistant.http.api.AuthApi;
+import com.thcreate.vegsurveyassistant.service.SessionManager;
 
 import java.util.concurrent.TimeUnit;
 
@@ -146,7 +147,19 @@ public class LoginActivity extends BaseActivity {
             if (!TextUtils.isDigitsOnly(verificationCode)){
                 Toast.makeText(getApplication(), getResources().getText(R.string.please_input_valid_verification_code), Toast.LENGTH_SHORT).show();
             }
+            login();
+            gotoMainActivity();
         });
+    }
+
+    private void login(){
+        //TODO userid1
+        SessionManager.login(1);
+    }
+
+    private void gotoMainActivity(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
 }
