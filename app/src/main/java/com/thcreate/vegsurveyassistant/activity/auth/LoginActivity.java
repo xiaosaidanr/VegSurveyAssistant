@@ -13,6 +13,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.activity.BaseActivity;
 import com.thcreate.vegsurveyassistant.activity.MainActivity;
 import com.thcreate.vegsurveyassistant.http.api.AuthApi;
+import com.thcreate.vegsurveyassistant.service.ActivityCollector;
 import com.thcreate.vegsurveyassistant.service.SessionManager;
 
 import java.util.concurrent.TimeUnit;
@@ -159,7 +161,26 @@ public class LoginActivity extends BaseActivity {
 
     private void gotoMainActivity(){
         Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+    }
+
+    private long mFirstBackButtonPressTime = 0;
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
+            if (System.currentTimeMillis()-mFirstBackButtonPressTime>2000){
+                Toast.makeText(this,R.string.press_again_to_exit,Toast.LENGTH_SHORT).show();
+                mFirstBackButtonPressTime = System.currentTimeMillis();
+            }
+            else {
+                ActivityCollector.finishAll();
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }

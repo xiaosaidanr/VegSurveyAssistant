@@ -13,11 +13,14 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.databinding.ActivityMainBinding;
 import com.thcreate.vegsurveyassistant.fragment.SamplepointListFragment;
+import com.thcreate.vegsurveyassistant.service.ActivityCollector;
 import com.thcreate.vegsurveyassistant.viewmodel.MainActivityViewModel;
 import com.thcreate.vegsurveyassistant.fragment.MyFragment;
 import com.thcreate.vegsurveyassistant.fragment.NearbyFragment;
@@ -233,5 +236,22 @@ public class MainActivity extends BaseActivity {
         currentFragment.setUserVisibleHint(false);//和懒加载有关 原理还没弄清 暂时也注释掉
         currentFragment = fragment;
         currentFragment.setUserVisibleHint(true);//和懒加载有关 原理还没弄清 暂时也注释掉
+    }
+
+    private long mFirstBackButtonPressTime = 0;
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
+            if (System.currentTimeMillis()-mFirstBackButtonPressTime>2000){
+                Toast.makeText(this,R.string.press_again_to_exit,Toast.LENGTH_SHORT).show();
+                mFirstBackButtonPressTime = System.currentTimeMillis();
+            }
+            else {
+                ActivityCollector.finishAll();
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

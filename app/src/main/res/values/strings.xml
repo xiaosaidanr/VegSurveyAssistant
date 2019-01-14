@@ -13,8 +13,9 @@
     <string name="herb">草本</string>
     <string name="arbor">灌木</string>
     <string name="shrub">乔木</string>
-    <string name="loading_hint">加载中...</string>
+    <string name="loading_hint">加载中&#8230;</string>
     <string name="search">搜索</string>
+    <string name="press_again_to_exit">再按一次退出程序</string>
 
     <!-- 通用 -->
     <string name="hint_text">待填</string>
