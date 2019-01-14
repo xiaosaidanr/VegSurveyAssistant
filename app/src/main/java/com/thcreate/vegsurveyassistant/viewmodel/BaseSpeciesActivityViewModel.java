@@ -27,9 +27,6 @@ abstract public class BaseSpeciesActivityViewModel<T extends BaseSpecies> extend
     abstract public String getSpeciesType();
     abstract T getSpeciesData(SpeciesEntity entity);
 
-    //TODO userid1
-    private int userId = 1;
-
     protected String plotId;
     public String action;
     protected String speciesId;

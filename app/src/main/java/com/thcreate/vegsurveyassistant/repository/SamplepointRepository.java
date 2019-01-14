@@ -9,14 +9,12 @@ import com.thcreate.vegsurveyassistant.db.AppDatabase;
 import com.thcreate.vegsurveyassistant.db.entity.SamplepointEntity;
 import com.thcreate.vegsurveyassistant.db.entity.User;
 import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.PointMainInfo;
+import com.thcreate.vegsurveyassistant.service.SessionManager;
 
 import java.util.Date;
 import java.util.List;
 
 public class SamplepointRepository {
-
-    //TODO userid1
-    private int mUserId = 1;
 
     private static SamplepointRepository sINSTANCE;
 
@@ -100,16 +98,16 @@ public class SamplepointRepository {
     }
 
     public List<SamplepointEntity> getSamplepointEntityListNeedDeleteRemote(){
-        return mDatabase.samplepointDao().getSamplepointEntityListNeedDeleteRemote(mUserId);
+        return mDatabase.samplepointDao().getSamplepointEntityListNeedDeleteRemote(SessionManager.getLoggedInUserId());
     }
     public void deleteSamplepointEntitiesNeedDeleteLocal(){
-        mDatabase.samplepointDao().deleteSamplepointEntitiesNeedDeleteLocal(mUserId);
+        mDatabase.samplepointDao().deleteSamplepointEntitiesNeedDeleteLocal(SessionManager.getLoggedInUserId());
     }
     public List<SamplepointEntity> getSamplepointEntityListNeedAddRemote(){
-        return mDatabase.samplepointDao().getSamplepointEntityListNeedAddRemote(mUserId);
+        return mDatabase.samplepointDao().getSamplepointEntityListNeedAddRemote(SessionManager.getLoggedInUserId());
     }
     public List<SamplepointEntity> getSamplepointEntityListNeedUpdateRemote(){
-        return mDatabase.samplepointDao().getSamplepointEntityListNeedUpdateRemote(mUserId);
+        return mDatabase.samplepointDao().getSamplepointEntityListNeedUpdateRemote(SessionManager.getLoggedInUserId());
     }
 
 }

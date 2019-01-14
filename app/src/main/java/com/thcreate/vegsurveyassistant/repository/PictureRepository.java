@@ -7,14 +7,12 @@ import com.thcreate.vegsurveyassistant.AppExecutors;
 import com.thcreate.vegsurveyassistant.db.AppDatabase;
 import com.thcreate.vegsurveyassistant.db.entity.PictureEntity;
 import com.thcreate.vegsurveyassistant.db.entity.PlotPictureEntity;
+import com.thcreate.vegsurveyassistant.service.SessionManager;
 
 import java.util.Date;
 import java.util.List;
 
 public class PictureRepository {
-
-    //TODO userid1
-    private int mUserId = 1;
 
     private static PictureRepository sINSTANCE;
 
@@ -70,14 +68,14 @@ public class PictureRepository {
     }
 
     public List<PlotPictureEntity> getPlotPictureEntityListNeedDelete(){
-        String ownerIdLimit = String.valueOf(mUserId) + "-%";
+        String ownerIdLimit = String.valueOf(SessionManager.getLoggedInUserId()) + "-%";
         return mDatabase.pictureDao().getPlotPictureEntityListNeedDelete(ownerIdLimit);
     }
     public void updatePlotPictureEntityUploadAtByPictureId(String pictureId, long uploadAt){
         mDatabase.pictureDao().updatePlotPictureEntityUploadAtByPictureId(pictureId, uploadAt);
     }
     public List<PlotPictureEntity> getPlotPictureEntityListNeedAddRemote(){
-        String ownerIdLimit = String.valueOf(mUserId) + "-%";
+        String ownerIdLimit = String.valueOf(SessionManager.getLoggedInUserId()) + "-%";
         return mDatabase.pictureDao().getPlotPictureEntityListNeedAddRemote(ownerIdLimit);
     }
 

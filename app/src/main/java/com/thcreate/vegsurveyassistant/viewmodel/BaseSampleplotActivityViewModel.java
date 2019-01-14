@@ -21,6 +21,7 @@ import com.thcreate.vegsurveyassistant.repository.PictureRepository;
 import com.thcreate.vegsurveyassistant.repository.SpeciesRepository;
 import com.thcreate.vegsurveyassistant.repository.SampleplotRepository;
 import com.thcreate.vegsurveyassistant.service.LocationLiveData;
+import com.thcreate.vegsurveyassistant.service.SessionManager;
 import com.thcreate.vegsurveyassistant.util.IdGenerator;
 import com.thcreate.vegsurveyassistant.util.Macro;
 
@@ -35,13 +36,10 @@ abstract public class BaseSampleplotActivityViewModel<T extends BaseSampleplot> 
     abstract public String getPlotType();
 
     public String generateSpeciesId(){
-        return IdGenerator.getId(userId);
+        return IdGenerator.getId(SessionManager.getLoggedInUserId());
     }
 
     private static final String SAMPLEPLOT_DATA = "sampleplot_data";
-
-    //TODO userid1
-    private int userId = 1;
 
     public String landId;
     public MutableLiveData<String> landType;

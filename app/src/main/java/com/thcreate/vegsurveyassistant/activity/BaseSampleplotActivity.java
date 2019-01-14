@@ -19,6 +19,7 @@ import android.support.v4.content.FileProvider;
 import android.view.View;
 import android.widget.Toast;
 
+import com.thcreate.vegsurveyassistant.service.SessionManager;
 import com.thcreate.vegsurveyassistant.util.DeviceStatus;
 import com.thcreate.vegsurveyassistant.util.IdGenerator;
 import com.thcreate.vegsurveyassistant.util.Macro;
@@ -115,8 +116,7 @@ public class BaseSampleplotActivity<U extends BaseSampleplotActivityViewModel> e
     }
 
     private File createImageFile() throws IOException {
-        //TODO userid1
-        mPictureId = IdGenerator.getId(1);
+        mPictureId = IdGenerator.getId(SessionManager.getLoggedInUserId());
         File storeDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
                 mPictureId,

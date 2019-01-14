@@ -15,6 +15,7 @@ import com.thcreate.vegsurveyassistant.db.entity.SamplepointEntity;
 import com.thcreate.vegsurveyassistant.db.entity.model.Samplepoint;
 import com.thcreate.vegsurveyassistant.repository.SamplepointRepository;
 import com.thcreate.vegsurveyassistant.service.LocationLiveData;
+import com.thcreate.vegsurveyassistant.service.SessionManager;
 import com.thcreate.vegsurveyassistant.util.Macro;
 
 import java.util.Date;
@@ -22,9 +23,6 @@ import java.util.Date;
 public class SamplepointActivityViewModel extends AndroidViewModel {
 
     private static final String SAMPLEPOINT_DATA = "samplepointData";
-
-    //TODO userid1
-    private int userId = 1;
 
     public String pointId;
     public String action;
@@ -53,7 +51,7 @@ public class SamplepointActivityViewModel extends AndroidViewModel {
         switch (action){
             case Macro.ACTION_ADD:
                 MutableLiveData<Samplepoint> tmp1 = new MutableLiveData<>();
-                tmp1.setValue(new Samplepoint(userId, pointId));
+                tmp1.setValue(new Samplepoint(SessionManager.getLoggedInUserId(), pointId));
                 samplepoint = tmp1;
                 break;
             case Macro.ACTION_ADD_RESTORE:

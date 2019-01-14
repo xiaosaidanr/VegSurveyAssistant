@@ -9,15 +9,13 @@ import com.thcreate.vegsurveyassistant.db.entity.PlotPlotEntity;
 import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
 import com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity;
 import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.PlotMainInfo;
+import com.thcreate.vegsurveyassistant.service.SessionManager;
 import com.thcreate.vegsurveyassistant.util.Macro;
 
 import java.util.Date;
 import java.util.List;
 
 public class SampleplotRepository {
-
-    //TODO userid1
-    private int mUserId = 1;
 
     private static SampleplotRepository sINSTANCE;
 
@@ -199,11 +197,11 @@ public class SampleplotRepository {
     }
 
     public List<SampleplotEntity> getSampleplotEntityListNeedDeleteRemote(){
-        String plotIdLimit = String.valueOf(mUserId) + "-%";
+        String plotIdLimit = String.valueOf(SessionManager.getLoggedInUserId()) + "-%";
         return mDatabase.sampleplotDao().getSampleplotEntityListNeedDeleteRemote(plotIdLimit);
     }
     public void deleteSampleplotEntitiesNeedDeleteLocal(){
-        String plotIdLimit = String.valueOf(mUserId) + "-%";
+        String plotIdLimit = String.valueOf(SessionManager.getLoggedInUserId()) + "-%";
         List<SampleplotEntity> speciesEntityList = mDatabase.sampleplotDao().getSampleplotEntitiesNeedDeleteLocal(plotIdLimit);
         if (speciesEntityList != null &&  speciesEntityList.size() > 0){
             for (SampleplotEntity entity :
@@ -213,11 +211,11 @@ public class SampleplotRepository {
         }
     }
     public List<SampleplotEntity> getSampleplotEntityNeedAddRemote(){
-        String plotIdLimit = String.valueOf(mUserId) + "-%";
+        String plotIdLimit = String.valueOf(SessionManager.getLoggedInUserId()) + "-%";
         return mDatabase.sampleplotDao().getSampleplotEntityListNeedAddRemote(plotIdLimit);
     }
     public List<SampleplotEntity> getSampleplotEntityNeedUpdateRemote(){
-        String plotIdLimit = String.valueOf(mUserId) + "-%";
+        String plotIdLimit = String.valueOf(SessionManager.getLoggedInUserId()) + "-%";
         return mDatabase.sampleplotDao().getSampleplotEntityListNeedUpdateRemote(plotIdLimit);
     }
     public List<SampleplotEntity> getNotDeletedSampleplotEntityListByLandId(String landId){

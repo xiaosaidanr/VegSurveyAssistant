@@ -19,6 +19,7 @@ import com.thcreate.vegsurveyassistant.db.entity.model.Sampleland;
 import com.thcreate.vegsurveyassistant.repository.SamplelandRepository;
 import com.thcreate.vegsurveyassistant.repository.SampleplotRepository;
 import com.thcreate.vegsurveyassistant.service.LocationLiveData;
+import com.thcreate.vegsurveyassistant.service.SessionManager;
 import com.thcreate.vegsurveyassistant.util.IdGenerator;
 import com.thcreate.vegsurveyassistant.util.Macro;
 
@@ -28,9 +29,6 @@ import java.util.List;
 public class BaseSamplelandActivityViewModel extends AndroidViewModel {
 
     private static final String SAMPLELAND_DATA = "samplelandData";
-
-    //TODO userid1
-    private int userId = 1;
 
     public String action;
     public String landId;
@@ -61,7 +59,7 @@ public class BaseSamplelandActivityViewModel extends AndroidViewModel {
         switch (action){
             case Macro.ACTION_ADD:
                 MutableLiveData<Sampleland> tmp1 = new MutableLiveData<>();
-                tmp1.setValue(new Sampleland(userId, landId, landType));
+                tmp1.setValue(new Sampleland(SessionManager.getLoggedInUserId(), landId, landType));
                 sampleland = tmp1;
                 break;
             case Macro.ACTION_ADD_RESTORE:
@@ -153,7 +151,7 @@ public class BaseSamplelandActivityViewModel extends AndroidViewModel {
 //    }
 
     public String generateSampleplotId(){
-        return IdGenerator.getId(userId);
+        return IdGenerator.getId(SessionManager.getLoggedInUserId());
     }
 
     public String save(){

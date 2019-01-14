@@ -10,14 +10,12 @@ import com.thcreate.vegsurveyassistant.db.entity.SamplelandEntity;
 import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
 import com.thcreate.vegsurveyassistant.db.entity.User;
 import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.LandMainInfo;
+import com.thcreate.vegsurveyassistant.service.SessionManager;
 
 import java.util.Date;
 import java.util.List;
 
 public class SamplelandRepository {
-
-    //TODO userid1
-    private int mUserId = 1;
 
     private static SamplelandRepository sINSTANCE;
 
@@ -139,15 +137,15 @@ public class SamplelandRepository {
     }
 
     public List<SamplelandEntity> getSamplelandEntityListNeedDeleteRemote(){
-        return mDatabase.samplelandDao().getSamplelandEntityListNeedDeleteRemote(mUserId);
+        return mDatabase.samplelandDao().getSamplelandEntityListNeedDeleteRemote(SessionManager.getLoggedInUserId());
     }
     public void deleteSamplelandEntitiesNeedDeleteLocal(){
-        mDatabase.samplelandDao().deleteSamplelandEntitiesNeedDeleteLocal(mUserId);
+        mDatabase.samplelandDao().deleteSamplelandEntitiesNeedDeleteLocal(SessionManager.getLoggedInUserId());
     }
     public List<SamplelandEntity> getSamplelandEntityListNeedAddRemote(){
-        return mDatabase.samplelandDao().getSamplelandEntityListNeedAddRemote(mUserId);
+        return mDatabase.samplelandDao().getSamplelandEntityListNeedAddRemote(SessionManager.getLoggedInUserId());
     }
     public List<SamplelandEntity> getSamplelandEntityListNeedUpdateRemote(){
-        return mDatabase.samplelandDao().getSamplelandEntityListNeedUpdateRemote(mUserId);
+        return mDatabase.samplelandDao().getSamplelandEntityListNeedUpdateRemote(SessionManager.getLoggedInUserId());
     }
 }

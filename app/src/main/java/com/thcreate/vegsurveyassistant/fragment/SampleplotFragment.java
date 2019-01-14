@@ -22,6 +22,7 @@ import com.thcreate.vegsurveyassistant.activity.ShrubLandActivity;
 import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.activity.ArborLandActivity;
 import com.thcreate.vegsurveyassistant.customUi.NoScrollViewPager;
+import com.thcreate.vegsurveyassistant.service.SessionManager;
 import com.thcreate.vegsurveyassistant.util.IdGenerator;
 import com.thcreate.vegsurveyassistant.util.Macro;
 
@@ -127,8 +128,7 @@ public class SampleplotFragment extends BaseFragment {
         if (activityClazz != null){
             Intent intent = new Intent(getActivity(), activityClazz);
             intent.putExtra(Macro.ACTION, Macro.ACTION_ADD);
-            //TODO userid1
-            intent.putExtra(Macro.SAMPLELAND_ID, IdGenerator.getId(1));
+            intent.putExtra(Macro.SAMPLELAND_ID, IdGenerator.getId(SessionManager.getLoggedInUserId()));
             intent.putExtra(Macro.SAMPLELAND_TYPE, samplelandType);
             startActivity(intent);
             return true;

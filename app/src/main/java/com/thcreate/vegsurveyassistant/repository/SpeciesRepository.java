@@ -7,15 +7,13 @@ import com.thcreate.vegsurveyassistant.AppExecutors;
 import com.thcreate.vegsurveyassistant.db.AppDatabase;
 import com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity;
 import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.SpeciesMainInfo;
+import com.thcreate.vegsurveyassistant.service.SessionManager;
 import com.thcreate.vegsurveyassistant.util.Macro;
 
 import java.util.Date;
 import java.util.List;
 
 public class SpeciesRepository {
-
-    //TODO userid1
-    private int mUserId = 1;
 
     private static SpeciesRepository sINSTANCE;
 
@@ -94,19 +92,19 @@ public class SpeciesRepository {
     }
 
     public List<SpeciesEntity> getSpeciesEntityListNeedDeleteRemote(){
-        String speciesIdLimit = String.valueOf(mUserId) + "-%";
+        String speciesIdLimit = String.valueOf(SessionManager.getLoggedInUserId()) + "-%";
         return mDatabase.speciesDao().getSpeciesEntityListNeedDeleteRemote(speciesIdLimit);
     }
     public void deleteSpeciesEntitiesNeedDeleteLocal(){
-        String speciesIdLimit = String.valueOf(mUserId) + "-%";
+        String speciesIdLimit = String.valueOf(SessionManager.getLoggedInUserId()) + "-%";
         mDatabase.speciesDao().deleteSpeciesEntitiesNeedDeleteLocal(speciesIdLimit);
     }
     public List<SpeciesEntity> getSpeciesEntityListNeedAddRemote(){
-        String speciesIdLimit = String.valueOf(mUserId) + "-%";
+        String speciesIdLimit = String.valueOf(SessionManager.getLoggedInUserId()) + "-%";
         return mDatabase.speciesDao().getSpeciesEntityListNeedAddRemote(speciesIdLimit);
     }
     public List<SpeciesEntity> getSpeciesEntityListNeedUpdateRemote(){
-        String speciesIdLimit = String.valueOf(mUserId) + "-%";
+        String speciesIdLimit = String.valueOf(SessionManager.getLoggedInUserId()) + "-%";
         return mDatabase.speciesDao().getSpeciesEntityListNeedUpdateRemote(speciesIdLimit);
     }
     public List<SpeciesEntity> getNotDeletedSpeciesEntityListByPlotId(String plotId){
