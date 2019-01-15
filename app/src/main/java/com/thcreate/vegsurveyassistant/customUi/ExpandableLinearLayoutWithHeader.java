@@ -67,12 +67,12 @@ public class ExpandableLinearLayoutWithHeader extends LinearLayout {
         downArrow = getResources().getDrawable(R.drawable.ic_keyboard_arrow_down_black_24dp);
         downArrow.setBounds(0, 0, downArrow.getIntrinsicWidth(), downArrow.getIntrinsicHeight());
 
-        //默认是折叠的
-        mIsFold = true;
-        header.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, rightArrow, null);
-//        //默认是打开的
-//        mIsFold = false;
-//        header.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, downArrow, null);
+//        //默认是折叠的
+//        mIsFold = true;
+//        header.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, rightArrow, null);
+        //默认是打开的
+        mIsFold = false;
+        header.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, downArrow, null);
 
         header.setOnClickListener(new View.OnClickListener(){
             @Override
