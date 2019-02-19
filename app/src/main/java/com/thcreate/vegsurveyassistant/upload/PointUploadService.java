@@ -4,8 +4,9 @@ import com.thcreate.vegsurveyassistant.BasicApp;
 import com.thcreate.vegsurveyassistant.db.entity.SamplepointEntity;
 import com.thcreate.vegsurveyassistant.db.entity.model.Samplepoint;
 import com.thcreate.vegsurveyassistant.http.api.PointApi;
+import com.thcreate.vegsurveyassistant.http.service.HttpServiceGenerator;
 import com.thcreate.vegsurveyassistant.repository.SamplepointRepository;
-import com.thcreate.vegsurveyassistant.util.URL;
+import com.thcreate.vegsurveyassistant.util.HTTP;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,7 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class PointUploadService implements IUploadService {
 
     private BasicApp mApplication;
-    private Retrofit mRetrofit;
+//    private Retrofit mRetrofit;
     private PointApi mRequest;
     private SamplepointRepository mPointRepository;
 
@@ -32,13 +33,15 @@ public class PointUploadService implements IUploadService {
     @Override
     public void start() {
         if (mRequest == null){
-            if (mRetrofit == null){
-                mRetrofit = new Retrofit.Builder()
-                        .baseUrl(URL.SERVICE_URL)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-            }
-            mRequest = mRetrofit.create(PointApi.class);
+//            if (mRetrofit == null){
+//                mRetrofit = new Retrofit.Builder()
+//                        .baseUrl(HTTP.SERVICE_URL)
+//                        .addConverterFactory(GsonConverterFactory.create())
+//                        .build();
+//            }
+//            mRequest = mRetrofit.create(PointApi.class);
+            mRequest = HttpServiceGenerator.createService(PointApi.class);
+
         }
     }
 

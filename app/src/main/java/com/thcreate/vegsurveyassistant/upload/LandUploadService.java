@@ -1,14 +1,13 @@
 package com.thcreate.vegsurveyassistant.upload;
 
-import android.text.style.ReplacementSpan;
-
 import com.thcreate.vegsurveyassistant.BasicApp;
 import com.thcreate.vegsurveyassistant.db.entity.SamplelandEntity;
 import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
 import com.thcreate.vegsurveyassistant.db.entity.model.BaseSampleplot;
 import com.thcreate.vegsurveyassistant.db.entity.model.Sampleland;
 import com.thcreate.vegsurveyassistant.http.api.LandApi;
-import com.thcreate.vegsurveyassistant.util.URL;
+import com.thcreate.vegsurveyassistant.http.service.HttpServiceGenerator;
+import com.thcreate.vegsurveyassistant.util.HTTP;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,7 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LandUploadService implements IUploadService {
 
-    private Retrofit mRetrofit;
+//    private Retrofit mRetrofit;
     private LandApi mRequest;
 
     public LandUploadService() {
@@ -31,13 +30,14 @@ public class LandUploadService implements IUploadService {
     @Override
     public void start() {
         if (mRequest == null){
-            if (mRetrofit == null){
-                mRetrofit = new Retrofit.Builder()
-                        .baseUrl(URL.SERVICE_URL)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-            }
-            mRequest = mRetrofit.create(LandApi.class);
+//            if (mRetrofit == null){
+//                mRetrofit = new Retrofit.Builder()
+//                        .baseUrl(HTTP.SERVICE_URL)
+//                        .addConverterFactory(GsonConverterFactory.create())
+//                        .build();
+//            }
+//            mRequest = mRetrofit.create(LandApi.class);
+            mRequest = HttpServiceGenerator.createService(LandApi.class);
         }
     }
 

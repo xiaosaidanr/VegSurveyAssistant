@@ -6,16 +6,14 @@ import com.thcreate.vegsurveyassistant.BasicApp;
 import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
 import com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity;
 import com.thcreate.vegsurveyassistant.db.entity.model.ArborSampleplot;
-import com.thcreate.vegsurveyassistant.db.entity.model.ArborSpecies;
 import com.thcreate.vegsurveyassistant.db.entity.model.BaseSampleplot;
 import com.thcreate.vegsurveyassistant.db.entity.model.BaseSpecies;
 import com.thcreate.vegsurveyassistant.db.entity.model.HerbSampleplot;
-import com.thcreate.vegsurveyassistant.db.entity.model.HerbSpecies;
 import com.thcreate.vegsurveyassistant.db.entity.model.ShrubSampleplot;
-import com.thcreate.vegsurveyassistant.db.entity.model.ShrubSpecies;
 import com.thcreate.vegsurveyassistant.http.api.PlotApi;
+import com.thcreate.vegsurveyassistant.http.service.HttpServiceGenerator;
 import com.thcreate.vegsurveyassistant.util.Macro;
-import com.thcreate.vegsurveyassistant.util.URL;
+import com.thcreate.vegsurveyassistant.util.HTTP;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,7 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class PlotUploadService implements IUploadService {
 
 //    private BasicApp mApplication;
-    private Retrofit mRetrofit;
+//    private Retrofit mRetrofit;
     private PlotApi mRequest;
 //    private SampleplotRepository mPlotRepository;
 //    private SpeciesRepository mSpeciesRepository;
@@ -45,13 +43,14 @@ public class PlotUploadService implements IUploadService {
     @Override
     public void start() {
         if (mRequest == null){
-            if (mRetrofit == null){
-                mRetrofit = new Retrofit.Builder()
-                        .baseUrl(URL.SERVICE_URL)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-            }
-            mRequest = mRetrofit.create(PlotApi.class);
+//            if (mRetrofit == null){
+//                mRetrofit = new Retrofit.Builder()
+//                        .baseUrl(HTTP.SERVICE_URL)
+//                        .addConverterFactory(GsonConverterFactory.create())
+//                        .build();
+//            }
+//            mRequest = mRetrofit.create(PlotApi.class);
+            mRequest = HttpServiceGenerator.createService(PlotApi.class);
         }
     }
 

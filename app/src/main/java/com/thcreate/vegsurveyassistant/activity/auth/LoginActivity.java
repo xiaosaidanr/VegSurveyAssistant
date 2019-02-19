@@ -3,35 +3,27 @@ package com.thcreate.vegsurveyassistant.activity.auth;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.design.button.MaterialButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.text.TextUtilsCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.Toast;
 
 import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.activity.BaseActivity;
 import com.thcreate.vegsurveyassistant.activity.MainActivity;
 import com.thcreate.vegsurveyassistant.http.api.AuthApi;
+import com.thcreate.vegsurveyassistant.http.model.GetVerificationCodeResponse;
+import com.thcreate.vegsurveyassistant.http.service.HttpServiceGenerator;
 import com.thcreate.vegsurveyassistant.service.ActivityCollector;
 import com.thcreate.vegsurveyassistant.service.SessionManager;
+import com.thcreate.vegsurveyassistant.util.HTTP;
 
-import java.util.concurrent.TimeUnit;
-
-import okhttp3.OkHttpClient;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class LoginActivity extends BaseActivity {
 
@@ -39,6 +31,7 @@ public class LoginActivity extends BaseActivity {
     TextInputEditText verificationCodeInputEditText;
     MaterialButton loginButton;
     MaterialButton getVerificationCodeButton;
+    CountDownTimer mCountDownTimer = null;
     AuthApi mRequest;
 
     @Override
@@ -58,14 +51,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void initRequest(){
-        OkHttpClient client = new OkHttpClient();
-        client.newBuilder().connectTimeout(4, TimeUnit.SECONDS);
-        String baseUrl = "https://www.baidu.com";
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .client(client)
-                .build();
-        mRequest = retrofit.create(AuthApi.class);
+        mRequest = HttpServiceGenerator.createService(AuthApi.class);
     }
 
     private void initListener(){
@@ -100,11 +86,19 @@ public class LoginActivity extends BaseActivity {
             getVerificationCodeButton.setEnabled(false);
             getVerificationCodeButton.setText(R.string.sending);
 
-            Call<ResponseBody> call = mRequest.getVerificationCode("phone", phoneNumber);
-            call.enqueue(new Callback<ResponseBody>() {
+            Call<GetVerificationCodeResponse> call = mRequest.getVerificationCode(HTTP.PHONE, phoneNumber);
+            call.enqueue(new Callback<GetVerificationCodeResponse>() {
                 @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    new CountDownTimer(30000, 1000) {
+                public void onResponse(Call<GetVerificationCodeResponse> call, Response<GetVerificationCodeResponse> response) {
+                    if (response.body() == null){
+                        onFailure(call, new Throwable());
+                        return;
+                    }
+                    if (mCountDownTimer != null){
+                        mCountDownTimer.cancel();
+                        mCountDownTimer = null;
+                    }
+                    mCountDownTimer = new CountDownTimer(HTTP.VERIFICATION_CODE_GET_TIME_LIMIT, 1000) {
                         @Override
                         public void onTick(long millisUntilFinished) {
                             getVerificationCodeButton.setText(String.format("已发送%ss", String.valueOf(millisUntilFinished/1000)));
@@ -117,11 +111,12 @@ public class LoginActivity extends BaseActivity {
                             getVerificationCodeButton.setEnabled(true);
                             getVerificationCodeButton.setText(R.string.reget_verification_code);
                         }
-                    }.start();
+                    };
+                    mCountDownTimer.start();
                 }
 
                 @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                public void onFailure(Call<GetVerificationCodeResponse> call, Throwable t) {
                     phoneTextInputEditText.setEnabled(true);
 
                     getVerificationCodeButton.setEnabled(true);
@@ -183,4 +178,12 @@ public class LoginActivity extends BaseActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mCountDownTimer != null){
+            mCountDownTimer.cancel();
+            mCountDownTimer = null;
+        }
+    }
 }

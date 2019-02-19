@@ -4,7 +4,8 @@ import com.thcreate.vegsurveyassistant.BasicApp;
 import com.thcreate.vegsurveyassistant.db.entity.PlotPictureEntity;
 import com.thcreate.vegsurveyassistant.db.entity.model.Picture;
 import com.thcreate.vegsurveyassistant.http.api.PictureApi;
-import com.thcreate.vegsurveyassistant.util.URL;
+import com.thcreate.vegsurveyassistant.http.service.HttpServiceGenerator;
+import com.thcreate.vegsurveyassistant.util.HTTP;
 
 import java.util.Date;
 import java.util.List;
@@ -17,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PlotPictureUploadService implements IUploadService {
 
-    private Retrofit mRetrofit;
+//    private Retrofit mRetrofit;
     private PictureApi mRequest;
 
     public PlotPictureUploadService() {
@@ -26,13 +27,14 @@ public class PlotPictureUploadService implements IUploadService {
     @Override
     public void start() {
         if (mRequest == null){
-            if (mRetrofit == null){
-                mRetrofit = new Retrofit.Builder()
-                        .baseUrl(URL.SERVICE_URL)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-            }
-            mRequest = mRetrofit.create(PictureApi.class);
+//            if (mRetrofit == null){
+//                mRetrofit = new Retrofit.Builder()
+//                        .baseUrl(HTTP.SERVICE_URL)
+//                        .addConverterFactory(GsonConverterFactory.create())
+//                        .build();
+//            }
+//            mRequest = mRetrofit.create(PictureApi.class);
+            mRequest = HttpServiceGenerator.createService(PictureApi.class);
         }
     }
 

@@ -3,14 +3,13 @@ package com.thcreate.vegsurveyassistant.upload;
 import com.thcreate.vegsurveyassistant.BasicApp;
 import com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity;
 import com.thcreate.vegsurveyassistant.db.entity.model.ArborSpecies;
-import com.thcreate.vegsurveyassistant.db.entity.model.BaseSampleplot;
 import com.thcreate.vegsurveyassistant.db.entity.model.BaseSpecies;
 import com.thcreate.vegsurveyassistant.db.entity.model.HerbSpecies;
 import com.thcreate.vegsurveyassistant.db.entity.model.ShrubSpecies;
 import com.thcreate.vegsurveyassistant.http.api.SpeciesApi;
-import com.thcreate.vegsurveyassistant.repository.SpeciesRepository;
+import com.thcreate.vegsurveyassistant.http.service.HttpServiceGenerator;
 import com.thcreate.vegsurveyassistant.util.Macro;
-import com.thcreate.vegsurveyassistant.util.URL;
+import com.thcreate.vegsurveyassistant.util.HTTP;
 
 import java.util.Date;
 import java.util.List;
@@ -24,7 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class SpeciesUploadService implements IUploadService {
 
 //    private BasicApp mApplication;
-    private Retrofit mRetrofit;
+//    private Retrofit mRetrofit;
     private SpeciesApi mRequest;
 //    private SpeciesRepository mSpeciesRepository;
 
@@ -36,13 +35,15 @@ public class SpeciesUploadService implements IUploadService {
     @Override
     public void start() {
         if (mRequest == null){
-            if (mRetrofit == null){
-                mRetrofit = new Retrofit.Builder()
-                        .baseUrl(URL.SERVICE_URL)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-            }
-            mRequest = mRetrofit.create(SpeciesApi.class);
+//            if (mRetrofit == null){
+//                mRetrofit = new Retrofit.Builder()
+//                        .baseUrl(HTTP.SERVICE_URL)
+//                        .addConverterFactory(GsonConverterFactory.create())
+//                        .build();
+//            }
+//            mRequest = mRetrofit.create(SpeciesApi.class);
+            mRequest = HttpServiceGenerator.createService(SpeciesApi.class);
+
         }
     }
 
