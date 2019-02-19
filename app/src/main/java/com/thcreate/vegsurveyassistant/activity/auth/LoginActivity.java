@@ -90,29 +90,30 @@ public class LoginActivity extends BaseActivity {
             call.enqueue(new Callback<GetVerificationCodeResponse>() {
                 @Override
                 public void onResponse(Call<GetVerificationCodeResponse> call, Response<GetVerificationCodeResponse> response) {
-                    if (response.body() == null){
+                    if (response.isSuccessful()){
+                        if (mCountDownTimer != null){
+                            mCountDownTimer.cancel();
+                            mCountDownTimer = null;
+                        }
+                        mCountDownTimer = new CountDownTimer(HTTP.VERIFICATION_CODE_GET_TIME_LIMIT, 1000) {
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+                                getVerificationCodeButton.setText(String.format("已发送%ss", String.valueOf(millisUntilFinished/1000)));
+                            }
+
+                            @Override
+                            public void onFinish() {
+                                phoneTextInputEditText.setEnabled(true);
+
+                                getVerificationCodeButton.setEnabled(true);
+                                getVerificationCodeButton.setText(R.string.reget_verification_code);
+                            }
+                        };
+                        mCountDownTimer.start();
+                    }
+                    else {
                         onFailure(call, new Throwable());
-                        return;
                     }
-                    if (mCountDownTimer != null){
-                        mCountDownTimer.cancel();
-                        mCountDownTimer = null;
-                    }
-                    mCountDownTimer = new CountDownTimer(HTTP.VERIFICATION_CODE_GET_TIME_LIMIT, 1000) {
-                        @Override
-                        public void onTick(long millisUntilFinished) {
-                            getVerificationCodeButton.setText(String.format("已发送%ss", String.valueOf(millisUntilFinished/1000)));
-                        }
-
-                        @Override
-                        public void onFinish() {
-                            phoneTextInputEditText.setEnabled(true);
-
-                            getVerificationCodeButton.setEnabled(true);
-                            getVerificationCodeButton.setText(R.string.reget_verification_code);
-                        }
-                    };
-                    mCountDownTimer.start();
                 }
 
                 @Override
