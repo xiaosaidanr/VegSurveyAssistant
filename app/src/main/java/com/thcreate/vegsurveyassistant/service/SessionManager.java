@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.thcreate.vegsurveyassistant.BasicApp;
+import com.thcreate.vegsurveyassistant.http.model.Token;
 import com.thcreate.vegsurveyassistant.util.HTTP;
 
 public class SessionManager {
@@ -22,6 +23,20 @@ public class SessionManager {
         editor.putInt(USER_ID, userId);
         editor.putBoolean(KEY_IS_LOGGED_IN, true);
         editor.apply();
+    }
+
+    public static Token getToken(){
+        Token token = new Token();
+        SharedPreferences sharedPreferences = BasicApp.getAppliction().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        token.accessToken = sharedPreferences.getString(HTTP.ACCESS_TOKEN, null);
+        token.refreshToken = sharedPreferences.getString(HTTP.REFRESH_TOKEN, null);
+        token.expiresIn = sharedPreferences.getInt(HTTP.EXPIRES_IN, 0);
+        token.tokenType = sharedPreferences.getString(HTTP.TOKEN_TYPE, null);
+        return token;
+    }
+
+    public static void setToken(Token token){
+        setToken(token.accessToken, token.refreshToken, token.expiresIn, token.tokenType);
     }
 
     public static void setToken(String accessToken, String refreshToken, int expiresIn, String tokenType){

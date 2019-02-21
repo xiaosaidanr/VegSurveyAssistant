@@ -15,19 +15,19 @@ import retrofit2.http.Path;
 
 public interface PointApi {
 
-    @GET("/data/points/{point_id}")
+    @GET("api/data/points/{point_id}")
     Call<Samplepoint> getPoint(@Path("point_id") String pointId);
 
-    @GET("/data/points")
+    @GET("api/data/points")
     Call<List<Samplepoint>> getPoints();
 
-    @POST("/data/points")
+    @POST("api/data/points")
     Call<ResponseBody> addPoint(@Body Samplepoint point);
 
-    @PUT("/data/points/{point_id}")
+    @PUT("api/data/points/{point_id}")
     Call<ResponseBody> updatePoint(@Path("point_id") String pointId, @Body Samplepoint point);
 
-    @DELETE("/data/points/{point_id}")
+    @DELETE("api/data/points/{point_id}")
     Call<ResponseBody> deletePoint(@Path("point_id") String pointId);
 
 }

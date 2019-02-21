@@ -15,19 +15,19 @@ import retrofit2.http.Path;
 
 public interface LandApi {
 
-    @GET("/data/lands/{land_id}")
+    @GET("api/data/lands/{land_id}")
     Call<Sampleland> getLand(@Path("land_id") String landId);
 
-    @GET("/data/lands")
+    @GET("api/data/lands")
     Call<List<Sampleland>> getLands();
 
-    @POST("/data/lands")
+    @POST("api/data/lands")
     Call<ResponseBody> addLand(@Body Sampleland land);
 
-    @PUT("/data/lands/{land_id}")
+    @PUT("api/data/lands/{land_id}")
     Call<ResponseBody> updateLand(@Path("land_id") String landId, @Body Sampleland land);
 
-    @DELETE("/data/lands/{land_id}")
+    @DELETE("api/data/lands/{land_id}")
     Call<ResponseBody> deleteLand(@Path("land_id") String landId);
 
 }

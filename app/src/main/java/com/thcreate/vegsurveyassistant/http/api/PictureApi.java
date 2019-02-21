@@ -11,10 +11,10 @@ import retrofit2.http.Path;
 
 public interface PictureApi {
 
-    @POST("/data/pictures")
+    @POST("api/data/pictures")
     Call<ResponseBody> addPicture(@Body Picture picture);
 
-    @DELETE("/data/pictures/{picture_id}")
+    @DELETE("api/data/pictures/{picture_id}")
     Call<ResponseBody> deletePicture(@Path("picture_id") String pictureId);
 
 }

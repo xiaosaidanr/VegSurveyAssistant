@@ -10,13 +10,13 @@ import retrofit2.http.Path;
 
 public interface SpeciesApi {
 
-    @POST("/data/species")
+    @POST("api/data/species")
     <T> Call<ResponseBody> addSpecies(@Body T species);
 
-    @PUT("/data/species/{species_id}")
+    @PUT("api/data/species/{species_id}")
     <T> Call<ResponseBody> updateSpecies(@Path("species_id") String speciesId, @Body T species);
 
-    @DELETE("/data/species/{species_id}")
+    @DELETE("api/data/species/{species_id}")
     Call<ResponseBody> deleteSpecies(@Path("species_id") String speciesId);
 
 }
