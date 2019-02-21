@@ -78,63 +78,85 @@
 
             </android.support.design.widget.TextInputLayout>
 
-            <LinearLayout
-                android:id="@+id/verificationCodeLinearLayout"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/passwordTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/phoneTextInputLayout"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="0dp">
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/verificationCodeTextInputLayout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2">
-
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/verificationCodeTextInputEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_lock_outline_black_24dp"
-                        android:hint="@string/verification_code"
-                        android:inputType="number"
-                        android:textAppearance="?android:attr/textAppearance"
-                        android:theme="@style/LoginEditText" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.button.MaterialButton
-                    android:id="@+id/buttonGetVerificationCode"
-                    android:enabled="false"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="4dp"
-                    android:text="@string/get_verification_code"
-                    android:textAppearance="?android:attr/textAppearanceButton"
-                    android:textColor="@android:color/white"
-                    app:cornerRadius="5dp" />
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/verificationCodeLinearLayout"
                 android:layout_marginLeft="32dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginRight="32dp"
-                android:layout_marginBottom="64dp"
-                android:paddingStart="4dp"
-                android:paddingEnd="4dp"
-                android:text="@string/login_note"
-                android:textColor="#b6c2b7"
-                android:textSize="10sp" />
+                android:layout_marginBottom="64dp">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/passwordTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_lock_outline_black_24dp"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    android:textAppearance="?android:attr/textAppearance"
+                    android:theme="@style/LoginEditText" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <!--<LinearLayout-->
+                <!--android:id="@+id/verificationCodeLinearLayout"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/phoneTextInputLayout"-->
+                <!--android:layout_marginStart="32dp"-->
+                <!--android:layout_marginTop="16dp"-->
+                <!--android:layout_marginEnd="32dp"-->
+                <!--android:layout_marginBottom="64dp">-->
+
+                <!--<android.support.design.widget.TextInputLayout-->
+                    <!--android:id="@+id/verificationCodeTextInputLayout"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="2">-->
+
+                    <!--<android.support.design.widget.TextInputEditText-->
+                        <!--android:id="@+id/verificationCodeTextInputEditText"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:drawableStart="@drawable/ic_lock_outline_black_24dp"-->
+                        <!--android:hint="@string/verification_code"-->
+                        <!--android:inputType="number"-->
+                        <!--android:textAppearance="?android:attr/textAppearance"-->
+                        <!--android:theme="@style/LoginEditText" />-->
+
+                <!--</android.support.design.widget.TextInputLayout>-->
+
+                <!--<android.support.design.button.MaterialButton-->
+                    <!--android:id="@+id/buttonGetVerificationCode"-->
+                    <!--android:enabled="false"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:gravity="center"-->
+                    <!--android:paddingTop="4dp"-->
+                    <!--android:paddingBottom="4dp"-->
+                    <!--android:text="@string/get_verification_code"-->
+                    <!--android:textAppearance="?android:attr/textAppearanceButton"-->
+                    <!--android:textColor="@android:color/white"-->
+                    <!--app:cornerRadius="5dp" />-->
+
+            <!--</LinearLayout>-->
+
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/verificationCodeLinearLayout"-->
+                <!--android:layout_marginLeft="32dp"-->
+                <!--android:layout_marginRight="32dp"-->
+                <!--android:layout_marginBottom="64dp"-->
+                <!--android:paddingStart="4dp"-->
+                <!--android:paddingEnd="4dp"-->
+                <!--android:text="@string/login_note"-->
+                <!--android:textColor="#b6c2b7"-->
+                <!--android:textSize="10sp" />-->
 
         </RelativeLayout>
 

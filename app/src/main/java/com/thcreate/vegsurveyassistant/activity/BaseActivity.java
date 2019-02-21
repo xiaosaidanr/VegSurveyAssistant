@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import com.thcreate.vegsurveyassistant.activity.auth.LoginActivity;
+import com.thcreate.vegsurveyassistant.activity.auth.SignupActivity;
 import com.thcreate.vegsurveyassistant.service.ActivityCollector;
 import com.thcreate.vegsurveyassistant.service.SessionManager;
 
@@ -26,7 +27,7 @@ public class BaseActivity extends AppCompatActivity {
     private void checkIsLoggedIn(){
         if (!this.getClass().getSimpleName().equals(LoginActivity.class.getSimpleName())){
             if (!SessionManager.isLoggedIn()){
-                Intent intent = new Intent(this, LoginActivity.class);
+                Intent intent = new Intent(this, SignupActivity.class);
                 startActivity(intent);
                 finish();
             }

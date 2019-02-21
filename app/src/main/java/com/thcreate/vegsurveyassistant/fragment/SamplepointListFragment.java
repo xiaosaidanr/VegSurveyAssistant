@@ -134,10 +134,10 @@ public class SamplepointListFragment extends BaseFragment {
             }
             mBinding.executePendingBindings();
         });
-//        mBinding.buttonQuit.setOnClickListener((view)->{
-//            SessionManager.logout();
-//            ActivityCollector.finishAll();
-//        });
+        mBinding.buttonQuit.setOnClickListener((view)->{
+            SessionManager.logout();
+            ActivityCollector.finishAll();
+        });
     }
 
     private final ItemClickCallback<PointMainInfo> mItemClickCallback = new ItemClickCallback<PointMainInfo>() {

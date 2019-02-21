@@ -108,10 +108,15 @@
     <string name="please_input_valid_phone_number">请输入合法的手机号</string>
     <string name="please_input_verification_code">请输入验证码</string>
     <string name="please_input_valid_verification_code">请输入合法的验证码</string>
+    <string name="please_input_username">请输入用户名</string>
+    <string name="please_input_password">请输入密码</string>
     <string name="get_verification_code">获取</string>
     <string name="reget_verification_code">重新获取</string>
     <string name="verification_code">验证码</string>
+    <string name="verification_code_error">验证码错误</string>
+    <string name="password">密码</string>
     <string name="login">登 录</string>
+    <string name="signup">注 册</string>
     <string name="login_note">温馨提示:未注册账号的手机号，登陆时将自动注册</string>
     <string name="sending">发送中&#8230;</string>
     <string name="net_unreachable">网络似乎出现了问题</string>

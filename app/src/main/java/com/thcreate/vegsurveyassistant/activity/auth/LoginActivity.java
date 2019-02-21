@@ -28,10 +28,11 @@ import retrofit2.Response;
 public class LoginActivity extends BaseActivity {
 
     TextInputEditText phoneTextInputEditText;
-    TextInputEditText verificationCodeInputEditText;
+//    TextInputEditText verificationCodeInputEditText;
+    TextInputEditText passwordTextInputEditText;
     MaterialButton loginButton;
-    MaterialButton getVerificationCodeButton;
-    CountDownTimer mCountDownTimer = null;
+//    MaterialButton getVerificationCodeButton;
+//    CountDownTimer mCountDownTimer = null;
     AuthApi mRequest;
 
     @Override
@@ -45,9 +46,10 @@ public class LoginActivity extends BaseActivity {
 
     private void initBinding(){
         phoneTextInputEditText = findViewById(R.id.phoneTextInputEditText);
-        verificationCodeInputEditText = findViewById(R.id.verificationCodeTextInputEditText);
+//        verificationCodeInputEditText = findViewById(R.id.verificationCodeTextInputEditText);
+        passwordTextInputEditText = findViewById(R.id.passwordTextInputEditText);
         loginButton = findViewById(R.id.buttonLogin);
-        getVerificationCodeButton = findViewById(R.id.buttonGetVerificationCode);
+//        getVerificationCodeButton = findViewById(R.id.buttonGetVerificationCode);
     }
 
     private void initRequest(){
@@ -55,78 +57,78 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void initListener(){
-        phoneTextInputEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (TextUtils.isDigitsOnly(s) && s.length() == 11){
-                    getVerificationCodeButton.setEnabled(true);
-                }
-                else{
-                    getVerificationCodeButton.setEnabled(false);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        getVerificationCodeButton.setOnClickListener((view)->{
-            String phoneNumber = String.valueOf(phoneTextInputEditText.getText());
-
-            String buttonText = String.valueOf(getVerificationCodeButton.getText());
-
-            phoneTextInputEditText.setEnabled(false);
-
-            getVerificationCodeButton.setEnabled(false);
-            getVerificationCodeButton.setText(R.string.sending);
-
-            Call<GetVerificationCodeResponse> call = mRequest.getVerificationCode(HTTP.PHONE, phoneNumber);
-            call.enqueue(new Callback<GetVerificationCodeResponse>() {
-                @Override
-                public void onResponse(Call<GetVerificationCodeResponse> call, Response<GetVerificationCodeResponse> response) {
-                    if (response.isSuccessful()){
-                        if (mCountDownTimer != null){
-                            mCountDownTimer.cancel();
-                            mCountDownTimer = null;
-                        }
-                        mCountDownTimer = new CountDownTimer(HTTP.VERIFICATION_CODE_GET_TIME_LIMIT, 1000) {
-                            @Override
-                            public void onTick(long millisUntilFinished) {
-                                getVerificationCodeButton.setText(String.format("已发送%ss", String.valueOf(millisUntilFinished/1000)));
-                            }
-
-                            @Override
-                            public void onFinish() {
-                                phoneTextInputEditText.setEnabled(true);
-
-                                getVerificationCodeButton.setEnabled(true);
-                                getVerificationCodeButton.setText(R.string.reget_verification_code);
-                            }
-                        };
-                        mCountDownTimer.start();
-                    }
-                    else {
-                        onFailure(call, new Throwable());
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<GetVerificationCodeResponse> call, Throwable t) {
-                    phoneTextInputEditText.setEnabled(true);
-
-                    getVerificationCodeButton.setEnabled(true);
-                    getVerificationCodeButton.setText(buttonText);
-
-                    Toast.makeText(getApplication(), getResources().getText(R.string.net_unreachable), Toast.LENGTH_SHORT).show();
-                }
-            });
-        });
+//        phoneTextInputEditText.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                if (TextUtils.isDigitsOnly(s) && s.length() == 11){
+//                    getVerificationCodeButton.setEnabled(true);
+//                }
+//                else{
+//                    getVerificationCodeButton.setEnabled(false);
+//                }
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        });
+//        getVerificationCodeButton.setOnClickListener((view)->{
+//            String phoneNumber = String.valueOf(phoneTextInputEditText.getText());
+//
+//            String buttonText = String.valueOf(getVerificationCodeButton.getText());
+//
+//            phoneTextInputEditText.setEnabled(false);
+//
+//            getVerificationCodeButton.setEnabled(false);
+//            getVerificationCodeButton.setText(R.string.sending);
+//
+//            Call<GetVerificationCodeResponse> call = mRequest.getVerificationCode(HTTP.PHONE, phoneNumber);
+//            call.enqueue(new Callback<GetVerificationCodeResponse>() {
+//                @Override
+//                public void onResponse(Call<GetVerificationCodeResponse> call, Response<GetVerificationCodeResponse> response) {
+//                    if (response.isSuccessful()){
+//                        if (mCountDownTimer != null){
+//                            mCountDownTimer.cancel();
+//                            mCountDownTimer = null;
+//                        }
+//                        mCountDownTimer = new CountDownTimer(HTTP.VERIFICATION_CODE_GET_TIME_LIMIT, 1000) {
+//                            @Override
+//                            public void onTick(long millisUntilFinished) {
+//                                getVerificationCodeButton.setText(String.format("已发送%ss", String.valueOf(millisUntilFinished/1000)));
+//                            }
+//
+//                            @Override
+//                            public void onFinish() {
+//                                phoneTextInputEditText.setEnabled(true);
+//
+//                                getVerificationCodeButton.setEnabled(true);
+//                                getVerificationCodeButton.setText(R.string.reget_verification_code);
+//                            }
+//                        };
+//                        mCountDownTimer.start();
+//                    }
+//                    else {
+//                        onFailure(call, new Throwable());
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<GetVerificationCodeResponse> call, Throwable t) {
+//                    phoneTextInputEditText.setEnabled(true);
+//
+//                    getVerificationCodeButton.setEnabled(true);
+//                    getVerificationCodeButton.setText(buttonText);
+//
+//                    Toast.makeText(getApplication(), getResources().getText(R.string.net_unreachable), Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//        });
         loginButton.setOnClickListener((view)->{
             CharSequence phoneNumber = phoneTextInputEditText.getText();
             if (TextUtils.isEmpty(phoneNumber)){
@@ -137,14 +139,14 @@ public class LoginActivity extends BaseActivity {
                 Toast.makeText(getApplication(), getResources().getText(R.string.please_input_valid_phone_number), Toast.LENGTH_SHORT).show();
                 return;
             }
-            CharSequence verificationCode = verificationCodeInputEditText.getText();
-            if (TextUtils.isEmpty(verificationCode)){
-                Toast.makeText(getApplication(), getResources().getText(R.string.please_input_verification_code), Toast.LENGTH_SHORT).show();
+            CharSequence password = passwordTextInputEditText.getText();
+            if (TextUtils.isEmpty(password)){
+                Toast.makeText(getApplication(), getResources().getText(R.string.please_input_password), Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (!TextUtils.isDigitsOnly(verificationCode)){
-                Toast.makeText(getApplication(), getResources().getText(R.string.please_input_valid_verification_code), Toast.LENGTH_SHORT).show();
-            }
+//            if (!TextUtils.isDigitsOnly(verificationCode)){
+//                Toast.makeText(getApplication(), getResources().getText(R.string.please_input_valid_verification_code), Toast.LENGTH_SHORT).show();
+//            }
             login();
             gotoMainActivity();
         });
@@ -182,9 +184,9 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mCountDownTimer != null){
-            mCountDownTimer.cancel();
-            mCountDownTimer = null;
-        }
+//        if (mCountDownTimer != null){
+//            mCountDownTimer.cancel();
+//            mCountDownTimer = null;
+//        }
     }
 }
