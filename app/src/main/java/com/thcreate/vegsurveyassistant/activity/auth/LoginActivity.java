@@ -53,7 +53,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void initRequest(){
-        mRequest = HttpServiceGenerator.createService(AuthApi.class);
+        mRequest = HttpServiceGenerator.getInstance().createService(AuthApi.class);
     }
 
     private void initListener(){

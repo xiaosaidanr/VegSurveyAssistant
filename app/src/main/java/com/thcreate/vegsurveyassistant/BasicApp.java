@@ -57,4 +57,8 @@ public class BasicApp extends Application {
         return instance;
     }
 
+    public static void Logout(){
+
+    }
+
 }

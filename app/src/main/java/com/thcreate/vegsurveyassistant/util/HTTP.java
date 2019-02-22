@@ -19,6 +19,7 @@ public class HTTP {
     public static final String EXPIRES_IN = "expires_in";
     public static final String TOKEN_TYPE = "token_type";
 
+    public static final String AUTHORIZATION = "Authorization";
     public static final String CLIENT_ID = "client_id";
     public static final String CLIENT_SECRET = "client_secret";
     public static String client_id = "1";

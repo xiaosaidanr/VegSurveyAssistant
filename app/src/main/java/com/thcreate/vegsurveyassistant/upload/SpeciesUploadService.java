@@ -42,7 +42,7 @@ public class SpeciesUploadService implements IUploadService {
 //                        .build();
 //            }
 //            mRequest = mRetrofit.create(SpeciesApi.class);
-            mRequest = HttpServiceGenerator.createService(SpeciesApi.class);
+            mRequest = HttpServiceGenerator.getInstance().createService(SpeciesApi.class);
 
         }
     }

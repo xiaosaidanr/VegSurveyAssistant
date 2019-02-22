@@ -34,7 +34,7 @@ public class PlotPictureUploadService implements IUploadService {
 //                        .build();
 //            }
 //            mRequest = mRetrofit.create(PictureApi.class);
-            mRequest = HttpServiceGenerator.createService(PictureApi.class);
+            mRequest = HttpServiceGenerator.getInstance().createService(PictureApi.class);
         }
     }
 

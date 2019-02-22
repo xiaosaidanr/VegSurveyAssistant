@@ -40,7 +40,7 @@ public class PointUploadService implements IUploadService {
 //                        .build();
 //            }
 //            mRequest = mRetrofit.create(PointApi.class);
-            mRequest = HttpServiceGenerator.createService(PointApi.class);
+            mRequest = HttpServiceGenerator.getInstance().createService(PointApi.class);
 
         }
     }

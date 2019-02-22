@@ -5,6 +5,7 @@ import com.thcreate.vegsurveyassistant.http.model.Token;
 
 import java.util.Map;
 
+import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -55,27 +56,10 @@ public interface AuthApi {
      */
     @FormUrlEncoded
     @POST("api/authorizations")
-    Call<Token> login(@Field("username") String username,
-                      @Field("password") String password,
-                      @Field("client_id") String clientId,
-                      @Field("client_secret") String clientSecret,
-                      @Field("grant_type") String grantType);
-
-    /**
-     * 刷新token
-     * @param accessToken access_token
-     * @param grantType 固定填refresh_token
-     * @param clientId app的client_id
-     * @param clientSecret app的client_secret
-     * @param refreshToken refresh_token
-     * @return
-     */
-    @FormUrlEncoded
-    @PUT("api/authorizations/current")
-    Call<Token> refreshToken(@Header("Authorization") String accessToken,
-                             @Field("grant_type") String grantType,
-                             @Field("client_id") String clientId,
-                             @Field("client_secret") String clientSecret,
-                             @Field("refresh_token") String refreshToken);
+    Observable<Token> login(@Field("username") String username,
+                            @Field("password") String password,
+                            @Field("client_id") String clientId,
+                            @Field("client_secret") String clientSecret,
+                            @Field("grant_type") String grantType);
 
 }

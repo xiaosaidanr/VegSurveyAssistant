@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.http.api.AuthApi;
 import com.thcreate.vegsurveyassistant.http.api.UserApi;
+import com.thcreate.vegsurveyassistant.http.model.GetUserResponse;
 import com.thcreate.vegsurveyassistant.http.model.GetVerificationCodeResponse;
 import com.thcreate.vegsurveyassistant.http.model.SignupRequestBody;
 import com.thcreate.vegsurveyassistant.http.model.Token;
@@ -21,6 +22,12 @@ import com.thcreate.vegsurveyassistant.http.service.HttpServiceGenerator;
 import com.thcreate.vegsurveyassistant.service.SessionManager;
 import com.thcreate.vegsurveyassistant.util.HTTP;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,23 +35,19 @@ import retrofit2.Response;
 
 public class SignupActivity extends AppCompatActivity {
 
+    private static final String TAG = "SignupActivity";
+
     TextInputEditText phoneTextInputEditText;
     TextInputEditText verificationCodeTextInputEditText;
     TextInputEditText usernameTextInputEditText;
     TextInputEditText passwordTextInputEditText;
     Button registerButton;
     Button verificationCodeButton;
-//    Button setTokenButton;
     Button getUserButton;
     Button loginButton;
     Button refreshTokenButton;
     CountDownTimer mCountDownTimer = null;
     String verificationKey = null;
-
-//    String accessToken = null;
-//    String refreshToken = null;
-//    String tokenType = null;
-//    int expiresIn = 0;
 
     AuthApi mRequest;
     UserApi mUserApi;
@@ -65,15 +68,14 @@ public class SignupActivity extends AppCompatActivity {
         passwordTextInputEditText = findViewById(R.id.passwordTextInputEditText);
         registerButton = findViewById(R.id.registerButton);
         verificationCodeButton = findViewById(R.id.verificationCodeButton);
-//        setTokenButton = findViewById(R.id.setTokenButton);
         getUserButton = findViewById(R.id.getUserButton);
         loginButton = findViewById(R.id.loginButton);
         refreshTokenButton = findViewById(R.id.refreshTokenButton);
     }
 
     private void initRequest(){
-        mRequest = HttpServiceGenerator.createService(AuthApi.class);
-        mUserApi = HttpServiceGenerator.createService(UserApi.class);
+        mRequest = HttpServiceGenerator.getInstance().createService(AuthApi.class);
+        mUserApi = HttpServiceGenerator.getInstance().createServiceAuth(UserApi.class);
     }
 
     private void initListener(){
@@ -138,70 +140,98 @@ public class SignupActivity extends AppCompatActivity {
                 return;
             }
             signup();
-//            login();
-//            gotoMainActivity();
         });
 
-//        setTokenButton.setOnClickListener((view)->{
-//            SessionManager.setToken(accessToken, refreshToken, expiresIn, tokenType);
-//            Toast.makeText(getApplication(), "写入token成功", Toast.LENGTH_SHORT).show();
-//        });
-
         getUserButton.setOnClickListener((view)->{
-            String accessToken = "Bearer " + SessionManager.getToken().accessToken;
-            Call<ResponseBody> call = mUserApi.getUser(accessToken);
-            call.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    if (response.isSuccessful()){
-                        Toast.makeText(getApplication(), "获取用户信息成功", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                }
-            });
+//            String accessToken = "Bearer " + SessionManager.getToken().accessToken;
+//            Observable<GetUserResponse> observable = mUserApi.getUser(accessToken);
+            Observable<GetUserResponse> observable = mUserApi.getUser();
+            observable.subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<GetUserResponse>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+                        }
+                        @Override
+                        public void onNext(GetUserResponse responseBody) {
+                            Log.d("testtesttest", String.valueOf(responseBody.id));
+                            Log.d("testtesttest", String.valueOf(responseBody.name));
+                            Log.d("testtesttest", String.valueOf(responseBody.email));
+                            Log.d("testtesttest", String.valueOf(responseBody.avatar));
+                            Log.d("testtesttest", String.valueOf(responseBody.boundPhone));
+                            Log.d("testtesttest", String.valueOf(responseBody.boundWechat));
+                            Log.d("testtesttest", String.valueOf(responseBody.createdAt));
+                            Log.d("testtesttest", String.valueOf(responseBody.updatedAt));
+                            Toast.makeText(getApplication(), "获取用户信息成功", Toast.LENGTH_SHORT).show();
+                        }
+                        @Override
+                        public void onError(Throwable e) {
+                            Log.e(TAG, e.getMessage());
+                        }
+                        @Override
+                        public void onComplete() {
+                        }
+                    });
         });
 
         loginButton.setOnClickListener((view)->{
-            Call<Token> call = mRequest.login("13521936487", "123456", HTTP.client_id, HTTP.client_secret, HTTP.PASSWORD);
-            call.enqueue(new Callback<Token>() {
-                @Override
-                public void onResponse(Call<Token> call, Response<Token> response) {
-                    if (response.isSuccessful()){
-                        Toast.makeText(getApplication(), "登录成功", Toast.LENGTH_SHORT).show();
-                        SessionManager.setToken(response.body());
-                    }
-                }
+            Observable<Token> observable = mRequest.login("13521936487", "123456", HTTP.client_id, HTTP.client_secret, HTTP.PASSWORD);
+            observable.subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<Token>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+                        }
+                        @Override
+                        public void onNext(Token responseBody) {
+                            Log.d("testtesttest", String.valueOf(responseBody.tokenType));
+                            Log.d("testtesttest", String.valueOf(responseBody.expiresIn));
+                            Log.d("testtesttest", String.valueOf(responseBody.accessToken));
+                            Log.d("testtesttest", String.valueOf(responseBody.refreshToken));
 
-                @Override
-                public void onFailure(Call<Token> call, Throwable t) {
+                            Toast.makeText(getApplication(), "登录成功", Toast.LENGTH_SHORT).show();
 
-                }
-            });
+                            SessionManager.setToken(responseBody);
+                        }
+                        @Override
+                        public void onError(Throwable e) {
+                        }
+                        @Override
+                        public void onComplete() {
+                        }
+                    });
         });
 
         refreshTokenButton.setOnClickListener((view)->{
-            Token token = SessionManager.getToken();
-            String accessToken = "Bearer " + token.accessToken;
-            String refreshToken = token.refreshToken;
-            Call<Token> call = mRequest.refreshToken(accessToken, HTTP.REFRESH_TOKEN, HTTP.client_id, HTTP.client_secret, refreshToken);
-            call.enqueue(new Callback<Token>() {
-                @Override
-                public void onResponse(Call<Token> call, Response<Token> response) {
-                    if (response.isSuccessful()){
-                        Toast.makeText(getApplication(), "token刷新成功", Toast.LENGTH_SHORT).show();
-                        SessionManager.setToken(response.body());
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Token> call, Throwable t) {
-
-                }
-            });
+//            Token token = SessionManager.getToken();
+//            String accessToken = "Bearer " + token.accessToken;
+//            String refreshToken = token.refreshToken;
+//            Observable<Token> observable = mRequest.refreshToken(accessToken, HTTP.REFRESH_TOKEN, HTTP.client_id, HTTP.client_secret, refreshToken);
+//            observable.subscribeOn(Schedulers.io())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(new Observer<Token>() {
+//                        @Override
+//                        public void onSubscribe(Disposable d) {
+//                        }
+//                        @Override
+//                        public void onNext(Token responseBody) {
+//                            Log.d("testtesttest", String.valueOf(responseBody.tokenType));
+//                            Log.d("testtesttest", String.valueOf(responseBody.expiresIn));
+//                            Log.d("testtesttest", String.valueOf(responseBody.accessToken));
+//                            Log.d("testtesttest", String.valueOf(responseBody.refreshToken));
+//
+//                            Toast.makeText(getApplication(), "token刷新成功", Toast.LENGTH_SHORT).show();
+//
+//                            SessionManager.setToken(responseBody);
+//                        }
+//                        @Override
+//                        public void onError(Throwable e) {
+//                        }
+//                        @Override
+//                        public void onComplete() {
+//
+//                        }
+//                    });
         });
 
     }

@@ -50,7 +50,7 @@ public class PlotUploadService implements IUploadService {
 //                        .build();
 //            }
 //            mRequest = mRetrofit.create(PlotApi.class);
-            mRequest = HttpServiceGenerator.createService(PlotApi.class);
+            mRequest = HttpServiceGenerator.getInstance().createService(PlotApi.class);
         }
     }
 

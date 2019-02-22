@@ -37,7 +37,7 @@ public class LandUploadService implements IUploadService {
 //                        .build();
 //            }
 //            mRequest = mRetrofit.create(LandApi.class);
-            mRequest = HttpServiceGenerator.createService(LandApi.class);
+            mRequest = HttpServiceGenerator.getInstance().createService(LandApi.class);
         }
     }
 
