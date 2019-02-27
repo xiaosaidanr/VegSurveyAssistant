@@ -31,6 +31,9 @@ public class ContinuousLocationLiveData extends LiveData<ContinuousLocationLiveD
 
     @Override
     protected void onActive() {
+        if (!mLocationService.isStart()){
+            mLocationService.start();
+        }
         mLocationService.registerListener(mCallback);
     }
 
