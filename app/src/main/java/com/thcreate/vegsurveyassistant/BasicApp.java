@@ -10,6 +10,7 @@ import com.thcreate.vegsurveyassistant.repository.SpeciesRepository;
 import com.thcreate.vegsurveyassistant.repository.SamplelandRepository;
 import com.thcreate.vegsurveyassistant.repository.SamplepointRepository;
 import com.thcreate.vegsurveyassistant.repository.SampleplotRepository;
+import com.thcreate.vegsurveyassistant.repository.UserRepository;
 
 public class BasicApp extends Application {
 
@@ -51,6 +52,10 @@ public class BasicApp extends Application {
     }
     public PictureRepository getPictureRepository(){
         return PictureRepository.getInstance(this, getDatabase(), mAppExecutors);
+    }
+
+    public UserRepository getUserRepository(){
+        return UserRepository.getInstance(this, getDatabase(), mAppExecutors);
     }
 
     public static BasicApp getAppliction(){

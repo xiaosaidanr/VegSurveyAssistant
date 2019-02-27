@@ -27,7 +27,7 @@ public class BaseActivity extends AppCompatActivity {
     private void checkIsLoggedIn(){
         if (!this.getClass().getSimpleName().equals(LoginActivity.class.getSimpleName())){
             if (!SessionManager.isLoggedIn()){
-                Intent intent = new Intent(this, SignupActivity.class);
+                Intent intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }

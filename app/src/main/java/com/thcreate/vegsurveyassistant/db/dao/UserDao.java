@@ -8,36 +8,39 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.thcreate.vegsurveyassistant.db.entity.User;
+import com.thcreate.vegsurveyassistant.db.entity.UserEntity;
 
 import java.util.List;
 
 @Dao
-//public interface UserDao extends BaseDao<User>{
+//public interface UserDao extends BaseDao<UserEntity>{
 public interface UserDao {
 
 //    String IS_NOT_CURRENT_USER = "0";
 //    String IS_CURRENT_USER = "1";
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(User obj);
+    void insert(UserEntity obj);
 
     @Update
-    void update(User obj);
+    void update(UserEntity obj);
 
     @Delete
-    void delete(User obj);
+    void delete(UserEntity obj);
 
     @Query("DELETE FROM user")
     void deleteAll();
 
     @Query("SELECT * FROM user ORDER BY id ASC")
-    LiveData<List<User>> getAllUser();
+    LiveData<List<UserEntity>> getAllUser();
 
-    @Query("SELECT * FROM user WHERE is_current_user = 1")
-    LiveData<User> getCurrentUserAsync();
+    @Query("SELECT * FROM user WHERE id = :id")
+    UserEntity getUserById(int id);
 
-    @Query("SELECT * FROM user WHERE is_current_user = 1")
-    User getCurrentUserSync();
+//    @Query("SELECT * FROM user WHERE is_current_user = 1")
+//    LiveData<UserEntity> getCurrentUserAsync();
+//
+//    @Query("SELECT * FROM user WHERE is_current_user = 1")
+//    UserEntity getCurrentUserSync();
 
 }

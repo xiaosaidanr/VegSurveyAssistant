@@ -104,21 +104,35 @@
     <string name="please_fill_species_code">请填写标本编号</string>
 
     <!-- 验证 -->
+    <string name="phone_number">手机号</string>
     <string name="please_input_phone_number">请输入手机号</string>
-    <string name="please_input_valid_phone_number">请输入合法的手机号</string>
+    <string name="please_input_valid_phone_number">请输入有效的手机号</string>
     <string name="please_input_verification_code">请输入验证码</string>
-    <string name="please_input_valid_verification_code">请输入合法的验证码</string>
+    <string name="please_input_valid_verification_code">请输入有效的验证码</string>
+    <string name="username">用户名</string>
     <string name="please_input_username">请输入用户名</string>
     <string name="please_input_password">请输入密码</string>
+    <string name="password_no_less_than_six_letter">密码不得少于6位</string>
     <string name="get_verification_code">获取</string>
     <string name="reget_verification_code">重新获取</string>
     <string name="verification_code">验证码</string>
     <string name="verification_code_error">验证码错误</string>
+    <string name="verification_code_expired">验证码已失效</string>
+    <string name="get_verification_code_fail">获取验证码失败</string>
+    <string name="get_verification_code_success">验证码已发送</string>
     <string name="password">密码</string>
     <string name="login">登 录</string>
+    <string name="login_success">登录成功</string>
+    <string name="login_fail">登录失败</string>
     <string name="signup">注 册</string>
+    <string name="signup_success">注册成功</string>
+    <string name="signup_fail">注册失败</string>
+    <string name="welcome_join">欢迎加入</string>
+    <string name="new_user_register">新用户注册</string>
+    <string name="forget_password">忘记密码</string>
     <string name="login_note">温馨提示:未注册账号的手机号，登陆时将自动注册</string>
     <string name="sending">发送中&#8230;</string>
     <string name="net_unreachable">网络似乎出现了问题</string>
-
+    <string name="phone_been_taken">该手机号已被注册</string>
+    <string name="phone_password_dismatch">手机与密码不匹配，请重新输入</string>
 </resources>

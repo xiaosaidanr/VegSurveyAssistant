@@ -2,13 +2,11 @@ package com.thcreate.vegsurveyassistant.db;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 
 import com.thcreate.vegsurveyassistant.AppExecutors;
@@ -21,7 +19,6 @@ import com.thcreate.vegsurveyassistant.db.dao.SpeciesDao;
 import com.thcreate.vegsurveyassistant.db.dao.UserDao;
 import com.thcreate.vegsurveyassistant.db.dao.SamplepointDao;
 import com.thcreate.vegsurveyassistant.db.entity.LandPictureEntity;
-import com.thcreate.vegsurveyassistant.db.entity.PictureEntity;
 import com.thcreate.vegsurveyassistant.db.entity.PlotPictureEntity;
 import com.thcreate.vegsurveyassistant.db.entity.PlotPlotEntity;
 import com.thcreate.vegsurveyassistant.db.entity.PointPictureEntity;
@@ -30,11 +27,11 @@ import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
 import com.thcreate.vegsurveyassistant.db.entity.SamplepointEntity;
 import com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity;
 import com.thcreate.vegsurveyassistant.db.entity.SpeciesPictureEntity;
-import com.thcreate.vegsurveyassistant.db.entity.User;
+import com.thcreate.vegsurveyassistant.db.entity.UserEntity;
 
 @Database(
         entities = {
-                User.class,
+                UserEntity.class,
                 SamplelandEntity.class,
                 SampleplotEntity.class,
                 SpeciesEntity.class,
@@ -87,20 +84,20 @@ public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase buildDatabase(final Context appContext,
                                              final AppExecutors executors){
         AppDatabase database = Room.databaseBuilder(appContext, AppDatabase.class, DATABASE_NAME)
-                .addCallback(new Callback() {
-                    @Override
-                    public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                        super.onCreate(db);
-                        executors.diskIO().execute(()->{
-                            AppDatabase database = AppDatabase.getInstance(appContext, executors);
-                            User user = database.userDao().getCurrentUserSync();
-                            if (user == null){
-                                User newUser = new User("13512345678", 1);
-                                database.userDao().insert(newUser);
-                            }
-                        });
-                    }
-                })
+//                .addCallback(new Callback() {
+//                    @Override
+//                    public void onCreate(@NonNull SupportSQLiteDatabase db) {
+//                        super.onCreate(db);
+//                        executors.diskIO().execute(()->{
+//                            AppDatabase database = AppDatabase.getInstance(appContext, executors);
+//                            UserEntity user = database.userDao().getCurrentUserSync();
+//                            if (user == null){
+//                                UserEntity newUser = new UserEntity("13512345678", 1);
+//                                database.userDao().insert(newUser);
+//                            }
+//                        });
+//                    }
+//                })
                 .build();
         return database;
     }

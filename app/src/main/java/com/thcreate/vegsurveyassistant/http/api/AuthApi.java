@@ -26,7 +26,7 @@ public interface AuthApi {
      */
     @FormUrlEncoded
     @POST("api/verificationCodes")
-    Call<GetVerificationCodeResponse> getVerificationCode(@Field("type") String type, @Field("phone") String phone);
+    Observable<GetVerificationCodeResponse> getVerificationCode(@Field("type") String type, @Field("phone") String phone);
 
     /**
      * 注册
@@ -43,7 +43,7 @@ public interface AuthApi {
      */
     @Multipart
     @POST("api/users")
-    Call<Token> signup(@PartMap Map<String, RequestBody> requestBodyMap);
+    Observable<Token> signup(@PartMap Map<String, RequestBody> requestBodyMap);
 
     /**
      * 登录

@@ -1,14 +1,11 @@
 package com.thcreate.vegsurveyassistant.repository;
 
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Transformations;
 import android.content.Context;
 
 import com.thcreate.vegsurveyassistant.AppExecutors;
 import com.thcreate.vegsurveyassistant.db.AppDatabase;
 import com.thcreate.vegsurveyassistant.db.entity.SamplelandEntity;
-import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
-import com.thcreate.vegsurveyassistant.db.entity.User;
 import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.LandMainInfo;
 import com.thcreate.vegsurveyassistant.service.SessionManager;
 
@@ -23,24 +20,24 @@ public class SamplelandRepository {
     private final Context mApplicationContext;
     private final AppExecutors mAppExecutors;
 
-    private LiveData<User> mCurrentUser;
-
-    private LiveData<Integer> mCurrentUserId;
+//    private LiveData<UserEntity> mCurrentUser;
+//
+//    private LiveData<Integer> mCurrentUserId;
 
     private SamplelandRepository(final Context context, final AppDatabase database, final AppExecutors appExecutors){
         mApplicationContext = context;
         mDatabase = database;
         mAppExecutors = appExecutors;
 
-        mCurrentUser = mDatabase.userDao().getCurrentUserAsync();
-        mCurrentUserId = Transformations.map(mCurrentUser, user->{
-            if (user != null){
-                return user.id;
-            }
-            else {
-                return null;
-            }
-        });
+//        mCurrentUser = mDatabase.userDao().getCurrentUserAsync();
+//        mCurrentUserId = Transformations.map(mCurrentUser, user->{
+//            if (user != null){
+//                return user.id;
+//            }
+//            else {
+//                return null;
+//            }
+//        });
     }
     public static SamplelandRepository getInstance(final Context context, final AppDatabase database, final AppExecutors appExecutors) {
         if (sINSTANCE == null) {
@@ -61,27 +58,29 @@ public class SamplelandRepository {
      * @return List<SamplelandEntity> wrap by LiveData
      */
     public LiveData<List<LandMainInfo>> loadAllSamplelandEntityByType(String type) {
-        return Transformations.switchMap(mCurrentUserId, id -> {
-            if (id != null){
-                return mDatabase.samplelandDao().getLandMainInfoListByUserIdAndType(id, type);
-            }
-            else{
-                return null;
-            }
-        });
+//        return Transformations.switchMap(mCurrentUserId, id -> {
+//            if (id != null){
+//                return mDatabase.samplelandDao().getLandMainInfoListByUserIdAndType(id, type);
+//            }
+//            else{
+//                return null;
+//            }
+//        });
+        return mDatabase.samplelandDao().getLandMainInfoListByUserIdAndType(SessionManager.getLoggedInUserId(), type);
     }
     public LiveData<SamplelandEntity> getSamplelandEntityByLandId(String landId){
         return mDatabase.samplelandDao().getSamplelandEntityByLandId(landId);
     }
     public LiveData<List<LandMainInfo>> loadAllSamplelandEntity(){
-        return Transformations.switchMap(mCurrentUserId, id -> {
-            if (id != null){
-                return mDatabase.samplelandDao().getLandMainInfoListByUserId(id);
-            }
-            else{
-                return null;
-            }
-        });
+//        return Transformations.switchMap(mCurrentUserId, id -> {
+//            if (id != null){
+//                return mDatabase.samplelandDao().getLandMainInfoListByUserId(id);
+//            }
+//            else{
+//                return null;
+//            }
+//        });
+        return mDatabase.samplelandDao().getLandMainInfoListByUserId(SessionManager.getLoggedInUserId());
     }
     public void insertSamplelandEntity(SamplelandEntity data){
         Date dateNow = new Date();

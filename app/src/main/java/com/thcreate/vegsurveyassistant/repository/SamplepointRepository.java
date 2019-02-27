@@ -1,13 +1,11 @@
 package com.thcreate.vegsurveyassistant.repository;
 
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Transformations;
 import android.content.Context;
 
 import com.thcreate.vegsurveyassistant.AppExecutors;
 import com.thcreate.vegsurveyassistant.db.AppDatabase;
 import com.thcreate.vegsurveyassistant.db.entity.SamplepointEntity;
-import com.thcreate.vegsurveyassistant.db.entity.User;
 import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.PointMainInfo;
 import com.thcreate.vegsurveyassistant.service.SessionManager;
 
@@ -22,23 +20,24 @@ public class SamplepointRepository {
     private final Context mApplicationContext;
     private final AppExecutors mAppExecutors;
 
-    private LiveData<User> mCurrentUser;
+//    private LiveData<UserEntity> mCurrentUser;
+//
+//    private LiveData<Integer> mCurrentUserId;
 
-    private LiveData<Integer> mCurrentUserId;
 
     private SamplepointRepository(final Context context, final AppDatabase database, final AppExecutors appExecutors){
         mApplicationContext = context;
         mDatabase = database;
         mAppExecutors = appExecutors;
-        mCurrentUser = mDatabase.userDao().getCurrentUserAsync();
-        mCurrentUserId = Transformations.map(mCurrentUser, user->{
-            if (user != null){
-                return user.id;
-            }
-            else {
-                return null;
-            }
-        });
+//        mCurrentUser = mDatabase.userDao().getCurrentUserAsync();
+//        mCurrentUserId = Transformations.map(mCurrentUser, user->{
+//            if (user != null){
+//                return user.id;
+//            }
+//            else {
+//                return null;
+//            }
+//        });
     }
     public static SamplepointRepository getInstance(final Context context, final AppDatabase database, final AppExecutors appExecutors) {
         if (sINSTANCE == null) {
@@ -52,14 +51,15 @@ public class SamplepointRepository {
     }
 
     public LiveData<List<PointMainInfo>> loadAllSamplepoint() {
-        return Transformations.switchMap(mCurrentUserId, id -> {
-            if (id != null){
-                return mDatabase.samplepointDao().getPointMainInfoListByUserId(id);
-            }
-            else{
-                return null;
-            }
-        });
+        return mDatabase.samplepointDao().getPointMainInfoListByUserId(SessionManager.getLoggedInUserId());
+//        return Transformations.switchMap(mCurrentUserId, id -> {
+//            if (id != null){
+//                return mDatabase.samplepointDao().getPointMainInfoListByUserId(id);
+//            }
+//            else{
+//                return null;
+//            }
+//        });
     }
     public LiveData<SamplepointEntity> loadSamplepointByPointId(String pointId){
         return mDatabase.samplepointDao().getSamplepointEntityByPointId(pointId);

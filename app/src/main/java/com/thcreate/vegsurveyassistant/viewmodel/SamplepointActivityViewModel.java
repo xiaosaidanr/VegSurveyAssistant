@@ -27,7 +27,7 @@ public class SamplepointActivityViewModel extends AndroidViewModel {
     public String pointId;
     public String action;
 
-//    public LiveData<User> user;
+//    public LiveData<UserEntity> user;
 
     public LiveData<Samplepoint> samplepoint;
     public LocationLiveData locationLiveData;
