@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.thcreate.vegsurveyassistant.BasicApp;
 import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.activity.SamplepointActivity;
 import com.thcreate.vegsurveyassistant.adapter.ItemClickCallback;
@@ -135,8 +136,7 @@ public class SamplepointListFragment extends BaseFragment {
             mBinding.executePendingBindings();
         });
         mBinding.buttonQuit.setOnClickListener((view)->{
-            SessionManager.logout();
-            ActivityCollector.finishAll();
+            ((BasicApp)getActivity().getApplication()).Logout();
         });
     }
 

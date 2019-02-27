@@ -53,6 +53,7 @@ public class SessionManager {
         SharedPreferences sharedPreferences = BasicApp.getAppliction().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(KEY_IS_LOGGED_IN, false);
+        editor.putInt(USER_ID, 0);
         editor.apply();
     }
 
