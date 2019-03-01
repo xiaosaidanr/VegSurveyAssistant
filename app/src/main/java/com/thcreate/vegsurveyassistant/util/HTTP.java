@@ -2,7 +2,7 @@ package com.thcreate.vegsurveyassistant.util;
 
 public class HTTP {
 
-    public static String SERVICE_URL = "http://39.96.195.235/";
+    public static String SERVICE_URL = "http://39.96.195.235:88/";
     public static String TEST_URL = "https://www.baidu.com/";
     //请求超时时间4s
     public static int REQUEST_TIMEOUT = 4;
