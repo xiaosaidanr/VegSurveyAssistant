@@ -16,10 +16,14 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.MapStatus;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.model.LatLng;
 import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.activity.HerbLandActivity;
 import com.thcreate.vegsurveyassistant.activity.ShrubLandActivity;
@@ -126,6 +130,8 @@ public class NearbyFragment extends BaseFragment implements BaiduMap.OnMarkerCli
                             .longitude(locationData.longitude)
                             .build();
                     mBaiduMap.setMyLocationData(data);
+                    MapStatusUpdate mapStatusUpdate = MapStatusUpdateFactory.newLatLng(new LatLng(locationData.latitude, locationData.longitude));
+                    mBaiduMap.setMapStatus(mapStatusUpdate);
                 }
                 else {
                     Toast.makeText(getActivity(), "获取定位失败！请检查是否已经打开定位功能与网络连接", Toast.LENGTH_SHORT).show();
