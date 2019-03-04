@@ -32,12 +32,6 @@
                 android:background="@drawable/rect"
                 android:text="@string/samplepoint_info"
                 android:textAppearance="@android:style/TextAppearance.Medium"/>
-            <!--<TextView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:background="@drawable/rect"-->
-                <!--android:text="@{viewmodel.user.phone}"-->
-                <!--android:textAppearance="@android:style/TextAppearance.Medium"/>-->
 
             <TextView
                 android:layout_marginTop="0dp"
@@ -46,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/samplepoint_code"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-            <EditText
+            <com.thcreate.vegsurveyassistant.customUi.ClearableEditText
                 android:inputType="text"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
@@ -63,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/formation_type"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-            <EditText
+            <com.thcreate.vegsurveyassistant.customUi.ClearableEditText
                 android:inputType="text"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
@@ -80,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/dominant_species"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-            <EditText
+            <com.thcreate.vegsurveyassistant.customUi.ClearableEditText
                 android:inputType="text"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
@@ -97,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/community_coverage_percent"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-            <EditText
+            <com.thcreate.vegsurveyassistant.customUi.ClearableEditText
                 android:inputType="numberDecimal"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
@@ -114,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/community_height_m"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-            <EditText
+            <com.thcreate.vegsurveyassistant.customUi.ClearableEditText
                 android:inputType="numberDecimal"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
@@ -131,7 +125,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/topography_vegetation_status"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-            <EditText
+            <com.thcreate.vegsurveyassistant.customUi.ClearableEditText
                 android:inputType="text"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
@@ -148,7 +142,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/administrative_name"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-            <EditText
+            <com.thcreate.vegsurveyassistant.customUi.ClearableEditText
                 android:id="@+id/administrative_name_edit_text"
                 android:inputType="text"
                 android:layout_marginTop="0dp"
@@ -166,7 +160,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/human_activity"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-            <EditText
+            <com.thcreate.vegsurveyassistant.customUi.ClearableEditText
                 android:inputType="text"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
@@ -183,7 +177,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/altitude_m"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-            <EditText
+            <com.thcreate.vegsurveyassistant.customUi.ClearableEditText
                 android:id="@+id/altitude_edit_text"
                 android:inputType="number"
                 android:layout_marginTop="0dp"
@@ -201,7 +195,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/longitude"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-            <EditText
+            <com.thcreate.vegsurveyassistant.customUi.ClearableEditText
                 android:id="@+id/longitude_edit_text"
                 android:inputType="numberDecimal"
                 android:layout_marginTop="0dp"
@@ -219,7 +213,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/latitude"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-            <EditText
+            <com.thcreate.vegsurveyassistant.customUi.ClearableEditText
                 android:id="@+id/latitude_edit_text"
                 android:inputType="numberDecimal"
                 android:layout_marginTop="0dp"
@@ -249,7 +243,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/investigator"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-            <EditText
+            <com.thcreate.vegsurveyassistant.customUi.ClearableEditText
                 android:inputType="text"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
@@ -288,7 +282,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/note"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-            <EditText
+            <com.thcreate.vegsurveyassistant.customUi.ClearableEditText
                 android:maxLength="50"
                 android:inputType="textLongMessage"
                 android:layout_marginTop="0dp"

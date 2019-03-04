@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/sampleplot_code"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-            <EditText
+            <com.thcreate.vegsurveyassistant.customUi.ClearableEditText
                 android:inputType="text"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
@@ -81,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/community_name"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-            <EditText
+            <com.thcreate.vegsurveyassistant.customUi.ClearableEditText
                 android:inputType="text"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
@@ -98,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/plot_length_m"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-            <EditText
+            <com.thcreate.vegsurveyassistant.customUi.ClearableEditText
                 android:inputType="number"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
@@ -115,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/plot_width_m"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-            <EditText
+            <com.thcreate.vegsurveyassistant.customUi.ClearableEditText
                 android:inputType="number"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
@@ -132,7 +132,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/community_coverage_percent"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-            <EditText
+            <com.thcreate.vegsurveyassistant.customUi.ClearableEditText
                 android:inputType="numberDecimal"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
@@ -149,7 +149,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/community_height_m"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-            <EditText
+            <com.thcreate.vegsurveyassistant.customUi.ClearableEditText
                 android:inputType="numberDecimal"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
@@ -166,7 +166,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/average_basal_diameter_cm"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-            <EditText
+            <com.thcreate.vegsurveyassistant.customUi.ClearableEditText
                 android:inputType="numberDecimal"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
@@ -183,7 +183,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/longitude"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-            <EditText
+            <com.thcreate.vegsurveyassistant.customUi.ClearableEditText
                 android:id="@+id/longitude_edit_text"
                 android:inputType="numberDecimal"
                 android:layout_marginTop="0dp"
@@ -201,7 +201,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/latitude"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-            <EditText
+            <com.thcreate.vegsurveyassistant.customUi.ClearableEditText
                 android:id="@+id/latitude_edit_text"
                 android:inputType="numberDecimal"
                 android:layout_marginTop="0dp"
@@ -231,7 +231,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/investigator"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-            <EditText
+            <com.thcreate.vegsurveyassistant.customUi.ClearableEditText
                 android:inputType="text"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/rect_nobackground_lrbborder"

@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/species_name"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-            <EditText
+            <com.thcreate.vegsurveyassistant.customUi.ClearableEditText
                 android:inputType="text"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/species_code"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-            <EditText
+            <com.thcreate.vegsurveyassistant.customUi.ClearableEditText
                 android:inputType="text"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/plant_count"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-            <EditText
+            <com.thcreate.vegsurveyassistant.customUi.ClearableEditText
                 android:inputType="numberDecimal"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
@@ -91,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/vegetative_branch_height_cm"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-            <EditText
+            <com.thcreate.vegsurveyassistant.customUi.ClearableEditText
                 android:inputType="numberDecimal"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/generative_branch_height_cm"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-            <EditText
+            <com.thcreate.vegsurveyassistant.customUi.ClearableEditText
                 android:inputType="numberDecimal"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
@@ -125,7 +125,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/coverage_percent"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-            <EditText
+            <com.thcreate.vegsurveyassistant.customUi.ClearableEditText
                 android:inputType="numberDecimal"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
@@ -142,7 +142,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/biomass_g"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-            <EditText
+            <com.thcreate.vegsurveyassistant.customUi.ClearableEditText
                 android:inputType="numberDecimal"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
@@ -159,7 +159,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/note"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-            <EditText
+            <com.thcreate.vegsurveyassistant.customUi.ClearableEditText
                 android:inputType="textLongMessage"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/rect_nobackground_lrbborder"
