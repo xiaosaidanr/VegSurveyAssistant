@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.thcreate.vegsurveyassistant.BasicApp;
 import com.thcreate.vegsurveyassistant.R;
@@ -112,7 +113,7 @@ abstract public class BaseSpeciesActivityViewModel<T extends BaseSpecies> extend
         if (speciesRaw == null){
             return getApplication().getString(R.string.species_save_error);
         }
-        if (speciesRaw.code == null){
+        if (TextUtils.isEmpty(speciesRaw.code)){
             return getApplication().getString(R.string.please_fill_species_code);
         }
         if (action.equals(Macro.ACTION_ADD) || action.equals(Macro.ACTION_ADD_RESTORE)){

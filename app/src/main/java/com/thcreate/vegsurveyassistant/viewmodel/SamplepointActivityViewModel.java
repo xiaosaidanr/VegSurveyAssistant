@@ -8,6 +8,7 @@ import android.arch.lifecycle.Transformations;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.thcreate.vegsurveyassistant.BasicApp;
 import com.thcreate.vegsurveyassistant.R;
@@ -101,7 +102,7 @@ public class SamplepointActivityViewModel extends AndroidViewModel {
         if (samplepointRaw == null){
             return getApplication().getString(R.string.point_save_error);
         }
-        if (samplepointRaw.code == null){
+        if (TextUtils.isEmpty(samplepointRaw.code)){
             return getApplication().getString(R.string.please_fill_point_code);
         }
         if (action.equals(Macro.ACTION_ADD) || action.equals(Macro.ACTION_ADD_RESTORE)){
