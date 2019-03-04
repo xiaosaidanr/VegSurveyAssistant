@@ -14,12 +14,13 @@ import android.text.TextWatcher;
 import android.view.View;
 
 import com.thcreate.vegsurveyassistant.R;
+import com.thcreate.vegsurveyassistant.activity.BaseActivity;
 import com.thcreate.vegsurveyassistant.activity.MainActivity;
 import com.thcreate.vegsurveyassistant.databinding.ActivitySignupBinding;
 import com.thcreate.vegsurveyassistant.util.HTTP;
 import com.thcreate.vegsurveyassistant.viewmodel.AuthActivityViewModel;
 
-public class SignupActivity extends AppCompatActivity {
+public class SignupActivity extends BaseActivity {
 
     private static final String TAG = "SignupActivity";
 
