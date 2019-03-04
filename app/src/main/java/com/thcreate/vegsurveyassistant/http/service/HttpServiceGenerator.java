@@ -1,5 +1,7 @@
 package com.thcreate.vegsurveyassistant.http.service;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.thcreate.vegsurveyassistant.BuildConfig;
 import com.thcreate.vegsurveyassistant.http.interceptor.TokenInterceptor;
 import com.thcreate.vegsurveyassistant.util.HTTP;
@@ -47,16 +49,21 @@ public class HttpServiceGenerator {
                 .addInterceptor(new TokenInterceptor())
                 .build();
 
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .serializeNulls()
+                .create();
+
         baseRetrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(baseHttpClient)
                 .build();
         authRetrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(authHttpClient)
                 .build();
     }
