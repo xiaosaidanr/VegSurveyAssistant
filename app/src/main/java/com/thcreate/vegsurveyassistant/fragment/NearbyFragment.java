@@ -26,6 +26,7 @@ import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
 import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.activity.HerbLandActivity;
+import com.thcreate.vegsurveyassistant.activity.SamplepointActivity;
 import com.thcreate.vegsurveyassistant.activity.ShrubLandActivity;
 import com.thcreate.vegsurveyassistant.activity.ArborLandActivity;
 import com.thcreate.vegsurveyassistant.databinding.FragmentNearbyBinding;
@@ -50,7 +51,8 @@ public class NearbyFragment extends BaseFragment implements BaiduMap.OnMarkerCli
     private BaiduMap mBaiduMap;
 //    private SearchView mSearchView;
 
-    private Marker[] mMarkers;
+    private Marker[] mLandMarkers;
+    private Marker[] mPointMarkers;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -139,57 +141,95 @@ public class NearbyFragment extends BaseFragment implements BaiduMap.OnMarkerCli
             }
         });
 
-
         mSharedViewModel.getLandList().observe(this, dataList -> {
-            clearOverlay(null);
+            clearLandMarker();
             if (dataList != null && dataList.size() > 0){
-                mMarkers = new Marker[dataList.size()];
+                mLandMarkers = new Marker[dataList.size()];
                 for (int i = 0; i < dataList.size(); i++) {
-                    MarkerOptions tmp = mViewModel.getMarkerOptionFromData(dataList.get(i));
+                    MarkerOptions tmp = mViewModel.getLandMarkerOptionFromData(dataList.get(i));
                     if (tmp != null){
-                        mMarkers[i] = (Marker)mBaiduMap.addOverlay(tmp);
+                        mLandMarkers[i] = (Marker)mBaiduMap.addOverlay(tmp);
                     }
                 }
             }
         });
+
+        mSharedViewModel.getPointList().observe(this, (dataList)->{
+            clearPointMarker();
+            if (dataList != null && dataList.size() > 0){
+                mPointMarkers = new Marker[dataList.size()];
+                for (int i = 0; i < dataList.size(); i++) {
+                    MarkerOptions tmp = mViewModel.getPointMarkerOptionFromData(dataList.get(i));
+                    if (tmp != null){
+                        mPointMarkers[i] = (Marker)mBaiduMap.addOverlay(tmp);
+                    }
+                }
+            }
+        });
+
     }
 
     @Override
     public boolean onMarkerClick(Marker marker) {
         Bundle data = marker.getExtraInfo();
-        String type = data.getString(Macro.SAMPLELAND_TYPE);
-        Intent intent = null;
-        switch (type){
-            case Macro.SAMPLELAND_TYPE_GRASS:
-                intent = new Intent(getActivity(), HerbLandActivity.class);
-                break;
-            case Macro.SAMPLELAND_TYPE_BUSH:
-                intent = new Intent(getActivity(), ShrubLandActivity.class);
-                break;
-            case Macro.SAMPLELAND_TYPE_TREE:
-                intent = new Intent(getActivity(), ArborLandActivity.class);
-                break;
-            default:
-                break;
+        String type = data.getString(Macro.TYPE);
+        if (type.equals(Macro.LAND)){
+            String landType = data.getString(Macro.SAMPLELAND_TYPE);
+            Intent intent = null;
+            switch (landType){
+                case Macro.SAMPLELAND_TYPE_GRASS:
+                    intent = new Intent(getActivity(), HerbLandActivity.class);
+                    break;
+                case Macro.SAMPLELAND_TYPE_BUSH:
+                    intent = new Intent(getActivity(), ShrubLandActivity.class);
+                    break;
+                case Macro.SAMPLELAND_TYPE_TREE:
+                    intent = new Intent(getActivity(), ArborLandActivity.class);
+                    break;
+                default:
+                    break;
+            }
+            if (intent != null){
+                intent.putExtra(Macro.ACTION, Macro.ACTION_EDIT);
+                intent.putExtra(Macro.SAMPLELAND_ID, data.getString(Macro.SAMPLELAND_ID));
+                intent.putExtra(Macro.SAMPLELAND_TYPE, data.getString(Macro.SAMPLELAND_TYPE));
+                startActivity(intent);
+            }
         }
-        if (intent != null){
+        else {
+            Intent intent = new Intent(getActivity(), SamplepointActivity.class);
             intent.putExtra(Macro.ACTION, Macro.ACTION_EDIT);
-            intent.putExtra(Macro.SAMPLELAND_ID, data.getString(Macro.SAMPLELAND_ID));
-            intent.putExtra(Macro.SAMPLELAND_TYPE, data.getString(Macro.SAMPLELAND_TYPE));
+            intent.putExtra(Macro.SAMPLEPOINT_ID, data.getString(Macro.SAMPLEPOINT_ID));
             startActivity(intent);
         }
         return true;
     }
 
-    public void clearOverlay(View v){
+    private void clearLandMarker(){
+        if (mLandMarkers != null){
+            for (Marker marker :
+                    mLandMarkers) {
+                marker.remove();
+            }
+            mLandMarkers = null;
+        }
+    }
+
+    private void clearPointMarker(){
+        if (mPointMarkers != null){
+            for (Marker marker :
+                    mPointMarkers) {
+                marker.remove();
+            }
+            mPointMarkers = null;
+        }
+    }
+
+    private void clearOverlay(View v){
+        clearLandMarker();
+        clearPointMarker();
         if (mBaiduMap != null){
             mBaiduMap.clear();
-        }
-        if (mMarkers != null){
-            for (int i = 0; i < mMarkers.length; i++) {
-                mMarkers[i] = null;
-            }
-            mMarkers = null;
         }
     }
 

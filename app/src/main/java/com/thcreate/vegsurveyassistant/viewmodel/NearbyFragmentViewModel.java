@@ -35,7 +35,7 @@ public class NearbyFragmentViewModel extends AndroidViewModel {
         mMarkerIcon = BitmapDescriptorFactory.fromResource(R.drawable.ic_mapmarker);
     }
 
-    public @Nullable MarkerOptions getMarkerOptionFromData(LandMainInfo land){
+    public @Nullable MarkerOptions getLandMarkerOptionFromData(LandMainInfo land){
         try {
             if (land == null){
                 return null;
@@ -46,14 +46,39 @@ public class NearbyFragmentViewModel extends AndroidViewModel {
             LatLng position = new LatLng(Double.valueOf(land.lat), Double.valueOf(land.lng));
             Bundle data = new Bundle();
             data.putString(Macro.ACTION, Macro.ACTION_EDIT);
+            data.putString(Macro.TYPE, Macro.LAND);
             data.putString(Macro.SAMPLELAND_ID, land.landId);
             data.putString(Macro.SAMPLELAND_TYPE, land.type);
-            MarkerOptions markerOptions = new MarkerOptions()
+            return new MarkerOptions()
                     .position(position)
                     .icon(mMarkerIcon)
                     .draggable(false)
                     .extraInfo(data);
-            return markerOptions;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public @Nullable MarkerOptions getPointMarkerOptionFromData(PointMainInfo point){
+        try {
+            if (point == null){
+                return null;
+            }
+            if (point.lat == null || point.lng == null){
+                return null;
+            }
+            LatLng position = new LatLng(Double.valueOf(point.lat), Double.valueOf(point.lng));
+            Bundle data = new Bundle();
+            data.putString(Macro.ACTION, Macro.ACTION_EDIT);
+            data.putString(Macro.TYPE, Macro.POINT);
+            data.putString(Macro.SAMPLEPOINT_ID, point.pointId);
+            return new MarkerOptions()
+                    .position(position)
+                    .icon(mMarkerIcon)
+                    .draggable(false)
+                    .extraInfo(data);
         }
         catch (Exception e){
             e.printStackTrace();

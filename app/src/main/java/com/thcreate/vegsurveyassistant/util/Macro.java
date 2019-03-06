@@ -21,6 +21,10 @@ public class Macro {
     public static final String SAMPLELAND_TYPE_BUSH = "bush";
     public static final String SAMPLELAND_TYPE_TREE = "tree";
 
+    public static final String TYPE = "type";
+    public static final String LAND = "land";
+    public static final String POINT = "point";
+
     public static final String IMAGE_PATH = "image_path";
 
     public static final String PARENT_PLOT_ID = "parentPlotId";
