@@ -16,6 +16,17 @@ import com.thcreate.vegsurveyassistant.repository.SampleplotRepository;
 import com.thcreate.vegsurveyassistant.repository.UserRepository;
 import com.thcreate.vegsurveyassistant.service.ActivityCollector;
 import com.thcreate.vegsurveyassistant.service.SessionManager;
+import com.thcreate.vegsurveyassistant.util.Macro;
+import com.thcreate.vegsurveyassistant.worker.UploadWorker;
+
+import java.util.concurrent.TimeUnit;
+
+import androidx.work.Configuration;
+import androidx.work.Constraints;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.NetworkType;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 public class BasicApp extends Application {
 
@@ -28,6 +39,11 @@ public class BasicApp extends Application {
         super.onCreate();
 
         mAppExecutors = new AppExecutors();
+
+        /*
+         * 初始化后台数据上传程序
+         */
+        initWork();
 
         /*
          * 初始化定位sdk，建议在Application中创建
@@ -66,6 +82,27 @@ public class BasicApp extends Application {
     public static BasicApp getAppliction(){
         return instance;
     }
+
+
+    private void initWork(){
+        WorkManager.initialize(this, new Configuration.Builder().build());
+        //后台work运行的约束 只有在有网的情况下才运行
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build();
+        //设置周期运行的work 5min
+        PeriodicWorkRequest uploadWorkRequest = new PeriodicWorkRequest.Builder(UploadWorker.class, 5, TimeUnit.MINUTES)
+                .setConstraints(constraints)
+                .addTag(Macro.UPLOAD)
+                .build();
+        //添加唯一name的work 有重名的添加 则替换
+        WorkManager.getInstance().enqueueUniquePeriodicWork(
+                Macro.DATA_UPLOAD_UNIQUE_NAME,
+                ExistingPeriodicWorkPolicy.REPLACE,
+                uploadWorkRequest
+        );
+    }
+
 
     public void Logout(){
         SessionManager.logout();

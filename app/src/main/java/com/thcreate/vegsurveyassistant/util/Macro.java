@@ -34,4 +34,8 @@ public class Macro {
     public final static String CoorType_BD09LL= "bd09ll";
     public final static String CoorType_BD09MC= "bd09";
 
+    //后台worker用
+    public final static String UPLOAD = "upload";
+    public final static String DATA_UPLOAD_UNIQUE_NAME = "com.thcreate.vegsurveyassistant:data_upload";
+
 }
