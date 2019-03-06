@@ -18,7 +18,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PlotPictureUploadService implements IUploadService {
 
-//    private Retrofit mRetrofit;
     private PictureApi mRequest;
 
     public PlotPictureUploadService() {
@@ -27,15 +26,9 @@ public class PlotPictureUploadService implements IUploadService {
     @Override
     public void start() {
         if (mRequest == null){
-//            if (mRetrofit == null){
-//                mRetrofit = new Retrofit.Builder()
-//                        .baseUrl(HTTP.SERVICE_URL)
-//                        .addConverterFactory(GsonConverterFactory.create())
-//                        .build();
-//            }
-//            mRequest = mRetrofit.create(PictureApi.class);
             mRequest = HttpServiceGenerator.getInstance().createService(PictureApi.class);
         }
+        executeSync();
     }
 
     @Override

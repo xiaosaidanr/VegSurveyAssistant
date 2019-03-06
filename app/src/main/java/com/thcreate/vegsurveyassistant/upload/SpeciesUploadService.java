@@ -22,29 +22,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SpeciesUploadService implements IUploadService {
 
-//    private BasicApp mApplication;
-//    private Retrofit mRetrofit;
     private SpeciesApi mRequest;
-//    private SpeciesRepository mSpeciesRepository;
 
     public SpeciesUploadService() {
-//        mApplication = BasicApp.getAppliction();
-//        mSpeciesRepository = mApplication.getSpeicesRepository();
     }
 
     @Override
     public void start() {
         if (mRequest == null){
-//            if (mRetrofit == null){
-//                mRetrofit = new Retrofit.Builder()
-//                        .baseUrl(HTTP.SERVICE_URL)
-//                        .addConverterFactory(GsonConverterFactory.create())
-//                        .build();
-//            }
-//            mRequest = mRetrofit.create(SpeciesApi.class);
             mRequest = HttpServiceGenerator.getInstance().createService(SpeciesApi.class);
-
         }
+        executeSync();
     }
 
     @Override

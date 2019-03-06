@@ -28,30 +28,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PlotUploadService implements IUploadService {
 
-//    private BasicApp mApplication;
-//    private Retrofit mRetrofit;
     private PlotApi mRequest;
-//    private SampleplotRepository mPlotRepository;
-//    private SpeciesRepository mSpeciesRepository;
 
     public PlotUploadService() {
-//        mApplication = BasicApp.getAppliction();
-//        mPlotRepository = mApplication.getSampleplotRepository();
-//        mSpeciesRepository = mApplication.getSpeicesRepository();
     }
 
     @Override
     public void start() {
         if (mRequest == null){
-//            if (mRetrofit == null){
-//                mRetrofit = new Retrofit.Builder()
-//                        .baseUrl(HTTP.SERVICE_URL)
-//                        .addConverterFactory(GsonConverterFactory.create())
-//                        .build();
-//            }
-//            mRequest = mRetrofit.create(PlotApi.class);
             mRequest = HttpServiceGenerator.getInstance().createService(PlotApi.class);
         }
+        executeSync();
     }
 
     @Override

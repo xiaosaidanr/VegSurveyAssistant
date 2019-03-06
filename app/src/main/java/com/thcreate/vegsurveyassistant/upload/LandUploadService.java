@@ -21,7 +21,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LandUploadService implements IUploadService {
 
-//    private Retrofit mRetrofit;
     private LandApi mRequest;
 
     public LandUploadService() {
@@ -30,15 +29,9 @@ public class LandUploadService implements IUploadService {
     @Override
     public void start() {
         if (mRequest == null){
-//            if (mRetrofit == null){
-//                mRetrofit = new Retrofit.Builder()
-//                        .baseUrl(HTTP.SERVICE_URL)
-//                        .addConverterFactory(GsonConverterFactory.create())
-//                        .build();
-//            }
-//            mRequest = mRetrofit.create(LandApi.class);
-            mRequest = HttpServiceGenerator.getInstance().createService(LandApi.class);
+            mRequest = HttpServiceGenerator.getInstance().createServiceAuth(LandApi.class);
         }
+        executeSync();
     }
 
     @Override

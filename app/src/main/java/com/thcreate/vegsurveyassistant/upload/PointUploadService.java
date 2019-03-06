@@ -21,7 +21,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class PointUploadService implements IUploadService {
 
     private BasicApp mApplication;
-//    private Retrofit mRetrofit;
     private PointApi mRequest;
     private SamplepointRepository mPointRepository;
 
@@ -33,16 +32,9 @@ public class PointUploadService implements IUploadService {
     @Override
     public void start() {
         if (mRequest == null){
-//            if (mRetrofit == null){
-//                mRetrofit = new Retrofit.Builder()
-//                        .baseUrl(HTTP.SERVICE_URL)
-//                        .addConverterFactory(GsonConverterFactory.create())
-//                        .build();
-//            }
-//            mRequest = mRetrofit.create(PointApi.class);
-            mRequest = HttpServiceGenerator.getInstance().createService(PointApi.class);
-
+            mRequest = HttpServiceGenerator.getInstance().createServiceAuth(PointApi.class);
         }
+        executeSync();
     }
 
     @Override
