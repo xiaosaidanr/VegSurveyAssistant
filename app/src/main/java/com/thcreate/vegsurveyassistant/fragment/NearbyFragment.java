@@ -48,7 +48,7 @@ public class NearbyFragment extends BaseFragment implements BaiduMap.OnMarkerCli
 
     private MapView mMapView;
     private BaiduMap mBaiduMap;
-    private SearchView mSearchView;
+//    private SearchView mSearchView;
 
     private Marker[] mMarkers;
 
@@ -105,7 +105,7 @@ public class NearbyFragment extends BaseFragment implements BaiduMap.OnMarkerCli
         Log.e(this.getClass().getSimpleName(), "onCreateView" + " " + this.toString());
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_nearby, container, false);
         mMapView = mBinding.mapView;
-        mSearchView = mBinding.searchView;
+//        mSearchView = mBinding.searchView;
         mBaiduMap = mMapView.getMap();
         mBaiduMap.setOnMarkerClickListener(this);
         return mBinding.getRoot();
