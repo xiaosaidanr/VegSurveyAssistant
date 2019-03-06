@@ -34,6 +34,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="退出"/>
+        <Button
+            android:id="@+id/buttonUpload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="上传"/>
 
         <TextView
             android:id="@+id/loading_text_view"

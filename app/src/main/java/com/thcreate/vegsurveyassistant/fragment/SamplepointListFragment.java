@@ -4,6 +4,7 @@ package com.thcreate.vegsurveyassistant.fragment;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -29,6 +30,8 @@ import com.thcreate.vegsurveyassistant.databinding.FragmentSamplepointListBindin
 import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.PointMainInfo;
 import com.thcreate.vegsurveyassistant.service.ActivityCollector;
 import com.thcreate.vegsurveyassistant.service.SessionManager;
+import com.thcreate.vegsurveyassistant.upload.LandUploadService;
+import com.thcreate.vegsurveyassistant.upload.PointUploadService;
 import com.thcreate.vegsurveyassistant.util.IdGenerator;
 import com.thcreate.vegsurveyassistant.util.Macro;
 import com.thcreate.vegsurveyassistant.viewmodel.MainActivityViewModel;
@@ -138,6 +141,21 @@ public class SamplepointListFragment extends BaseFragment {
         mBinding.buttonQuit.setOnClickListener((view)->{
             ((BasicApp)getActivity().getApplication()).Logout();
         });
+        mBinding.buttonUpload.setOnClickListener((view)->{
+            TestTask testTask = new TestTask();
+            testTask.execute();
+        });
+    }
+
+    private class TestTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            PointUploadService pointUploadService = new PointUploadService();
+            pointUploadService.start();
+            LandUploadService landUploadService = new LandUploadService();
+            landUploadService.start();
+            return null;
+        }
     }
 
     private final ItemClickCallback<PointMainInfo> mItemClickCallback = new ItemClickCallback<PointMainInfo>() {
