@@ -40,7 +40,9 @@ public class SampleplotRepository {
         return sINSTANCE;
     }
 
-
+    public String getLandIdByPlotId(String plotId){
+        return mDatabase.sampleplotDao().getLandIdByPlotId(plotId);
+    }
 
     public LiveData<SampleplotEntity> getSampleplotEntityByPlotId(String plotId){
         return mDatabase.sampleplotDao().getSampleplotEntityByPlotId(plotId);

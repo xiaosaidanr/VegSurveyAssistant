@@ -67,7 +67,7 @@ public class PlotUploadService implements IUploadService {
     }
     private void deleteDataRemote(SampleplotEntity data){
         try {
-            Call<ResponseBody> call = mRequest.deletePlot(data.plotId);
+            Call<ResponseBody> call = mRequest.deletePlot(data.landId, data.plotId);
             Response<ResponseBody> response = call.execute();
             if (response.isSuccessful()){
                 onDeleteDataRemoteSuccess(data);
@@ -105,7 +105,7 @@ public class PlotUploadService implements IUploadService {
             return;
         }
         try {
-            Call<ResponseBody> call = mRequest.addPlot(data);
+            Call<ResponseBody> call = mRequest.addPlot(data.landId, data);
             Response<ResponseBody> response = call.execute();
             if (response.isSuccessful()){
                 onAddDataRemoteSuccess(data, new Date().getTime());
@@ -186,19 +186,19 @@ public class PlotUploadService implements IUploadService {
                     HerbSampleplot herbPlot = HerbSampleplot.getInstance(data);
                     herbPlot.ownerList = new ArrayMap<>();
                     herbPlot.ownerList.put("plot", ownerList);
-                    call = mRequest.updatePlot(data.plotId, herbPlot);
+                    call = mRequest.updatePlot(data.landId, data.plotId, herbPlot);
                     break;
                 case Macro.SHRUB:
                     ShrubSampleplot shrubPlot = ShrubSampleplot.getInstance(data);
                     shrubPlot.ownerList = new ArrayMap<>();
                     shrubPlot.ownerList.put("plot", ownerList);
-                    call = mRequest.updatePlot(data.plotId, shrubPlot);
+                    call = mRequest.updatePlot(data.landId, data.plotId, shrubPlot);
                     break;
                 case Macro.ARBOR:
                     ArborSampleplot arborPlot = ArborSampleplot.getInstance(data);
                     arborPlot.ownerList = new ArrayMap<>();
                     arborPlot.ownerList.put("plot", ownerList);
-                    call = mRequest.updatePlot(data.plotId, arborPlot);
+                    call = mRequest.updatePlot(data.landId, data.plotId, arborPlot);
                     break;
                 default:
                     break;

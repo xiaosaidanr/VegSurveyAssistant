@@ -76,4 +76,7 @@ public interface SampleplotDao extends BaseDao<SampleplotEntity> {
             "AND land_id = :landId")
     List<SampleplotEntity> getNotDeletedSampleplotEntityListByLandId(String landId);
 
+    @Query("SELECT land_id FROM plot WHERE plot_id = :plotId")
+    String getLandIdByPlotId(String plotId);
+
 }
