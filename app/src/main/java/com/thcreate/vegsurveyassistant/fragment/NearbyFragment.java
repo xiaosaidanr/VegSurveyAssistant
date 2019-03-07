@@ -34,6 +34,9 @@ import com.thcreate.vegsurveyassistant.util.Macro;
 import com.thcreate.vegsurveyassistant.viewmodel.MainActivityViewModel;
 import com.thcreate.vegsurveyassistant.viewmodel.NearbyFragmentViewModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link NearbyFragment#newInstance} factory method to
@@ -51,8 +54,8 @@ public class NearbyFragment extends BaseFragment implements BaiduMap.OnMarkerCli
     private BaiduMap mBaiduMap;
 //    private SearchView mSearchView;
 
-    private Marker[] mLandMarkers;
-    private Marker[] mPointMarkers;
+    private ArrayList<Marker> mLandMarkerList;
+    private ArrayList<Marker> mPointMarkerList;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -144,11 +147,11 @@ public class NearbyFragment extends BaseFragment implements BaiduMap.OnMarkerCli
         mSharedViewModel.getLandList().observe(this, dataList -> {
             clearLandMarker();
             if (dataList != null && dataList.size() > 0){
-                mLandMarkers = new Marker[dataList.size()];
+                mLandMarkerList = new ArrayList<>();
                 for (int i = 0; i < dataList.size(); i++) {
                     MarkerOptions tmp = mViewModel.getLandMarkerOptionFromData(dataList.get(i));
                     if (tmp != null){
-                        mLandMarkers[i] = (Marker)mBaiduMap.addOverlay(tmp);
+                        mLandMarkerList.add((Marker)mBaiduMap.addOverlay(tmp));
                     }
                 }
             }
@@ -157,11 +160,11 @@ public class NearbyFragment extends BaseFragment implements BaiduMap.OnMarkerCli
         mSharedViewModel.getPointList().observe(this, (dataList)->{
             clearPointMarker();
             if (dataList != null && dataList.size() > 0){
-                mPointMarkers = new Marker[dataList.size()];
+                mPointMarkerList = new ArrayList<>();
                 for (int i = 0; i < dataList.size(); i++) {
                     MarkerOptions tmp = mViewModel.getPointMarkerOptionFromData(dataList.get(i));
                     if (tmp != null){
-                        mPointMarkers[i] = (Marker)mBaiduMap.addOverlay(tmp);
+                        mPointMarkerList.add((Marker)mBaiduMap.addOverlay(tmp));
                     }
                 }
             }
@@ -206,22 +209,22 @@ public class NearbyFragment extends BaseFragment implements BaiduMap.OnMarkerCli
     }
 
     private void clearLandMarker(){
-        if (mLandMarkers != null){
+        if (mLandMarkerList != null){
             for (Marker marker :
-                    mLandMarkers) {
+                    mLandMarkerList) {
                 marker.remove();
             }
-            mLandMarkers = null;
+            mLandMarkerList = null;
         }
     }
 
     private void clearPointMarker(){
-        if (mPointMarkers != null){
+        if (mPointMarkerList != null){
             for (Marker marker :
-                    mPointMarkers) {
+                    mPointMarkerList) {
                 marker.remove();
             }
-            mPointMarkers = null;
+            mPointMarkerList = null;
         }
     }
 
