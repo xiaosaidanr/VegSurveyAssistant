@@ -7,6 +7,7 @@ import android.util.Log;
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.thcreate.vegsurveyassistant.activity.auth.LoginActivity;
+import com.thcreate.vegsurveyassistant.clean.image.ImageCleanService;
 import com.thcreate.vegsurveyassistant.db.AppDatabase;
 import com.thcreate.vegsurveyassistant.repository.PictureRepository;
 import com.thcreate.vegsurveyassistant.repository.SpeciesRepository;
@@ -17,6 +18,7 @@ import com.thcreate.vegsurveyassistant.repository.UserRepository;
 import com.thcreate.vegsurveyassistant.service.ActivityCollector;
 import com.thcreate.vegsurveyassistant.service.SessionManager;
 import com.thcreate.vegsurveyassistant.util.Macro;
+import com.thcreate.vegsurveyassistant.worker.ImageCleanWorker;
 import com.thcreate.vegsurveyassistant.worker.UploadWorker;
 
 import java.util.concurrent.TimeUnit;
@@ -86,21 +88,32 @@ public class BasicApp extends Application {
 
     private void initWork(){
         WorkManager.initialize(this, new Configuration.Builder().build());
+
         //后台work运行的约束 只有在有网的情况下才运行
         Constraints constraints = new Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build();
-        //设置周期运行的work 5min
+        //设置周期运行的work 5min 实际运行周期视手机而定
         PeriodicWorkRequest uploadWorkRequest = new PeriodicWorkRequest.Builder(UploadWorker.class, 5, TimeUnit.MINUTES)
                 .setConstraints(constraints)
                 .addTag(Macro.UPLOAD)
                 .build();
-        //添加唯一name的work 有重名的添加 则替换
+        //添加唯一name的work 有重名的添加 则忽略
         WorkManager.getInstance().enqueueUniquePeriodicWork(
                 Macro.DATA_UPLOAD_UNIQUE_NAME,
-                ExistingPeriodicWorkPolicy.REPLACE,
+                ExistingPeriodicWorkPolicy.KEEP,
                 uploadWorkRequest
         );
+
+//        PeriodicWorkRequest imageCleanWorkRequest = new PeriodicWorkRequest.Builder(ImageCleanWorker.class, 15, TimeUnit.DAYS)
+//                .addTag(Macro.CLEAN)
+//                .build();
+//        //添加唯一name的work 有重名的添加 则忽略
+//        WorkManager.getInstance().enqueueUniquePeriodicWork(
+//                Macro.IMAGE_CLEAN_UNIQUE_NAME,
+//                ExistingPeriodicWorkPolicy.KEEP,
+//                imageCleanWorkRequest
+//        );
     }
 
 

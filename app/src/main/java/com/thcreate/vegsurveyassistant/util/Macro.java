@@ -44,5 +44,7 @@ public class Macro {
     //后台worker用
     public final static String UPLOAD = "upload";
     public final static String DATA_UPLOAD_UNIQUE_NAME = "com.thcreate.vegsurveyassistant:data_upload";
+    public final static String CLEAN = "clean";
+    public final static String IMAGE_CLEAN_UNIQUE_NAME = "com.thcreate.vegsurveyassistant:image_clean";
 
 }

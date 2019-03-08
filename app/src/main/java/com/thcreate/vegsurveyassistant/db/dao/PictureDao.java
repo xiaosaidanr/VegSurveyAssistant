@@ -32,4 +32,6 @@ public interface PictureDao {
     void updatePlotPictureEntityUploadAtByPictureId(String pictureId, long uploadAt);
     @Query("SELECT * FROM plot_picture WHERE delete_at IS NULL AND upload_at IS NULL AND owner_id LIKE :ownerIdLimit")
     List<PlotPictureEntity> getPlotPictureEntityListNeedAddRemote(String ownerIdLimit);
+    @Query("SELECT * FROM plot_picture WHERE delete_at IS NULL")
+    List<PlotPictureEntity> getAllAlivePlotPictureEntity();
 }
