@@ -25,6 +25,9 @@ public class Macro {
     public static final String LAND = "land";
     public static final String POINT = "point";
 
+    public static final String LATITUDE = "latitude";
+    public static final String LONGITUDE = "longitude";
+
     public static final String IMAGE_PATH = "image_path";
 
     public static final String PARENT_PLOT_ID = "parentPlotId";

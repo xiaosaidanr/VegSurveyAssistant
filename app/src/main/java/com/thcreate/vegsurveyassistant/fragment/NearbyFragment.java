@@ -1,12 +1,14 @@
 package com.thcreate.vegsurveyassistant.fragment;
 
 
+import android.app.AlertDialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
@@ -175,36 +177,8 @@ public class NearbyFragment extends BaseFragment implements BaiduMap.OnMarkerCli
     @Override
     public boolean onMarkerClick(Marker marker) {
         Bundle data = marker.getExtraInfo();
-        String type = data.getString(Macro.TYPE);
-        if (type.equals(Macro.LAND)){
-            String landType = data.getString(Macro.SAMPLELAND_TYPE);
-            Intent intent = null;
-            switch (landType){
-                case Macro.SAMPLELAND_TYPE_GRASS:
-                    intent = new Intent(getActivity(), HerbLandActivity.class);
-                    break;
-                case Macro.SAMPLELAND_TYPE_BUSH:
-                    intent = new Intent(getActivity(), ShrubLandActivity.class);
-                    break;
-                case Macro.SAMPLELAND_TYPE_TREE:
-                    intent = new Intent(getActivity(), ArborLandActivity.class);
-                    break;
-                default:
-                    break;
-            }
-            if (intent != null){
-                intent.putExtra(Macro.ACTION, Macro.ACTION_EDIT);
-                intent.putExtra(Macro.SAMPLELAND_ID, data.getString(Macro.SAMPLELAND_ID));
-                intent.putExtra(Macro.SAMPLELAND_TYPE, data.getString(Macro.SAMPLELAND_TYPE));
-                startActivity(intent);
-            }
-        }
-        else {
-            Intent intent = new Intent(getActivity(), SamplepointActivity.class);
-            intent.putExtra(Macro.ACTION, Macro.ACTION_EDIT);
-            intent.putExtra(Macro.SAMPLEPOINT_ID, data.getString(Macro.SAMPLEPOINT_ID));
-            startActivity(intent);
-        }
+        MarkerDetailInfoDialogFragment dialogFragment = MarkerDetailInfoDialogFragment.newInstance(data);
+        dialogFragment.show(getFragmentManager(), "MarkerDetailInfoDialogFragment");
         return true;
     }
 
@@ -228,7 +202,7 @@ public class NearbyFragment extends BaseFragment implements BaiduMap.OnMarkerCli
         }
     }
 
-    private void clearOverlay(View v){
+    private void clearOverlay(){
         clearLandMarker();
         clearPointMarker();
         if (mBaiduMap != null){
@@ -251,7 +225,7 @@ public class NearbyFragment extends BaseFragment implements BaiduMap.OnMarkerCli
     @Override
     public void onDestroy() {
         super.onDestroy();
-        clearOverlay(null);
+        clearOverlay();
         if (mBaiduMap != null){
             mBaiduMap.setMyLocationEnabled(false);
         }
