@@ -5,8 +5,6 @@ import com.thcreate.vegsurveyassistant.db.entity.SamplepointEntity;
 import com.thcreate.vegsurveyassistant.db.entity.model.Samplepoint;
 import com.thcreate.vegsurveyassistant.http.api.PointApi;
 import com.thcreate.vegsurveyassistant.http.service.HttpServiceGenerator;
-import com.thcreate.vegsurveyassistant.repository.SamplepointRepository;
-import com.thcreate.vegsurveyassistant.util.HTTP;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,18 +13,12 @@ import java.util.List;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PointUploadService implements IUploadService {
 
-    private BasicApp mApplication;
     private PointApi mRequest;
-    private SamplepointRepository mPointRepository;
 
     public PointUploadService() {
-        mApplication = BasicApp.getAppliction();
-        mPointRepository = mApplication.getSamplepointRepository();
     }
 
     @Override
@@ -50,7 +42,7 @@ public class PointUploadService implements IUploadService {
 
     private List<Samplepoint> getDataListNeedDeleteRemote(){
         ArrayList<Samplepoint> result = new ArrayList<>();
-        List<SamplepointEntity> samplepointEntityList = mPointRepository.getSamplepointEntityListNeedDeleteRemote();
+        List<SamplepointEntity> samplepointEntityList = BasicApp.getAppliction().getSamplepointRepository().getSamplepointEntityListNeedDeleteRemote();
         if (samplepointEntityList != null && samplepointEntityList.size() > 0){
             for (SamplepointEntity item:
                     samplepointEntityList) {
@@ -81,10 +73,10 @@ public class PointUploadService implements IUploadService {
         }
     }
     private void deleteDataListLocal(){
-        mPointRepository.deleteSamplepointEntitiesNeedDeleteLocal();
+        BasicApp.getAppliction().getSamplepointRepository().deleteSamplepointEntitiesNeedDeleteLocal();
     }
     private void onDeleteDataRemoteSuccess(Samplepoint data){
-        mPointRepository.deleteSamplepointById(data.id);
+        BasicApp.getAppliction().getSamplepointRepository().deleteSamplepointById(data.id);
     }
     private void onDeleteDataRemoteFail(Samplepoint data){
 
@@ -92,7 +84,7 @@ public class PointUploadService implements IUploadService {
 
     private List<Samplepoint> getDataListNeedAddRemote(){
         ArrayList<Samplepoint> result = new ArrayList<>();
-        List<SamplepointEntity> samplepointEntityList = mPointRepository.getSamplepointEntityListNeedAddRemote();
+        List<SamplepointEntity> samplepointEntityList = BasicApp.getAppliction().getSamplepointRepository().getSamplepointEntityListNeedAddRemote();
         if (samplepointEntityList != null && samplepointEntityList.size() > 0){
             for (SamplepointEntity item:
                     samplepointEntityList) {
@@ -125,7 +117,7 @@ public class PointUploadService implements IUploadService {
     private void onAddDataRemoteSuccess(Samplepoint data){
         SamplepointEntity entity = data.getEntity();
         entity.uploadAt = new Date();
-        mPointRepository.updateSamplepointManual(entity);
+        BasicApp.getAppliction().getSamplepointRepository().updateSamplepointManual(entity);
     }
     private void onAddDataRemoteFail(Samplepoint data){
 
@@ -133,7 +125,7 @@ public class PointUploadService implements IUploadService {
 
     private List<Samplepoint> getDataListNeedUpdateRemote(){
         ArrayList<Samplepoint> result = new ArrayList<>();
-        List<SamplepointEntity> samplepointEntityList = mPointRepository.getSamplepointEntityListNeedUpdateRemote();
+        List<SamplepointEntity> samplepointEntityList = BasicApp.getAppliction().getSamplepointRepository().getSamplepointEntityListNeedUpdateRemote();
         if (samplepointEntityList != null && samplepointEntityList.size() > 0){
             for (SamplepointEntity item:
                     samplepointEntityList) {
@@ -166,7 +158,7 @@ public class PointUploadService implements IUploadService {
     private void onUpdateDataRemoteSuccess(Samplepoint data){
         SamplepointEntity entity = data.getEntity();
         entity.uploadAt = new Date();
-        mPointRepository.updateSamplepointManual(entity);
+        BasicApp.getAppliction().getSamplepointRepository().updateSamplepointManual(entity);
     }
     private void onUpdateDataRemoteFail(Samplepoint data){
     }

@@ -7,7 +7,6 @@ import com.thcreate.vegsurveyassistant.db.entity.model.BaseSampleplot;
 import com.thcreate.vegsurveyassistant.db.entity.model.Sampleland;
 import com.thcreate.vegsurveyassistant.http.api.LandApi;
 import com.thcreate.vegsurveyassistant.http.service.HttpServiceGenerator;
-import com.thcreate.vegsurveyassistant.util.HTTP;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,14 +15,14 @@ import java.util.List;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LandUploadService implements IUploadService {
 
     private LandApi mRequest;
+    private boolean mIsSuccess;
 
     public LandUploadService() {
+        mIsSuccess = true;
     }
 
     @Override
@@ -37,6 +36,10 @@ public class LandUploadService implements IUploadService {
     @Override
     public void cancel() {
 
+    }
+
+    public boolean isSuccess(){
+        return mIsSuccess;
     }
 
     private void executeSync(){
@@ -78,7 +81,7 @@ public class LandUploadService implements IUploadService {
         BasicApp.getAppliction().getSamplelandRepository().deleteSamplelandEntity(data);
     }
     private void onDeleteDataRemoteFail(SamplelandEntity data){
-
+        mIsSuccess = false;
     }
 
     private List<SamplelandEntity> getDataListNeedAddRemote(){
@@ -122,7 +125,7 @@ public class LandUploadService implements IUploadService {
         }
     }
     private void onAddDataRemoteFail(Sampleland land){
-
+        mIsSuccess = false;
     }
     private static List<SampleplotEntity> getNotDeletedSampleplotEntityListByLandId(String landId){
         return BasicApp.getAppliction().getSampleplotRepository().getNotDeletedSampleplotEntityListByLandId(landId);
@@ -157,7 +160,7 @@ public class LandUploadService implements IUploadService {
         BasicApp.getAppliction().getSamplelandRepository().updateSamplelandEntityUploadAtByLandId(data.landId, uploadAt);
     }
     private void onUpdateDataRemoteFail(SamplelandEntity data){
-
+        mIsSuccess = false;
     }
 
 }

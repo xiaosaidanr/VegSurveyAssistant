@@ -13,7 +13,6 @@ import com.thcreate.vegsurveyassistant.db.entity.model.ShrubSampleplot;
 import com.thcreate.vegsurveyassistant.http.api.PlotApi;
 import com.thcreate.vegsurveyassistant.http.service.HttpServiceGenerator;
 import com.thcreate.vegsurveyassistant.util.Macro;
-import com.thcreate.vegsurveyassistant.util.HTTP;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,14 +22,14 @@ import java.util.Map;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PlotUploadService implements IUploadService {
 
     private PlotApi mRequest;
+    private boolean mIsSuccess;
 
     public PlotUploadService() {
+        mIsSuccess = true;
     }
 
     @Override
@@ -44,6 +43,10 @@ public class PlotUploadService implements IUploadService {
     @Override
     public void cancel() {
 
+    }
+
+    public boolean isSuccess(){
+        return mIsSuccess;
     }
 
     private void executeSync(){
@@ -85,7 +88,7 @@ public class PlotUploadService implements IUploadService {
         BasicApp.getAppliction().getSampleplotRepository().deleteSampleplotEntity(data);
     }
     private void onDeleteDataRemoteFail(SampleplotEntity data){
-
+        mIsSuccess = false;
     }
 
     private List<SampleplotEntity> getDataListNeedAddRemote(){
@@ -111,10 +114,12 @@ public class PlotUploadService implements IUploadService {
                 onAddDataRemoteSuccess(data, new Date().getTime());
             }
             else {
+                mIsSuccess = false;
                 onAddDataRemoteFail(data);
             }
         }
         catch (Exception e){
+            mIsSuccess = false;
             onAddDataRemoteFail(data);
             e.printStackTrace();
         }
@@ -225,7 +230,7 @@ public class PlotUploadService implements IUploadService {
         BasicApp.getAppliction().getSampleplotRepository().updateSampleplotEntityManual(data);
     }
     private void onUpdateDataRemoteFail(SampleplotEntity data){
-
+        mIsSuccess = false;
     }
 
 

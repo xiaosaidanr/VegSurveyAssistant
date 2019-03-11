@@ -9,7 +9,6 @@ import com.thcreate.vegsurveyassistant.db.entity.model.ShrubSpecies;
 import com.thcreate.vegsurveyassistant.http.api.SpeciesApi;
 import com.thcreate.vegsurveyassistant.http.service.HttpServiceGenerator;
 import com.thcreate.vegsurveyassistant.util.Macro;
-import com.thcreate.vegsurveyassistant.util.HTTP;
 
 import java.util.Date;
 import java.util.List;
@@ -17,8 +16,6 @@ import java.util.List;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SpeciesUploadService implements IUploadService {
 

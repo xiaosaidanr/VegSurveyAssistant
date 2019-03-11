@@ -2,12 +2,10 @@ package com.thcreate.vegsurveyassistant;
 
 import android.app.Application;
 import android.content.Intent;
-import android.util.Log;
 
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.thcreate.vegsurveyassistant.activity.auth.LoginActivity;
-import com.thcreate.vegsurveyassistant.clean.image.ImageCleanService;
 import com.thcreate.vegsurveyassistant.db.AppDatabase;
 import com.thcreate.vegsurveyassistant.repository.PictureRepository;
 import com.thcreate.vegsurveyassistant.repository.SpeciesRepository;
@@ -18,8 +16,7 @@ import com.thcreate.vegsurveyassistant.repository.UserRepository;
 import com.thcreate.vegsurveyassistant.service.ActivityCollector;
 import com.thcreate.vegsurveyassistant.service.SessionManager;
 import com.thcreate.vegsurveyassistant.util.Macro;
-import com.thcreate.vegsurveyassistant.worker.ImageCleanWorker;
-import com.thcreate.vegsurveyassistant.worker.UploadWorker;
+import com.thcreate.vegsurveyassistant.worker.DataUploadWorker;
 
 import java.util.concurrent.TimeUnit;
 
@@ -94,7 +91,7 @@ public class BasicApp extends Application {
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build();
         //设置周期运行的work 5min 实际运行周期视手机而定
-        PeriodicWorkRequest uploadWorkRequest = new PeriodicWorkRequest.Builder(UploadWorker.class, 5, TimeUnit.MINUTES)
+        PeriodicWorkRequest uploadWorkRequest = new PeriodicWorkRequest.Builder(DataUploadWorker.class, 5, TimeUnit.MINUTES)
                 .setConstraints(constraints)
                 .addTag(Macro.UPLOAD)
                 .build();

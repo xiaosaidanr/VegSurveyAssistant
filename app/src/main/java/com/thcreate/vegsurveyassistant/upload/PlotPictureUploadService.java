@@ -57,7 +57,7 @@ public class PlotPictureUploadService implements IUploadService {
     }
     private void deleteDataLocal(PlotPictureEntity data){
         BasicApp.getAppliction().getPictureRepository().deletePlotPictureEntity(data);
-        deletePictureFile(data.localAddr);
+//        deletePictureFile(data.localAddr);
 
     }
     private void deleteDataRemote(PlotPictureEntity data){
@@ -82,9 +82,9 @@ public class PlotPictureUploadService implements IUploadService {
     private void onDeleteDataRemoteFail(PlotPictureEntity data){
 
     }
-    private void deletePictureFile(String path){
-        //TODO delete picture file
-    }
+//    private void deletePictureFile(String path){
+//        //TODO delete picture file
+//    }
 
     private List<PlotPictureEntity> getDataListNeedAddRemote(){
         return BasicApp.getAppliction().getPictureRepository().getPlotPictureEntityListNeedAddRemote();
@@ -98,7 +98,8 @@ public class PlotPictureUploadService implements IUploadService {
     private void addDataRemote(PlotPictureEntity data){
         try {
             if (data.url == null){
-                data.url = pushPictureFileToOSS(data);
+                return;
+//                data.url = pushPictureFileToOSS(data);
             }
             Call<ResponseBody> call = mRequest.addPicture(new Picture(data));
             Response<ResponseBody> response = call.execute();
@@ -114,10 +115,10 @@ public class PlotPictureUploadService implements IUploadService {
             e.printStackTrace();
         }
     }
-    private String pushPictureFileToOSS(PlotPictureEntity data){
-        //TODO push to oss
-        return null;
-    }
+//    private String pushPictureFileToOSS(PlotPictureEntity data){
+//        //TODO push to oss
+//        return null;
+//    }
     private void onAddDataRemoteSuccess(PlotPictureEntity data, long uploadAt){
         BasicApp.getAppliction().getPictureRepository().updatePlotPictureEntityUploadAtByPictureId(data.pictureId, uploadAt);
     }
