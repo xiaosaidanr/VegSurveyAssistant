@@ -19,14 +19,16 @@ public class ImageCleanService {
 
     private boolean mIsStarted;
     private CleanTask mCleanTask;
+    private Context mContext;
 
     public ImageCleanService(Context context) {
         mIsStarted = false;
-        mCleanTask = new CleanTask(context);
+        this.mContext = context;
     }
 
     public void start(){
         if (!mIsStarted){
+            mCleanTask = new CleanTask(mContext);
             mCleanTask.execute();
         }
     }
@@ -36,7 +38,9 @@ public class ImageCleanService {
     }
 
     public void stop(){
-        mCleanTask.cancel(true);
+        if (mCleanTask != null){
+            mCleanTask.cancel(true);
+        }
     }
 
     private class CleanTask extends AsyncTask<Void, Void, Void> {

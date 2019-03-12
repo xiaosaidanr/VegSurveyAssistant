@@ -1,24 +1,32 @@
 package com.thcreate.vegsurveyassistant.fragment;
 
 
+import android.arch.lifecycle.ViewModelProviders;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.preference.PreferenceFragmentCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.thcreate.vegsurveyassistant.R;
+import com.thcreate.vegsurveyassistant.databinding.FragmentMyBinding;
+import com.thcreate.vegsurveyassistant.viewmodel.MyFragmentViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link MyFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MyFragment extends PreferenceFragmentCompat {
+public class MyFragment extends BaseFragment {
 
-    private static final String TAG = "MyFragment";
+    private static final String TAG = MyFragment.class.getSimpleName();
+
+//    private MainActivityViewModel mSharedViewModel;
+    private MyFragmentViewModel mMyFragmentViewModel;
+    private FragmentMyBinding mBinding;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,19 +67,25 @@ public class MyFragment extends PreferenceFragmentCompat {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        mMyFragmentViewModel = ViewModelProviders.of(this).get(MyFragmentViewModel.class);
     }
 
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        Log.d(this.getClass().getSimpleName(), "onCreateView" + " " + this.toString());
-//        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_my, container, false);
-//    }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        Log.d(this.getClass().getSimpleName(), "onCreateView" + " " + this.toString());
+
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_my, container, false);
+        mBinding.setLifecycleOwner(this);
+        mBinding.setMyFragmentViewModel(mMyFragmentViewModel);
+        return mBinding.getRoot();
+
+    }
 
     @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        addPreferencesFromResource(R.xml.preferences);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 
 }

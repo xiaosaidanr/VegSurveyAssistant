@@ -37,6 +37,9 @@ public interface UserDao {
     @Query("SELECT * FROM user WHERE id = :id")
     UserEntity getUserById(int id);
 
+    @Query("SELECT * FROM user WHERE id = :id")
+    LiveData<UserEntity> getUserByIdAsync(int id);
+
 //    @Query("SELECT * FROM user WHERE is_current_user = 1")
 //    LiveData<UserEntity> getCurrentUserAsync();
 //

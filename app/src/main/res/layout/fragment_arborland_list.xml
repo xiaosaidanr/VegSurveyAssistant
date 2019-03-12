@@ -16,7 +16,8 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragment.ArborLandListFragment">
+        tools:context=".fragment.ArborLandListFragment"
+        android:background="#50e0f7fa">
 
         <TextView
             android:id="@+id/loading_text_view"

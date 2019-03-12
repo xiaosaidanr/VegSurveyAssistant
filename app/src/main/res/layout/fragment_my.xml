@@ -1,13 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragment.MyFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
+    <data>
+        <variable
+            name="myFragmentViewModel"
+            type="com.thcreate.vegsurveyassistant.viewmodel.MyFragmentViewModel"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="hello_my_fragment" />
+        tools:context=".fragment.MyFragment"
+        android:background="#50e0f7fa">
 
-</FrameLayout>
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{myFragmentViewModel.user.name}"
+            android:gravity="center_vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="24dp"
+            android:paddingBottom="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:drawableStart="@drawable/ic_user_24dp"
+            android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:background="@android:color/white"
+            android:elevation="1dp"/>
+
+        <TextView
+            android:id="@+id/imageClean"
+            android:elevation="1dp"
+            android:layout_width="0dp"
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/clean"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:background="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/username"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="@android:color/black"
+            android:drawableStart="@drawable/ic_disc_clean"
+            android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:onClick="@{myFragmentViewModel::clean}"/>
+
+        <TextView
+            android:id="@+id/logout"
+            android:elevation="1dp"
+            android:gravity="center_vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="64dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="@string/logout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:textColor="@android:color/black"
+            android:background="@android:color/white"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:drawableStart="@drawable/ic_logout"
+            android:onClick="@{myFragmentViewModel::logout}"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

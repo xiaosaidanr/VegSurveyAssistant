@@ -1,8 +1,10 @@
 package com.thcreate.vegsurveyassistant.repository;
 
+import android.arch.lifecycle.LiveData;
 import android.content.Context;
 
 import com.thcreate.vegsurveyassistant.AppExecutors;
+import com.thcreate.vegsurveyassistant.BasicApp;
 import com.thcreate.vegsurveyassistant.db.AppDatabase;
 import com.thcreate.vegsurveyassistant.db.entity.UserEntity;
 
@@ -41,6 +43,10 @@ public class UserRepository {
                 mDatabase.userDao().update(newUser);
             }
         });
+    }
+
+    public LiveData<UserEntity> getUserByIdAsync(int id){
+        return mDatabase.userDao().getUserByIdAsync(id);
     }
 
 }

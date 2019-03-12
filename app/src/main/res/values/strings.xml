@@ -68,6 +68,11 @@
     <string name="average_basal_diameter_cm">平均基径(cm)</string>
     <string name="average_DBH_cm">平均胸径(cm)</string>
 
+    <!-- 我的相关 -->
+    <string name="clean">清理缓存</string>
+    <string name="clean_success">清理成功</string>
+    <string name="logout">退出登录</string>
+
     <!-- 物种相关 -->
     <string name="species_info">物种信息</string>
     <string name="species_name">物种名</string>
