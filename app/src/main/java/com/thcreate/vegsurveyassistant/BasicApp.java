@@ -17,6 +17,7 @@ import com.thcreate.vegsurveyassistant.service.ActivityCollector;
 import com.thcreate.vegsurveyassistant.service.SessionManager;
 import com.thcreate.vegsurveyassistant.util.Macro;
 import com.thcreate.vegsurveyassistant.worker.DataUploadWorker;
+import com.thcreate.vegsurveyassistant.worker.ImageOssWorker;
 
 import java.util.concurrent.TimeUnit;
 
@@ -111,6 +112,17 @@ public class BasicApp extends Application {
 //                ExistingPeriodicWorkPolicy.KEEP,
 //                imageCleanWorkRequest
 //        );
+
+//        PeriodicWorkRequest imageOssWorkRequest = new PeriodicWorkRequest.Builder(ImageOssWorker.class, 5, TimeUnit.MINUTES)
+//                .setConstraints(constraints)
+//                .addTag(Macro.UPLOAD)
+//                .build();
+//        WorkManager.getInstance().enqueueUniquePeriodicWork(
+//                Macro.IMAGE_UPLOAD_UNIQUE_NAME,
+//                ExistingPeriodicWorkPolicy.KEEP,
+//                imageOssWorkRequest
+//        );
+
     }
 
 

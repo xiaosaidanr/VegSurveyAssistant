@@ -31,4 +31,11 @@ public class HTTP {
         HTTP.client_secret = clientSecret;
     }
 
+    //OSS related
+    public static final String END_POINT = "";
+    public static final String ACCESS_KEY_ID = "";
+    public static final String ACCESS_KEY_SECRET = "";
+    public static final String BUCKET_NAME = "";
+    public static final String STS_SERVER = "";
+
 }

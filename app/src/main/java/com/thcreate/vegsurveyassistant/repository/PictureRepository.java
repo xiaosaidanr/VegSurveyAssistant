@@ -78,6 +78,9 @@ public class PictureRepository {
         String ownerIdLimit = String.valueOf(SessionManager.getLoggedInUserId()) + "-%";
         return mDatabase.pictureDao().getPlotPictureEntityListNeedAddRemote(ownerIdLimit);
     }
+    public void updatePlotPictureEntityUrlByPictureId(String pictureId, String url){
+        mDatabase.pictureDao().updatePlotPictureEntityUrlByPictureId(pictureId, url);
+    }
     public List<PlotPictureEntity> getAllAlivePlotPictureEntity(){
         return mDatabase.pictureDao().getAllAlivePlotPictureEntity();
     }

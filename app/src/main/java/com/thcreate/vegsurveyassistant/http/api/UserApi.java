@@ -9,8 +9,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 
 public interface UserApi {
-    //TODO user http api
     @GET("api/user")
     Observable<GetUserResponse> getUser();
-//    Observable<GetUserResponse> getUser(@Header("Authorization") String accessToken);
 }
