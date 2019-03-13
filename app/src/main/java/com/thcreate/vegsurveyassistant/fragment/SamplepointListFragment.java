@@ -92,6 +92,7 @@ public class SamplepointListFragment extends BaseFragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         setHasOptionsMenu(true);
+        mSharedViewModel = ViewModelProviders.of(getActivity()).get(MainActivityViewModel.class);
     }
 
     @Override
@@ -123,8 +124,6 @@ public class SamplepointListFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mSharedViewModel = ViewModelProviders.of(getActivity()).get(MainActivityViewModel.class);
-
         subscribeUi();
     }
 
@@ -138,24 +137,6 @@ public class SamplepointListFragment extends BaseFragment {
             }
             mBinding.executePendingBindings();
         });
-        mBinding.buttonQuit.setOnClickListener((view)->{
-            ((BasicApp)getActivity().getApplication()).Logout();
-        });
-        mBinding.buttonUpload.setOnClickListener((view)->{
-            TestTask testTask = new TestTask();
-            testTask.execute();
-        });
-    }
-
-    private class TestTask extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected Void doInBackground(Void... voids) {
-            PointUploadService pointUploadService = new PointUploadService();
-            pointUploadService.start();
-            LandUploadService landUploadService = new LandUploadService();
-            landUploadService.start();
-            return null;
-        }
     }
 
     private final ItemClickCallback<PointMainInfo> mItemClickCallback = new ItemClickCallback<PointMainInfo>() {

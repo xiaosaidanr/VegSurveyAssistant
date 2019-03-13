@@ -22,4 +22,10 @@ public class PointMainInfo {
     @ColumnInfo(name = "lat")
     public String lat;//纬度
 
+    @ColumnInfo(name = "investigator_name")
+    public String investigatorName;//调查人
+
+    @ColumnInfo(name = "investigated_at")
+    public String investigatedAt;//调查时间
+
 }

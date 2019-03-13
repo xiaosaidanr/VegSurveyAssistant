@@ -24,7 +24,7 @@ public interface SamplepointDao extends BaseDao<SamplepointEntity> {
 //    @Query("SELECT * FROM point WHERE user_id = :userId AND delete_at IS NULL ORDER BY id ASC")
 //    LiveData<List<SamplepointEntity>> getSamplepointEntityListByUserId(int userId);
 
-    @Query("SELECT id, point_id, code, alt, lng, lat FROM point WHERE user_id = :userId AND delete_at IS NULL ORDER BY id ASC")
+    @Query("SELECT id, point_id, code, alt, lng, lat, investigator_name, investigated_at FROM point WHERE user_id = :userId AND delete_at IS NULL ORDER BY id ASC")
     LiveData<List<PointMainInfo>> getPointMainInfoListByUserId(int userId);
 
     @Query("SELECT * FROM point " +

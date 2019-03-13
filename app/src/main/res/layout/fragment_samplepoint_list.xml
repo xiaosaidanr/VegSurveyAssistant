@@ -30,17 +30,6 @@
             app:title="@string/samplepoint_investigate">
         </android.support.v7.widget.Toolbar>
 
-        <Button
-            android:id="@+id/buttonQuit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="退出"/>
-        <Button
-            android:id="@+id/buttonUpload"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="上传"/>
-
         <TextView
             android:id="@+id/loading_text_view"
             android:layout_width="match_parent"
@@ -55,6 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            android:layout_margin="8dp"
             android:visibility="@{!isLoading ? View.VISIBLE : View.GONE}"
             />
 

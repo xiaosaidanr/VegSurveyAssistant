@@ -1,5 +1,8 @@
 package com.thcreate.vegsurveyassistant.util;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Macro {
 
     //Intent传递参数使用
@@ -47,5 +50,15 @@ public class Macro {
     public final static String IMAGE_UPLOAD_UNIQUE_NAME = "com.thcreate.vegsurveyassistant:image_upload";
     public final static String CLEAN = "clean";
     public final static String IMAGE_CLEAN_UNIQUE_NAME = "com.thcreate.vegsurveyassistant:image_clean";
+
+    public final static Map<String, String> LAND_TYPE_MAP;
+    static {
+        {
+            LAND_TYPE_MAP = new HashMap<String, String>();
+            LAND_TYPE_MAP.put("grass", "草地样地");
+            LAND_TYPE_MAP.put("bush", "灌丛样地");
+            LAND_TYPE_MAP.put("tree", "森林样地");
+        }
+    }
 
 }

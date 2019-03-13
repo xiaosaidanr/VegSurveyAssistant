@@ -12,8 +12,10 @@ import com.thcreate.vegsurveyassistant.R;
 import com.thcreate.vegsurveyassistant.databinding.ItemSamplelandBinding;
 import com.thcreate.vegsurveyassistant.db.entity.SamplelandEntity;
 import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.LandMainInfo;
+import com.thcreate.vegsurveyassistant.util.Macro;
 
 import java.util.List;
+import java.util.Map;
 
 public class SamplelandAdapter extends RecyclerView.Adapter<SamplelandAdapter.LandViewHolder> {
 
@@ -45,20 +47,35 @@ public class SamplelandAdapter extends RecyclerView.Adapter<SamplelandAdapter.La
 
                 @Override
                 public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-                    return mDataList.get(oldItemPosition).id ==
-                            dataList.get(newItemPosition).id;
+                    return mDataList.get(oldItemPosition).landId.equals(dataList.get(newItemPosition).landId);
                 }
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
                     LandMainInfo newData = dataList.get(newItemPosition);
                     LandMainInfo oldData = mDataList.get(oldItemPosition);
-                    return newData.landId.equals(oldData.landId);
+                    return areLandMainInfoContentsTheSame(oldData, newData);
                 }
             });
             mDataList = dataList;
             result.dispatchUpdatesTo(this);
         }
+    }
+
+    private boolean areLandMainInfoContentsTheSame(LandMainInfo oldData, LandMainInfo newData){
+        String oldDataString = String.format("%s%s%s%s",
+                String.valueOf(oldData.code),
+                String.valueOf(oldData.lat),
+                String.valueOf(oldData.lng),
+                String.valueOf(oldData.type)
+        );
+        String newDataString = String.format("%s%s%s%s",
+                String.valueOf(newData.code),
+                String.valueOf(newData.lat),
+                String.valueOf(newData.lng),
+                String.valueOf(newData.type)
+        );
+        return oldDataString.equals(newDataString);
     }
 
     @NonNull
@@ -68,6 +85,7 @@ public class SamplelandAdapter extends RecyclerView.Adapter<SamplelandAdapter.La
                 .inflate(LayoutInflater.from(viewGroup.getContext()), R.layout.item_sampleland,
                         viewGroup, false);
         binding.setClickCallback(mClickCallback);
+        binding.setLandTypeMap(Macro.LAND_TYPE_MAP);
         return new LandViewHolder(binding);
     }
 

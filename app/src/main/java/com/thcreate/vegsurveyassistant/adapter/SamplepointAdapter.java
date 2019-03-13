@@ -46,21 +46,37 @@ public class SamplepointAdapter extends RecyclerView.Adapter<SamplepointAdapter.
 
                 @Override
                 public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-                    return mDataList.get(oldItemPosition).id ==
-                            dataList.get(newItemPosition).id;
+                    return mDataList.get(oldItemPosition).pointId.equals(dataList.get(newItemPosition).pointId);
                 }
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
                     PointMainInfo newData = dataList.get(newItemPosition);
                     PointMainInfo oldData = mDataList.get(oldItemPosition);
-                    return newData.id == oldData.id
-                            && newData.pointId.equals(oldData.pointId);
+                    return arePointMainInfoContentsTheSame(oldData, newData);
                 }
             });
             mDataList = dataList;
             result.dispatchUpdatesTo(this);
         }
+    }
+
+    private boolean arePointMainInfoContentsTheSame(PointMainInfo oldData, PointMainInfo newData){
+        String oldDataString = String.format("%s%s%s%s%s",
+                String.valueOf(oldData.code),
+                String.valueOf(oldData.lat),
+                String.valueOf(oldData.lng),
+                String.valueOf(oldData.investigatedAt),
+                String.valueOf(oldData.investigatorName)
+        );
+        String newDataString = String.format("%s%s%s%s%s",
+                String.valueOf(newData.code),
+                String.valueOf(newData.lat),
+                String.valueOf(newData.lng),
+                String.valueOf(newData.investigatedAt),
+                String.valueOf(newData.investigatorName)
+        );
+        return oldDataString.equals(newDataString);
     }
 
     @NonNull

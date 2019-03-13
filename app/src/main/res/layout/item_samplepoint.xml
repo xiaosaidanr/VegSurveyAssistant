@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+<layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
@@ -19,25 +19,136 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardUseCompatPadding="true"
+        app:cardCornerRadius="8dp"
         android:onClick="@{() -> clickCallback.onClick(pointData)}"
         >
 
-        <RelativeLayout
-            android:layout_marginStart="@dimen/item_horizontal_margin"
-            android:layout_marginEnd="@dimen/item_horizontal_margin"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:height="40dp"
-                android:id="@+id/point_id"
+            <android.support.constraint.Guideline
+                android:id="@+id/guidelineHorizontalCenter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{pointData.pointId}"
-                android:gravity="center_vertical"
-                />
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
 
-        </RelativeLayout>
+            <TextView
+                android:id="@+id/codeTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/code"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/code"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="8dp"
+                android:gravity="center_vertical"
+                android:text="@{pointData.code}"
+                app:layout_constraintBottom_toBottomOf="@+id/codeTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/codeTitle"
+                app:layout_constraintTop_toTopOf="@+id/codeTitle" />
+
+            <TextView
+                android:id="@+id/longitudeTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/longitude"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/codeTitle" />
+
+            <TextView
+                android:id="@+id/longitude"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="8dp"
+                android:text="@{pointData.lng}"
+                app:layout_constraintBottom_toBottomOf="@+id/longitudeTitle"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineHorizontalCenter"
+                app:layout_constraintStart_toEndOf="@+id/longitudeTitle"
+                app:layout_constraintTop_toTopOf="@+id/longitudeTitle" />
+
+            <TextView
+                android:id="@+id/latitudeTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/latitude"
+                app:layout_constraintBottom_toBottomOf="@+id/longitude"
+                app:layout_constraintStart_toStartOf="@+id/guidelineHorizontalCenter"
+                app:layout_constraintTop_toTopOf="@+id/longitude" />
+
+            <TextView
+                android:id="@+id/latitude"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="8dp"
+                android:text="@{pointData.lat}"
+                app:layout_constraintBottom_toBottomOf="@+id/latitudeTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/latitudeTitle"
+                app:layout_constraintTop_toTopOf="@+id/latitudeTitle" />
+
+            <TextView
+                android:id="@+id/investigatorTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/investigator"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/longitudeTitle" />
+
+            <TextView
+                android:id="@+id/investigator"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="8dp"
+                android:text="@{pointData.investigatorName}"
+                app:layout_constraintBottom_toBottomOf="@+id/investigatorTitle"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineHorizontalCenter"
+                app:layout_constraintStart_toEndOf="@+id/investigatorTitle"
+                app:layout_constraintTop_toTopOf="@+id/investigatorTitle" />
+
+            <TextView
+                android:id="@+id/investigateAtTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/investigate_date"
+                app:layout_constraintBottom_toBottomOf="@+id/investigator"
+                app:layout_constraintStart_toStartOf="@+id/guidelineHorizontalCenter"
+                app:layout_constraintTop_toTopOf="@+id/investigator" />
+
+            <TextView
+                android:id="@+id/investigateAt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="8dp"
+                android:text="@{pointData.investigatedAt}"
+                app:layout_constraintBottom_toBottomOf="@+id/investigateAtTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/investigateAtTitle"
+                app:layout_constraintTop_toTopOf="@+id/investigateAtTitle" />
+
+
+        </android.support.constraint.ConstraintLayout>
 
     </android.support.v7.widget.CardView>
 
