@@ -181,8 +181,10 @@ public class SampleplotRepository {
     public void getParentPlotPlotEntityByChildIdRecursively(List<String> parentList, String childId){
         PlotPlotEntity entity = getPlotPlotEntityByChildIdSync(childId);
         if (entity != null){
-            parentList.add(entity.parentId);
-            getParentPlotPlotEntityByChildIdRecursively(parentList, entity.parentId);
+            if (entity.parentId != null){
+                parentList.add(entity.parentId);
+                getParentPlotPlotEntityByChildIdRecursively(parentList, entity.parentId);
+            }
         }
     }
 

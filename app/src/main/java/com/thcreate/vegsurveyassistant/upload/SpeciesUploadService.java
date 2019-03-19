@@ -27,7 +27,7 @@ public class SpeciesUploadService implements IUploadService {
     @Override
     public void start() {
         if (mRequest == null){
-            mRequest = HttpServiceGenerator.getInstance().createService(SpeciesApi.class);
+            mRequest = HttpServiceGenerator.getInstance().createServiceAuth(SpeciesApi.class);
         }
         executeSync();
     }
@@ -92,7 +92,17 @@ public class SpeciesUploadService implements IUploadService {
     }
     private <T extends BaseSpecies> void addDataRemoteGeneric(T data){
         try {
-            Call<ResponseBody> call = mRequest.addSpecies(getLandIdByPlotId(data.plotId), data.plotId, data);
+            Call<ResponseBody> call = null;
+            if(data instanceof ArborSpecies){
+                call = mRequest.addArborSpecies(getLandIdByPlotId(data.plotId), data.plotId, (ArborSpecies)data);
+            }
+            if(data instanceof HerbSpecies){
+                call = mRequest.addHerbSpecies(getLandIdByPlotId(data.plotId), data.plotId, (HerbSpecies)data);
+            }
+            if(data instanceof ShrubSpecies){
+                call = mRequest.addShrubSpecies(getLandIdByPlotId(data.plotId), data.plotId, (ShrubSpecies)data);
+            }
+//            Call<ResponseBody> call = mRequest.addSpecies(getLandIdByPlotId(data.plotId), data.plotId, data);
             Response<ResponseBody> response = call.execute();
             if (response.isSuccessful()){
                 onAddDataRemoteSuccess(data.speciesId, new Date().getTime());
@@ -142,13 +152,13 @@ public class SpeciesUploadService implements IUploadService {
             Call<ResponseBody> call = null;
             switch (data.type){
                 case Macro.HERB:
-                    call = mRequest.updateSpecies(getLandIdByPlotId(data.plotId), data.plotId, data.speciesId, HerbSpecies.getInstance(data));
+                    call = mRequest.updateHerbSpecies(getLandIdByPlotId(data.plotId), data.plotId, data.speciesId, HerbSpecies.getInstance(data));
                     break;
                 case Macro.SHRUB:
-                    call = mRequest.updateSpecies(getLandIdByPlotId(data.plotId), data.plotId, data.speciesId, ShrubSpecies.getInstance(data));
+                    call = mRequest.updateShrubSpecies(getLandIdByPlotId(data.plotId), data.plotId, data.speciesId, ShrubSpecies.getInstance(data));
                     break;
                 case Macro.ARBOR:
-                    call = mRequest.updateSpecies(getLandIdByPlotId(data.plotId), data.plotId, data.speciesId, ArborSpecies.getInstance(data));
+                    call = mRequest.updateArborSpecies(getLandIdByPlotId(data.plotId), data.plotId, data.speciesId, ArborSpecies.getInstance(data));
                     break;
                 default:
                     break;

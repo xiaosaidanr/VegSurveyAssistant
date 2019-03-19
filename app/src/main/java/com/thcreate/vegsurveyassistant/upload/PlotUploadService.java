@@ -35,7 +35,7 @@ public class PlotUploadService implements IUploadService {
     @Override
     public void start() {
         if (mRequest == null){
-            mRequest = HttpServiceGenerator.getInstance().createService(PlotApi.class);
+            mRequest = HttpServiceGenerator.getInstance().createServiceAuth(PlotApi.class);
         }
         executeSync();
     }
@@ -108,7 +108,17 @@ public class PlotUploadService implements IUploadService {
             return;
         }
         try {
-            Call<ResponseBody> call = mRequest.addPlot(data.landId, data);
+            Call<ResponseBody> call = null;
+            if(data instanceof ArborSampleplot){
+                call = mRequest.addArborPlot(data.landId, (ArborSampleplot)data);
+            }
+            if(data instanceof HerbSampleplot){
+                call = mRequest.addHerbPlot(data.landId, (HerbSampleplot)data);
+            }
+            if(data instanceof ShrubSampleplot){
+                call = mRequest.addShrubPlot(data.landId, (ShrubSampleplot)data);
+            }
+//            Call<ResponseBody> call = mRequest.addPlot(data.landId, data);
             Response<ResponseBody> response = call.execute();
             if (response.isSuccessful()){
                 onAddDataRemoteSuccess(data, new Date().getTime());
@@ -191,19 +201,19 @@ public class PlotUploadService implements IUploadService {
                     HerbSampleplot herbPlot = HerbSampleplot.getInstance(data);
                     herbPlot.ownerList = new ArrayMap<>();
                     herbPlot.ownerList.put("plot", ownerList);
-                    call = mRequest.updatePlot(data.landId, data.plotId, herbPlot);
+                    call = mRequest.updateHerbPlot(data.landId, data.plotId, herbPlot);
                     break;
                 case Macro.SHRUB:
                     ShrubSampleplot shrubPlot = ShrubSampleplot.getInstance(data);
                     shrubPlot.ownerList = new ArrayMap<>();
                     shrubPlot.ownerList.put("plot", ownerList);
-                    call = mRequest.updatePlot(data.landId, data.plotId, shrubPlot);
+                    call = mRequest.updateShrubPlot(data.landId, data.plotId, shrubPlot);
                     break;
                 case Macro.ARBOR:
                     ArborSampleplot arborPlot = ArborSampleplot.getInstance(data);
                     arborPlot.ownerList = new ArrayMap<>();
                     arborPlot.ownerList.put("plot", ownerList);
-                    call = mRequest.updatePlot(data.landId, data.plotId, arborPlot);
+                    call = mRequest.updateArborPlot(data.landId, data.plotId, arborPlot);
                     break;
                 default:
                     break;

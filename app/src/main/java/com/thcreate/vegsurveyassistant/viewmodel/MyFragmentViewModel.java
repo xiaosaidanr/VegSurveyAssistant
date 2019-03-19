@@ -15,7 +15,9 @@ import com.thcreate.vegsurveyassistant.db.entity.UserEntity;
 import com.thcreate.vegsurveyassistant.repository.UserRepository;
 import com.thcreate.vegsurveyassistant.service.SessionManager;
 import com.thcreate.vegsurveyassistant.upload.LandUploadService;
+import com.thcreate.vegsurveyassistant.upload.PlotUploadService;
 import com.thcreate.vegsurveyassistant.upload.PointUploadService;
+import com.thcreate.vegsurveyassistant.upload.SpeciesUploadService;
 
 public class MyFragmentViewModel extends AndroidViewModel {
 
@@ -54,6 +56,10 @@ public class MyFragmentViewModel extends AndroidViewModel {
             pointUploadService.start();
             LandUploadService landUploadService = new LandUploadService();
             landUploadService.start();
+//            PlotUploadService plotUploadService = new PlotUploadService();
+//            plotUploadService.start();
+//            SpeciesUploadService speciesUploadService = new SpeciesUploadService();
+//            speciesUploadService.start();
             return null;
         }
     }
