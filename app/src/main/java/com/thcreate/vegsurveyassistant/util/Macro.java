@@ -27,6 +27,7 @@ public class Macro {
     public static final String TYPE = "type";
     public static final String LAND = "land";
     public static final String POINT = "point";
+    public static final String PLOT = "plot";
 
     public static final String LATITUDE = "latitude";
     public static final String LONGITUDE = "longitude";

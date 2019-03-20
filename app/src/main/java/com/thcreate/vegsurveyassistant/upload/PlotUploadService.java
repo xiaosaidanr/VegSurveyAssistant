@@ -193,45 +193,44 @@ public class PlotUploadService implements IUploadService {
         }
     }
     private void updateDataRemote(SampleplotEntity data){
-        List<String> ownerList = getParentPlotIdList(data.plotId);
-        if (ownerList != null && ownerList.size() > 0){
-            Call<ResponseBody> call = null;
-            switch (data.type){
-                case Macro.HERB:
-                    HerbSampleplot herbPlot = HerbSampleplot.getInstance(data);
-                    herbPlot.ownerList = new ArrayMap<>();
-                    herbPlot.ownerList.put("plot", ownerList);
-                    call = mRequest.updateHerbPlot(data.landId, data.plotId, herbPlot);
-                    break;
-                case Macro.SHRUB:
-                    ShrubSampleplot shrubPlot = ShrubSampleplot.getInstance(data);
-                    shrubPlot.ownerList = new ArrayMap<>();
-                    shrubPlot.ownerList.put("plot", ownerList);
-                    call = mRequest.updateShrubPlot(data.landId, data.plotId, shrubPlot);
-                    break;
-                case Macro.ARBOR:
-                    ArborSampleplot arborPlot = ArborSampleplot.getInstance(data);
-                    arborPlot.ownerList = new ArrayMap<>();
-                    arborPlot.ownerList.put("plot", ownerList);
-                    call = mRequest.updateArborPlot(data.landId, data.plotId, arborPlot);
-                    break;
-                default:
-                    break;
-            }
-            if (call != null){
-                try {
-                    Response<ResponseBody> response = call.execute();
-                    if (response.isSuccessful()){
-                        onUpdateDataRemoteSuccess(data);
-                    }
-                    else {
-                        onUpdateDataRemoteFail(data);
-                    }
+        Map<String, List<String>> ownerList = new ArrayMap<>();
+        List<String> parentPlotIdList = getParentPlotIdList(data.plotId);
+        if (parentPlotIdList != null && parentPlotIdList.size() > 0){
+            ownerList.put(Macro.PLOT, parentPlotIdList);
+        }
+        Call<ResponseBody> call = null;
+        switch (data.type){
+            case Macro.HERB:
+                HerbSampleplot herbPlot = HerbSampleplot.getInstance(data);
+                herbPlot.ownerList = ownerList;
+                call = mRequest.updateHerbPlot(data.landId, data.plotId, herbPlot);
+                break;
+            case Macro.SHRUB:
+                ShrubSampleplot shrubPlot = ShrubSampleplot.getInstance(data);
+                shrubPlot.ownerList = ownerList;
+                call = mRequest.updateShrubPlot(data.landId, data.plotId, shrubPlot);
+                break;
+            case Macro.ARBOR:
+                ArborSampleplot arborPlot = ArborSampleplot.getInstance(data);
+                arborPlot.ownerList = ownerList;
+                call = mRequest.updateArborPlot(data.landId, data.plotId, arborPlot);
+                break;
+            default:
+                break;
+        }
+        if (call != null){
+            try {
+                Response<ResponseBody> response = call.execute();
+                if (response.isSuccessful()){
+                    onUpdateDataRemoteSuccess(data);
                 }
-                catch (Exception e){
+                else {
                     onUpdateDataRemoteFail(data);
-                    e.printStackTrace();
                 }
+            }
+            catch (Exception e){
+                onUpdateDataRemoteFail(data);
+                e.printStackTrace();
             }
         }
     }

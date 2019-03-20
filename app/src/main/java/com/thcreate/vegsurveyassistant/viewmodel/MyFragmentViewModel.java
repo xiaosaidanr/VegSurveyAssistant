@@ -56,10 +56,14 @@ public class MyFragmentViewModel extends AndroidViewModel {
             pointUploadService.start();
             LandUploadService landUploadService = new LandUploadService();
             landUploadService.start();
-//            PlotUploadService plotUploadService = new PlotUploadService();
-//            plotUploadService.start();
-//            SpeciesUploadService speciesUploadService = new SpeciesUploadService();
-//            speciesUploadService.start();
+            if (landUploadService.isSuccess()) {
+                PlotUploadService plotUploadService = new PlotUploadService();
+                plotUploadService.start();
+                if (plotUploadService.isSuccess()) {
+                    SpeciesUploadService speciesUploadService = new SpeciesUploadService();
+                    speciesUploadService.start();
+                }
+            }
             return null;
         }
     }

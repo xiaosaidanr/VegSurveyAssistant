@@ -29,24 +29,23 @@ public class DataUploadWorker extends Worker {
         Log.e(TAG, "Do work!");
 
 //        //data upload process
-//        if (SessionManager.isLoggedIn()){
+//        if (SessionManager.isLoggedIn()&&!isStopped()){
 //
 //            PointUploadService pointUploadService = new PointUploadService();
 //            pointUploadService.start();
 //
 //            LandUploadService landUploadService = new LandUploadService();
 //            landUploadService.start();
-//            if (landUploadService.isSuccess()){
+//            if (landUploadService.isSuccess()&&!isStopped()){
 //                PlotUploadService plotUploadService = new PlotUploadService();
 //                plotUploadService.start();
-//                if (plotUploadService.isSuccess()){
+//                if (plotUploadService.isSuccess()&&!isStopped()){
 //                    PlotPictureUploadService plotPictureUploadService = new PlotPictureUploadService();
 //                    plotPictureUploadService.start();
 //                    SpeciesUploadService speciesUploadService = new SpeciesUploadService();
 //                    speciesUploadService.start();
 //                }
 //            }
-//
 //        }
 
         return Result.success();
