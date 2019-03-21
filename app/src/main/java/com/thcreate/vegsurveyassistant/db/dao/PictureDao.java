@@ -28,12 +28,9 @@ public interface PictureDao {
     LiveData<List<PlotPictureEntity>> getPlotPictureEntityListByOwnerId(String ownerId);
     @Query("SELECT * FROM plot_picture WHERE delete_at IS NOT NULL AND owner_id LIKE :ownerIdLimit")
     List<PlotPictureEntity> getPlotPictureEntityListNeedDelete(String ownerIdLimit);
-    @Query("UPDATE plot_picture SET upload_at = :uploadAt WHERE picture_id = :pictureId")
-    void updatePlotPictureEntityUploadAtByPictureId(String pictureId, long uploadAt);
     @Query("SELECT * FROM plot_picture WHERE delete_at IS NULL AND upload_at IS NULL AND owner_id LIKE :ownerIdLimit")
     List<PlotPictureEntity> getPlotPictureEntityListNeedAddRemote(String ownerIdLimit);
     @Query("SELECT * FROM plot_picture WHERE delete_at IS NULL")
     List<PlotPictureEntity> getAllAlivePlotPictureEntity();
-    @Query("UPDATE plot_picture SET url = :url WHERE picture_id = :pictureId")
-        void updatePlotPictureEntityUrlByPictureId(String pictureId, String url);
+
 }

@@ -32,10 +32,10 @@ public class HTTP {
     }
 
     //OSS related
-    public static final String END_POINT = "";
+    public static final String END_POINT = "oss-cn-beijing.aliyuncs.com";
     public static final String ACCESS_KEY_ID = "";
     public static final String ACCESS_KEY_SECRET = "";
-    public static final String BUCKET_NAME = "";
-    public static final String STS_SERVER = "";
+    public static final String BUCKET_NAME = "argserver-app-imgs";
+    public static final String STS_SERVER = "http://39.96.195.235:9001/sts.php";
 
 }

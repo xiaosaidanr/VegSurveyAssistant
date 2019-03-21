@@ -26,7 +26,7 @@ public class DataUploadWorker extends Worker {
     @Override
     public Result doWork() {
         //TODO PeriodicWork
-        Log.e(TAG, "Do work!");
+        Log.e(TAG, "DoDataUploadWork");
 
         //data upload process
         if (SessionManager.isLoggedIn()&&!isStopped()){

@@ -22,7 +22,7 @@ public class ImageOssWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        Log.e(TAG, "doWork");
+        Log.e(TAG, "DoImageOssWork");
         mService.start();
         return Result.success();
     }

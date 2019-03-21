@@ -104,7 +104,8 @@ public class PlotPictureUploadService implements IUploadService {
             Call<ResponseBody> call = mRequest.addPicture(new Picture(data));
             Response<ResponseBody> response = call.execute();
             if (response.isSuccessful()){
-                onAddDataRemoteSuccess(data, new Date().getTime());
+                data.uploadAt = new Date();
+                onAddDataRemoteSuccess(data);
             }
             else {
                 onAddDataRemoteFail(data);
@@ -119,8 +120,8 @@ public class PlotPictureUploadService implements IUploadService {
 //        //TODO push to oss
 //        return null;
 //    }
-    private void onAddDataRemoteSuccess(PlotPictureEntity data, long uploadAt){
-        BasicApp.getAppliction().getPictureRepository().updatePlotPictureEntityUploadAtByPictureId(data.pictureId, uploadAt);
+    private void onAddDataRemoteSuccess(PlotPictureEntity data){
+        BasicApp.getAppliction().getPictureRepository().updatePlotPictureEntity(data);
     }
     private void onAddDataRemoteFail(PlotPictureEntity data){
 

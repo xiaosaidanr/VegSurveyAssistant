@@ -113,15 +113,15 @@ public class BasicApp extends Application {
 //                imageCleanWorkRequest
 //        );
 
-//        PeriodicWorkRequest imageOssWorkRequest = new PeriodicWorkRequest.Builder(ImageOssWorker.class, 5, TimeUnit.MINUTES)
-//                .setConstraints(constraints)
-//                .addTag(Macro.UPLOAD)
-//                .build();
-//        WorkManager.getInstance().enqueueUniquePeriodicWork(
-//                Macro.IMAGE_UPLOAD_UNIQUE_NAME,
-//                ExistingPeriodicWorkPolicy.KEEP,
-//                imageOssWorkRequest
-//        );
+        PeriodicWorkRequest imageOssWorkRequest = new PeriodicWorkRequest.Builder(ImageOssWorker.class, 5, TimeUnit.MINUTES)
+                .setConstraints(constraints)
+                .addTag(Macro.UPLOAD)
+                .build();
+        WorkManager.getInstance().enqueueUniquePeriodicWork(
+                Macro.IMAGE_UPLOAD_UNIQUE_NAME,
+                ExistingPeriodicWorkPolicy.KEEP,
+                imageOssWorkRequest
+        );
 
     }
 

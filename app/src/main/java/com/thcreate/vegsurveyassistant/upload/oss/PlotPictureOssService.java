@@ -9,12 +9,14 @@ import com.alibaba.sdk.android.oss.ServiceException;
 import com.alibaba.sdk.android.oss.common.auth.OSSAuthCredentialsProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
+import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.thcreate.vegsurveyassistant.BasicApp;
 import com.thcreate.vegsurveyassistant.db.entity.PlotPictureEntity;
 import com.thcreate.vegsurveyassistant.upload.IUploadService;
 import com.thcreate.vegsurveyassistant.util.HTTP;
 
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 
 import top.zibin.luban.Luban;
@@ -47,10 +49,19 @@ public class PlotPictureOssService implements IUploadService {
                     try {
                         if (!oss.doesObjectExist(HTTP.BUCKET_NAME, fileName)){
                             PutObjectRequest put = new PutObjectRequest(HTTP.BUCKET_NAME, fileName, filePath);
-                            oss.putObject(put);
+                            PutObjectResult result = oss.putObject(put);
+                            if (result.getStatusCode() == 200){
+                                entity.url = fileName;
+                                onUploadSuccess(entity);
+                            }
+                            else {
+                                onUploadFail(entity);
+                            }
                         }
-                        entity.url = fileName;
-                        onUploadSuccess(entity);
+                        else {
+                            entity.url = fileName;
+                            onUploadSuccess(entity);
+                        }
                     }
                     catch (ClientException e) {
                         // 本地异常，如网络异常等。
@@ -88,7 +99,7 @@ public class PlotPictureOssService implements IUploadService {
     }
 
     private void onUploadSuccess(PlotPictureEntity data){
-        BasicApp.getAppliction().getPictureRepository().updatePlotPictureEntityUrlByPictureId(data.pictureId, data.url);
+        BasicApp.getAppliction().getPictureRepository().updatePlotPictureEntity(data);
     }
     private void onUploadFail(PlotPictureEntity data){
 

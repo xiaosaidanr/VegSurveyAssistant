@@ -18,6 +18,7 @@ import com.thcreate.vegsurveyassistant.upload.LandUploadService;
 import com.thcreate.vegsurveyassistant.upload.PlotUploadService;
 import com.thcreate.vegsurveyassistant.upload.PointUploadService;
 import com.thcreate.vegsurveyassistant.upload.SpeciesUploadService;
+import com.thcreate.vegsurveyassistant.upload.oss.PlotPictureOssService;
 
 public class MyFragmentViewModel extends AndroidViewModel {
 
@@ -52,18 +53,20 @@ public class MyFragmentViewModel extends AndroidViewModel {
     private class UploadTestTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
-            PointUploadService pointUploadService = new PointUploadService();
-            pointUploadService.start();
-            LandUploadService landUploadService = new LandUploadService();
-            landUploadService.start();
-            if (landUploadService.isSuccess()) {
-                PlotUploadService plotUploadService = new PlotUploadService();
-                plotUploadService.start();
-                if (plotUploadService.isSuccess()) {
-                    SpeciesUploadService speciesUploadService = new SpeciesUploadService();
-                    speciesUploadService.start();
-                }
-            }
+//            PointUploadService pointUploadService = new PointUploadService();
+//            pointUploadService.start();
+//            LandUploadService landUploadService = new LandUploadService();
+//            landUploadService.start();
+//            if (landUploadService.isSuccess()) {
+//                PlotUploadService plotUploadService = new PlotUploadService();
+//                plotUploadService.start();
+//                if (plotUploadService.isSuccess()) {
+//                    SpeciesUploadService speciesUploadService = new SpeciesUploadService();
+//                    speciesUploadService.start();
+//                }
+//            }
+            PlotPictureOssService plotPictureOssService = new PlotPictureOssService();
+            plotPictureOssService.start();
             return null;
         }
     }

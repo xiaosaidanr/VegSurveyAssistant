@@ -71,15 +71,15 @@ public class PictureRepository {
         String ownerIdLimit = String.valueOf(SessionManager.getLoggedInUserId()) + "-%";
         return mDatabase.pictureDao().getPlotPictureEntityListNeedDelete(ownerIdLimit);
     }
-    public void updatePlotPictureEntityUploadAtByPictureId(String pictureId, long uploadAt){
-        mDatabase.pictureDao().updatePlotPictureEntityUploadAtByPictureId(pictureId, uploadAt);
-    }
+//    public void updatePlotPictureEntityUploadAtByPictureId(String pictureId, long uploadAt){
+//        mDatabase.pictureDao().updatePlotPictureEntityUploadAtByPictureId(pictureId, uploadAt);
+//    }
     public List<PlotPictureEntity> getPlotPictureEntityListNeedAddRemote(){
         String ownerIdLimit = String.valueOf(SessionManager.getLoggedInUserId()) + "-%";
         return mDatabase.pictureDao().getPlotPictureEntityListNeedAddRemote(ownerIdLimit);
     }
-    public void updatePlotPictureEntityUrlByPictureId(String pictureId, String url){
-        mDatabase.pictureDao().updatePlotPictureEntityUrlByPictureId(pictureId, url);
+    public void updatePlotPictureEntity(PlotPictureEntity data){
+        mDatabase.pictureDao().updatePlotPicture(data);
     }
     public List<PlotPictureEntity> getAllAlivePlotPictureEntity(){
         return mDatabase.pictureDao().getAllAlivePlotPictureEntity();
