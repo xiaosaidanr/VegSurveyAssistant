@@ -105,7 +105,7 @@ public class SpeciesUploadService implements IUploadService {
 //            Call<ResponseBody> call = mRequest.addSpecies(getLandIdByPlotId(data.plotId), data.plotId, data);
             Response<ResponseBody> response = call.execute();
             if (response.isSuccessful()){
-                onAddDataRemoteSuccess(data.speciesId, new Date().getTime());
+                onAddDataRemoteSuccess(data);
             }
             else {
                 onAddDataRemoteFail(data.speciesId);
@@ -117,6 +117,7 @@ public class SpeciesUploadService implements IUploadService {
         }
     }
     public static <T extends BaseSpecies> T generateDataForAddRemote(SpeciesEntity entity){
+        entity.uploadAt = new Date();
         switch (entity.type){
             case Macro.HERB:
                 return (T)HerbSpecies.getInstance(entity);
@@ -128,8 +129,8 @@ public class SpeciesUploadService implements IUploadService {
                 return null;
         }
     }
-    public static void onAddDataRemoteSuccess(String speciesId, long uploadAt){
-        BasicApp.getAppliction().getSpeicesRepository().updateSpeciesEntityUploadAtBySpeciesId(speciesId, uploadAt);
+    public static <T extends BaseSpecies> void onAddDataRemoteSuccess(T data){
+        BasicApp.getAppliction().getSpeicesRepository().updateSpeciesEntityUploadAtBySpeciesId(data.speciesId, data.uploadAt.getTime());
     }
     public static void onAddDataRemoteFail(String speciesId){
 
@@ -149,6 +150,7 @@ public class SpeciesUploadService implements IUploadService {
     }
     private void updateDataRemote(SpeciesEntity data){
         try {
+            data.uploadAt = new Date();
             Call<ResponseBody> call = null;
             switch (data.type){
                 case Macro.HERB:
@@ -179,8 +181,7 @@ public class SpeciesUploadService implements IUploadService {
         }
     }
     private void onUpdateDataRemoteSuccess(SpeciesEntity data){
-        long uploadAt = new Date().getTime();
-        BasicApp.getAppliction().getSpeicesRepository().updateSpeciesEntityUploadAtBySpeciesId(data.speciesId, uploadAt);
+        BasicApp.getAppliction().getSpeicesRepository().updateSpeciesEntityUploadAtBySpeciesId(data.speciesId, data.uploadAt.getTime());
     }
     private void onUpdateDataRemoteFail(SpeciesEntity data){
 

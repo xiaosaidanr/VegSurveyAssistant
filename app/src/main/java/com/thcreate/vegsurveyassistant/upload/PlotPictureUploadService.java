@@ -101,10 +101,10 @@ public class PlotPictureUploadService implements IUploadService {
                 return;
 //                data.url = pushPictureFileToOSS(data);
             }
+            data.uploadAt = new Date();
             Call<ResponseBody> call = mRequest.addPicture(new Picture(data));
             Response<ResponseBody> response = call.execute();
             if (response.isSuccessful()){
-                data.uploadAt = new Date();
                 onAddDataRemoteSuccess(data);
             }
             else {

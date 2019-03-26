@@ -94,6 +94,7 @@ public class LandUploadService implements IUploadService {
         }
     }
     private void addDataRemote(SamplelandEntity data){
+        data.uploadAt = new Date();
         List<SampleplotEntity> sampleplotEntityList = getNotDeletedSampleplotEntityListByLandId(data.landId);
         List<BaseSampleplot> plotList = new ArrayList<>();
         for (SampleplotEntity item :
@@ -106,7 +107,7 @@ public class LandUploadService implements IUploadService {
             Call<ResponseBody> call = mRequest.addLand(landData);
             Response<ResponseBody> response = call.execute();
             if (response.isSuccessful()){
-                onAddDataRemoteSuccess(landData, new Date().getTime());
+                onAddDataRemoteSuccess(landData);
             }
             else {
                 onAddDataRemoteFail(landData);
@@ -117,11 +118,11 @@ public class LandUploadService implements IUploadService {
             e.printStackTrace();
         }
     }
-    private void onAddDataRemoteSuccess(Sampleland land, long uploadAt){
-        BasicApp.getAppliction().getSamplelandRepository().updateSamplelandEntityUploadAtByLandId(land.landId, uploadAt);
+    private void onAddDataRemoteSuccess(Sampleland land){
+        BasicApp.getAppliction().getSamplelandRepository().updateSamplelandEntityUploadAtByLandId(land.landId, land.uploadAt.getTime());
         for (BaseSampleplot item :
                 land.plotList) {
-            PlotUploadService.onAddDataRemoteSuccess(item, uploadAt);
+            PlotUploadService.onAddDataRemoteSuccess(item);
         }
     }
     private void onAddDataRemoteFail(Sampleland land){
@@ -142,10 +143,11 @@ public class LandUploadService implements IUploadService {
     }
     private void updateDataRemote(SamplelandEntity data){
         try {
+            data.uploadAt = new Date();
             Call<ResponseBody> call = mRequest.updateLand(data.landId, Sampleland.getInstance(data));
             Response<ResponseBody> response = call.execute();
             if (response.isSuccessful()){
-                onUpdateDataRemoteSuccess(data, new Date().getTime());
+                onUpdateDataRemoteSuccess(data);
             }
             else{
                 onUpdateDataRemoteFail(data);
@@ -156,8 +158,8 @@ public class LandUploadService implements IUploadService {
             e.printStackTrace();
         }
     }
-    private void onUpdateDataRemoteSuccess(SamplelandEntity data, long uploadAt){
-        BasicApp.getAppliction().getSamplelandRepository().updateSamplelandEntityUploadAtByLandId(data.landId, uploadAt);
+    private void onUpdateDataRemoteSuccess(SamplelandEntity data){
+        BasicApp.getAppliction().getSamplelandRepository().updateSamplelandEntityUploadAtByLandId(data.landId, data.uploadAt.getTime());
     }
     private void onUpdateDataRemoteFail(SamplelandEntity data){
         mIsSuccess = false;

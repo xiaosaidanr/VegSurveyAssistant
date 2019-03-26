@@ -121,7 +121,7 @@ public class PlotUploadService implements IUploadService {
 //            Call<ResponseBody> call = mRequest.addPlot(data.landId, data);
             Response<ResponseBody> response = call.execute();
             if (response.isSuccessful()){
-                onAddDataRemoteSuccess(data, new Date().getTime());
+                onAddDataRemoteSuccess(data);
             }
             else {
                 mIsSuccess = false;
@@ -135,6 +135,7 @@ public class PlotUploadService implements IUploadService {
         }
     }
     public static <T extends BaseSampleplot> T generateDataForAddRemote(SampleplotEntity entity){
+        entity.uploadAt = new Date();
         List<SpeciesEntity> speciesEntityList = getNotDeletedSpeciesEntityListByPlotId(entity.plotId);
         List<String> parentPlotIdList = getParentPlotIdList(entity.plotId);
         List<BaseSpecies> speciesList = new ArrayList<>();
@@ -168,11 +169,11 @@ public class PlotUploadService implements IUploadService {
                 return null;
         }
     }
-    public static <T extends BaseSampleplot> void onAddDataRemoteSuccess(T plot, long uploadAt){
-        BasicApp.getAppliction().getSampleplotRepository().updateSampleplotEntityUploadAtByPlotId(plot.plotId, uploadAt);
+    public static <T extends BaseSampleplot> void onAddDataRemoteSuccess(T plot){
+        BasicApp.getAppliction().getSampleplotRepository().updateSampleplotEntityUploadAtByPlotId(plot.plotId, plot.uploadAt.getTime());
         for (BaseSpecies item :
                 plot.speciesList) {
-            SpeciesUploadService.onAddDataRemoteSuccess(item.speciesId, uploadAt);
+            SpeciesUploadService.onAddDataRemoteSuccess(item);
         }
     }
     private static <T extends BaseSampleplot> void onAddDataRemoteFail(T plot){
@@ -193,6 +194,7 @@ public class PlotUploadService implements IUploadService {
         }
     }
     private void updateDataRemote(SampleplotEntity data){
+        data.uploadAt = new Date();
         Map<String, List<String>> ownerList = new ArrayMap<>();
         List<String> parentPlotIdList = getParentPlotIdList(data.plotId);
         if (parentPlotIdList != null && parentPlotIdList.size() > 0){
@@ -235,7 +237,6 @@ public class PlotUploadService implements IUploadService {
         }
     }
     private void onUpdateDataRemoteSuccess(SampleplotEntity data){
-        data.uploadAt = new Date();
         BasicApp.getAppliction().getSampleplotRepository().updateSampleplotEntityManual(data);
     }
     private void onUpdateDataRemoteFail(SampleplotEntity data){

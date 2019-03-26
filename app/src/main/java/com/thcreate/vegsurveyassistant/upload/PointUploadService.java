@@ -101,6 +101,7 @@ public class PointUploadService implements IUploadService {
     }
     private void addDataRemote(Samplepoint data){
         try {
+            data.uploadAt = new Date();
             Call<ResponseBody> call = mRequest.addPoint(data);
             Response<ResponseBody> response = call.execute();
             if (response.isSuccessful()){
@@ -116,7 +117,6 @@ public class PointUploadService implements IUploadService {
     }
     private void onAddDataRemoteSuccess(Samplepoint data){
         SamplepointEntity entity = data.getEntity();
-        entity.uploadAt = new Date();
         BasicApp.getAppliction().getSamplepointRepository().updateSamplepointManual(entity);
     }
     private void onAddDataRemoteFail(Samplepoint data){
@@ -136,6 +136,7 @@ public class PointUploadService implements IUploadService {
     }
     private void updateDataRemote(Samplepoint data){
         try {
+            data.uploadAt = new Date();
             Call<ResponseBody> call = mRequest.updatePoint(data.pointId, data);
             Response<ResponseBody> response = call.execute();
             if (response.isSuccessful()){
@@ -157,7 +158,6 @@ public class PointUploadService implements IUploadService {
     }
     private void onUpdateDataRemoteSuccess(Samplepoint data){
         SamplepointEntity entity = data.getEntity();
-        entity.uploadAt = new Date();
         BasicApp.getAppliction().getSamplepointRepository().updateSamplepointManual(entity);
     }
     private void onUpdateDataRemoteFail(Samplepoint data){
