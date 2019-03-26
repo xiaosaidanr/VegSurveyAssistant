@@ -26,7 +26,7 @@ public class PlotPictureUploadService implements IUploadService {
     @Override
     public void start() {
         if (mRequest == null){
-            mRequest = HttpServiceGenerator.getInstance().createService(PictureApi.class);
+            mRequest = HttpServiceGenerator.getInstance().createServiceAuth(PictureApi.class);
         }
         executeSync();
     }
