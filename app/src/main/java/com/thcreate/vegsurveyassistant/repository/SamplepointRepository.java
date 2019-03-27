@@ -72,6 +72,9 @@ public class SamplepointRepository {
             mDatabase.samplepointDao().insert(data);
         });
     }
+    public void insertSamplepointManualSync(SamplepointEntity data){
+        mDatabase.samplepointDao().insert(data);
+    }
     public void updateSamplepoint(SamplepointEntity data){
         Date dateNow = new Date();
         data.updateAt = dateNow;
@@ -84,6 +87,9 @@ public class SamplepointRepository {
         mAppExecutors.diskIO().execute(()->{
             mDatabase.samplepointDao().update(data);
         });
+    }
+    public void updateSamplepointManualSync(SamplepointEntity data){
+        mDatabase.samplepointDao().update(data);
     }
     public void softDeleteSamplepointById(int id){
         long deleteAt = new Date().getTime();
@@ -108,6 +114,10 @@ public class SamplepointRepository {
     }
     public List<SamplepointEntity> getSamplepointEntityListNeedUpdateRemote(){
         return mDatabase.samplepointDao().getSamplepointEntityListNeedUpdateRemote(SessionManager.getLoggedInUserId());
+    }
+
+    public SamplepointEntity getSamplepointEntityByPointIdSync(String pointId){
+        return mDatabase.samplepointDao().getSamplepointEntityByPointIdSync(pointId);
     }
 
 }

@@ -21,6 +21,9 @@ public interface SamplepointDao extends BaseDao<SamplepointEntity> {
     @Query("SELECT * FROM point WHERE point_id = :pointId")
     LiveData<SamplepointEntity> getSamplepointEntityByPointId(String pointId);
 
+    @Query("SELECT * FROM point WHERE point_id = :pointId")
+    SamplepointEntity getSamplepointEntityByPointIdSync(String pointId);
+
 //    @Query("SELECT * FROM point WHERE user_id = :userId AND delete_at IS NULL ORDER BY id ASC")
 //    LiveData<List<SamplepointEntity>> getSamplepointEntityListByUserId(int userId);
 

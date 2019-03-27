@@ -25,12 +25,19 @@ public class DateTypeAdapter extends TypeAdapter<Date> {
 
     @Override
     public Date read(JsonReader in) throws IOException {
+        String value = in.nextString();
         try {
-            return new Date(Long.valueOf(in.nextString()));
+            long ts = Long.valueOf(value);
+            return new Date(ts);
         }
-        catch (Exception e){
-            e.printStackTrace();
-            return null;
+        catch (Exception parseLongException){
+            try {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
+                return simpleDateFormat.parse(value);
+            }
+            catch (Exception parseDateStringException){
+                return null;
+            }
         }
     }
 }
