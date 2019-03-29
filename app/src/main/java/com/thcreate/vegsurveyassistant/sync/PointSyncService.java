@@ -73,6 +73,7 @@ public class PointSyncService implements ISyncService {
             }
             else {
                 if (localEntity.updateAt.before(remoteEntity.updateAt)){
+                    remoteEntity.id = localEntity.id;
                     BasicApp.getAppliction().getSamplepointRepository().updateSamplepointManualSync(remoteEntity);
                 }
             }

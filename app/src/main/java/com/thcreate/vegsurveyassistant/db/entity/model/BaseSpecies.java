@@ -10,8 +10,9 @@ import com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity;
 import com.thcreate.vegsurveyassistant.db.gsonTypeAdapter.DateTypeAdapter;
 
 import java.util.Date;
+import java.util.Map;
 
-abstract public class BaseSpecies {
+public class BaseSpecies {
 
     public int id;
     public String plotId;//所属样方ID
@@ -37,6 +38,10 @@ abstract public class BaseSpecies {
     @JsonAdapter(DateTypeAdapter.class)
     public Date uploadAt;//上传时间
     public Date deleteAt;//删除时间
+
+    @Expose
+    @SerializedName("data")
+    public Map<String, String> testData;
 
     public BaseSpecies() {
     }
@@ -148,6 +153,8 @@ abstract public class BaseSpecies {
         this.deleteAt = entity.deleteAt;
     }
 
-    abstract public SpeciesEntity getEntity();
+    public SpeciesEntity getEntity(){
+        return null;
+    }
 
 }

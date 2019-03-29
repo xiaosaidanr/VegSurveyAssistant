@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-abstract public class BaseSampleplot {
+public class BaseSampleplot {
 
     public int id;
     public String landId;//所属样地ID
@@ -53,6 +53,10 @@ abstract public class BaseSampleplot {
     @Expose
     @SerializedName("species_list")
     public List<BaseSpecies> speciesList;
+
+    @Expose
+    @SerializedName("data")
+    public Map<String, String> genericData;
 
     @Expose
     @SerializedName("owner_list")
@@ -156,6 +160,8 @@ abstract public class BaseSampleplot {
         this.deleteAt = entity.deleteAt;
     }
 
-    abstract public SampleplotEntity getEntity();
+    public SampleplotEntity getEntity(){
+        return null;
+    }
 
 }

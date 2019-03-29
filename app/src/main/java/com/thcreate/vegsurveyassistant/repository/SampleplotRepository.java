@@ -48,6 +48,10 @@ public class SampleplotRepository {
         return mDatabase.sampleplotDao().getSampleplotEntityByPlotId(plotId);
     }
 
+    public SampleplotEntity getSampleplotEntityByPlotIdSync(String plotId){
+        return mDatabase.sampleplotDao().getSampleplotEntityByPlotIdSync(plotId);
+    }
+
     public List<PlotMainInfo> getAllArborSampleplotEntityByLandIdSync(String landId){
         return mDatabase.sampleplotDao().getPlotMainInfoListByLandIdAndTypeSync(landId, Macro.ARBOR);
     }
@@ -76,6 +80,14 @@ public class SampleplotRepository {
         mAppExecutors.diskIO().execute(()->{
             mDatabase.sampleplotDao().insert(data);
         });
+    }
+
+    public void insertSampleplotEntityManualSync(SampleplotEntity data){
+        mDatabase.sampleplotDao().insert(data);
+    }
+
+    public void updateSampleplotEntityManualSync(SampleplotEntity data){
+        mDatabase.sampleplotDao().update(data);
     }
 
     public void updateSampleplotEntity(SampleplotEntity data){

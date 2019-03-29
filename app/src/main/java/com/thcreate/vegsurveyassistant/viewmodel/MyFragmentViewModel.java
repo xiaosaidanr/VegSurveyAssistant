@@ -14,7 +14,10 @@ import com.thcreate.vegsurveyassistant.clean.image.ImageCleanService;
 import com.thcreate.vegsurveyassistant.db.entity.UserEntity;
 import com.thcreate.vegsurveyassistant.repository.UserRepository;
 import com.thcreate.vegsurveyassistant.service.SessionManager;
+import com.thcreate.vegsurveyassistant.sync.LandSyncService;
+import com.thcreate.vegsurveyassistant.sync.PointSyncService;
 import com.thcreate.vegsurveyassistant.upload.LandUploadService;
+import com.thcreate.vegsurveyassistant.upload.PlotPictureUploadService;
 import com.thcreate.vegsurveyassistant.upload.PlotUploadService;
 import com.thcreate.vegsurveyassistant.upload.PointUploadService;
 import com.thcreate.vegsurveyassistant.upload.SpeciesUploadService;
@@ -53,11 +56,15 @@ public class MyFragmentViewModel extends AndroidViewModel {
     private class UploadTestTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
+//            PlotPictureOssService plotPictureOssService = new PlotPictureOssService();
+//            plotPictureOssService.start();
 //            PointUploadService pointUploadService = new PointUploadService();
 //            pointUploadService.start();
 //            LandUploadService landUploadService = new LandUploadService();
 //            landUploadService.start();
 //            if (landUploadService.isSuccess()) {
+//                PlotPictureUploadService plotPictureUploadService = new PlotPictureUploadService();
+//                plotPictureUploadService.start();
 //                PlotUploadService plotUploadService = new PlotUploadService();
 //                plotUploadService.start();
 //                if (plotUploadService.isSuccess()) {
@@ -65,8 +72,10 @@ public class MyFragmentViewModel extends AndroidViewModel {
 //                    speciesUploadService.start();
 //                }
 //            }
-            PlotPictureOssService plotPictureOssService = new PlotPictureOssService();
-            plotPictureOssService.start();
+//            PointSyncService pointSyncService = new PointSyncService();
+//            pointSyncService.start();
+            LandSyncService landSyncService = new LandSyncService();
+            landSyncService.start();
             return null;
         }
     }

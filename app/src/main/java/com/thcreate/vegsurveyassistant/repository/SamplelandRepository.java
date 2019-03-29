@@ -7,6 +7,7 @@ import com.thcreate.vegsurveyassistant.AppExecutors;
 import com.thcreate.vegsurveyassistant.db.AppDatabase;
 import com.thcreate.vegsurveyassistant.db.entity.SamplelandEntity;
 import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.LandMainInfo;
+import com.thcreate.vegsurveyassistant.db.entity.model.Sampleland;
 import com.thcreate.vegsurveyassistant.service.SessionManager;
 
 import java.util.Date;
@@ -71,6 +72,11 @@ public class SamplelandRepository {
     public LiveData<SamplelandEntity> getSamplelandEntityByLandId(String landId){
         return mDatabase.samplelandDao().getSamplelandEntityByLandId(landId);
     }
+
+    public SamplelandEntity getSampleLandEntityByLandIdSync(String landId){
+        return mDatabase.samplelandDao().getSamplelandEntityByLandIdSync(landId);
+    }
+
     public LiveData<List<LandMainInfo>> loadAllSamplelandEntity(){
 //        return Transformations.switchMap(mCurrentUserId, id -> {
 //            if (id != null){
@@ -89,6 +95,12 @@ public class SamplelandRepository {
         mAppExecutors.diskIO().execute(()->{
             mDatabase.samplelandDao().insert(data);
         });
+    }
+    public void insertSamplelandEntityManualSync(SamplelandEntity data){
+        mDatabase.samplelandDao().insert(data);
+    }
+    public void updateSamplelandEntityManualSync(SamplelandEntity data){
+        mDatabase.samplelandDao().update(data);
     }
     public void updateSamplelandEntity(SamplelandEntity data){
         Date dateNow = new Date();
