@@ -38,6 +38,7 @@ public class LoginActivity extends BaseActivity {
             if (isGetUserSuccess != null){
                 if (isGetUserSuccess){
                     Intent intent = new Intent(this, MainActivity.class);
+                    intent.putExtra("activity", this.getClass().getSimpleName());
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                             | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);

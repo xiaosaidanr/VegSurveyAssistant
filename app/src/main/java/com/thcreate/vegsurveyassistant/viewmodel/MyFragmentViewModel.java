@@ -48,12 +48,28 @@ public class MyFragmentViewModel extends AndroidViewModel {
         Toast.makeText(view.getContext(), getApplication().getResources().getString(R.string.clean_success), Toast.LENGTH_SHORT).show();
     }
 
+    public void syncTest(View view){
+        SyncTestTask syncTestTask = new SyncTestTask();
+        syncTestTask.execute();
+    }
+
+    private static class SyncTestTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            PointSyncService pointSyncService = new PointSyncService();
+            pointSyncService.start();
+            LandSyncService landSyncService = new LandSyncService();
+            landSyncService.start();
+            return null;
+        }
+    }
+
     public void uploadTest(View view){
         UploadTestTask uploadTestTask = new UploadTestTask();
         uploadTestTask.execute();
     }
 
-    private class UploadTestTask extends AsyncTask<Void, Void, Void> {
+    private static class UploadTestTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
             PlotPictureOssService plotPictureOssService = new PlotPictureOssService();
@@ -73,11 +89,6 @@ public class MyFragmentViewModel extends AndroidViewModel {
                     speciesUploadService.start();
                 }
             }
-
-            PointSyncService pointSyncService = new PointSyncService();
-            pointSyncService.start();
-            LandSyncService landSyncService = new LandSyncService();
-            landSyncService.start();
             return null;
         }
     }

@@ -48,7 +48,9 @@ public class PointSyncService implements ISyncService {
                 if (samplepointList != null && samplepointList.size() > 0){
                     for (Samplepoint data :
                             samplepointList) {
-                        syncPoint(data);
+                        if (!savePoint(data)){
+                            mIsSuccess = false;
+                        }
                     }
                 }
             }
@@ -58,7 +60,7 @@ public class PointSyncService implements ISyncService {
         }
     }
 
-    private void syncPoint(Samplepoint data){
+    private boolean savePoint(Samplepoint data){
         try {
             data.userId = Integer.valueOf(data.pointId.split("-")[0]);
             if (data.investigatedAt != null){
@@ -77,9 +79,11 @@ public class PointSyncService implements ISyncService {
                     BasicApp.getAppliction().getSamplepointRepository().updateSamplepointManualSync(remoteEntity);
                 }
             }
+            return true;
         }
         catch (Exception e){
             e.printStackTrace();
+            return false;
         }
     }
 

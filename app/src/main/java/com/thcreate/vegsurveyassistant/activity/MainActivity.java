@@ -2,9 +2,11 @@ package com.thcreate.vegsurveyassistant.activity;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.ProgressDialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,25 +15,37 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.thcreate.vegsurveyassistant.BasicApp;
 import com.thcreate.vegsurveyassistant.R;
+import com.thcreate.vegsurveyassistant.activity.auth.LoginActivity;
+import com.thcreate.vegsurveyassistant.activity.auth.SignupActivity;
 import com.thcreate.vegsurveyassistant.databinding.ActivityMainBinding;
 import com.thcreate.vegsurveyassistant.fragment.SamplepointListFragment;
 import com.thcreate.vegsurveyassistant.service.ActivityCollector;
+import com.thcreate.vegsurveyassistant.sync.LandSyncService;
+import com.thcreate.vegsurveyassistant.sync.PointSyncService;
 import com.thcreate.vegsurveyassistant.viewmodel.MainActivityViewModel;
 import com.thcreate.vegsurveyassistant.fragment.MyFragment;
 import com.thcreate.vegsurveyassistant.fragment.NearbyFragment;
 import com.thcreate.vegsurveyassistant.fragment.SampleplotFragment;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 public class MainActivity extends BaseActivity {
 
     private final int SDK_PERMISSION_REQUEST = 127;
     private String mPermissionInfo;
+
+    private DataSyncAyncTask mDataSyncAyncTask;
 
     private NearbyFragment nearbyFragment;
     private SampleplotFragment sampleplotFragment;
@@ -45,6 +59,14 @@ public class MainActivity extends BaseActivity {
 
     private MainActivityViewModel mViewModel;
     private ActivityMainBinding mBinding;
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mDataSyncAyncTask != null){
+            mDataSyncAyncTask.cancel(true);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +114,15 @@ public class MainActivity extends BaseActivity {
 //        if (savedInstanceState == null){
 //            setDefaultFragment();
 //        }
+
+        String previousActivity = getIntent().getStringExtra("activity");
+        if (previousActivity != null){
+            if (previousActivity.equals(SignupActivity.class.getSimpleName()) || previousActivity.equals(LoginActivity.class.getSimpleName())){
+                mDataSyncAyncTask = new DataSyncAyncTask(this);
+                mDataSyncAyncTask.execute();
+            }
+        }
+
     }
 
 //    private void setDefaultFragment(){
@@ -253,5 +284,60 @@ public class MainActivity extends BaseActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    private static class DataSyncAyncTask extends AsyncTask<Void, Void, Boolean> {
+
+        private WeakReference<MainActivity> weakReferenceActivty;
+
+        public DataSyncAyncTask(MainActivity activity) {
+            weakReferenceActivty = new WeakReference<>(activity);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            if (weakReferenceActivty.get() != null){
+                weakReferenceActivty.get().findViewById(R.id.progress_bar_layout).setVisibility(View.VISIBLE);
+                weakReferenceActivty.get().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            }
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            try {
+                PointSyncService pointSyncService = new PointSyncService();
+                pointSyncService.start();
+                LandSyncService landSyncService = new LandSyncService();
+                landSyncService.start();
+                return pointSyncService.isSuccess() && landSyncService.isSuccess();
+            }
+            catch (Exception e){
+                e.printStackTrace();
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            super.onPostExecute(result);
+            if (weakReferenceActivty.get() != null){
+                weakReferenceActivty.get().findViewById(R.id.progress_bar_layout).setVisibility(View.GONE);
+                weakReferenceActivty.get().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                if (!result){
+                    Toast.makeText(weakReferenceActivty.get(), BasicApp.getAppliction().getResources().getString(R.string.data_load_fail), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+            if (weakReferenceActivty.get() != null){
+                weakReferenceActivty.get().findViewById(R.id.progress_bar_layout).setVisibility(View.GONE);
+                weakReferenceActivty.get().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            }
+        }
     }
 }
