@@ -140,8 +140,9 @@ public class ShrubPlotActivity extends BaseSampleplotActivity<ShrubPlotActivityV
     };
 
     private final ItemClickCallback<PlotPictureEntity> mPictureClickCallback = (data)->{
-        Intent intent = new Intent(ShrubPlotActivity.this, PicturePreviewActivity.class);
-        intent.putExtra(Macro.IMAGE_PATH, data.localAddr);
+        Intent intent = new Intent(ShrubPlotActivity.this, PlotPicturePreviewActivity.class);
+        intent.putExtra(Macro.IMAGE_LOCAL_PATH, data.localAddr);
+        intent.putExtra(Macro.IMAGE_REMOTE_PATH, data.url);
         startActivity(intent);
     };
 

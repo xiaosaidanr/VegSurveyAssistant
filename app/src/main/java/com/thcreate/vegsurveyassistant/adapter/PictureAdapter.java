@@ -44,20 +44,31 @@ public class PictureAdapter<T extends PictureEntity> extends RecyclerView.Adapte
 
                 @Override
                 public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-                    return mDataList.get(oldItemPosition).id ==
-                            dataList.get(newItemPosition).id;
+                    return mDataList.get(oldItemPosition).pictureId.equals(dataList.get(newItemPosition).pictureId);
                 }
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
                     T newData = dataList.get(newItemPosition);
                     T oldData = mDataList.get(oldItemPosition);
-                    return newData.pictureId.equals(oldData.pictureId);
+                    return arePictureContentsTheSame(oldData, newData);
                 }
             });
             mDataList = dataList;
             result.dispatchUpdatesTo(this);
         }
+    }
+
+    private boolean  arePictureContentsTheSame(T oldData, T newData){
+        String oldDataString = String.format("%s%s",
+                String.valueOf(oldData.url),
+                String.valueOf(oldData.localAddr)
+        );
+        String newDataString = String.format("%s%s",
+                String.valueOf(newData.url),
+                String.valueOf(newData.localAddr)
+        );
+        return oldDataString.equals(newDataString);
     }
 
     @NonNull

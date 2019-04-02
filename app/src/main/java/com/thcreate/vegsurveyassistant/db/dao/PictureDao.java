@@ -34,4 +34,6 @@ public interface PictureDao {
     List<PlotPictureEntity> getAllAlivePlotPictureEntity();
     @Query("SELECT * FROM plot_picture WHERE picture_id = :pictureId")
     PlotPictureEntity getPlotPictureEntityByPictureIdSync(String pictureId);
+    @Query("SELECT * FROM plot_picture WHERE url = :url")
+    PlotPictureEntity getPlotPictureEntityByUrlSync(String url);
 }

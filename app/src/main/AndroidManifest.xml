@@ -94,7 +94,7 @@
             android:name=".activity.SamplepointActivity"
             android:label="@string/samplepoint"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activity.PicturePreviewActivity" />
+        <activity android:name=".activity.PlotPicturePreviewActivity" />
         <activity android:name=".activity.auth.LoginActivity"></activity>
     </application>
 

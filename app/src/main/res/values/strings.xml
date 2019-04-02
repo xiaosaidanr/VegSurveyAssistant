@@ -69,6 +69,7 @@
     <string name="species_add">物种添加</string>
     <string name="average_basal_diameter_cm">平均基径(cm)</string>
     <string name="average_DBH_cm">平均胸径(cm)</string>
+    <string name="picture_load_fail">图片加载失败</string>
 
     <!-- 我的相关 -->
     <string name="clean">清理缓存</string>

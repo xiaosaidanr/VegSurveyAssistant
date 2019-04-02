@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -21,7 +20,6 @@ import com.thcreate.vegsurveyassistant.adapter.RecyclerViewSwipeDismissControlle
 import com.thcreate.vegsurveyassistant.adapter.SpeciesAdapter;
 import com.thcreate.vegsurveyassistant.databinding.ActivityArborplotBinding;
 import com.thcreate.vegsurveyassistant.db.entity.PlotPictureEntity;
-import com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity;
 import com.thcreate.vegsurveyassistant.db.entity.fieldAggregator.SpeciesMainInfo;
 import com.thcreate.vegsurveyassistant.util.Macro;
 import com.thcreate.vegsurveyassistant.viewmodel.ArborPlotActivityViewModel;
@@ -118,8 +116,9 @@ public class ArborPlotActivity extends BaseSampleplotActivity<ArborPlotActivityV
     };
 
     private final ItemClickCallback<PlotPictureEntity> mPictureClickCallback = (data)->{
-        Intent intent = new Intent(ArborPlotActivity.this, PicturePreviewActivity.class);
-        intent.putExtra(Macro.IMAGE_PATH, data.localAddr);
+        Intent intent = new Intent(ArborPlotActivity.this, PlotPicturePreviewActivity.class);
+        intent.putExtra(Macro.IMAGE_LOCAL_PATH, data.localAddr);
+        intent.putExtra(Macro.IMAGE_REMOTE_PATH, data.url);
         startActivity(intent);
     };
 

@@ -148,8 +148,9 @@ public class HerbPlotActivity extends BaseSampleplotActivity<HerbPlotActivityVie
     };
 
     private final ItemClickCallback<PlotPictureEntity> mPictureClickCallback = (data)->{
-        Intent intent = new Intent(HerbPlotActivity.this, PicturePreviewActivity.class);
-        intent.putExtra(Macro.IMAGE_PATH, data.localAddr);
+        Intent intent = new Intent(HerbPlotActivity.this, PlotPicturePreviewActivity.class);
+        intent.putExtra(Macro.IMAGE_LOCAL_PATH, data.localAddr);
+        intent.putExtra(Macro.IMAGE_REMOTE_PATH, data.url);
         startActivity(intent);
     };
 

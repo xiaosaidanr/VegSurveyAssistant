@@ -74,6 +74,11 @@ public class PictureRepository {
         String ownerIdLimit = String.valueOf(SessionManager.getLoggedInUserId()) + "-%";
         return mDatabase.pictureDao().getPlotPictureEntityListNeedDelete(ownerIdLimit);
     }
+
+    public PlotPictureEntity getPlotPictureEntityByUrlSync(String url){
+        return mDatabase.pictureDao().getPlotPictureEntityByUrlSync(url);
+    }
+
 //    public void updatePlotPictureEntityUploadAtByPictureId(String pictureId, long uploadAt){
 //        mDatabase.pictureDao().updatePlotPictureEntityUploadAtByPictureId(pictureId, uploadAt);
 //    }
