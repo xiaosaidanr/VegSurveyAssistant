@@ -194,10 +194,10 @@ public class PlotUploadService implements IUploadService {
             updateDataRemote(entity);
         }
     }
-    private void updateDataRemote(SampleplotEntity data){
-        data.uploadAt = new Date();
+    private void updateDataRemote(SampleplotEntity entity){
+        entity.uploadAt = new Date();
         Map<String, List<String>> ownerList = new ArrayMap<>();
-        List<String> parentPlotIdList = getParentPlotIdList(data.plotId);
+        List<String> parentPlotIdList = getParentPlotIdList(entity.plotId);
         if (parentPlotIdList != null && parentPlotIdList.size() > 0){
             ownerList.put(Macro.PLOT, parentPlotIdList);
         }
@@ -221,19 +221,21 @@ public class PlotUploadService implements IUploadService {
 //            default:
 //                break;
 //        }
-        Call<ResponseBody> call = mRequest.updatePlot(data.landId, data.plotId, BaseSampleplot.getInstance(data));
+        BaseSampleplot data = BaseSampleplot.getInstance(entity);
+        data.ownerList = ownerList;
+        Call<ResponseBody> call = mRequest.updatePlot(data.landId, data.plotId, data);
         if (call != null){
             try {
                 Response<ResponseBody> response = call.execute();
                 if (response.isSuccessful()){
-                    onUpdateDataRemoteSuccess(data);
+                    onUpdateDataRemoteSuccess(entity);
                 }
                 else {
-                    onUpdateDataRemoteFail(data);
+                    onUpdateDataRemoteFail(entity);
                 }
             }
             catch (Exception e){
-                onUpdateDataRemoteFail(data);
+                onUpdateDataRemoteFail(entity);
                 e.printStackTrace();
             }
         }
