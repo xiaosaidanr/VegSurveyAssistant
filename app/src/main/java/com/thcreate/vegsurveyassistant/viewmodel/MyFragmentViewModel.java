@@ -56,23 +56,23 @@ public class MyFragmentViewModel extends AndroidViewModel {
     private class UploadTestTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
-//            PlotPictureOssService plotPictureOssService = new PlotPictureOssService();
-//            plotPictureOssService.start();
-//
-//            PointUploadService pointUploadService = new PointUploadService();
-//            pointUploadService.start();
-//            LandUploadService landUploadService = new LandUploadService();
-//            landUploadService.start();
-//            if (landUploadService.isSuccess()) {
-//                PlotUploadService plotUploadService = new PlotUploadService();
-//                plotUploadService.start();
-//                if (plotUploadService.isSuccess()) {
-//                    PlotPictureUploadService plotPictureUploadService = new PlotPictureUploadService();
-//                    plotPictureUploadService.start();
-//                    SpeciesUploadService speciesUploadService = new SpeciesUploadService();
-//                    speciesUploadService.start();
-//                }
-//            }
+            PlotPictureOssService plotPictureOssService = new PlotPictureOssService();
+            plotPictureOssService.start();
+
+            PointUploadService pointUploadService = new PointUploadService();
+            pointUploadService.start();
+            LandUploadService landUploadService = new LandUploadService();
+            landUploadService.start();
+            if (landUploadService.isSuccess()) {
+                PlotUploadService plotUploadService = new PlotUploadService();
+                plotUploadService.start();
+                if (plotUploadService.isSuccess()) {
+                    PlotPictureUploadService plotPictureUploadService = new PlotPictureUploadService();
+                    plotPictureUploadService.start();
+                    SpeciesUploadService speciesUploadService = new SpeciesUploadService();
+                    speciesUploadService.start();
+                }
+            }
 
             PointSyncService pointSyncService = new PointSyncService();
             pointSyncService.start();

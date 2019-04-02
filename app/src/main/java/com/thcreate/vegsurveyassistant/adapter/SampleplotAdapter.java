@@ -45,15 +45,14 @@ public class SampleplotAdapter extends RecyclerView.Adapter<SampleplotAdapter.Pl
 
                 @Override
                 public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-                    return mDataList.get(oldItemPosition).id ==
-                            dataList.get(newItemPosition).id;
+                    return mDataList.get(oldItemPosition).plotId.equals(dataList.get(newItemPosition).plotId);
                 }
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
                     PlotMainInfo newData = dataList.get(newItemPosition);
                     PlotMainInfo oldData = mDataList.get(oldItemPosition);
-                    return newData.plotId.equals(oldData.plotId);
+                    return newData.code.equals(oldData.code);
                 }
             });
             mDataList = dataList;

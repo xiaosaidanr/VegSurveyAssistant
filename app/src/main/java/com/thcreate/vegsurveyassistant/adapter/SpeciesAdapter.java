@@ -45,16 +45,14 @@ public class SpeciesAdapter extends RecyclerView.Adapter<SpeciesAdapter.SpeciesV
 
                 @Override
                 public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-                    return mDataList.get(oldItemPosition).id ==
-                            dataList.get(newItemPosition).id;
+                    return mDataList.get(oldItemPosition).speciesId.equals(dataList.get(newItemPosition).speciesId);
                 }
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
                     SpeciesMainInfo newData = dataList.get(newItemPosition);
                     SpeciesMainInfo oldData = mDataList.get(oldItemPosition);
-                    return newData.id == oldData.id
-                            && newData.speciesId.equals(oldData.speciesId);
+                    return newData.code.equals(oldData.code);
                 }
             });
             mDataList = dataList;
