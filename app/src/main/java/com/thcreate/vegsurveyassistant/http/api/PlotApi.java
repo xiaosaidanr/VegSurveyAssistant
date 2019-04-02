@@ -16,25 +16,27 @@ import retrofit2.http.Path;
 
 public interface PlotApi {
 
+//    @POST("api/data/lands/{land_id}/plots")
+//    Call<ResponseBody> addArborPlot(@Path("land_id") String landId, @Body ArborSampleplot plot);
+//
+//    @POST("api/data/lands/{land_id}/plots")
+//    Call<ResponseBody> addHerbPlot(@Path("land_id") String landId, @Body HerbSampleplot plot);
+//
+//    @POST("api/data/lands/{land_id}/plots")
+//    Call<ResponseBody> addShrubPlot(@Path("land_id") String landId, @Body ShrubSampleplot plot);
     @POST("api/data/lands/{land_id}/plots")
-    Call<ResponseBody> addArborPlot(@Path("land_id") String landId, @Body ArborSampleplot plot);
+    Call<ResponseBody> addPlot(@Path("land_id") String landId, @Body BaseSampleplot plot);
 
-    @POST("api/data/lands/{land_id}/plots")
-    Call<ResponseBody> addHerbPlot(@Path("land_id") String landId, @Body HerbSampleplot plot);
-
-    @POST("api/data/lands/{land_id}/plots")
-    Call<ResponseBody> addShrubPlot(@Path("land_id") String landId, @Body ShrubSampleplot plot);
-//    <T> Call<ResponseBody> addPlot(@Path("land_id") String landId, @Body T plot);
-
+//    @PUT("api/data/lands/{land_id}/plots/{plot_id}")
+//    Call<ResponseBody> updateArborPlot(@Path("land_id") String landId, @Path("plot_id") String plotId, @Body ArborSampleplot plot);
+//
+//    @PUT("api/data/lands/{land_id}/plots/{plot_id}")
+//    Call<ResponseBody> updateHerbPlot(@Path("land_id") String landId, @Path("plot_id") String plotId, @Body HerbSampleplot plot);
+//
+//    @PUT("api/data/lands/{land_id}/plots/{plot_id}")
+//    Call<ResponseBody> updateShrubPlot(@Path("land_id") String landId, @Path("plot_id") String plotId, @Body ShrubSampleplot plot);
     @PUT("api/data/lands/{land_id}/plots/{plot_id}")
-    Call<ResponseBody> updateArborPlot(@Path("land_id") String landId, @Path("plot_id") String plotId, @Body ArborSampleplot plot);
-
-    @PUT("api/data/lands/{land_id}/plots/{plot_id}")
-    Call<ResponseBody> updateHerbPlot(@Path("land_id") String landId, @Path("plot_id") String plotId, @Body HerbSampleplot plot);
-
-    @PUT("api/data/lands/{land_id}/plots/{plot_id}")
-    Call<ResponseBody> updateShrubPlot(@Path("land_id") String landId, @Path("plot_id") String plotId, @Body ShrubSampleplot plot);
-//    <T> Call<ResponseBody> updatePlot(@Path("land_id") String landId, @Path("plot_id") String plotId, @Body T plot);
+    Call<ResponseBody> updatePlot(@Path("land_id") String landId, @Path("plot_id") String plotId, @Body BaseSampleplot plot);
 
     @DELETE("api/data/lands/{land_id}/plots/{plot_id}")
     Call<ResponseBody> deletePlot(@Path("land_id") String landId, @Path("plot_id") String plotId);

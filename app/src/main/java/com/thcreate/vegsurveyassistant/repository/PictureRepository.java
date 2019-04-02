@@ -44,6 +44,9 @@ public class PictureRepository {
             mDatabase.pictureDao().insertPlotPicture(entity);
         });
     }
+    public void insertPlotPictureEntityManualSync(PlotPictureEntity entity){
+        mDatabase.pictureDao().insertPlotPicture(entity);
+    }
     public void softDeletePlotPictureEntity(PlotPictureEntity entity){
         Date dateNow = new Date();
         entity.updateAt = dateNow;
@@ -83,6 +86,9 @@ public class PictureRepository {
     }
     public List<PlotPictureEntity> getAllAlivePlotPictureEntity(){
         return mDatabase.pictureDao().getAllAlivePlotPictureEntity();
+    }
+    public PlotPictureEntity getPlotPictureEntityByPictureIdSync(String pictureId){
+        return mDatabase.pictureDao().getPlotPictureEntityByPictureIdSync(pictureId);
     }
 
 }

@@ -3,6 +3,8 @@ package com.thcreate.vegsurveyassistant.db.entity.model;
 import android.os.Parcel;
 import android.support.annotation.NonNull;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -41,7 +43,7 @@ public class BaseSpecies {
 
     @Expose
     @SerializedName("data")
-    public Map<String, String> testData;
+    public Map<String, String> genericData;
 
     public BaseSpecies() {
     }
@@ -154,7 +156,27 @@ public class BaseSpecies {
     }
 
     public SpeciesEntity getEntity(){
-        return null;
+        SpeciesEntity data = new SpeciesEntity();
+        data.initCommonFromSpecies(this);
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .serializeNulls()
+                .create();
+        data.data = gson.toJson(this.genericData);
+        return data;
+    }
+
+    public static BaseSpecies getInstance(SpeciesEntity entity){
+        BaseSpecies data = new BaseSpecies();
+        data.initCommonFromEntity(entity);
+        if (entity.data != null){
+            Gson gson = new GsonBuilder()
+                    .excludeFieldsWithoutExposeAnnotation()
+                    .serializeNulls()
+                    .create();
+            data.genericData = gson.fromJson(entity.data, Map.class);
+        }
+        return data;
     }
 
 }

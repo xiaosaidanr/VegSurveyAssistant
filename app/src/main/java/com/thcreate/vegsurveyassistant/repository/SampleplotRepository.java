@@ -173,6 +173,10 @@ public class SampleplotRepository {
         });
     }
 
+    public void insertPlotPlotEntityManualSync(PlotPlotEntity data){
+        mDatabase.plotPlotDao().insert(data);
+    }
+
     public void updatePlotPlotEntity(PlotPlotEntity data){
         Date dateNow = new Date();
         mAppExecutors.diskIO().execute(()->{
@@ -184,6 +188,10 @@ public class SampleplotRepository {
                 mDatabase.plotPlotDao().update(tmp);
             }
         });
+    }
+
+    public void updatePlotPlotEntityManualSync(PlotPlotEntity data){
+        mDatabase.plotPlotDao().update(data);
     }
 
     public PlotPlotEntity getPlotPlotEntityByChildIdSync(String childId){

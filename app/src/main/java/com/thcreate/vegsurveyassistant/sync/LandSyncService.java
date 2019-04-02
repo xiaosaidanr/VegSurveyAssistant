@@ -1,7 +1,4 @@
 package com.thcreate.vegsurveyassistant.sync;
-
-import android.util.Log;
-
 import com.thcreate.vegsurveyassistant.BasicApp;
 import com.thcreate.vegsurveyassistant.db.entity.SamplelandEntity;
 import com.thcreate.vegsurveyassistant.db.entity.model.BaseSampleplot;
@@ -9,11 +6,9 @@ import com.thcreate.vegsurveyassistant.db.entity.model.Sampleland;
 import com.thcreate.vegsurveyassistant.http.api.LandApi;
 import com.thcreate.vegsurveyassistant.http.service.HttpServiceGenerator;
 
-import org.json.JSONObject;
-
+import java.util.Collections;
 import java.util.List;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -51,12 +46,14 @@ public class LandSyncService implements ISyncService {
             Response<List<Sampleland>> response = call.execute();
             if (response.isSuccessful()){
                 List<Sampleland> samplelandList = response.body();
-                for (Sampleland data :
-                        samplelandList) {
-                    data.userId = Integer.valueOf(data.landId.split("-")[0]);
-                    data.createAt = data.uploadAt;
-                    data.updateAt = data.uploadAt;
-                    SaveLand(data);
+                if (samplelandList != null && samplelandList.size() > 0){
+                    for (Sampleland data :
+                            samplelandList) {
+                        data.userId = Integer.valueOf(data.landId.split("-")[0]);
+                        data.createAt = data.uploadAt;
+                        data.updateAt = data.uploadAt;
+                        SaveLand(data);
+                    }
                 }
             }
             else {
@@ -77,11 +74,12 @@ public class LandSyncService implements ISyncService {
         }
         else {
             if (localData.updateAt.before(remoteData.updateAt)){
-                remoteData.userId = localData.userId;
+                remoteData.id = localData.id;
                 BasicApp.getAppliction().getSamplelandRepository().updateSamplelandEntityManualSync(remoteData);
             }
         }
         if (data.plotList != null && data.plotList.size() > 0){
+            Collections.sort(data.plotList, (p1, p2)->Integer.compare(p1.ownerList.get("plot").size(), p2.ownerList.get("plot").size()));
             for (BaseSampleplot item :
                     data.plotList) {
                 item.landId = data.landId;

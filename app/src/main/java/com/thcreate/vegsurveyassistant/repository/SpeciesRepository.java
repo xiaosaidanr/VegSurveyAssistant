@@ -43,6 +43,10 @@ public class SpeciesRepository {
         return mDatabase.speciesDao().getSpeciesEntityBySpeciesId(speciesId);
     }
 
+    public SpeciesEntity getSpeciesEntityBySpeciesIdSync(String speciesId){
+        return mDatabase.speciesDao().getSpeciesEntityBySpeciesIdSync(speciesId);
+    }
+
     public LiveData<List<SpeciesMainInfo>> getAllArborSpeciesEntityByPlotId(String plotId){
         return mDatabase.speciesDao().getSpeciesMainInfoListByPlotIdAndType(plotId, Macro.ARBOR);
     }
@@ -63,10 +67,16 @@ public class SpeciesRepository {
             mDatabase.speciesDao().insert(data);
         });
     }
+    public void insertSpeciesEntityManualSync(SpeciesEntity data){
+        mDatabase.speciesDao().insert(data);
+    }
     public void updateSpeciesEntityManual(SpeciesEntity data){
         mAppExecutors.diskIO().execute(()->{
             mDatabase.speciesDao().update(data);
         });
+    }
+    public void updateSpeciesEntityManualSync(SpeciesEntity data){
+        mDatabase.speciesDao().update(data);
     }
     public void updateSpeciesEntity(SpeciesEntity data){
         Date dateNow = new Date();

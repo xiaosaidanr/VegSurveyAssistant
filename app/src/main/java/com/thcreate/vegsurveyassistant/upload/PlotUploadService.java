@@ -5,11 +5,8 @@ import android.util.ArrayMap;
 import com.thcreate.vegsurveyassistant.BasicApp;
 import com.thcreate.vegsurveyassistant.db.entity.SampleplotEntity;
 import com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity;
-import com.thcreate.vegsurveyassistant.db.entity.model.ArborSampleplot;
 import com.thcreate.vegsurveyassistant.db.entity.model.BaseSampleplot;
 import com.thcreate.vegsurveyassistant.db.entity.model.BaseSpecies;
-import com.thcreate.vegsurveyassistant.db.entity.model.HerbSampleplot;
-import com.thcreate.vegsurveyassistant.db.entity.model.ShrubSampleplot;
 import com.thcreate.vegsurveyassistant.http.api.PlotApi;
 import com.thcreate.vegsurveyassistant.http.service.HttpServiceGenerator;
 import com.thcreate.vegsurveyassistant.util.Macro;
@@ -103,22 +100,22 @@ public class PlotUploadService implements IUploadService {
     private void addDataRemote(SampleplotEntity data){
         addDataRemoteGeneric(generateDataForAddRemote(data));
     }
-    private <T extends BaseSampleplot> void addDataRemoteGeneric(T data){
+    private void addDataRemoteGeneric(BaseSampleplot data){
         if (data == null){
             return;
         }
         try {
-            Call<ResponseBody> call = null;
-            if(data instanceof ArborSampleplot){
-                call = mRequest.addArborPlot(data.landId, (ArborSampleplot)data);
-            }
-            if(data instanceof HerbSampleplot){
-                call = mRequest.addHerbPlot(data.landId, (HerbSampleplot)data);
-            }
-            if(data instanceof ShrubSampleplot){
-                call = mRequest.addShrubPlot(data.landId, (ShrubSampleplot)data);
-            }
-//            Call<ResponseBody> call = mRequest.addPlot(data.landId, data);
+//            Call<ResponseBody> call = null;
+//            if(data instanceof ArborSampleplot){
+//                call = mRequest.addArborPlot(data.landId, (ArborSampleplot)data);
+//            }
+//            if(data instanceof HerbSampleplot){
+//                call = mRequest.addHerbPlot(data.landId, (HerbSampleplot)data);
+//            }
+//            if(data instanceof ShrubSampleplot){
+//                call = mRequest.addShrubPlot(data.landId, (ShrubSampleplot)data);
+//            }
+            Call<ResponseBody> call = mRequest.addPlot(data.landId, data);
             Response<ResponseBody> response = call.execute();
             if (response.isSuccessful()){
                 onAddDataRemoteSuccess(data);
@@ -134,7 +131,7 @@ public class PlotUploadService implements IUploadService {
             e.printStackTrace();
         }
     }
-    public static <T extends BaseSampleplot> T generateDataForAddRemote(SampleplotEntity entity){
+    public static BaseSampleplot generateDataForAddRemote(SampleplotEntity entity){
         entity.uploadAt = new Date();
         List<SpeciesEntity> speciesEntityList = getNotDeletedSpeciesEntityListByPlotId(entity.plotId);
         List<String> parentPlotIdList = getParentPlotIdList(entity.plotId);
@@ -149,34 +146,38 @@ public class PlotUploadService implements IUploadService {
                 speciesList.add(SpeciesUploadService.generateDataForAddRemote(item));
             }
         }
-        switch (entity.type){
-            case Macro.HERB:
-                HerbSampleplot herbPlotData = HerbSampleplot.getInstance(entity);
-                herbPlotData.speciesList = speciesList;
-                herbPlotData.ownerList = ownerList;
-                return (T)herbPlotData;
-            case Macro.SHRUB:
-                ShrubSampleplot shrubPlotData = ShrubSampleplot.getInstance(entity);
-                shrubPlotData.speciesList = speciesList;
-                shrubPlotData.ownerList = ownerList;
-                return (T)shrubPlotData;
-            case Macro.ARBOR:
-                ArborSampleplot arborPlotData = ArborSampleplot.getInstance(entity);
-                arborPlotData.speciesList = speciesList;
-                arborPlotData.ownerList = ownerList;
-                return (T)arborPlotData;
-            default:
-                return null;
-        }
+        BaseSampleplot data = BaseSampleplot.getInstance(entity);
+        data.speciesList = speciesList;
+        data.ownerList = ownerList;
+        return data;
+//        switch (entity.type){
+//            case Macro.HERB:
+//                HerbSampleplot herbPlotData = HerbSampleplot.getInstance(entity);
+//                herbPlotData.speciesList = speciesList;
+//                herbPlotData.ownerList = ownerList;
+//                return (T)herbPlotData;
+//            case Macro.SHRUB:
+//                ShrubSampleplot shrubPlotData = ShrubSampleplot.getInstance(entity);
+//                shrubPlotData.speciesList = speciesList;
+//                shrubPlotData.ownerList = ownerList;
+//                return (T)shrubPlotData;
+//            case Macro.ARBOR:
+//                ArborSampleplot arborPlotData = ArborSampleplot.getInstance(entity);
+//                arborPlotData.speciesList = speciesList;
+//                arborPlotData.ownerList = ownerList;
+//                return (T)arborPlotData;
+//            default:
+//                return null;
+//        }
     }
-    public static <T extends BaseSampleplot> void onAddDataRemoteSuccess(T plot){
+    public static void onAddDataRemoteSuccess(BaseSampleplot plot){
         BasicApp.getAppliction().getSampleplotRepository().updateSampleplotEntityUploadAtByPlotId(plot.plotId, plot.uploadAt.getTime());
         for (BaseSpecies item :
                 plot.speciesList) {
             SpeciesUploadService.onAddDataRemoteSuccess(item);
         }
     }
-    private static <T extends BaseSampleplot> void onAddDataRemoteFail(T plot){
+    private static void onAddDataRemoteFail(BaseSampleplot plot){
 
     }
     private static List<SpeciesEntity> getNotDeletedSpeciesEntityListByPlotId(String plotId){
@@ -200,26 +201,27 @@ public class PlotUploadService implements IUploadService {
         if (parentPlotIdList != null && parentPlotIdList.size() > 0){
             ownerList.put(Macro.PLOT, parentPlotIdList);
         }
-        Call<ResponseBody> call = null;
-        switch (data.type){
-            case Macro.HERB:
-                HerbSampleplot herbPlot = HerbSampleplot.getInstance(data);
-                herbPlot.ownerList = ownerList;
-                call = mRequest.updateHerbPlot(data.landId, data.plotId, herbPlot);
-                break;
-            case Macro.SHRUB:
-                ShrubSampleplot shrubPlot = ShrubSampleplot.getInstance(data);
-                shrubPlot.ownerList = ownerList;
-                call = mRequest.updateShrubPlot(data.landId, data.plotId, shrubPlot);
-                break;
-            case Macro.ARBOR:
-                ArborSampleplot arborPlot = ArborSampleplot.getInstance(data);
-                arborPlot.ownerList = ownerList;
-                call = mRequest.updateArborPlot(data.landId, data.plotId, arborPlot);
-                break;
-            default:
-                break;
-        }
+//        Call<ResponseBody> call = null;
+//        switch (data.type){
+//            case Macro.HERB:
+//                HerbSampleplot herbPlot = HerbSampleplot.getInstance(data);
+//                herbPlot.ownerList = ownerList;
+//                call = mRequest.updateHerbPlot(data.landId, data.plotId, herbPlot);
+//                break;
+//            case Macro.SHRUB:
+//                ShrubSampleplot shrubPlot = ShrubSampleplot.getInstance(data);
+//                shrubPlot.ownerList = ownerList;
+//                call = mRequest.updateShrubPlot(data.landId, data.plotId, shrubPlot);
+//                break;
+//            case Macro.ARBOR:
+//                ArborSampleplot arborPlot = ArborSampleplot.getInstance(data);
+//                arborPlot.ownerList = ownerList;
+//                call = mRequest.updateArborPlot(data.landId, data.plotId, arborPlot);
+//                break;
+//            default:
+//                break;
+//        }
+        Call<ResponseBody> call = mRequest.updatePlot(data.landId, data.plotId, BaseSampleplot.getInstance(data));
         if (call != null){
             try {
                 Response<ResponseBody> response = call.execute();

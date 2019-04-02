@@ -3,6 +3,8 @@ package com.thcreate.vegsurveyassistant.db.entity.model;
 import android.os.Parcel;
 import android.support.annotation.NonNull;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -61,6 +63,10 @@ public class BaseSampleplot {
     @Expose
     @SerializedName("owner_list")
     public Map<String, List<String>> ownerList;
+
+    @Expose(serialize = false)
+    @SerializedName("pictures_list")
+    public List<Picture> pictureList;
 
     public BaseSampleplot() {
     }
@@ -161,7 +167,27 @@ public class BaseSampleplot {
     }
 
     public SampleplotEntity getEntity(){
-        return null;
+        SampleplotEntity data = new SampleplotEntity();
+        data.initCommonFromPlot(this);
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .serializeNulls()
+                .create();
+        data.data = gson.toJson(this.genericData);
+        return data;
+    }
+
+    public static BaseSampleplot getInstance(SampleplotEntity entity){
+        BaseSampleplot data = new BaseSampleplot();
+        data.initCommonFromEntity(entity);
+        if (entity.data != null){
+            Gson gson = new GsonBuilder()
+                    .excludeFieldsWithoutExposeAnnotation()
+                    .serializeNulls()
+                    .create();
+            data.genericData = gson.fromJson(entity.data, Map.class);
+        }
+        return data;
     }
 
 }

@@ -32,5 +32,6 @@ public interface PictureDao {
     List<PlotPictureEntity> getPlotPictureEntityListNeedAddRemote(String ownerIdLimit);
     @Query("SELECT * FROM plot_picture WHERE delete_at IS NULL")
     List<PlotPictureEntity> getAllAlivePlotPictureEntity();
-
+    @Query("SELECT * FROM plot_picture WHERE picture_id = :pictureId")
+    PlotPictureEntity getPlotPictureEntityByPictureIdSync(String pictureId);
 }

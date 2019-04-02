@@ -15,8 +15,6 @@ import java.util.Date;
 
 public class ArborSampleplot extends BaseSampleplot implements Parcelable {
 
-    @Expose
-    @SerializedName("data")
     public ArborPlotData data;
 
     public ArborSampleplot() {

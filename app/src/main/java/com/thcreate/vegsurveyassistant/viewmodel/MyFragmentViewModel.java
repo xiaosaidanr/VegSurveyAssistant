@@ -58,6 +58,7 @@ public class MyFragmentViewModel extends AndroidViewModel {
         protected Void doInBackground(Void... voids) {
 //            PlotPictureOssService plotPictureOssService = new PlotPictureOssService();
 //            plotPictureOssService.start();
+//
 //            PointUploadService pointUploadService = new PointUploadService();
 //            pointUploadService.start();
 //            LandUploadService landUploadService = new LandUploadService();
@@ -72,8 +73,9 @@ public class MyFragmentViewModel extends AndroidViewModel {
 //                    speciesUploadService.start();
 //                }
 //            }
-//            PointSyncService pointSyncService = new PointSyncService();
-//            pointSyncService.start();
+
+            PointSyncService pointSyncService = new PointSyncService();
+            pointSyncService.start();
             LandSyncService landSyncService = new LandSyncService();
             landSyncService.start();
             return null;

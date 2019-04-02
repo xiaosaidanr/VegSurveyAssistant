@@ -15,8 +15,6 @@ import java.util.Date;
 
 public class HerbSampleplot extends BaseSampleplot implements Parcelable {
 
-    @Expose
-    @SerializedName("data")
     public HerbPlotData data;
 
     public HerbSampleplot() {

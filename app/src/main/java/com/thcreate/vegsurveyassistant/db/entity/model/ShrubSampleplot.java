@@ -13,8 +13,6 @@ import com.thcreate.vegsurveyassistant.util.Macro;
 
 public class ShrubSampleplot extends BaseSampleplot implements Parcelable {
 
-    @Expose
-    @SerializedName("data")
     public ShrubPlotData data;
 
     public ShrubSampleplot() {

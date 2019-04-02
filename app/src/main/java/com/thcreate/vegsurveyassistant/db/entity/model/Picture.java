@@ -1,12 +1,14 @@
 package com.thcreate.vegsurveyassistant.db.entity.model;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.thcreate.vegsurveyassistant.db.entity.LandPictureEntity;
 import com.thcreate.vegsurveyassistant.db.entity.PictureEntity;
 import com.thcreate.vegsurveyassistant.db.entity.PlotPictureEntity;
 import com.thcreate.vegsurveyassistant.db.entity.PointPictureEntity;
 import com.thcreate.vegsurveyassistant.db.entity.SpeciesPictureEntity;
+import com.thcreate.vegsurveyassistant.db.gsonTypeAdapter.DateTypeAdapter;
 
 import java.util.Date;
 
@@ -26,7 +28,13 @@ public class Picture {
     @Expose
     @SerializedName("url")
     public String url;
+    @Expose(serialize = false)
+    @SerializedName("created_at")
+    @JsonAdapter(DateTypeAdapter.class)
     public Date createAt;//创建时间
+    @Expose(serialize = false)
+    @SerializedName("updated_at")
+    @JsonAdapter(DateTypeAdapter.class)
     public Date updateAt;//修改时间
     public Date uploadAt;//上传时间
     public Date deleteAt;//删除时间

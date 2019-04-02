@@ -14,8 +14,6 @@ import com.thcreate.vegsurveyassistant.util.Macro;
 
 public class ArborSpecies extends BaseSpecies implements Parcelable {
 
-    @Expose
-    @SerializedName("data")
     public ArborSpeciesData data;
 
     public ArborSpecies() {

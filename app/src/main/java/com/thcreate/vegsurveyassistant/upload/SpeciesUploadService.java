@@ -2,10 +2,7 @@ package com.thcreate.vegsurveyassistant.upload;
 
 import com.thcreate.vegsurveyassistant.BasicApp;
 import com.thcreate.vegsurveyassistant.db.entity.SpeciesEntity;
-import com.thcreate.vegsurveyassistant.db.entity.model.ArborSpecies;
 import com.thcreate.vegsurveyassistant.db.entity.model.BaseSpecies;
-import com.thcreate.vegsurveyassistant.db.entity.model.HerbSpecies;
-import com.thcreate.vegsurveyassistant.db.entity.model.ShrubSpecies;
 import com.thcreate.vegsurveyassistant.http.api.SpeciesApi;
 import com.thcreate.vegsurveyassistant.http.service.HttpServiceGenerator;
 import com.thcreate.vegsurveyassistant.util.Macro;
@@ -90,19 +87,19 @@ public class SpeciesUploadService implements IUploadService {
     private void addDataRemote(SpeciesEntity data){
         addDataRemoteGeneric(generateDataForAddRemote(data));
     }
-    private <T extends BaseSpecies> void addDataRemoteGeneric(T data){
+    private void addDataRemoteGeneric(BaseSpecies data){
         try {
-            Call<ResponseBody> call = null;
-            if(data instanceof ArborSpecies){
-                call = mRequest.addArborSpecies(getLandIdByPlotId(data.plotId), data.plotId, (ArborSpecies)data);
-            }
-            if(data instanceof HerbSpecies){
-                call = mRequest.addHerbSpecies(getLandIdByPlotId(data.plotId), data.plotId, (HerbSpecies)data);
-            }
-            if(data instanceof ShrubSpecies){
-                call = mRequest.addShrubSpecies(getLandIdByPlotId(data.plotId), data.plotId, (ShrubSpecies)data);
-            }
-//            Call<ResponseBody> call = mRequest.addSpecies(getLandIdByPlotId(data.plotId), data.plotId, data);
+//            Call<ResponseBody> call = null;
+//            if(data instanceof ArborSpecies){
+//                call = mRequest.addArborSpecies(getLandIdByPlotId(data.plotId), data.plotId, (ArborSpecies)data);
+//            }
+//            if(data instanceof HerbSpecies){
+//                call = mRequest.addHerbSpecies(getLandIdByPlotId(data.plotId), data.plotId, (HerbSpecies)data);
+//            }
+//            if(data instanceof ShrubSpecies){
+//                call = mRequest.addShrubSpecies(getLandIdByPlotId(data.plotId), data.plotId, (ShrubSpecies)data);
+//            }
+            Call<ResponseBody> call = mRequest.addSpecies(getLandIdByPlotId(data.plotId), data.plotId, data);
             Response<ResponseBody> response = call.execute();
             if (response.isSuccessful()){
                 onAddDataRemoteSuccess(data);
@@ -116,20 +113,24 @@ public class SpeciesUploadService implements IUploadService {
             e.printStackTrace();
         }
     }
-    public static <T extends BaseSpecies> T generateDataForAddRemote(SpeciesEntity entity){
+//    public static <T extends BaseSpecies> T generateDataForAddRemote(SpeciesEntity entity){
+//        entity.uploadAt = new Date();
+//        switch (entity.type){
+//            case Macro.HERB:
+//                return (T)HerbSpecies.getInstance(entity);
+//            case Macro.SHRUB:
+//                return (T)ShrubSpecies.getInstance(entity);
+//            case Macro.ARBOR:
+//                return (T)ArborSpecies.getInstance(entity);
+//            default:
+//                return null;
+//        }
+//    }
+    public static BaseSpecies generateDataForAddRemote(SpeciesEntity entity){
         entity.uploadAt = new Date();
-        switch (entity.type){
-            case Macro.HERB:
-                return (T)HerbSpecies.getInstance(entity);
-            case Macro.SHRUB:
-                return (T)ShrubSpecies.getInstance(entity);
-            case Macro.ARBOR:
-                return (T)ArborSpecies.getInstance(entity);
-            default:
-                return null;
-        }
+        return BaseSpecies.getInstance(entity);
     }
-    public static <T extends BaseSpecies> void onAddDataRemoteSuccess(T data){
+    public static void onAddDataRemoteSuccess(BaseSpecies data){
         BasicApp.getAppliction().getSpeicesRepository().updateSpeciesEntityUploadAtBySpeciesId(data.speciesId, data.uploadAt.getTime());
     }
     public static void onAddDataRemoteFail(String speciesId){
@@ -151,20 +152,21 @@ public class SpeciesUploadService implements IUploadService {
     private void updateDataRemote(SpeciesEntity data){
         try {
             data.uploadAt = new Date();
-            Call<ResponseBody> call = null;
-            switch (data.type){
-                case Macro.HERB:
-                    call = mRequest.updateHerbSpecies(getLandIdByPlotId(data.plotId), data.plotId, data.speciesId, HerbSpecies.getInstance(data));
-                    break;
-                case Macro.SHRUB:
-                    call = mRequest.updateShrubSpecies(getLandIdByPlotId(data.plotId), data.plotId, data.speciesId, ShrubSpecies.getInstance(data));
-                    break;
-                case Macro.ARBOR:
-                    call = mRequest.updateArborSpecies(getLandIdByPlotId(data.plotId), data.plotId, data.speciesId, ArborSpecies.getInstance(data));
-                    break;
-                default:
-                    break;
-            }
+//            Call<ResponseBody> call = null;
+//            switch (data.type){
+//                case Macro.HERB:
+//                    call = mRequest.updateHerbSpecies(getLandIdByPlotId(data.plotId), data.plotId, data.speciesId, HerbSpecies.getInstance(data));
+//                    break;
+//                case Macro.SHRUB:
+//                    call = mRequest.updateShrubSpecies(getLandIdByPlotId(data.plotId), data.plotId, data.speciesId, ShrubSpecies.getInstance(data));
+//                    break;
+//                case Macro.ARBOR:
+//                    call = mRequest.updateArborSpecies(getLandIdByPlotId(data.plotId), data.plotId, data.speciesId, ArborSpecies.getInstance(data));
+//                    break;
+//                default:
+//                    break;
+//            }
+            Call<ResponseBody> call = mRequest.updateSpecies(getLandIdByPlotId(data.plotId), data.plotId, data.speciesId, BaseSpecies.getInstance(data));
             if (call != null){
                 Response<ResponseBody> response = call.execute();
                 if (response.isSuccessful()){
