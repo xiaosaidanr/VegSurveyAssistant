@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -41,14 +42,14 @@ public class PlotPicturePreviewActivity extends AppCompatActivity {
     PhotoView photoView;
     String imageLocalPath;
     String imageRemotePath;
-    ProgressBar progressBar;
+    LinearLayout progressBarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_picture_preview);
         photoView = findViewById(R.id.photo_view);
-        progressBar = findViewById(R.id.progress_bar);
+        progressBarLayout = findViewById(R.id.progress_bar_layout);
         if (savedInstanceState == null){
             Intent intent = getIntent();
             imageLocalPath = intent.getStringExtra(Macro.IMAGE_LOCAL_PATH);
@@ -107,7 +108,7 @@ public class PlotPicturePreviewActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             if (weakReferenceActivty.get() != null){
-                weakReferenceActivty.get().progressBar.setVisibility(View.VISIBLE);
+                weakReferenceActivty.get().progressBarLayout.setVisibility(View.VISIBLE);
             }
         }
 
@@ -201,7 +202,7 @@ public class PlotPicturePreviewActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             if (weakReferenceActivty.get() != null){
-                weakReferenceActivty.get().progressBar.setVisibility(View.INVISIBLE);
+                weakReferenceActivty.get().progressBarLayout.setVisibility(View.GONE);
                 weakReferenceActivty.get().showImage();
             }
         }
