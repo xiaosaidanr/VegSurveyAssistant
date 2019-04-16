@@ -130,6 +130,7 @@ public class BasicApp extends Application {
         SessionManager.logout();
         ActivityCollector.finishAll();
         Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
