@@ -31,7 +31,6 @@
             app:layout_constraintTop_toTopOf="parent"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:drawableStart="@drawable/ic_user_24dp"
-            android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
             android:background="@android:color/white"
             android:elevation="1dp"/>
 
@@ -57,49 +56,49 @@
             android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
             android:onClick="@{myFragmentViewModel::clean}"/>
 
-        <TextView
-            android:id="@+id/uploadTest"
-            android:elevation="1dp"
-            android:layout_width="0dp"
-            android:gravity="center_vertical"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="数据上传测试"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:background="@android:color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageClean"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="@android:color/black"
-            android:drawableStart="@drawable/ic_upload"
-            android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
-            android:onClick="@{myFragmentViewModel::uploadTest}"/>
+        <!--<TextView-->
+            <!--android:id="@+id/uploadTest"-->
+            <!--android:elevation="1dp"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--android:text="数据上传测试"-->
+            <!--android:paddingStart="16dp"-->
+            <!--android:paddingEnd="16dp"-->
+            <!--android:paddingTop="8dp"-->
+            <!--android:paddingBottom="8dp"-->
+            <!--android:background="@android:color/white"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/imageClean"-->
+            <!--android:textAppearance="@style/TextAppearance.AppCompat.Small"-->
+            <!--android:textColor="@android:color/black"-->
+            <!--android:drawableStart="@drawable/ic_upload"-->
+            <!--android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"-->
+            <!--android:onClick="@{myFragmentViewModel::uploadTest}"/>-->
 
-        <TextView
-            android:id="@+id/syncTest"
-            android:elevation="1dp"
-            android:layout_width="0dp"
-            android:gravity="center_vertical"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="数据下载测试"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:background="@android:color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/uploadTest"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="@android:color/black"
-            android:drawableStart="@drawable/ic_upload"
-            android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
-            android:onClick="@{myFragmentViewModel::syncTest}"/>
+        <!--<TextView-->
+            <!--android:id="@+id/syncTest"-->
+            <!--android:elevation="1dp"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--android:text="数据下载测试"-->
+            <!--android:paddingStart="16dp"-->
+            <!--android:paddingEnd="16dp"-->
+            <!--android:paddingTop="8dp"-->
+            <!--android:paddingBottom="8dp"-->
+            <!--android:background="@android:color/white"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/uploadTest"-->
+            <!--android:textAppearance="@style/TextAppearance.AppCompat.Small"-->
+            <!--android:textColor="@android:color/black"-->
+            <!--android:drawableStart="@drawable/ic_upload"-->
+            <!--android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"-->
+            <!--android:onClick="@{myFragmentViewModel::syncTest}"/>-->
 
         <TextView
             android:id="@+id/logout"
