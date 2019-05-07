@@ -8,6 +8,7 @@ import android.support.design.button.MaterialButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -27,8 +28,8 @@ public class SignupActivity extends BaseActivity {
     private ActivitySignupBinding mBinding;
     private AuthActivityViewModel mViewModel;
 
-    TextInputEditText phoneTextInputEditText;
-    TextInputEditText verificationCodeTextInputEditText;
+    AppCompatEditText phoneTextInputEditText;
+    AppCompatEditText verificationCodeTextInputEditText;
     MaterialButton getVerificationCodeButton;
 
     CountDownTimer mCountDownTimer = null;
