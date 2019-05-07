@@ -44,7 +44,7 @@
             android:process=":remote" /> <!-- 百度地位(地图) AK鉴权 -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="GWah6X5zmsf0GE5ZHvFMDXQFKKLdHl28" />
+            android:value="OFza8RpsRjscpblbZBBqbZAH6X86aFSH" />
 
         <activity
             android:name=".activity.MainActivity"
